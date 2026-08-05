@@ -47,6 +47,7 @@ La risposta deve poter indicare:
 
 - `docs/data-architecture.md`: architettura, modello e strategia di raccolta.
 - `docs/crawl-operations.md`: procedura di scansione e ripresa.
+- `docs/source-access-policy.md`: verifica legale-operativa delle fonti.
 - `schemas/`: schemi JSON dell'acquisizione e della risposta applicativa.
 - `src/dovelobutto/`: estrattore riproducibile e interfaccia a riga di comando.
 - `tests/fixtures/`: copie immutabili delle porzioni rilevanti delle fonti HTML.
@@ -101,14 +102,14 @@ Scansione controllata:
 - Il workspace e persistente sul disco locale, ma non e ancora un repository
   Git: esiste lo stato corrente, non una cronologia recuperabile delle versioni.
 - Non e ancora configurato un backup esterno del workspace.
-- La scansione live attende un contatto pubblico da inserire nello user-agent
-  identificabile del progetto.
+- La scansione live usa il contatto autorizzato `marcofanciulli@me.com` nello
+  user-agent, esclusivamente per questo progetto.
 
 ## Prossimi passi
 
-1. Configurare il contatto pubblico del crawler e avviare un primo lotto live.
-2. Estendere progressivamente la scansione ai 104 comuni.
-3. Analizzare anomalie e nuove varianti HTML emerse nei rapporti.
+1. Avviare il primo lotto live `grosseto-01` e verificare robots.txt.
+2. Esaminare anomalie e adattare gli estrattori alle nuove varianti.
+3. Estendere progressivamente la scansione ai 104 comuni.
 4. Aggiungere la raccolta e la classificazione di PDF, guide e calendari.
 5. Portare anomalie e conflitti in una prima coda di revisione.
 

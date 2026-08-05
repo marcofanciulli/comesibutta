@@ -19,6 +19,14 @@ from .sei_toscana import MunicipalityContext, extract_municipality_bundle
 PAGE_NAMES = ("raccolta-rifiuti", "centro-di-raccolta", "centri-di-raccolta", "ritiro-ingombranti")
 
 
+def _read_selection_file(path: Path) -> set[str]:
+    return {
+        line.strip()
+        for line in path.read_text(encoding="utf-8").splitlines()
+        if line.strip() and not line.lstrip().startswith("#")
+    }
+
+
 def _read_fixture_pages(directory: Path, slug: str) -> list[tuple[str, str]]:
     pages = []
     for page_name in PAGE_NAMES:
@@ -87,6 +95,7 @@ def build_parser() -> argparse.ArgumentParser:
     sweep.add_argument("--output-dir", type=Path, required=True)
     sweep.add_argument("--observed-at", required=True)
     sweep.add_argument("--municipality", action="append", dest="municipalities")
+    sweep.add_argument("--municipality-file", type=Path)
     sweep.add_argument("--max-pages", type=int)
     sweep.add_argument("--delay", type=float, default=1.0)
     sweep.add_argument("--fixture-root", type=Path)
@@ -102,8 +111,10 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "sweep-sei":
         observed_at = datetime.fromisoformat(args.observed_at)
         jobs = read_registry_jobs(args.registry)
-        if args.municipalities:
-            selected = set(args.municipalities)
+        selected = set(args.municipalities or [])
+        if args.municipality_file:
+            selected.update(_read_selection_file(args.municipality_file))
+        if selected:
             jobs = [job for job in jobs if job.slug in selected or job.istat_code in selected]
         if not args.fixture_root and not args.user_agent:
             print("error: --user-agent is required for live sweeps", file=sys.stderr)

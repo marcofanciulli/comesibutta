@@ -14,6 +14,7 @@ from dovelobutto.crawl import (
     discover_municipality_jobs,
     read_registry_jobs,
 )
+from dovelobutto.cli import _read_selection_file
 
 
 WORKSPACE = Path(__file__).parents[1]
@@ -23,6 +24,12 @@ OBSERVED_AT = datetime.fromisoformat("2026-08-05T13:00:00+02:00")
 
 
 class SweepRunnerTest(unittest.TestCase):
+    def test_batch_file_ignores_comments_and_blank_lines(self) -> None:
+        with TemporaryDirectory() as temporary:
+            path = Path(temporary) / "batch.txt"
+            path.write_text("# lotto\n\nmanciano\n  grosseto  \n", encoding="utf-8")
+            self.assertEqual({"manciano", "grosseto"}, _read_selection_file(path))
+
     def test_registry_creates_two_authoritative_jobs_per_municipality(self) -> None:
         jobs = read_registry_jobs(REGISTRY)
         self.assertEqual(208, len(jobs))

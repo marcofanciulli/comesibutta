@@ -56,8 +56,7 @@ li conteneva risponde `304 Not Modified`.
 
 ## Avvio live
 
-Il contatto nel seguente esempio deve essere sostituito con quello pubblico del
-progetto:
+Il contatto autorizzato per questo progetto e `marcofanciulli@me.com`:
 
 ```sh
 PYTHONPATH=src python3 -m dovelobutto.cli sweep-sei \
@@ -67,7 +66,7 @@ PYTHONPATH=src python3 -m dovelobutto.cli sweep-sei \
   --report outputs/sei-toscana-sweep-report.json \
   --output-dir outputs/sei-toscana \
   --observed-at 2026-08-05T15:00:00+02:00 \
-  --user-agent 'DoveLoButtoData/0.1 (+mailto:CONTATTO)' \
+  --user-agent 'DoveLoButtoData/0.1 (+mailto:marcofanciulli@me.com)' \
   --delay 1
 ```
 
@@ -75,6 +74,8 @@ Opzioni utili:
 
 - `--municipality manciano`: limita la scansione a uno slug o codice ISTAT;
 - `--municipality ...` ripetuto: seleziona un lotto di comuni;
+- `--municipality-file config/sweep-batches/grosseto-01.txt`: legge un lotto
+  da file, ignorando righe vuote e commenti;
 - `--max-pages 20`: interrompe ordinatamente la passata dopo venti pagine;
 - rilanciare lo stesso comando e stato: riprende e ricontrolla la coda.
 
@@ -107,3 +108,19 @@ esiti, errori e riepilogo dell'estrazione. Per ciascun comune vengono generati:
 
 Un errore di rete o parsing resta nello stato e nel rapporto. Non cancella lo
 snapshot o l'output valido della passata precedente.
+
+## Primo lotto Grosseto
+
+```sh
+PYTHONPATH=src python3 -m dovelobutto.cli sweep-sei \
+  --registry outputs/sei-toscana-municipalities.jsonl \
+  --snapshot-root data/snapshots/sei-toscana \
+  --state data/crawl/sei-toscana-state.json \
+  --report outputs/sei-toscana-grosseto-01-report.json \
+  --output-dir outputs/sei-toscana \
+  --observed-at 2026-08-05T18:30:00+02:00 \
+  --municipality-file config/sweep-batches/grosseto-01.txt \
+  --max-pages 30 \
+  --user-agent 'DoveLoButtoData/0.1 (+mailto:marcofanciulli@me.com)' \
+  --delay 1
+```

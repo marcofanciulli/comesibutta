@@ -16,6 +16,8 @@ i dataset verificati del pilota.
   verifiche, limiti e prossimi passi.
 - `docs/crawl-operations.md`: esecuzione, ripresa e controllo della scansione
   dei comuni SEI Toscana.
+- `docs/source-access-policy.md`: verifica delle condizioni pubblicate e
+  regole obbligatorie di accesso alle fonti.
 - `schemas/acquisition-record.schema.json`: formato JSON Lines prodotto dagli
   estrattori.
 - `schemas/disposal-answer.schema.json`: contratto della risposta letta
