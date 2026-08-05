@@ -49,6 +49,28 @@ class SeiToscanaExtractorTest(unittest.TestCase):
         code_200136 = [record for record in acceptances if record["payload"]["eer_code_raw"] == "200136"]
         self.assertEqual(2, len(code_200136))
         self.assertEqual("RAEE R2", code_200136[1]["payload"]["operational_group"])
+        self.assertTrue(all(record["payload"]["eer_code_status"] == "exact" for record in acceptances))
+
+    def test_preserves_malformed_eer_with_review_candidate(self) -> None:
+        html = """
+        <section class="section-cdr">
+          <h2 class="section-cdr__title">Centro di Raccolta Grosseto</h2>
+          <table class="tabellaconferimenti"><tbody>
+            <tr><td>15106</td><td>Imballaggi in materiali misti</td></tr>
+          </tbody></table>
+        </section>
+        """
+        records, warnings = extract_municipality_bundle(
+            context=MunicipalityContext("Grosseto", "053011", "grosseto"),
+            retrieved_at=datetime.fromisoformat("2026-08-05T10:00:00+02:00"),
+            pages=[(f"https://seitoscana.it/comuni/grosseto/centro-di-raccolta", html)],
+        )
+        acceptance = next(record for record in records if record["record_type"] == "facility_acceptance")
+        self.assertEqual("15106", acceptance["payload"]["eer_code_raw"])
+        self.assertEqual("150106", acceptance["payload"]["eer_code_normalized"])
+        self.assertEqual("inferred_candidate", acceptance["payload"]["eer_code_status"])
+        self.assertEqual("low", acceptance["confidence"])
+        self.assertEqual("invalid_eer_code", warnings[0]["code"])
 
     def test_extracts_domestic_and_non_domestic_access(self) -> None:
         access_records = self.records_of_type("facility_access")

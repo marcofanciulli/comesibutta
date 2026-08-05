@@ -17,7 +17,7 @@ from dovelobutto.crawl import (
     discover_municipality_jobs,
     read_registry_jobs,
 )
-from dovelobutto.cli import _read_selection_file
+from dovelobutto.cli import _deduplicate_materialization_documents, _read_selection_file
 
 
 WORKSPACE = Path(__file__).parents[1]
@@ -73,6 +73,24 @@ class SweepRunnerTest(unittest.TestCase):
         jobs = read_registry_jobs(REGISTRY)
         self.assertEqual(208, len(jobs))
         self.assertEqual({"collection", "facilities"}, {job.category for job in jobs})
+
+    def test_materialization_reports_equivalent_source_pages(self) -> None:
+        fixture = FIXTURES / "manciano" / "centro-di-raccolta.html"
+        common = {
+            "municipality": "Manciano",
+            "istat_code": "053014",
+            "slug": "manciano",
+            "category": "facilities",
+            "snapshot_path": str(fixture),
+        }
+        documents = [
+            {**common, "url": "https://seitoscana.it/comuni/manciano/centro-di-raccolta"},
+            {**common, "url": "https://seitoscana.it/comuni/manciano/centri-di-raccolta"},
+        ]
+        unique, equivalents = _deduplicate_materialization_documents(documents)
+        self.assertEqual(1, len(unique))
+        self.assertEqual(1, len(equivalents))
+        self.assertEqual(documents[0]["url"], equivalents[0]["equivalent_to"])
 
     def test_discovers_pickup_only_inside_the_same_municipality(self) -> None:
         job = next(job for job in read_registry_jobs(REGISTRY) if job.slug == "manciano")

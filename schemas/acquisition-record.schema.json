@@ -252,7 +252,10 @@
       "required": ["facility_ref", "eer_code_raw", "description_raw"],
       "properties": {
         "facility_ref": { "type": "string" },
-        "eer_code_raw": { "type": "string", "pattern": "^[0-9 ]{6,8}\\*?$" },
+        "eer_code_raw": { "type": "string" },
+        "eer_code_normalized": { "type": ["string", "null"], "pattern": "^[0-9]{6}$" },
+        "eer_code_status": { "enum": ["exact", "malformed", "inferred_candidate"] },
+        "hazardous": { "type": "boolean" },
         "description_raw": { "type": "string" },
         "operational_group": { "type": ["string", "null"] },
         "user_type": { "enum": ["domestic", "non_domestic", "all", "unspecified"] },

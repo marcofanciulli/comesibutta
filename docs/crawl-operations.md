@@ -1,7 +1,7 @@
 # Operazioni di scansione SEI Toscana
 
 Versione: 0.1.0  
-Ultimo aggiornamento: 5 agosto 2026
+Ultimo aggiornamento: 6 agosto 2026
 
 ## Scopo
 
@@ -114,6 +114,16 @@ esiti, errori e riepilogo dell'estrazione. Per ciascun comune vengono generati:
 - `<slug>-acquisition.jsonl` con i record normalizzati;
 - `<slug>-report.json` con pagine disponibili, record per tipo e avvisi.
 
+Se SEI pubblica lo stesso contenuto utile a URL diversi, entrambi gli snapshot
+restano conservati. Il materiale viene pero estratto una sola volta e il
+rapporto elenca l'alias in `equivalent_pages`, insieme a `pages_available` e
+`pages_materialized`.
+
+Una voce EER malformata alla fonte non viene scartata. Il record conserva il
+valore in `eer_code_raw`, abbassa l'affidabilita e usa `eer_code_status` per
+segnalare la revisione. Un eventuale `eer_code_normalized` e solo un candidato,
+non una correzione automatica autorevole.
+
 Un errore di rete o parsing resta nello stato e nel rapporto. Non cancella lo
 snapshot o l'output valido della passata precedente.
 
@@ -131,9 +141,9 @@ PYTHONPATH=src python3 -m dovelobutto.cli sweep-sei \
   --state data/crawl/sei-toscana-state.json \
   --report outputs/sei-toscana-grosseto-01-report.json \
   --output-dir outputs/sei-toscana \
-  --observed-at 2026-08-05T18:30:00+02:00 \
+  --observed-at 2026-08-06T00:55:00+02:00 \
   --municipality-file config/sweep-batches/grosseto-01.txt \
-  --max-pages 30 \
+  --max-pages 60 \
   --user-agent 'DoveLoButtoData/0.1 (+mailto:marcofanciulli@me.com)' \
   --delay 1
 ```

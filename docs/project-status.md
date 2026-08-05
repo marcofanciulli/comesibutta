@@ -1,7 +1,7 @@
 # Stato del progetto
 
-Ultimo aggiornamento: 5 agosto 2026  
-Fase: primo lotto live acquisito, anomalie da revisionare
+Ultimo aggiornamento: 6 agosto 2026
+Fase: primo lotto live acquisito, ripresa pronta
 
 Questo documento e il punto di ripartenza del progetto. Va aggiornato al termine
 di ogni fase sostanziale, insieme ai dataset e ai rapporti prodotti.
@@ -67,9 +67,9 @@ Comuni pilota gia acquisiti:
 | Campiglia Marittima | 78 | centro, EER, quattro zone, orari stagionali, ritiro |
 | Sassetta | 1 | accesso intercomunale al centro di Castagneto |
 
-Verifiche completate al 5 agosto 2026:
+Verifiche completate al 6 agosto 2026:
 
-- 29 test automatici superati;
+- 31 test automatici superati;
 - compilazione dei moduli Python riuscita;
 - validita sintattica JSON verificata per schemi, record e rapporti;
 - relazione Sassetta-Castagneto risolta sullo stesso identificatore stabile;
@@ -97,7 +97,15 @@ Primo lotto live `grosseto-01`:
 
 - preflight robots consentito per tutte le 20 URL iniziali;
 - 30 pagine acquisite, 10 comuni materializzati e 700 record estratti;
-- 5 avvisi da revisionare, concentrati su Grosseto e Isola del Giglio;
+- 3 coppie di URL SEI con contenuto utile equivalente individuate per Capalbio,
+  Grosseto e Monte Argentario; gli snapshot restano distinti ma i record non
+  vengono duplicati;
+- rigenerazione offline di controllo: 586 record e 3 avvisi reali;
+- la voce EER `15106` di Grosseto viene conservata come dato malformato, con
+  `150106` marcato soltanto come candidato da revisionare;
+- le altre 2 segnalazioni sono tabelle di conferimento non pubblicate dalla
+  fonte per Isola del Giglio e per il centro riservato ai manutentori del verde
+  di Grosseto;
 - 3 pagine lasciate in coda dal limite operativo di 30 richieste;
 - dalla versione successiva al primo passaggio, la coda pendente viene salvata
   integralmente e ricostruita dagli snapshot per migrare lo stato precedente.
@@ -108,17 +116,16 @@ Primo lotto live `grosseto-01`:
   devono essere scoperte dalle pagine comunali o durante la scansione.
 - I PDF, le guide e i calendari allegati non sono ancora inclusi nella pipeline.
 - Manca il livello canonico in PostgreSQL/PostGIS e la coda di revisione umana.
-- Il workspace e persistente sul disco locale, ma non e ancora un repository
-  Git: esiste lo stato corrente, non una cronologia recuperabile delle versioni.
-- Non e ancora configurato un backup esterno del workspace.
+- Il repository Git e inizializzato e collegato al remoto GitHub del progetto;
+  snapshot e stato live restano esclusi per dimensione e variabilita.
 - La scansione live usa il contatto autorizzato `marcofanciulli@me.com` nello
   user-agent, esclusivamente per questo progetto.
 
 ## Prossimi passi
 
-1. Riprendere `grosseto-01` per completare le 3 pagine pendenti ricostruite.
-2. Esaminare le 5 anomalie e adattare gli estrattori alle nuove varianti.
-3. Validare e versionare gli output completi del lotto.
+1. Riprendere `grosseto-01` con un limite di 60 pagine per completare la coda.
+2. Validare e versionare gli output completi del lotto.
+3. Inserire le 3 segnalazioni nella futura coda di revisione umana.
 4. Estendere progressivamente la scansione ai 104 comuni.
 5. Aggiungere la raccolta e la classificazione di PDF, guide e calendari.
 

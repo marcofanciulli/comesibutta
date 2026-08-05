@@ -2,8 +2,10 @@ from __future__ import annotations
 
 import argparse
 from datetime import datetime
+import hashlib
 import json
 from pathlib import Path
+import re
 import sys
 import time
 from typing import Any
@@ -19,6 +21,7 @@ from .crawl import (
     SweepRunner,
     read_registry_jobs,
 )
+from .html import clean_text, parse_html
 from .records import write_jsonl
 from .registry import extract_sei_municipality_registry, read_istat_municipalities
 from .sei_toscana import MunicipalityContext, extract_municipality_bundle
@@ -283,6 +286,7 @@ def _materialize_sweep(
     total_warnings = 0
     for istat_code, documents in sorted(grouped.items()):
         first = documents[0]
+        documents, equivalent_pages = _deduplicate_materialization_documents(documents)
         pages = [
             (
                 document.get("final_url") or document["url"],
@@ -303,7 +307,9 @@ def _materialize_sweep(
         municipality_report = {
             "municipality": first["municipality"],
             "istat_code": istat_code,
-            "pages_available": len(pages),
+            "pages_available": len(documents) + len(equivalent_pages),
+            "pages_materialized": len(pages),
+            "equivalent_pages": equivalent_pages,
             "records": len(records),
             "records_by_type": counts,
             "warnings": warnings,
@@ -321,6 +327,55 @@ def _materialize_sweep(
         "warnings": total_warnings,
         "municipality_reports": municipalities,
     }
+
+
+def _deduplicate_materialization_documents(
+    documents: list[dict[str, Any]],
+) -> tuple[list[dict[str, Any]], list[dict[str, str]]]:
+    unique: list[dict[str, Any]] = []
+    equivalent_pages: list[dict[str, str]] = []
+    seen: dict[tuple[str, str], dict[str, Any]] = {}
+    for document in sorted(
+        documents,
+        key=lambda item: (
+            item["category"],
+            "/centri-di-raccolta" in item.get("url", ""),
+            item.get("url", ""),
+        ),
+    ):
+        html = Path(document["snapshot_path"]).read_text(encoding="utf-8")
+        fingerprint = _materialization_fingerprint(document["category"], html)
+        key = (document["category"], fingerprint)
+        original = seen.get(key)
+        if original is None:
+            seen[key] = document
+            unique.append(document)
+            continue
+        equivalent_pages.append({
+            "url": document.get("final_url") or document["url"],
+            "equivalent_to": original.get("final_url") or original["url"],
+            "category": document["category"],
+        })
+    return unique, equivalent_pages
+
+
+def _materialization_fingerprint(category: str, html: str) -> str:
+    root = parse_html(html)
+    main = root.find_first(lambda element: element.tag == "main") or root
+    links: list[str] = []
+    for element in main.descendants(include_self=True):
+        for attribute in ("href", "src"):
+            value = element.attrs.get(attribute)
+            if not value:
+                continue
+            value = re.sub(
+                r"/centri?-di-raccolta(?=($|[#?]))",
+                "/centro-di-raccolta",
+                value,
+            )
+            links.append(f"{element.tag}:{attribute}:{value}")
+    content = f"{category}\n{clean_text(main.text)}\n" + "\n".join(links)
+    return hashlib.sha256(content.encode("utf-8")).hexdigest()
 
 
 if __name__ == "__main__":

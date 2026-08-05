@@ -262,9 +262,17 @@ class SeiToscanaExtractor:
                 if len(row) < 2:
                     continue
                 code, description = row[0].replace(" ", ""), row[1]
-                if not re.fullmatch(r"\d{6}\*?", code):
+                normalized_code = code.rstrip("*") if re.fullmatch(r"\d{6}\*?", code) else None
+                code_status = "exact"
+                confidence = "high"
+                if normalized_code is None:
                     self._warn(source.url, "invalid_eer_code", code)
-                    continue
+                    code_status = "malformed"
+                    confidence = "low"
+                    if re.fullmatch(r"\d{5}\*?", code):
+                        raw_digits = code.rstrip("*")
+                        normalized_code = f"{raw_digits[:2]}0{raw_digits[2:]}"
+                        code_status = "inferred_candidate"
                 operational = None
                 match = re.match(r"(RAEE\s+R\d+)", description, re.IGNORECASE)
                 if match:
@@ -277,6 +285,9 @@ class SeiToscanaExtractor:
                     payload={
                         "facility_ref": facility_ref,
                         "eer_code_raw": code,
+                        "eer_code_normalized": normalized_code,
+                        "eer_code_status": code_status,
+                        "hazardous": code.endswith("*"),
                         "description_raw": description,
                         "operational_group": operational,
                         "user_type": "unspecified",
@@ -287,6 +298,7 @@ class SeiToscanaExtractor:
                     evidence_kind="table",
                     evidence_selector="table.tabellaconferimenti",
                     evidence_quote=f"{code} - {description}",
+                    confidence=confidence,
                 ))
         return records
 
