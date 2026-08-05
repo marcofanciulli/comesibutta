@@ -102,6 +102,39 @@ class SweepRunnerTest(unittest.TestCase):
             self.assertEqual(snapshots, list((root / "snapshots").rglob("*.html")))
             persisted = json.loads((root / "state.json").read_text(encoding="utf-8"))
             self.assertEqual(3, len(persisted["documents"]))
+            self.assertEqual([], persisted["pending_jobs"])
+
+    def test_page_limit_persists_and_resumes_dynamic_jobs(self) -> None:
+        jobs = [job for job in read_registry_jobs(REGISTRY) if job.slug == "manciano"]
+        with TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            state = CrawlState(root / "state.json")
+            runner = SweepRunner(SnapshotStore(root / "snapshots"), state)
+            first = runner.run(jobs, FixtureFetcher(FIXTURES), OBSERVED_AT, max_pages=2)
+            self.assertEqual(1, first["pages_remaining"])
+            self.assertEqual("pickup", first["remaining_pages"][0]["category"])
+            persisted = json.loads((root / "state.json").read_text(encoding="utf-8"))
+            self.assertEqual(first["remaining_pages"], persisted["pending_jobs"])
+
+            resumed = runner.run(jobs, FixtureFetcher(FIXTURES), OBSERVED_AT, max_pages=1)
+            self.assertEqual("pickup", next(iter(resumed["pages_by_category"])))
+
+    def test_legacy_state_recovers_missing_jobs_from_snapshots_first(self) -> None:
+        jobs = [job for job in read_registry_jobs(REGISTRY) if job.slug == "manciano"]
+        with TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            state_path = root / "state.json"
+            runner = SweepRunner(SnapshotStore(root / "snapshots"), CrawlState(state_path))
+            runner.run(jobs, FixtureFetcher(FIXTURES), OBSERVED_AT, max_pages=2)
+            legacy = json.loads(state_path.read_text(encoding="utf-8"))
+            legacy.pop("pending_jobs")
+            legacy["version"] = 1
+            state_path.write_text(json.dumps(legacy), encoding="utf-8")
+
+            recovered = SweepRunner(
+                SnapshotStore(root / "snapshots"), CrawlState(state_path)
+            ).run(jobs, FixtureFetcher(FIXTURES), OBSERVED_AT, max_pages=1)
+            self.assertEqual({"pickup": 1}, recovered["pages_by_category"])
 
     def test_redirected_facility_url_is_not_crawled_twice(self) -> None:
         jobs = [job for job in read_registry_jobs(REGISTRY) if job.slug == "castagneto-carducci"]

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from datetime import datetime
 import hashlib
 import json
@@ -91,9 +91,11 @@ class CrawlState:
     def __init__(self, path: Path) -> None:
         self.path = path
         self.documents: dict[str, dict[str, Any]] = {}
+        self.pending_jobs: list[dict[str, str]] = []
         if path.exists():
             data = json.loads(path.read_text(encoding="utf-8"))
             self.documents = data.get("documents", {})
+            self.pending_jobs = data.get("pending_jobs", [])
 
     def get(self, url: str) -> dict[str, Any]:
         return self.documents.get(url, {})
@@ -101,13 +103,17 @@ class CrawlState:
     def put(self, url: str, value: dict[str, Any]) -> None:
         self.documents[url] = value
 
+    def set_pending(self, jobs: Iterable[CrawlJob]) -> None:
+        self.pending_jobs = [asdict(job) for job in _dedupe_jobs(jobs)]
+
     def save(self, updated_at: datetime) -> None:
         self.path.parent.mkdir(parents=True, exist_ok=True)
         temporary = self.path.with_suffix(self.path.suffix + ".tmp")
         temporary.write_text(json.dumps({
-            "version": 1,
+            "version": 2,
             "updated_at": updated_at.isoformat(),
             "documents": self.documents,
+            "pending_jobs": self.pending_jobs,
         }, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
         temporary.replace(self.path)
 
@@ -124,27 +130,66 @@ class SweepRunner:
         observed_at: datetime,
         max_pages: int | None = None,
     ) -> dict[str, Any]:
-        queue = list(jobs)
-        selected_istat = {job.istat_code for job in queue}
+        requested_jobs = list(jobs)
+        selected_istat = {job.istat_code for job in requested_jobs}
+        pending_selected = [
+            CrawlJob(**pending)
+            for pending in self.state.pending_jobs
+            if pending.get("istat_code") in selected_istat
+        ]
+        pending_other = [
+            CrawlJob(**pending)
+            for pending in self.state.pending_jobs
+            if pending.get("istat_code") not in selected_istat
+        ]
+        snapshot_discovered: list[CrawlJob] = []
+        existing_pickups: list[CrawlJob] = []
         for document in self.state.documents.values():
-            if (
-                document.get("istat_code") in selected_istat
-                and document.get("category") == "pickup"
-                and document.get("url")
-            ):
-                queue.append(CrawlJob(
-                    municipality=document["municipality"],
-                    istat_code=document["istat_code"],
-                    slug=document["slug"],
-                    category=document["category"],
-                    url=document["url"],
-                ))
+            if document.get("istat_code") not in selected_istat or not document.get("url"):
+                continue
+            document_job = CrawlJob(
+                municipality=document["municipality"],
+                istat_code=document["istat_code"],
+                slug=document["slug"],
+                category=document["category"],
+                url=document["url"],
+            )
+            if document.get("category") == "pickup":
+                existing_pickups.append(document_job)
+            snapshot_path = document.get("snapshot_path")
+            if snapshot_path and document.get("category") in {"collection", "facilities"}:
+                snapshot = Path(snapshot_path)
+                if snapshot.exists():
+                    snapshot_discovered.extend(discover_municipality_jobs(
+                        document_job,
+                        snapshot.read_text(encoding="utf-8"),
+                        document.get("final_url") or document["url"],
+                    ))
+        known_urls = {
+            _canonical_url(url)
+            for document_url, document in self.state.documents.items()
+            for url in (document_url, document.get("final_url"))
+            if url
+        }
+        missing_discovered = [
+            job for job in snapshot_discovered if _canonical_url(job.url) not in known_urls
+        ]
+        queue = [
+            *pending_selected,
+            *missing_discovered,
+            *requested_jobs,
+            *existing_pickups,
+            *snapshot_discovered,
+        ]
+        queue = _dedupe_jobs(queue)
         queued_urls = {job.url for job in queue}
         completed_urls: set[str] = set()
         results: list[dict[str, Any]] = []
         while queue and (max_pages is None or len(results) < max_pages):
             job = queue.pop(0)
             if _canonical_url(job.url) in completed_urls:
+                self.state.set_pending([*pending_other, *queue])
+                self.state.save(observed_at)
                 continue
             previous = self.state.get(job.url)
             try:
@@ -164,7 +209,10 @@ class SweepRunner:
                 result = self._failure(job, error, previous, observed_at)
                 completed_urls.add(_canonical_url(job.url))
             results.append(result)
+            self.state.set_pending([*pending_other, *queue])
             self.state.save(observed_at)
+        self.state.set_pending([*pending_other, *queue])
+        self.state.save(observed_at)
         report = self._report(results, queue, observed_at)
         return report
 
@@ -258,6 +306,7 @@ class SweepRunner:
             "observed_at": observed_at.isoformat(),
             "pages_checked": len(results),
             "pages_remaining": len(remaining),
+            "remaining_pages": [asdict(job) for job in _dedupe_jobs(remaining)],
             "municipalities_touched": len(municipalities),
             "pages_by_status": by_status,
             "pages_by_category": by_category,
@@ -307,6 +356,18 @@ def _linked_category(path: str) -> str | None:
 def _canonical_url(url: str) -> str:
     without_fragment, _ = urldefrag(url)
     return without_fragment.rstrip("/")
+
+
+def _dedupe_jobs(jobs: Iterable[CrawlJob]) -> list[CrawlJob]:
+    result: list[CrawlJob] = []
+    seen: set[str] = set()
+    for job in jobs:
+        identity = _canonical_url(job.url)
+        if identity in seen:
+            continue
+        seen.add(identity)
+        result.append(job)
+    return result
 
 
 class HttpFetcher:

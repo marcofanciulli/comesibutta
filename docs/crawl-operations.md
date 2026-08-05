@@ -56,6 +56,12 @@ Una pagina invariata non crea un nuovo file. Gli URL di ritiro scoperti in una
 scansione precedente vengono reinseriti nella coda anche quando la pagina che
 li conteneva risponde `304 Not Modified`.
 
+La coda non completata viene salvata integralmente in `pending_jobs` dopo ogni
+pagina. Il rapporto espone sia `pages_remaining` sia `remaining_pages`, con
+comune, categoria e URL. Alla ripresa, questi lavori hanno priorita sulle
+visite periodiche ordinarie. Per gli stati creati da versioni precedenti, i
+collegamenti pendenti vengono ricostruiti dagli snapshot disponibili.
+
 ## Avvio live
 
 Il contatto autorizzato per questo progetto e `marcofanciulli@me.com`:

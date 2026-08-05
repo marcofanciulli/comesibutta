@@ -1,7 +1,7 @@
 # Stato del progetto
 
 Ultimo aggiornamento: 5 agosto 2026  
-Fase: scansione controllata pronta e verificata localmente
+Fase: primo lotto live acquisito, anomalie da revisionare
 
 Questo documento e il punto di ripartenza del progetto. Va aggiornato al termine
 di ogni fase sostanziale, insieme ai dataset e ai rapporti prodotti.
@@ -69,7 +69,7 @@ Comuni pilota gia acquisiti:
 
 Verifiche completate al 5 agosto 2026:
 
-- 24 test automatici superati;
+- 29 test automatici superati;
 - compilazione dei moduli Python riuscita;
 - validita sintattica JSON verificata per schemi, record e rapporti;
 - relazione Sassetta-Castagneto risolta sullo stesso identificatore stabile;
@@ -93,6 +93,15 @@ Scansione controllata:
 - collaudo su 12 pagine di quattro comuni: 338 record e zero avvisi;
 - seconda passata: 12 pagine invariate e nessun nuovo snapshot.
 
+Primo lotto live `grosseto-01`:
+
+- preflight robots consentito per tutte le 20 URL iniziali;
+- 30 pagine acquisite, 10 comuni materializzati e 700 record estratti;
+- 5 avvisi da revisionare, concentrati su Grosseto e Isola del Giglio;
+- 3 pagine lasciate in coda dal limite operativo di 30 richieste;
+- dalla versione successiva al primo passaggio, la coda pendente viene salvata
+  integralmente e ricostruita dagli snapshot per migrare lo stato precedente.
+
 ## Limiti e questioni aperte
 
 - Le pagine di ritiro ingombranti non sono collegate dall'indice generale e
@@ -107,11 +116,11 @@ Scansione controllata:
 
 ## Prossimi passi
 
-1. Avviare il primo lotto live `grosseto-01` e verificare robots.txt.
-2. Esaminare anomalie e adattare gli estrattori alle nuove varianti.
-3. Estendere progressivamente la scansione ai 104 comuni.
-4. Aggiungere la raccolta e la classificazione di PDF, guide e calendari.
-5. Portare anomalie e conflitti in una prima coda di revisione.
+1. Riprendere `grosseto-01` per completare le 3 pagine pendenti ricostruite.
+2. Esaminare le 5 anomalie e adattare gli estrattori alle nuove varianti.
+3. Validare e versionare gli output completi del lotto.
+4. Estendere progressivamente la scansione ai 104 comuni.
+5. Aggiungere la raccolta e la classificazione di PDF, guide e calendari.
 
 ## Regola di continuita
 
