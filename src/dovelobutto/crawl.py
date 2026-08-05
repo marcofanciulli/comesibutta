@@ -38,6 +38,13 @@ class FetchResult:
 Fetcher = Callable[[CrawlJob, str | None, str | None], FetchResult]
 
 
+class RobotsAccessError(PermissionError):
+    def __init__(self, robots_url: str, blocked_urls: list[str]) -> None:
+        self.robots_url = robots_url
+        self.blocked_urls = blocked_urls
+        super().__init__(f"robots.txt blocks {len(blocked_urls)} initial URL(s)")
+
+
 def read_registry_jobs(path: Path) -> list[CrawlJob]:
     jobs: list[CrawlJob] = []
     seen: set[str] = set()
@@ -329,9 +336,7 @@ class HttpFetcher:
         robots = self._load_robots()
         blocked = [job.url for job in jobs if not robots.can_fetch(self.user_agent, job.url)]
         if blocked:
-            raise PermissionError(
-                f"robots.txt blocks {len(blocked)} initial URL(s): {', '.join(blocked[:3])}"
-            )
+            raise RobotsAccessError(robots.url, blocked)
         return {
             "robots_url": robots.url,
             "initial_urls_checked": len(jobs),

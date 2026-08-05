@@ -111,6 +111,11 @@ esiti, errori e riepilogo dell'estrazione. Per ciascun comune vengono generati:
 Un errore di rete o parsing resta nello stato e nel rapporto. Non cancella lo
 snapshot o l'output valido della passata precedente.
 
+Se il preflight trova divieti in `robots.txt`, il rapporto contiene
+`access_preflight.allowed: false`, l'elenco completo `blocked_urls` e un errore
+`blocked_by_robots` per ogni URL. Il lotto termina prima di acquisire pagine:
+non esistono esclusioni silenziose.
+
 ## Primo lotto Grosseto
 
 ```sh

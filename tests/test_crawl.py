@@ -11,6 +11,7 @@ from dovelobutto.crawl import (
     CrawlState,
     FixtureFetcher,
     HttpFetcher,
+    RobotsAccessError,
     SnapshotStore,
     SweepRunner,
     discover_municipality_jobs,
@@ -43,6 +44,24 @@ class SweepRunnerTest(unittest.TestCase):
             result = HttpFetcher("DoveLoButtoData/0.1 (+mailto:test@example.com)").validate(jobs)
         self.assertTrue(result["allowed"])
         self.assertEqual(2, result["initial_urls_checked"])
+
+    def test_robots_preflight_reports_every_blocked_url(self) -> None:
+        jobs = [job for job in read_registry_jobs(REGISTRY) if job.slug == "manciano"]
+
+        class RobotsResponse:
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *args):
+                return False
+
+            def read(self):
+                return b"User-agent: *\nDisallow: /comuni/\n"
+
+        with patch("dovelobutto.crawl.urlopen", return_value=RobotsResponse()):
+            with self.assertRaises(RobotsAccessError) as raised:
+                HttpFetcher("DoveLoButtoData/0.1 (+mailto:test@example.com)").validate(jobs)
+        self.assertEqual([job.url for job in jobs], raised.exception.blocked_urls)
 
     def test_batch_file_ignores_comments_and_blank_lines(self) -> None:
         with TemporaryDirectory() as temporary:

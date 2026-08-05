@@ -10,7 +10,15 @@ from typing import Any
 from urllib import robotparser
 from urllib.request import Request, urlopen
 
-from .crawl import CrawlState, FixtureFetcher, HttpFetcher, SnapshotStore, SweepRunner, read_registry_jobs
+from .crawl import (
+    CrawlState,
+    FixtureFetcher,
+    HttpFetcher,
+    RobotsAccessError,
+    SnapshotStore,
+    SweepRunner,
+    read_registry_jobs,
+)
 from .records import write_jsonl
 from .registry import extract_sei_municipality_registry, read_istat_municipalities
 from .sei_toscana import MunicipalityContext, extract_municipality_bundle
@@ -129,6 +137,23 @@ def main(argv: list[str] | None = None) -> int:
             try:
                 access_preflight = fetcher.validate(jobs)
             except Exception as error:
+                blocked_urls = error.blocked_urls if isinstance(error, RobotsAccessError) else []
+                errors = (
+                    [
+                        {
+                            "url": url,
+                            "status": "blocked_by_robots",
+                            "error": "robots.txt does not allow this URL",
+                        }
+                        for url in blocked_urls
+                    ]
+                    if blocked_urls
+                    else [{
+                        "url": "https://seitoscana.it/robots.txt",
+                        "status": "access_preflight_failed",
+                        "error": f"{type(error).__name__}: {error}",
+                    }]
+                )
                 report = {
                     "observed_at": observed_at.isoformat(),
                     "pages_checked": 0,
@@ -139,13 +164,11 @@ def main(argv: list[str] | None = None) -> int:
                     "access_preflight": {
                         "robots_url": "https://seitoscana.it/robots.txt",
                         "allowed": False,
+                        "initial_urls_checked": len(jobs),
+                        "blocked_urls": blocked_urls,
                         "error": f"{type(error).__name__}: {error}",
                     },
-                    "errors": [{
-                        "url": "https://seitoscana.it/robots.txt",
-                        "status": "access_preflight_failed",
-                        "error": f"{type(error).__name__}: {error}",
-                    }],
+                    "errors": errors,
                     "extraction": {
                         "municipalities": 0,
                         "records": 0,
