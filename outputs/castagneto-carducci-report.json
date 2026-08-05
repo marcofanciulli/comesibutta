@@ -1,0 +1,18 @@
+{
+  "istat_code": "049006",
+  "municipality": "Castagneto Carducci",
+  "pages_processed": 3,
+  "records": 68,
+  "records_by_type": {
+    "collection_point": 1,
+    "collection_rule": 17,
+    "collection_schedule": 12,
+    "facility": 1,
+    "facility_acceptance": 29,
+    "facility_access": 2,
+    "opening_period": 1,
+    "pickup_service": 1,
+    "service_zone": 4
+  },
+  "warnings": []
+}

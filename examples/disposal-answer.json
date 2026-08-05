@@ -1,0 +1,44 @@
+{
+  "query": {
+    "text": "scatola di cartone",
+    "matched_concept_id": "waste:cardboard-box",
+    "matched_label": "Scatola di cartone"
+  },
+  "context": {
+    "municipality_istat": "053014",
+    "zone_id": "sei-toscana:manciano:marsiliana",
+    "user_type": "domestic",
+    "as_of": "2026-08-05"
+  },
+  "status": "resolved",
+  "question": null,
+  "result": {
+    "destination_type": "collection_stream",
+    "stream": "Carta e cartone",
+    "container": {
+      "type": "cassonetto",
+      "color": "blu",
+      "access_credential": null
+    },
+    "presentation": {
+      "mode": "loose",
+      "instructions": ["Conferiscila sfusa o in un sacco di carta.", "Svuotala e schiacciala."]
+    },
+    "eer": null,
+    "facility": null,
+    "environmental_note": null,
+    "warnings": []
+  },
+  "alternatives": [],
+  "provenance": {
+    "verified_at": "2026-08-05T10:00:00+02:00",
+    "review_status": "automatic",
+    "sources": [
+      {
+        "url": "https://seitoscana.it/comuni/manciano/raccolta-rifiuti",
+        "retrieved_at": "2026-08-05T10:00:00+02:00",
+        "label": "SEI Toscana - Raccolta rifiuti Comune di Manciano"
+      }
+    ]
+  }
+}

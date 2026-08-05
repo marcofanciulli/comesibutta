@@ -1,0 +1,18 @@
+{
+  "istat_code": "049002",
+  "municipality": "Campiglia Marittima",
+  "pages_processed": 3,
+  "records": 78,
+  "records_by_type": {
+    "collection_point": 5,
+    "collection_rule": 20,
+    "collection_schedule": 15,
+    "facility": 1,
+    "facility_acceptance": 28,
+    "facility_access": 2,
+    "opening_period": 2,
+    "pickup_service": 1,
+    "service_zone": 4
+  },
+  "warnings": []
+}

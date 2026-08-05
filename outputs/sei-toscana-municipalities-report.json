@@ -1,0 +1,18 @@
+{
+  "municipalities": 104,
+  "municipalities_by_province": {
+    "AR": 35,
+    "GR": 28,
+    "LI": 6,
+    "SI": 35
+  },
+  "municipalities_with_service_pages": {
+    "collection": 104,
+    "facilities": 104,
+    "other": 19,
+    "pickup": 0,
+    "street_cleaning": 79
+  },
+  "source_url": "https://seitoscana.it/comuni",
+  "warnings": []
+}

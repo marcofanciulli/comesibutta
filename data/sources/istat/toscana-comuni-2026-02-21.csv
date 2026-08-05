@@ -1,0 +1,274 @@
+istat_code,name,province_code,region_code
+045001,Aulla,MS,09
+045002,Bagnone,MS,09
+045003,Carrara,MS,09
+045004,Casola in Lunigiana,MS,09
+045005,Comano,MS,09
+045006,Filattiera,MS,09
+045007,Fivizzano,MS,09
+045008,Fosdinovo,MS,09
+045009,Licciana Nardi,MS,09
+045010,Massa,MS,09
+045011,Montignoso,MS,09
+045012,Mulazzo,MS,09
+045013,Podenzana,MS,09
+045014,Pontremoli,MS,09
+045015,Tresana,MS,09
+045016,Villafranca in Lunigiana,MS,09
+045017,Zeri,MS,09
+046001,Altopascio,LU,09
+046002,Bagni di Lucca,LU,09
+046003,Barga,LU,09
+046004,Borgo a Mozzano,LU,09
+046005,Camaiore,LU,09
+046006,Camporgiano,LU,09
+046007,Capannori,LU,09
+046008,Careggine,LU,09
+046009,Castelnuovo di Garfagnana,LU,09
+046010,Castiglione di Garfagnana,LU,09
+046011,Coreglia Antelminelli,LU,09
+046013,Forte dei Marmi,LU,09
+046014,Fosciandora,LU,09
+046015,Gallicano,LU,09
+046017,Lucca,LU,09
+046018,Massarosa,LU,09
+046019,Minucciano,LU,09
+046020,Molazzana,LU,09
+046021,Montecarlo,LU,09
+046022,Pescaglia,LU,09
+046023,Piazza al Serchio,LU,09
+046024,Pietrasanta,LU,09
+046025,Pieve Fosciana,LU,09
+046026,Porcari,LU,09
+046027,San Romano in Garfagnana,LU,09
+046028,Seravezza,LU,09
+046030,Stazzema,LU,09
+046031,Vagli Sotto,LU,09
+046033,Viareggio,LU,09
+046034,Villa Basilica,LU,09
+046035,Villa Collemandina,LU,09
+046036,Fabbriche di Vergemoli,LU,09
+046037,Sillano Giuncugnano,LU,09
+047002,Agliana,PT,09
+047003,Buggiano,PT,09
+047005,Lamporecchio,PT,09
+047006,Larciano,PT,09
+047007,Marliana,PT,09
+047008,Massa e Cozzile,PT,09
+047009,Monsummano Terme,PT,09
+047010,Montale,PT,09
+047011,Montecatini-Terme,PT,09
+047012,Pescia,PT,09
+047013,Pieve a Nievole,PT,09
+047014,Pistoia,PT,09
+047016,Ponte Buggianese,PT,09
+047017,Quarrata,PT,09
+047018,Sambuca Pistoiese,PT,09
+047020,Serravalle Pistoiese,PT,09
+047021,Uzzano,PT,09
+047022,Chiesina Uzzanese,PT,09
+047023,Abetone Cutigliano,PT,09
+047024,San Marcello Piteglio,PT,09
+048001,Bagno a Ripoli,FI,09
+048002,Barberino di Mugello,FI,09
+048004,Borgo San Lorenzo,FI,09
+048005,Calenzano,FI,09
+048006,Campi Bisenzio,FI,09
+048008,Capraia e Limite,FI,09
+048010,Castelfiorentino,FI,09
+048011,Cerreto Guidi,FI,09
+048012,Certaldo,FI,09
+048013,Dicomano,FI,09
+048014,Empoli,FI,09
+048015,Fiesole,FI,09
+048017,Firenze,FI,09
+048018,Firenzuola,FI,09
+048019,Fucecchio,FI,09
+048020,Gambassi Terme,FI,09
+048021,Greve in Chianti,FI,09
+048022,Impruneta,FI,09
+048024,Lastra a Signa,FI,09
+048025,Londa,FI,09
+048026,Marradi,FI,09
+048027,Montaione,FI,09
+048028,Montelupo Fiorentino,FI,09
+048030,Montespertoli,FI,09
+048031,Palazzuolo sul Senio,FI,09
+048032,Pelago,FI,09
+048033,Pontassieve,FI,09
+048035,Reggello,FI,09
+048036,Rignano sull'Arno,FI,09
+048037,Rufina,FI,09
+048038,San Casciano in Val di Pesa,FI,09
+048039,San Godenzo,FI,09
+048041,Scandicci,FI,09
+048043,Sesto Fiorentino,FI,09
+048044,Signa,FI,09
+048046,Vaglia,FI,09
+048049,Vicchio,FI,09
+048050,Vinci,FI,09
+048052,Figline e Incisa Valdarno,FI,09
+048053,Scarperia e San Piero,FI,09
+048054,Barberino Tavarnelle,FI,09
+049001,Bibbona,LI,09
+049002,Campiglia Marittima,LI,09
+049003,Campo nell'Elba,LI,09
+049004,Capoliveri,LI,09
+049005,Capraia Isola,LI,09
+049006,Castagneto Carducci,LI,09
+049007,Cecina,LI,09
+049008,Collesalvetti,LI,09
+049009,Livorno,LI,09
+049010,Marciana,LI,09
+049011,Marciana Marina,LI,09
+049012,Piombino,LI,09
+049013,Porto Azzurro,LI,09
+049014,Portoferraio,LI,09
+049017,Rosignano Marittimo,LI,09
+049018,San Vincenzo,LI,09
+049019,Sassetta,LI,09
+049020,Suvereto,LI,09
+049021,Rio,LI,09
+050001,Bientina,PI,09
+050002,Buti,PI,09
+050003,Calci,PI,09
+050004,Calcinaia,PI,09
+050005,Capannoli,PI,09
+050006,Casale Marittimo,PI,09
+050008,Cascina,PI,09
+050009,Castelfranco di Sotto,PI,09
+050010,Castellina Marittima,PI,09
+050011,Castelnuovo di Val di Cecina,PI,09
+050012,Chianni,PI,09
+050014,Fauglia,PI,09
+050015,Guardistallo,PI,09
+050016,Lajatico,PI,09
+050019,Montecatini Val di Cecina,PI,09
+050020,Montescudaio,PI,09
+050021,Monteverdi Marittimo,PI,09
+050022,Montopoli in Val d'Arno,PI,09
+050023,Orciano Pisano,PI,09
+050024,Palaia,PI,09
+050025,Peccioli,PI,09
+050026,Pisa,PI,09
+050027,Pomarance,PI,09
+050028,Ponsacco,PI,09
+050029,Pontedera,PI,09
+050030,Riparbella,PI,09
+050031,San Giuliano Terme,PI,09
+050032,San Miniato,PI,09
+050033,Santa Croce sull'Arno,PI,09
+050034,Santa Luce,PI,09
+050035,Santa Maria a Monte,PI,09
+050036,Terricciola,PI,09
+050037,Vecchiano,PI,09
+050038,Vicopisano,PI,09
+050039,Volterra,PI,09
+050040,Casciana Terme Lari,PI,09
+050041,Crespina Lorenzana,PI,09
+051001,Anghiari,AR,09
+051002,Arezzo,AR,09
+051003,Badia Tedalda,AR,09
+051004,Bibbiena,AR,09
+051005,Bucine,AR,09
+051006,Capolona,AR,09
+051007,Caprese Michelangelo,AR,09
+051008,Castel Focognano,AR,09
+051010,Castel San Niccolò,AR,09
+051011,Castiglion Fibocchi,AR,09
+051012,Castiglion Fiorentino,AR,09
+051013,Cavriglia,AR,09
+051014,Chitignano,AR,09
+051015,Chiusi della Verna,AR,09
+051016,Civitella in Val di Chiana,AR,09
+051017,Cortona,AR,09
+051018,Foiano della Chiana,AR,09
+051020,Loro Ciuffenna,AR,09
+051021,Lucignano,AR,09
+051022,Marciano della Chiana,AR,09
+051023,Montemignaio,AR,09
+051024,Monterchi,AR,09
+051025,Monte San Savino,AR,09
+051026,Montevarchi,AR,09
+051027,Ortignano Raggiolo,AR,09
+051030,Pieve Santo Stefano,AR,09
+051031,Poppi,AR,09
+051033,San Giovanni Valdarno,AR,09
+051034,Sansepolcro,AR,09
+051035,Sestino,AR,09
+051037,Subbiano,AR,09
+051038,Talla,AR,09
+051039,Terranuova Bracciolini,AR,09
+051040,Castelfranco Piandiscò,AR,09
+051041,Pratovecchio Stia,AR,09
+051042,Laterina Pergine Valdarno,AR,09
+052001,Abbadia San Salvatore,SI,09
+052002,Asciano,SI,09
+052003,Buonconvento,SI,09
+052004,Casole d'Elsa,SI,09
+052005,Castellina in Chianti,SI,09
+052006,Castelnuovo Berardenga,SI,09
+052007,Castiglione d'Orcia,SI,09
+052008,Cetona,SI,09
+052009,Chianciano Terme,SI,09
+052010,Chiusdino,SI,09
+052011,Chiusi,SI,09
+052012,Colle di Val d'Elsa,SI,09
+052013,Gaiole in Chianti,SI,09
+052015,Montepulciano,SI,09
+052016,Monteriggioni,SI,09
+052017,Monteroni d'Arbia,SI,09
+052018,Monticiano,SI,09
+052019,Murlo,SI,09
+052020,Piancastagnaio,SI,09
+052021,Pienza,SI,09
+052022,Poggibonsi,SI,09
+052023,Radda in Chianti,SI,09
+052024,Radicofani,SI,09
+052025,Radicondoli,SI,09
+052026,Rapolano Terme,SI,09
+052027,San Casciano dei Bagni,SI,09
+052028,San Gimignano,SI,09
+052030,San Quirico d'Orcia,SI,09
+052031,Sarteano,SI,09
+052032,Siena,SI,09
+052033,Sinalunga,SI,09
+052034,Sovicille,SI,09
+052035,Torrita di Siena,SI,09
+052036,Trequanda,SI,09
+052037,Montalcino,SI,09
+053001,Arcidosso,GR,09
+053002,Campagnatico,GR,09
+053003,Capalbio,GR,09
+053004,Castel del Piano,GR,09
+053005,Castell'Azzara,GR,09
+053006,Castiglione della Pescaia,GR,09
+053007,Cinigiano,GR,09
+053008,Civitella Paganico,GR,09
+053009,Follonica,GR,09
+053010,Gavorrano,GR,09
+053011,Grosseto,GR,09
+053012,Isola del Giglio,GR,09
+053013,Magliano in Toscana,GR,09
+053014,Manciano,GR,09
+053015,Massa Marittima,GR,09
+053016,Monte Argentario,GR,09
+053017,Montieri,GR,09
+053018,Orbetello,GR,09
+053019,Pitigliano,GR,09
+053020,Roccalbegna,GR,09
+053021,Roccastrada,GR,09
+053022,Santa Fiora,GR,09
+053023,Scansano,GR,09
+053024,Scarlino,GR,09
+053025,Seggiano,GR,09
+053026,Sorano,GR,09
+053027,Monterotondo Marittimo,GR,09
+053028,Semproniano,GR,09
+100001,Cantagallo,PO,09
+100002,Carmignano,PO,09
+100003,Montemurlo,PO,09
+100004,Poggio a Caiano,PO,09
+100005,Prato,PO,09
+100006,Vaiano,PO,09
+100007,Vernio,PO,09

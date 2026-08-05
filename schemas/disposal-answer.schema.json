@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dovelobutto.example/schemas/disposal-answer.schema.json",
+  "title": "Disposal answer returned to the app",
+  "type": "object",
+  "required": ["query", "context", "status", "result", "provenance"],
+  "properties": {
+    "query": {
+      "type": "object",
+      "required": ["text"],
+      "properties": {
+        "text": { "type": "string" },
+        "matched_concept_id": { "type": ["string", "null"] },
+        "matched_label": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "context": {
+      "type": "object",
+      "required": ["municipality_istat", "user_type", "as_of"],
+      "properties": {
+        "municipality_istat": { "type": "string", "pattern": "^[0-9]{6}$" },
+        "zone_id": { "type": ["string", "null"] },
+        "user_type": { "enum": ["domestic", "non_domestic"] },
+        "as_of": { "type": "string", "format": "date" }
+      },
+      "additionalProperties": false
+    },
+    "status": {
+      "enum": ["resolved", "needs_question", "not_found", "conflict", "outdated"]
+    },
+    "question": {
+      "type": ["object", "null"],
+      "properties": {
+        "text": { "type": "string" },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "label"],
+            "properties": {
+              "id": { "type": "string" },
+              "label": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "result": {
+      "type": ["object", "null"],
+      "properties": {
+        "destination_type": {
+          "enum": ["collection_stream", "facility", "collection_point", "pickup", "special_case"]
+        },
+        "stream": { "type": ["string", "null"] },
+        "container": {
+          "type": ["object", "null"],
+          "properties": {
+            "type": { "type": ["string", "null"] },
+            "color": { "type": ["string", "null"] },
+            "access_credential": { "type": ["string", "null"] }
+          },
+          "additionalProperties": false
+        },
+        "presentation": {
+          "type": ["object", "null"],
+          "properties": {
+            "mode": { "type": "string" },
+            "instructions": { "type": "array", "items": { "type": "string" } }
+          },
+          "additionalProperties": false
+        },
+        "eer": {
+          "type": ["object", "null"],
+          "properties": {
+            "code": { "type": "string", "pattern": "^[0-9]{6}$" },
+            "official_label": { "type": "string" },
+            "hazardous": { "type": "boolean" },
+            "facility_operational_label": { "type": ["string", "null"] }
+          },
+          "additionalProperties": false
+        },
+        "facility": {
+          "type": ["object", "null"],
+          "properties": {
+            "id": { "type": "string" },
+            "name": { "type": "string" },
+            "distance_km": { "type": ["number", "null"], "minimum": 0 },
+            "access_summary": { "type": ["string", "null"] }
+          },
+          "additionalProperties": false
+        },
+        "environmental_note": { "type": ["string", "null"] },
+        "warnings": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "alternatives": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["verified_at", "sources"],
+      "properties": {
+        "verified_at": { "type": "string", "format": "date-time" },
+        "review_status": { "enum": ["automatic", "reviewed"] },
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["url", "retrieved_at"],
+            "properties": {
+              "url": { "type": "string", "format": "uri" },
+              "retrieved_at": { "type": "string", "format": "date-time" },
+              "label": { "type": ["string", "null"] }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
+

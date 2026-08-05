@@ -1,0 +1,17 @@
+{
+  "istat_code": "053014",
+  "municipality": "Manciano",
+  "pages_processed": 3,
+  "records": 66,
+  "records_by_type": {
+    "collection_point": 27,
+    "collection_rule": 9,
+    "facility": 1,
+    "facility_acceptance": 23,
+    "facility_access": 2,
+    "opening_period": 1,
+    "pickup_service": 1,
+    "service_zone": 2
+  },
+  "warnings": []
+}

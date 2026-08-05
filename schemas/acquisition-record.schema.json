@@ -1,0 +1,366 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dovelobutto.example/schemas/acquisition-record.schema.json",
+  "title": "Acquisition record",
+  "type": "object",
+  "required": [
+    "record_id",
+    "record_type",
+    "observed_at",
+    "source",
+    "payload"
+  ],
+  "properties": {
+    "record_id": { "type": "string", "format": "uuid" },
+    "record_type": {
+      "enum": [
+        "municipality",
+        "service_zone",
+        "collection_rule",
+        "facility",
+        "facility_access",
+        "facility_acceptance",
+        "opening_period",
+        "collection_schedule",
+        "collection_point",
+        "pickup_service"
+      ]
+    },
+    "natural_key": { "type": "string", "minLength": 1 },
+    "observed_at": { "type": "string", "format": "date-time" },
+    "validity": { "$ref": "#/$defs/validity" },
+    "source": { "$ref": "#/$defs/source" },
+    "confidence": {
+      "enum": ["high", "medium", "low"],
+      "default": "medium"
+    },
+    "payload": { "type": "object" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "record_type": { "const": "municipality" } } },
+      "then": { "properties": { "payload": { "$ref": "#/$defs/municipality" } } }
+    },
+    {
+      "if": { "properties": { "record_type": { "const": "service_zone" } } },
+      "then": { "properties": { "payload": { "$ref": "#/$defs/serviceZone" } } }
+    },
+    {
+      "if": { "properties": { "record_type": { "const": "collection_rule" } } },
+      "then": { "properties": { "payload": { "$ref": "#/$defs/collectionRule" } } }
+    },
+    {
+      "if": { "properties": { "record_type": { "const": "facility" } } },
+      "then": { "properties": { "payload": { "$ref": "#/$defs/facility" } } }
+    },
+    {
+      "if": { "properties": { "record_type": { "const": "facility_access" } } },
+      "then": { "properties": { "payload": { "$ref": "#/$defs/facilityAccess" } } }
+    },
+    {
+      "if": { "properties": { "record_type": { "const": "facility_acceptance" } } },
+      "then": { "properties": { "payload": { "$ref": "#/$defs/facilityAcceptance" } } }
+    },
+    {
+      "if": { "properties": { "record_type": { "const": "opening_period" } } },
+      "then": { "properties": { "payload": { "$ref": "#/$defs/openingPeriod" } } }
+    },
+    {
+      "if": { "properties": { "record_type": { "const": "collection_schedule" } } },
+      "then": { "properties": { "payload": { "$ref": "#/$defs/collectionSchedule" } } }
+    },
+    {
+      "if": { "properties": { "record_type": { "const": "collection_point" } } },
+      "then": { "properties": { "payload": { "$ref": "#/$defs/collectionPoint" } } }
+    },
+    {
+      "if": { "properties": { "record_type": { "const": "pickup_service" } } },
+      "then": { "properties": { "payload": { "$ref": "#/$defs/pickupService" } } }
+    }
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "validity": {
+      "type": "object",
+      "properties": {
+        "valid_from": { "type": ["string", "null"], "format": "date" },
+        "valid_to": { "type": ["string", "null"], "format": "date" },
+        "inferred": { "type": "boolean", "default": false }
+      },
+      "additionalProperties": false
+    },
+    "source": {
+      "type": "object",
+      "required": ["url", "retrieved_at", "content_sha256", "evidence"],
+      "properties": {
+        "url": { "type": "string", "format": "uri" },
+        "retrieved_at": { "type": "string", "format": "date-time" },
+        "content_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "publisher": { "type": ["string", "null"] },
+        "document_date": { "type": ["string", "null"], "format": "date" },
+        "parser": { "type": "string" },
+        "parser_version": { "type": "string" },
+        "evidence": {
+          "type": "object",
+          "required": ["kind"],
+          "properties": {
+            "kind": { "enum": ["html", "table", "pdf", "map_link", "json"] },
+            "selector": { "type": ["string", "null"] },
+            "page": { "type": ["integer", "null"], "minimum": 1 },
+            "quote": { "type": ["string", "null"] }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "geoPoint": {
+      "type": "object",
+      "required": ["latitude", "longitude", "method"],
+      "properties": {
+        "latitude": { "type": "number", "minimum": -90, "maximum": 90 },
+        "longitude": { "type": "number", "minimum": -180, "maximum": 180 },
+        "method": { "enum": ["official", "map_link", "geocoded", "manual"] },
+        "accuracy_m": { "type": ["number", "null"], "minimum": 0 }
+      },
+      "additionalProperties": false
+    },
+    "municipality": {
+      "type": "object",
+      "required": ["istat_code", "name", "province_code", "region_code"],
+      "properties": {
+        "istat_code": { "type": "string", "pattern": "^[0-9]{6}$" },
+        "name": { "type": "string" },
+        "province_code": { "type": "string", "pattern": "^[A-Z]{2}$" },
+        "region_code": { "type": "string", "pattern": "^[0-9]{2}$" },
+        "ato_ref": { "type": ["string", "null"] },
+        "operator_ref": { "type": ["string", "null"] },
+        "source_slug": { "type": ["string", "null"] },
+        "homepage_url": { "type": ["string", "null"], "format": "uri" },
+        "service_urls": {
+          "type": "object",
+          "properties": {
+            "collection": { "$ref": "#/$defs/urlList" },
+            "facilities": { "$ref": "#/$defs/urlList" },
+            "pickup": { "$ref": "#/$defs/urlList" },
+            "street_cleaning": { "$ref": "#/$defs/urlList" },
+            "other": { "$ref": "#/$defs/urlList" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "urlList": {
+      "type": "array",
+      "items": { "type": "string", "format": "uri" }
+    },
+    "serviceZone": {
+      "type": "object",
+      "required": ["municipality_ref", "name", "scope_type"],
+      "properties": {
+        "municipality_ref": { "type": "string" },
+        "name": { "type": "string" },
+        "scope_type": {
+          "enum": ["municipality_default", "locality", "district", "street_group", "custom"]
+        },
+        "included_places_raw": { "type": ["string", "null"] },
+        "excluded_places_raw": { "type": ["string", "null"] },
+        "geometry_geojson": { "type": ["object", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "collectionRule": {
+      "type": "object",
+      "required": ["municipality_ref", "zone_ref", "user_type", "stream_name"],
+      "properties": {
+        "municipality_ref": { "type": "string" },
+        "zone_ref": { "type": "string" },
+        "user_type": { "enum": ["domestic", "non_domestic", "all"] },
+        "collection_method": {
+          "enum": ["street", "door_to_door", "drop_off_point", "mobile", "other"]
+        },
+        "stream_name": { "type": "string" },
+        "included_materials_raw": { "type": ["string", "null"] },
+        "container_type": { "type": ["string", "null"] },
+        "container_color": { "type": ["string", "null"] },
+        "access_credential": { "type": ["string", "null"] },
+        "presentation": {
+          "type": "object",
+          "properties": {
+            "mode": {
+              "enum": [
+                "loose",
+                "paper_bag",
+                "biodegradable_bag",
+                "compostable_bag",
+                "plastic_bag",
+                "bag_unspecified",
+                "closed_bag",
+                "container",
+                "bundle",
+                "mixed",
+                "unspecified"
+              ]
+            },
+            "max_volume_l": { "type": ["number", "null"], "minimum": 0 },
+            "instructions_raw": { "type": ["string", "null"] }
+          },
+          "additionalProperties": false
+        },
+        "schedule_raw": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "facility": {
+      "type": "object",
+      "required": ["name", "municipality_ref", "facility_type"],
+      "properties": {
+        "name": { "type": "string" },
+        "municipality_ref": { "type": "string" },
+        "facility_type": {
+          "enum": ["collection_centre", "ecological_station", "temporary_area", "other"]
+        },
+        "address_raw": { "type": ["string", "null"] },
+        "location": { "oneOf": [{ "$ref": "#/$defs/geoPoint" }, { "type": "null" }] },
+        "phone": { "type": ["string", "null"] },
+        "email": { "type": ["string", "null"], "format": "email" }
+      },
+      "additionalProperties": false
+    },
+    "facilityAccess": {
+      "type": "object",
+      "required": ["facility_ref", "municipality_ref", "user_type", "allowed"],
+      "properties": {
+        "facility_ref": { "type": "string" },
+        "municipality_ref": { "type": "string" },
+        "user_type": { "enum": ["domestic", "non_domestic", "all"] },
+        "allowed": { "type": "boolean" },
+        "requirements_raw": { "type": ["string", "null"] },
+        "booking_required": { "type": ["boolean", "null"] },
+        "information_urls": {
+          "type": "array",
+          "items": { "type": "string", "format": "uri" }
+        },
+        "contact_phone": { "type": ["string", "null"] },
+        "contact_email": { "type": ["string", "null"], "format": "email" }
+      },
+      "additionalProperties": false
+    },
+    "facilityAcceptance": {
+      "type": "object",
+      "required": ["facility_ref", "eer_code_raw", "description_raw"],
+      "properties": {
+        "facility_ref": { "type": "string" },
+        "eer_code_raw": { "type": "string", "pattern": "^[0-9 ]{6,8}\\*?$" },
+        "description_raw": { "type": "string" },
+        "operational_group": { "type": ["string", "null"] },
+        "user_type": { "enum": ["domestic", "non_domestic", "all", "unspecified"] },
+        "quantity_limit_raw": { "type": ["string", "null"] },
+        "notes_raw": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "openingPeriod": {
+      "type": "object",
+      "required": ["facility_ref", "weekly_intervals"],
+      "properties": {
+        "facility_ref": { "type": "string" },
+        "period_label": { "type": ["string", "null"] },
+        "start_month_day": { "type": ["string", "null"], "pattern": "^[0-9]{2}-[0-9]{2}$" },
+        "end_month_day": { "type": ["string", "null"], "pattern": "^[0-9]{2}-[0-9]{2}$" },
+        "weekly_intervals": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["weekday", "opens", "closes"],
+            "properties": {
+              "weekday": { "type": "integer", "minimum": 1, "maximum": 7 },
+              "opens": { "type": "string", "pattern": "^[0-2][0-9]:[0-5][0-9]$" },
+              "closes": { "type": "string", "pattern": "^[0-2][0-9]:[0-5][0-9]$" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "exceptions_raw": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "collectionSchedule": {
+      "type": "object",
+      "required": ["collection_rule_ref", "events"],
+      "properties": {
+        "collection_rule_ref": { "type": "string" },
+        "expose_from": { "type": ["string", "null"], "pattern": "^[0-2][0-9]:[0-5][0-9]$" },
+        "expose_by": { "type": ["string", "null"], "pattern": "^[0-2][0-9]:[0-5][0-9]$" },
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["kind"],
+            "properties": {
+              "kind": { "enum": ["weekly", "biweekly", "date_list", "on_request"] },
+              "weekday": { "type": ["integer", "null"], "minimum": 1, "maximum": 7 },
+              "dates": {
+                "type": "array",
+                "items": { "type": "string", "format": "date" }
+              },
+              "raw": { "type": ["string", "null"] }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "collectionPoint": {
+      "type": "object",
+      "required": ["municipality_ref", "accepted_streams", "address_raw"],
+      "properties": {
+        "municipality_ref": { "type": "string" },
+        "zone_ref": { "type": ["string", "null"] },
+        "name": { "type": ["string", "null"] },
+        "point_type": { "enum": ["special", "container_station", "mobile", "temporary"] },
+        "accepted_streams": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string" }
+        },
+        "address_raw": { "type": "string" },
+        "location": { "oneOf": [{ "$ref": "#/$defs/geoPoint" }, { "type": "null" }] },
+        "access_notes_raw": { "type": ["string", "null"] },
+        "access_credential": { "type": ["string", "null"] },
+        "opening_hours_raw": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "pickupService": {
+      "type": "object",
+      "required": ["municipality_ref", "user_type", "accepted_waste_raw"],
+      "properties": {
+        "municipality_ref": { "type": "string" },
+        "zone_ref": { "type": ["string", "null"] },
+        "user_type": { "enum": ["domestic", "non_domestic", "all"] },
+        "accepted_waste_raw": { "type": "string" },
+        "booking_methods": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["method", "value"],
+            "properties": {
+              "method": { "enum": ["web", "phone", "email", "app", "desk"] },
+              "value": { "type": "string" },
+              "hours_raw": { "type": ["string", "null"] }
+            },
+            "additionalProperties": false
+          }
+        },
+        "max_items": { "type": ["integer", "null"], "minimum": 1 },
+        "quantity_limit_raw": { "type": ["string", "null"] },
+        "placement_instructions_raw": { "type": ["string", "null"] },
+        "booking_required": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

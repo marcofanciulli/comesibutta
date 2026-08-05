@@ -1,0 +1,93 @@
+{
+  "errors": [],
+  "extraction": {
+    "municipalities": 4,
+    "municipality_reports": [
+      {
+        "istat_code": "049002",
+        "municipality": "Campiglia Marittima",
+        "pages_available": 3,
+        "records": 78,
+        "records_by_type": {
+          "collection_point": 5,
+          "collection_rule": 20,
+          "collection_schedule": 15,
+          "facility": 1,
+          "facility_acceptance": 28,
+          "facility_access": 2,
+          "opening_period": 2,
+          "pickup_service": 1,
+          "service_zone": 4
+        },
+        "warnings": []
+      },
+      {
+        "istat_code": "049006",
+        "municipality": "Castagneto Carducci",
+        "pages_available": 3,
+        "records": 68,
+        "records_by_type": {
+          "collection_point": 1,
+          "collection_rule": 17,
+          "collection_schedule": 12,
+          "facility": 1,
+          "facility_acceptance": 29,
+          "facility_access": 2,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 4
+        },
+        "warnings": []
+      },
+      {
+        "istat_code": "052032",
+        "municipality": "Siena",
+        "pages_available": 3,
+        "records": 126,
+        "records_by_type": {
+          "collection_point": 20,
+          "collection_rule": 39,
+          "collection_schedule": 30,
+          "facility": 1,
+          "facility_acceptance": 23,
+          "facility_access": 2,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 9
+        },
+        "warnings": []
+      },
+      {
+        "istat_code": "053014",
+        "municipality": "Manciano",
+        "pages_available": 3,
+        "records": 66,
+        "records_by_type": {
+          "collection_point": 27,
+          "collection_rule": 9,
+          "facility": 1,
+          "facility_acceptance": 23,
+          "facility_access": 2,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 2
+        },
+        "warnings": []
+      }
+    ],
+    "records": 338,
+    "warnings": 0
+  },
+  "municipalities_touched": 4,
+  "observed_at": "2026-08-05T14:00:00+02:00",
+  "pages_by_category": {
+    "collection": 4,
+    "facilities": 4,
+    "pickup": 4
+  },
+  "pages_by_status": {
+    "unchanged": 12
+  },
+  "pages_checked": 12,
+  "pages_remaining": 0
+}

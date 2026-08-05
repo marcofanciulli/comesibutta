@@ -1,0 +1,18 @@
+{
+  "istat_code": "052032",
+  "municipality": "Siena",
+  "pages_processed": 3,
+  "records": 126,
+  "records_by_type": {
+    "collection_point": 20,
+    "collection_rule": 39,
+    "collection_schedule": 30,
+    "facility": 1,
+    "facility_acceptance": 23,
+    "facility_access": 2,
+    "opening_period": 1,
+    "pickup_service": 1,
+    "service_zone": 9
+  },
+  "warnings": []
+}
