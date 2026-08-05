@@ -324,6 +324,21 @@ class HttpFetcher:
         self._robots = robots
         return robots
 
+    def validate(self, jobs: Iterable[CrawlJob]) -> dict[str, Any]:
+        jobs = list(jobs)
+        robots = self._load_robots()
+        blocked = [job.url for job in jobs if not robots.can_fetch(self.user_agent, job.url)]
+        if blocked:
+            raise PermissionError(
+                f"robots.txt blocks {len(blocked)} initial URL(s): {', '.join(blocked[:3])}"
+            )
+        return {
+            "robots_url": robots.url,
+            "initial_urls_checked": len(jobs),
+            "allowed": True,
+            "crawl_delay_seconds": self.delay_seconds,
+        }
+
     def __call__(self, job: CrawlJob, etag: str | None, last_modified: str | None) -> FetchResult:
         if not self._load_robots().can_fetch(self.user_agent, job.url):
             raise PermissionError(f"robots.txt does not allow {job.url}")

@@ -5,10 +5,12 @@ import json
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
+from unittest.mock import patch
 
 from dovelobutto.crawl import (
     CrawlState,
     FixtureFetcher,
+    HttpFetcher,
     SnapshotStore,
     SweepRunner,
     discover_municipality_jobs,
@@ -24,6 +26,24 @@ OBSERVED_AT = datetime.fromisoformat("2026-08-05T13:00:00+02:00")
 
 
 class SweepRunnerTest(unittest.TestCase):
+    def test_http_fetcher_preflights_all_initial_urls_against_robots(self) -> None:
+        jobs = [job for job in read_registry_jobs(REGISTRY) if job.slug == "manciano"]
+
+        class RobotsResponse:
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *args):
+                return False
+
+            def read(self):
+                return b"User-agent: *\nAllow: /comuni/\nDisallow: /area-riservata/\n"
+
+        with patch("dovelobutto.crawl.urlopen", return_value=RobotsResponse()):
+            result = HttpFetcher("DoveLoButtoData/0.1 (+mailto:test@example.com)").validate(jobs)
+        self.assertTrue(result["allowed"])
+        self.assertEqual(2, result["initial_urls_checked"])
+
     def test_batch_file_ignores_comments_and_blank_lines(self) -> None:
         with TemporaryDirectory() as temporary:
             path = Path(temporary) / "batch.txt"

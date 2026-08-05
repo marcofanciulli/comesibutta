@@ -28,7 +28,9 @@ reindirizzamenti vengono normalizzati per evitare visite duplicate.
 La scansione live:
 
 - richiede un user-agent identificabile con un contatto del progetto;
-- legge e applica `robots.txt` prima delle pagine comunali;
+- legge e applica `robots.txt` in un preflight unico prima delle pagine
+  comunali; se il file non e leggibile o una URL iniziale e vietata, non visita
+  alcuna pagina del lotto;
 - usa una sola richiesta alla volta;
 - attende almeno un secondo, o il crawl delay maggiore indicato dal sito;
 - invia `If-None-Match` e `If-Modified-Since` quando disponibili;

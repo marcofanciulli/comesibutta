@@ -124,6 +124,41 @@ def main(argv: list[str] | None = None) -> int:
             if args.fixture_root
             else HttpFetcher(args.user_agent, args.delay)
         )
+        access_preflight = None
+        if isinstance(fetcher, HttpFetcher):
+            try:
+                access_preflight = fetcher.validate(jobs)
+            except Exception as error:
+                report = {
+                    "observed_at": observed_at.isoformat(),
+                    "pages_checked": 0,
+                    "pages_remaining": len(jobs),
+                    "municipalities_touched": 0,
+                    "pages_by_status": {},
+                    "pages_by_category": {},
+                    "access_preflight": {
+                        "robots_url": "https://seitoscana.it/robots.txt",
+                        "allowed": False,
+                        "error": f"{type(error).__name__}: {error}",
+                    },
+                    "errors": [{
+                        "url": "https://seitoscana.it/robots.txt",
+                        "status": "access_preflight_failed",
+                        "error": f"{type(error).__name__}: {error}",
+                    }],
+                    "extraction": {
+                        "municipalities": 0,
+                        "records": 0,
+                        "warnings": 0,
+                        "municipality_reports": [],
+                    },
+                }
+                args.report.parent.mkdir(parents=True, exist_ok=True)
+                args.report.write_text(
+                    json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+                    encoding="utf-8",
+                )
+                return 1
         state = CrawlState(args.state)
         selected_istat = {job.istat_code for job in jobs}
         report = SweepRunner(SnapshotStore(args.snapshot_root), state).run(
@@ -132,6 +167,7 @@ def main(argv: list[str] | None = None) -> int:
             observed_at=observed_at,
             max_pages=args.max_pages,
         )
+        report["access_preflight"] = access_preflight
         report["extraction"] = _materialize_sweep(
             state, args.output_dir, observed_at, selected_istat
         )
