@@ -104,6 +104,19 @@ come invariate senza creare nuovi snapshot.
 
 ## Esploratore dati
 
+Il catalogo regionale viene prima generato dai rifiutari acquisiti:
+
+```sh
+PYTHONPATH=src python3 -m dovelobutto.cli build-waste-catalog \
+  --input-dir outputs/sei-toscana \
+  --input-dir outputs/ato-toscana-costa \
+  --registry outputs/sei-toscana-municipalities.jsonl \
+  --registry outputs/ato-toscana-costa-municipalities.jsonl \
+  --generated-at 2026-08-06T21:30:00+02:00 \
+  --output outputs/waste-catalog.json \
+  --report outputs/waste-catalog-report.json
+```
+
 L'esploratore e una console di verifica statica. Il pacchetto dati viene
 rigenerato esclusivamente dagli output acquisiti:
 
@@ -122,7 +135,8 @@ PYTHONPATH=src python3 -m dovelobutto.explorer \
   --batch-report outputs/ato-toscana-costa-geofor-report.json \
   --registry outputs/sei-toscana-municipalities.jsonl \
   --registry outputs/ato-toscana-costa-municipalities.jsonl \
-  --generated-at 2026-08-06T21:00:00+02:00 \
+  --catalog outputs/waste-catalog.json \
+  --generated-at 2026-08-06T21:30:00+02:00 \
   --output explorer/data.js
 ```
 
@@ -134,4 +148,7 @@ materializzata e 24.386 record. Per i 17 comuni REA comprende anche pagine di
 servizio, centri intercomunali, orari, accesso, ritiri e materiali accettati;
 gli EER non pubblicati dalla fonte sono indicati esplicitamente come tali. Per
 i 24 comuni GEOFOR attivi comprende 388 voci del rifiutario e cinque regole
-generali per comune, oltre a centri, orari e ritiri quando pubblicati.
+generali per comune, oltre a centri, orari e ritiri quando pubblicati. La vista
+"Catalogo regionale" espone 818 concetti trasversali, 331 dei quali hanno un
+EER concordante indicato dalle fonti; le destinazioni restano marcate come
+osservazioni locali.

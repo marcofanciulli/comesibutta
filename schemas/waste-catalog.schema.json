@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dovelobutto.example/schemas/waste-catalog.schema.json",
+  "title": "Canonical waste vocabulary",
+  "type": "object",
+  "required": ["version", "generated_at", "concepts"],
+  "properties": {
+    "version": { "const": 1 },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "concepts": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/wasteConcept" }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "wasteConcept": {
+      "type": "object",
+      "required": [
+        "concept_id", "preferred_label", "normalized_term", "terms", "language",
+        "eer", "source_categories", "local_destinations", "coverage",
+        "general_details", "evidence"
+      ],
+      "properties": {
+        "concept_id": { "type": "string", "pattern": "^waste:[a-z0-9-]+$" },
+        "preferred_label": { "type": "string", "minLength": 1 },
+        "normalized_term": { "type": "string", "minLength": 1 },
+        "terms": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "language": { "const": "it" },
+        "eer": {
+          "type": "object",
+          "required": ["status", "candidates"],
+          "properties": {
+            "status": { "enum": ["source_consensus", "conflict", "not_available"] },
+            "candidates": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["code", "source_labels", "hazardous", "source_urls"],
+                "properties": {
+                  "code": { "type": "string", "pattern": "^[0-9]{6}$" },
+                  "source_labels": { "type": "array", "items": { "type": "string" } },
+                  "hazardous": { "type": ["boolean", "null"] },
+                  "source_urls": { "type": "array", "items": { "type": "string", "format": "uri" } }
+                },
+                "additionalProperties": false
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "source_categories": { "type": "array", "items": { "type": "string" } },
+        "local_destinations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["label", "municipality_istats", "source_urls"],
+            "properties": {
+              "label": { "type": "string" },
+              "municipality_istats": { "type": "array", "items": { "type": "string", "pattern": "^[0-9]{6}$" } },
+              "source_urls": { "type": "array", "items": { "type": "string", "format": "uri" } }
+            },
+            "additionalProperties": false
+          }
+        },
+        "coverage": {
+          "type": "object",
+          "required": ["municipalities", "publishers", "source_assertions"],
+          "properties": {
+            "municipalities": { "type": "array", "items": { "type": "string", "pattern": "^[0-9]{6}$" } },
+            "publishers": { "type": "array", "items": { "type": "string" } },
+            "source_assertions": { "type": "integer", "minimum": 1 }
+          },
+          "additionalProperties": false
+        },
+        "general_details": {
+          "type": "object",
+          "required": ["material", "conditions", "environmental_note", "review_status"],
+          "properties": {
+            "material": { "type": ["string", "null"] },
+            "conditions": { "type": "array", "items": { "type": "string" } },
+            "environmental_note": { "type": ["string", "null"] },
+            "review_status": { "enum": ["automatic_source_identity", "reviewed"] }
+          },
+          "additionalProperties": false
+        },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "source_url", "publisher", "retrieved_at", "municipality_istats",
+              "destination_raw", "instructions_raw", "quote"
+            ],
+            "properties": {
+              "source_url": { "type": "string", "format": "uri" },
+              "publisher": { "type": ["string", "null"] },
+              "retrieved_at": { "type": "string", "format": "date-time" },
+              "municipality_istats": { "type": "array", "items": { "type": "string", "pattern": "^[0-9]{6}$" } },
+              "destination_raw": { "type": ["string", "null"] },
+              "instructions_raw": { "type": ["string", "null"] },
+              "quote": { "type": ["string", "null"] }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

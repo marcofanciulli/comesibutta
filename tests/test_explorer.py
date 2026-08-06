@@ -61,6 +61,9 @@ class ExplorerDatasetTest(unittest.TestCase):
             self.assertTrue(text.startswith("window.COMESIBUTTA_DATA = "))
             self.assertTrue(text.endswith(";\n"))
 
+    def test_includes_empty_catalog_when_not_supplied(self) -> None:
+        self.assertEqual([], self.dataset["catalog"]["concepts"])
+
     def test_includes_registry_only_ato_costa_municipalities(self) -> None:
         dataset = build_explorer_dataset(
             WORKSPACE / "outputs" / "sei-toscana",
@@ -110,9 +113,11 @@ class ExplorerDatasetTest(unittest.TestCase):
                 WORKSPACE / "outputs" / "ato-toscana-costa-municipalities.jsonl",
             ],
             datetime.fromisoformat("2026-08-06T16:00:00+02:00"),
+            WORKSPACE / "outputs" / "waste-catalog.json",
         )
         self.assertEqual(153, dataset["batch"]["municipalities_acquired"])
         self.assertEqual(24386, len(dataset["records"]))
+        self.assertEqual(818, len(dataset["catalog"]["concepts"]))
         capoliveri = next(item for item in dataset["municipalities"] if item["name"] == "Capoliveri")
         self.assertEqual(292, capoliveri["records_by_type"]["waste_lookup"])
         tetrapak = next(

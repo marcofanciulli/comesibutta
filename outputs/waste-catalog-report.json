@@ -1,0 +1,11 @@
+{
+  "concepts": 818,
+  "concepts_with_eer": 331,
+  "concepts_with_multiple_local_destinations": 135,
+  "concepts_without_eer": 487,
+  "eer_conflicts": 0,
+  "general_details_pending": 818,
+  "generated_at": "2026-08-06T21:30:00+02:00",
+  "source_assertions": 995,
+  "waste_lookup_records": 14711
+}

@@ -48,6 +48,9 @@ controllo. Il database consigliato e PostgreSQL con PostGIS.
 
 L'app legge esclusivamente viste/API derivate dal livello canonico. Il
 contratto principale e descritto in `schemas/disposal-answer.schema.json`.
+Il primo catalogo canonico materializzato segue inoltre
+`schemas/waste-catalog.schema.json`; metodo e limiti sono descritti in
+`docs/waste-catalog.md`.
 
 ## 3. Entita canoniche
 

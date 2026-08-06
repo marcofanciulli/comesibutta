@@ -10,6 +10,7 @@
   const views = [
     ["overview", "Panoramica"],
     ["waste", "Rifiutario"],
+    ["catalog", "Catalogo regionale"],
     ["facilities", "Centri"],
     ["rules", "Regole"],
     ["points", "Punti"],
@@ -110,6 +111,11 @@
     return records(type).filter(record => matches(record));
   }
 
+  function catalogConcepts() {
+    const query = state.query.toLocaleLowerCase("it");
+    return data.catalog.concepts.filter(concept => !query || JSON.stringify(concept).toLocaleLowerCase("it").includes(query));
+  }
+
   function countForView(view) {
     const mapping = {
       waste: ["waste_lookup"],
@@ -118,6 +124,7 @@
       points: ["collection_point"],
       pickup: ["pickup_service"],
     };
+    if (view === "catalog") return data.catalog.concepts.length;
     if (view === "records") return records().length;
     if (view === "overview") return null;
     return records().filter(record => mapping[view].includes(record.record_type)).length;
@@ -234,6 +241,17 @@
     return `${sectionHeading("Rifiutario", "Nomi quotidiani e destinazioni pubblicate dal gestore per questo comune.")}${items.length ? `<div class="table-wrap"><table class="data-table"><thead><tr><th>Rifiuto</th><th>Destinazione indicata</th><th></th></tr></thead><tbody>${items.map(item => `<tr><td><span class="row-title">${escapeHtml(item.payload.term)}</span></td><td>${item.payload.destination_raw ? escapeHtml(item.payload.destination_raw) : `<span class="chip review">Destinazione non pubblicata</span>`}${item.payload.instructions_raw ? `<span class="row-subtitle">${escapeHtml(item.payload.instructions_raw)}</span>` : ""}</td><td><button class="detail-button" data-record="${item.record_id}" type="button">Dettagli</button></td></tr>`).join("")}</tbody></table></div>` : `<div class="empty">Il rifiutario non è ancora stato acquisito o nessuna voce corrisponde alla ricerca.</div>`}`;
   }
 
+  function renderCatalog() {
+    const concepts = catalogConcepts();
+    return `${sectionHeading("Catalogo regionale dei rifiuti", "Vocabolario costruito dalle fonti dei gestori. Identità ed EER sono separati dalle destinazioni, che restano valide soltanto nei territori indicati dalle rispettive fonti.")}
+      <div class="notice info"><strong>Catalogo conoscitivo, non regola di conferimento</strong>Un EER indicato dalla fonte descrive la classificazione osservata. Per sapere dove conferire il rifiuto occorre sempre applicare la regola del comune e della zona selezionati.</div>
+      ${concepts.length ? `<div class="table-wrap"><table class="data-table"><thead><tr><th>Rifiuto</th><th>EER indicato dalla fonte</th><th>Categorie sorgente</th><th>Destinazioni locali osservate</th><th>Copertura</th><th></th></tr></thead><tbody>${concepts.map(concept => {
+        const eer = concept.eer.candidates;
+        const destinations = concept.local_destinations;
+        return `<tr><td><span class="row-title">${escapeHtml(concept.preferred_label)}</span>${concept.terms.length > 1 ? `<span class="row-subtitle">Varianti: ${escapeHtml(concept.terms.join(", "))}</span>` : ""}</td><td>${concept.eer.status === "source_consensus" ? eer.map(item => `<span class="eer-code">${escapeHtml(item.code)}</span>${item.hazardous ? `<span class="chip hazard">Pericoloso</span>` : ""}<span class="row-subtitle">${escapeHtml(item.source_labels.join("; "))}</span>`).join("") : concept.eer.status === "conflict" ? `<span class="chip review">Codici discordanti</span>` : `<span class="muted">Non disponibile</span>`}</td><td>${concept.source_categories.length ? concept.source_categories.map(item => `<span class="chip">${escapeHtml(item)}</span>`).join(" ") : `<span class="muted">Non pubblicate</span>`}</td><td>${destinations.length ? destinations.slice(0, 3).map(item => `<span class="row-title">${escapeHtml(item.label)}</span><span class="row-subtitle">${item.municipality_istats.length} comuni</span>`).join("") + (destinations.length > 3 ? `<span class="row-subtitle">e altre ${destinations.length - 3}</span>` : "") : `<span class="muted">Non pubblicate</span>`}</td><td>${concept.coverage.municipalities.length} comuni<span class="row-subtitle">${concept.coverage.source_assertions} indicazioni distinte</span></td><td><button class="detail-button" data-concept="${escapeHtml(concept.concept_id)}" type="button">Dettagli</button></td></tr>`;
+      }).join("")}</tbody></table></div>` : `<div class="empty">Nessun concetto corrisponde alla ricerca.</div>`}`;
+  }
+
   function scheduleText(rule, schedules) {
     const schedule = schedules.find(item => item.payload.collection_rule_ref === rule.natural_key);
     if (!schedule) return rule.payload.schedule_raw || "Non specificato";
@@ -271,14 +289,15 @@
   function render() {
     const current = municipality();
     renderScopeFilters();
-    elements.pageTitle.textContent = current.name;
-    elements.provinceHeading.textContent = `${current.ato_name} · Provincia di ${current.province_name}`;
+    elements.pageTitle.textContent = state.view === "catalog" ? "Catalogo regionale" : current.name;
+    elements.provinceHeading.textContent = state.view === "catalog" ? "Vocabolario trasversale verificabile" : `${current.ato_name} · Provincia di ${current.province_name}`;
+    elements.globalSearch.placeholder = state.view === "catalog" ? "Cerca rifiuto, EER, categoria, destinazione" : "Cerca EER, materiale, zona, indirizzo";
     renderMunicipalities(elements.municipalitySearch.value);
     renderTabs();
-    const renderers = { overview: renderOverview, waste: renderWasteLookup, facilities: renderFacilities, rules: renderRules, points: renderPoints, pickup: renderPickup, records: renderRecords };
+    const renderers = { overview: renderOverview, waste: renderWasteLookup, catalog: renderCatalog, facilities: renderFacilities, rules: renderRules, points: renderPoints, pickup: renderPickup, records: renderRecords };
     elements.content.innerHTML = renderers[state.view]();
-    const matching = filtered().length;
-    elements.searchCount.textContent = state.query ? `${matching} record totali` : `${current.records} record`;
+    const matching = state.view === "catalog" ? catalogConcepts().length : filtered().length;
+    elements.searchCount.textContent = state.view === "catalog" ? `${matching} concetti` : state.query ? `${matching} record totali` : `${current.records} record`;
     history.replaceState(null, "", `#ato=${encodeURIComponent(state.ato)}&provincia=${state.province}&comune=${current.slug}&vista=${state.view}${state.query ? `&q=${encodeURIComponent(state.query)}` : ""}`);
   }
 
@@ -287,6 +306,16 @@
     if (!record) return;
     elements.dialogTitle.textContent = typeLabels[record.record_type] || record.record_type;
     elements.dialogContent.innerHTML = `<div class="coverage-row"><span>Affidabilità</span><strong>${escapeHtml(record.confidence)}</strong></div><div class="coverage-row"><span>Osservato il</span><strong>${escapeHtml(new Date(record.observed_at).toLocaleString("it-IT"))}</strong></div><div class="coverage-row"><span>Fonte</span><strong><a href="${escapeHtml(record.source.url)}" target="_blank" rel="noreferrer">Apri ${escapeHtml(record.source.publisher || "fonte")}</a></strong></div><section class="subsection"><h3 class="subsection-title">Evidenza</h3><p class="evidence">${escapeHtml(record.source.evidence.quote || "Citazione non disponibile")}</p></section><section class="subsection"><h3 class="subsection-title">Dati originali</h3><pre class="json-view">${escapeHtml(JSON.stringify(record, null, 2))}</pre></section>`;
+    elements.dialog.showModal();
+  }
+
+  function showConcept(conceptId) {
+    const concept = data.catalog.concepts.find(item => item.concept_id === conceptId);
+    if (!concept) return;
+    const municipalityNames = new Map(data.municipalities.map(item => [item.istat_code, item.name]));
+    const eer = concept.eer.candidates;
+    elements.dialogTitle.textContent = concept.preferred_label;
+    elements.dialogContent.innerHTML = `<div class="coverage-row"><span>Identificatore</span><strong>${escapeHtml(concept.concept_id)}</strong></div><div class="coverage-row"><span>Comuni coperti dalle fonti</span><strong>${concept.coverage.municipalities.length}</strong></div><div class="coverage-row"><span>EER</span><strong>${concept.eer.status === "source_consensus" ? escapeHtml(eer.map(item => item.code).join(", ")) : concept.eer.status === "conflict" ? "Discordante" : "Non disponibile"}</strong></div><section class="subsection"><h3 class="subsection-title">Dettagli generali</h3><div class="notice"><strong>Arricchimento da completare</strong>Materiale, condizioni, esempi ragionati e impatto ambientale non sono ancora stati verificati per questo concetto.</div></section><section class="subsection"><h3 class="subsection-title">Destinazioni pubblicate localmente</h3>${concept.local_destinations.map(item => `<div class="coverage-row"><span>${escapeHtml(item.label)}</span><strong>${escapeHtml(item.municipality_istats.map(code => municipalityNames.get(code) || code).join(", "))}</strong></div>`).join("") || `<p class="muted">Nessuna destinazione pubblicata.</p>`}</section><section class="subsection"><h3 class="subsection-title">Provenienza</h3>${concept.evidence.map(item => `<div class="evidence"><strong>${escapeHtml(item.publisher || "Fonte")}</strong><br><a href="${escapeHtml(item.source_url)}" target="_blank" rel="noreferrer">Apri la fonte</a><br>${escapeHtml(item.quote || "Citazione non disponibile")}</div>`).join("")}</section><section class="subsection"><h3 class="subsection-title">Dati canonici</h3><pre class="json-view">${escapeHtml(JSON.stringify(concept, null, 2))}</pre></section>`;
     elements.dialog.showModal();
   }
 
@@ -328,6 +357,8 @@
   elements.content.addEventListener("click", event => {
     const button = event.target.closest("[data-record]");
     if (button) showRecord(button.dataset.record);
+    const conceptButton = event.target.closest("[data-concept]");
+    if (conceptButton) showConcept(conceptButton.dataset.concept);
   });
   elements.municipalitySearch.addEventListener("input", event => renderMunicipalities(event.target.value));
   elements.globalSearch.addEventListener("input", event => {

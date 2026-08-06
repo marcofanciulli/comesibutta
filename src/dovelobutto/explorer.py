@@ -27,6 +27,7 @@ def build_explorer_dataset(
     batch_report_paths: Path | list[Path],
     registry_path: Path | list[Path],
     generated_at: datetime,
+    catalog_path: Path | None = None,
 ) -> dict[str, Any]:
     registry = {}
     registry_paths = [registry_path] if isinstance(registry_path, Path) else registry_path
@@ -89,6 +90,10 @@ def build_explorer_dataset(
     acquired_municipalities = sum(
         item["acquisition_status"] == "acquired" for item in municipalities
     )
+    catalog = (
+        json.loads(catalog_path.read_text(encoding="utf-8"))
+        if catalog_path is not None else {"version": 1, "generated_at": generated_at.isoformat(), "concepts": []}
+    )
     return {
         "version": 1,
         "generated_at": generated_at.isoformat(),
@@ -116,6 +121,7 @@ def build_explorer_dataset(
         ],
         "municipalities": municipalities,
         "records": all_records,
+        "catalog": catalog,
     }
 
 
@@ -135,6 +141,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--batch-report", type=Path, action="append", required=True)
     parser.add_argument("--registry", type=Path, action="append", required=True)
     parser.add_argument("--generated-at", required=True)
+    parser.add_argument("--catalog", type=Path)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args(argv)
     dataset = build_explorer_dataset(
@@ -142,6 +149,7 @@ def main(argv: list[str] | None = None) -> int:
         args.batch_report,
         args.registry,
         datetime.fromisoformat(args.generated_at),
+        args.catalog,
     )
     write_explorer_dataset(args.output, dataset)
     return 0

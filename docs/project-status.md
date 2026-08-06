@@ -75,7 +75,7 @@ Comuni pilota gia acquisiti:
 
 Verifiche completate al 6 agosto 2026:
 
-- 51 test automatici superati;
+- 59 test automatici superati;
 - compilazione dei moduli Python riuscita;
 - validita sintattica JSON verificata per schemi, record e rapporti;
 - relazione Sassetta-Castagneto risolta sullo stesso identificatore stabile;
@@ -143,6 +143,16 @@ Esploratore dati:
 - vista rifiutario per le coppie nome quotidiano-destinazione;
 - ricerca trasversale, provenienza, evidenze e record JSON consultabili;
 - anomalie e pagine equivalenti esposte senza alterare i dati acquisiti.
+
+Catalogo canonico iniziale:
+
+- 14.711 record di rifiutario ridotti a 995 indicazioni sorgente distinte;
+- 818 concetti consultabili nell'esploratore;
+- 331 concetti con EER concordante indicato dalla fonte e zero conflitti sui
+  termini coincidenti;
+- 487 concetti senza EER e 135 con piu destinazioni locali osservate;
+- materiale, condizioni, sinonimi semantici e note ambientali restano
+  esplicitamente da verificare, senza riempimenti automatici.
 
 Avvio ATO Toscana Costa:
 

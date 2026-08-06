@@ -23,6 +23,7 @@ from .crawl import (
     SweepRunner,
     read_registry_jobs,
 )
+from .catalog import build_catalog_from_paths, write_catalog
 from .ato_costa import (
     MunicipalityContext as CostaMunicipalityContext,
     extract_aamps_waste_lookup,
@@ -202,6 +203,15 @@ def build_parser() -> argparse.ArgumentParser:
     aamps.add_argument("--retrieved-at", required=True)
     aamps.add_argument("--output-dir", type=Path, required=True)
     aamps.add_argument("--report", type=Path, required=True)
+    catalog = subparsers.add_parser(
+        "build-waste-catalog",
+        help="Build the canonical waste vocabulary from acquired waste dictionaries",
+    )
+    catalog.add_argument("--input-dir", type=Path, action="append", required=True)
+    catalog.add_argument("--registry", type=Path, action="append", required=True)
+    catalog.add_argument("--generated-at", required=True)
+    catalog.add_argument("--output", type=Path, required=True)
+    catalog.add_argument("--report", type=Path, required=True)
     sweep = subparsers.add_parser(
         "sweep-sei",
         help="Run a resumable and rate-limited sweep from the SEI municipality registry",
@@ -226,6 +236,19 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
+    if args.command == "build-waste-catalog":
+        catalog, report = build_catalog_from_paths(
+            args.input_dir,
+            args.registry,
+            datetime.fromisoformat(args.generated_at),
+        )
+        write_catalog(args.output, catalog)
+        args.report.parent.mkdir(parents=True, exist_ok=True)
+        args.report.write_text(
+            json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+        return 0 if catalog["concepts"] else 1
     if args.command == "fetch-geofor":
         municipalities = [
             json.loads(line)["payload"] for line in args.registry.read_text(encoding="utf-8").splitlines()
