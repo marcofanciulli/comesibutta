@@ -1,0 +1,16 @@
+{
+  "excluded_municipalities": [
+    "Firenzuola",
+    "Marradi",
+    "Palazzuolo sul Senio"
+  ],
+  "municipalities": 65,
+  "municipalities_by_province": {
+    "FI": 38,
+    "PO": 7,
+    "PT": 20
+  },
+  "operator": "plures-alia",
+  "source_url": "https://www.atotoscanacentro.it/servizi/menu/dinamica.aspx?ID=16915",
+  "warnings": []
+}

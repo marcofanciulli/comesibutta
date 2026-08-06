@@ -35,12 +35,14 @@ from .html import clean_text, parse_html
 from .records import write_jsonl
 from .rea import crawl_rea_services, materialize_rea_services
 from .geofor import crawl_geofor, materialize_geofor
+from .alia import fetch_alia_bundle, materialize_alia
 from .local_operators import (
     OPERATOR_CONFIGS,
     crawl_local_operator,
     materialize_local_operator,
 )
 from .registry import (
+    extract_ato_centro_municipality_registry,
     extract_ato_costa_municipality_registry,
     extract_sei_municipality_registry,
     read_istat_municipalities,
@@ -130,6 +132,14 @@ def build_parser() -> argparse.ArgumentParser:
     costa_registry.add_argument("--retrieved-at", required=True)
     costa_registry.add_argument("--output", type=Path, required=True)
     costa_registry.add_argument("--report", type=Path, required=True)
+    centro_registry = subparsers.add_parser(
+        "build-ato-centro-registry",
+        help="Build the official ATO Centro municipality registry from ISTAT",
+    )
+    centro_registry.add_argument("--istat-csv", type=Path, required=True)
+    centro_registry.add_argument("--retrieved-at", required=True)
+    centro_registry.add_argument("--output", type=Path, required=True)
+    centro_registry.add_argument("--report", type=Path, required=True)
     esa = subparsers.add_parser(
         "materialize-esa",
         help="Extract the shared ESA collection and facility pages for Elba municipalities",
@@ -200,6 +210,25 @@ def build_parser() -> argparse.ArgumentParser:
     geofor_materialize.add_argument("--retrieved-at", required=True)
     geofor_materialize.add_argument("--output-dir", type=Path, required=True)
     geofor_materialize.add_argument("--report", type=Path, required=True)
+    alia_fetch = subparsers.add_parser(
+        "fetch-alia",
+        help="Fetch the public AliaEstra waste dictionary, centres and mobile points",
+    )
+    alia_fetch.add_argument("--catalog", type=Path, required=True)
+    alia_fetch.add_argument("--bundle", type=Path, required=True)
+    alia_fetch.add_argument("--report", type=Path, required=True)
+    alia_fetch.add_argument("--observed-at", required=True)
+    alia_fetch.add_argument("--user-agent", required=True)
+    alia_fetch.add_argument("--delay", type=float, default=1.0)
+    alia_materialize = subparsers.add_parser(
+        "materialize-alia",
+        help="Materialize normalized ATO Centro records from an AliaEstra bundle",
+    )
+    alia_materialize.add_argument("--registry", type=Path, required=True)
+    alia_materialize.add_argument("--bundle", type=Path, required=True)
+    alia_materialize.add_argument("--retrieved-at", required=True)
+    alia_materialize.add_argument("--output-dir", type=Path, required=True)
+    alia_materialize.add_argument("--report", type=Path, required=True)
     local_fetch = subparsers.add_parser(
         "fetch-local-operator",
         help="Fetch the declared public sources for one ATO Costa local operator",
@@ -277,6 +306,44 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
+    if args.command == "fetch-alia":
+        bundle = fetch_alia_bundle(
+            json.loads(args.catalog.read_text(encoding="utf-8")),
+            args.bundle,
+            datetime.fromisoformat(args.observed_at),
+            args.user_agent,
+            args.delay,
+        )
+        report = {
+            "observed_at": bundle["observed_at"],
+            "access_preflight": bundle["access"],
+            "errors": bundle["errors"],
+            "coverage": {
+                "autocomplete_queries": len(bundle["junker"]["queries"]),
+                "waste_terms": len(bundle["junker"]["details"]),
+                "centres": len(bundle["centres"]),
+                "eco_trucks": len(bundle["eco_trucks"]),
+                "sitecore_details": len(bundle["centre_details"]),
+            },
+        }
+        args.report.parent.mkdir(parents=True, exist_ok=True)
+        args.report.write_text(json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        return 0 if not bundle["errors"] and bundle["junker"]["details"] else 1
+    if args.command == "materialize-alia":
+        municipalities = [
+            json.loads(line)["payload"]
+            for line in args.registry.read_text(encoding="utf-8").splitlines()
+            if line.strip()
+        ]
+        report = materialize_alia(
+            municipalities,
+            json.loads(args.bundle.read_text(encoding="utf-8")),
+            datetime.fromisoformat(args.retrieved_at),
+            args.output_dir,
+        )
+        args.report.parent.mkdir(parents=True, exist_ok=True)
+        args.report.write_text(json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        return 0 if len(municipalities) == 65 and not report["errors"] else 1
     if args.command in {"fetch-local-operator", "materialize-local-operator"}:
         municipalities = [
             json.loads(line)["payload"]
@@ -800,6 +867,26 @@ def main(argv: list[str] | None = None) -> int:
             "warnings": warnings,
         }, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
         return 0 if len(records) == 100 and not warnings else 1
+    if args.command == "build-ato-centro-registry":
+        records, warnings = extract_ato_centro_municipality_registry(
+            retrieved_at=datetime.fromisoformat(args.retrieved_at),
+            istat_by_name=read_istat_municipalities(args.istat_csv),
+        )
+        write_jsonl(args.output, records)
+        province_counts: dict[str, int] = {}
+        for record in records:
+            province = record["payload"]["province_code"]
+            province_counts[province] = province_counts.get(province, 0) + 1
+        args.report.parent.mkdir(parents=True, exist_ok=True)
+        args.report.write_text(json.dumps({
+            "source_url": records[0]["source"]["url"] if records else None,
+            "municipalities": len(records),
+            "municipalities_by_province": province_counts,
+            "operator": "plures-alia",
+            "excluded_municipalities": sorted(["Firenzuola", "Marradi", "Palazzuolo sul Senio"]),
+            "warnings": warnings,
+        }, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        return 0 if len(records) == 65 and not warnings else 1
     if args.command == "sweep-sei":
         observed_at = datetime.fromisoformat(args.observed_at)
         jobs = read_registry_jobs(args.registry)

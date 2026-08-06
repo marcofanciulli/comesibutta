@@ -9,14 +9,18 @@ from typing import Any
 
 PROVINCE_NAMES = {
     "AR": "Arezzo",
+    "FI": "Firenze",
     "GR": "Grosseto",
     "LI": "Livorno",
     "LU": "Lucca",
     "MS": "Massa-Carrara",
     "PI": "Pisa",
+    "PO": "Prato",
+    "PT": "Pistoia",
     "SI": "Siena",
 }
 ATO_NAMES = {
+    "ato-toscana-centro": "ATO Toscana Centro",
     "ato-toscana-costa": "ATO Toscana Costa",
     "ato-toscana-sud": "ATO Toscana Sud",
 }
@@ -50,6 +54,7 @@ def build_explorer_dataset(
         })
     municipalities = []
     all_records = []
+    shared_waste_atos: set[str] = set()
     for istat_code, source in sorted(registry.items()):
         report = report_by_istat.get(istat_code)
         acquisition_path = next((
@@ -84,7 +89,18 @@ def build_explorer_dataset(
             "warnings": report["warnings"] if report else [],
             "equivalent_pages": report["equivalent_pages"] if report else [],
         })
-        all_records.extend({**record, "municipality_istat": istat_code} for record in records)
+        local_records = records
+        if source["ato_ref"] == "ato-toscana-centro":
+            shared_waste = [record for record in records if record["record_type"] == "waste_lookup"]
+            local_records = [record for record in records if record["record_type"] != "waste_lookup"]
+            if source["ato_ref"] not in shared_waste_atos:
+                all_records.extend({
+                    **record,
+                    "municipality_istat": istat_code,
+                    "shared_ato_ref": source["ato_ref"],
+                } for record in shared_waste)
+                shared_waste_atos.add(source["ato_ref"])
+        all_records.extend({**record, "municipality_istat": istat_code} for record in local_records)
 
     municipalities.sort(key=lambda item: item["name"])
     observed_at = max(report["observed_at"] for report in batch_reports)
@@ -118,7 +134,7 @@ def build_explorer_dataset(
             "observed_at": observed_at,
             "pages_checked": sum(report["pages_checked"] for report in batch_reports),
             "pages_remaining": sum(report["pages_remaining"] for report in batch_reports),
-            "records": len(all_records),
+            "records": sum(item["records"] for item in municipalities),
             "municipalities_registered": len(municipalities),
             "municipalities_acquired": acquired_municipalities,
             "warnings": sum(len(item["warnings"]) for item in municipalities),

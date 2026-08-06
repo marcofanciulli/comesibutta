@@ -1,0 +1,1395 @@
+{
+  "access_preflight": {
+    "bff_robots": {
+      "available": false,
+      "basis": "public_read_only_interface",
+      "status": 404,
+      "url": "https://bff.aliaserviziambientali.it/robots.txt"
+    },
+    "website_robots": {
+      "allowed": true,
+      "available": true,
+      "blocked_urls": [],
+      "url": "https://aliaestra.it/robots.txt"
+    }
+  },
+  "coverage": {
+    "autocomplete_queries": 502,
+    "centres": 34,
+    "eco_trucks": 135,
+    "method": "three-character prefixes derived from the canonical Tuscany catalog",
+    "sitecore_details": 167,
+    "waste_terms": 1722
+  },
+  "errors": [],
+  "extraction": {
+    "municipalities": 65,
+    "municipality_reports": [
+      {
+        "equivalent_pages": [],
+        "istat_code": "048001",
+        "municipality": "Bagno a Ripoli",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1775,
+        "records_by_type": {
+          "collection_point": 3,
+          "collection_rule": 20,
+          "facility": 1,
+          "facility_acceptance": 25,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048054",
+        "municipality": "Barberino Tavarnelle",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1779,
+        "records_by_type": {
+          "collection_point": 8,
+          "collection_rule": 20,
+          "facility": 1,
+          "facility_acceptance": 24,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048002",
+        "municipality": "Barberino di Mugello",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1775,
+        "records_by_type": {
+          "collection_point": 3,
+          "collection_rule": 20,
+          "facility": 1,
+          "facility_acceptance": 25,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048004",
+        "municipality": "Borgo San Lorenzo",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1773,
+        "records_by_type": {
+          "collection_point": 1,
+          "collection_rule": 20,
+          "facility": 1,
+          "facility_acceptance": 25,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048005",
+        "municipality": "Calenzano",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1774,
+        "records_by_type": {
+          "collection_point": 2,
+          "collection_rule": 20,
+          "facility": 1,
+          "facility_acceptance": 25,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048006",
+        "municipality": "Campi Bisenzio",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1745,
+        "records_by_type": {
+          "collection_point": 1,
+          "collection_rule": 20,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": [
+          {
+            "code": "facility_not_in_municipality",
+            "detail": "Nessun centro geolocalizzato nel territorio comunale nella fonte AliaEstra",
+            "url": "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-porto"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048008",
+        "municipality": "Capraia e Limite",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1744,
+        "records_by_type": {
+          "collection_rule": 20,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": [
+          {
+            "code": "facility_not_in_municipality",
+            "detail": "Nessun centro geolocalizzato nel territorio comunale nella fonte AliaEstra",
+            "url": "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-porto"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048010",
+        "municipality": "Castelfiorentino",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1772,
+        "records_by_type": {
+          "collection_rule": 20,
+          "facility": 1,
+          "facility_acceptance": 25,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048011",
+        "municipality": "Cerreto Guidi",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1744,
+        "records_by_type": {
+          "collection_rule": 20,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": [
+          {
+            "code": "facility_not_in_municipality",
+            "detail": "Nessun centro geolocalizzato nel territorio comunale nella fonte AliaEstra",
+            "url": "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-porto"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048012",
+        "municipality": "Certaldo",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1772,
+        "records_by_type": {
+          "collection_rule": 20,
+          "facility": 1,
+          "facility_acceptance": 25,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048013",
+        "municipality": "Dicomano",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1744,
+        "records_by_type": {
+          "collection_rule": 20,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": [
+          {
+            "code": "facility_not_in_municipality",
+            "detail": "Nessun centro geolocalizzato nel territorio comunale nella fonte AliaEstra",
+            "url": "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-porto"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048014",
+        "municipality": "Empoli",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1772,
+        "records_by_type": {
+          "collection_rule": 20,
+          "facility": 1,
+          "facility_acceptance": 25,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048015",
+        "municipality": "Fiesole",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1749,
+        "records_by_type": {
+          "collection_point": 5,
+          "collection_rule": 20,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": [
+          {
+            "code": "facility_not_in_municipality",
+            "detail": "Nessun centro geolocalizzato nel territorio comunale nella fonte AliaEstra",
+            "url": "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-porto"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048052",
+        "municipality": "Figline e Incisa Valdarno",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1803,
+        "records_by_type": {
+          "collection_point": 3,
+          "collection_rule": 20,
+          "facility": 2,
+          "facility_acceptance": 50,
+          "facility_access": 2,
+          "opening_period": 2,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048017",
+        "municipality": "Firenze",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1813,
+        "records_by_type": {
+          "collection_point": 18,
+          "collection_rule": 20,
+          "facility": 2,
+          "facility_acceptance": 45,
+          "facility_access": 2,
+          "opening_period": 2,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048019",
+        "municipality": "Fucecchio",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1772,
+        "records_by_type": {
+          "collection_rule": 20,
+          "facility": 1,
+          "facility_acceptance": 25,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048020",
+        "municipality": "Gambassi Terme",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1744,
+        "records_by_type": {
+          "collection_rule": 20,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": [
+          {
+            "code": "facility_not_in_municipality",
+            "detail": "Nessun centro geolocalizzato nel territorio comunale nella fonte AliaEstra",
+            "url": "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-porto"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048021",
+        "municipality": "Greve in Chianti",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1774,
+        "records_by_type": {
+          "collection_point": 4,
+          "collection_rule": 20,
+          "facility": 1,
+          "facility_acceptance": 23,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048022",
+        "municipality": "Impruneta",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1746,
+        "records_by_type": {
+          "collection_point": 2,
+          "collection_rule": 20,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": [
+          {
+            "code": "facility_not_in_municipality",
+            "detail": "Nessun centro geolocalizzato nel territorio comunale nella fonte AliaEstra",
+            "url": "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-porto"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048024",
+        "municipality": "Lastra a Signa",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1747,
+        "records_by_type": {
+          "collection_point": 3,
+          "collection_rule": 20,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": [
+          {
+            "code": "facility_not_in_municipality",
+            "detail": "Nessun centro geolocalizzato nel territorio comunale nella fonte AliaEstra",
+            "url": "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-porto"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048025",
+        "municipality": "Londa",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1744,
+        "records_by_type": {
+          "collection_rule": 20,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": [
+          {
+            "code": "facility_not_in_municipality",
+            "detail": "Nessun centro geolocalizzato nel territorio comunale nella fonte AliaEstra",
+            "url": "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-porto"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048027",
+        "municipality": "Montaione",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1744,
+        "records_by_type": {
+          "collection_rule": 20,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": [
+          {
+            "code": "facility_not_in_municipality",
+            "detail": "Nessun centro geolocalizzato nel territorio comunale nella fonte AliaEstra",
+            "url": "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-porto"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048028",
+        "municipality": "Montelupo Fiorentino",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1772,
+        "records_by_type": {
+          "collection_rule": 20,
+          "facility": 1,
+          "facility_acceptance": 25,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048030",
+        "municipality": "Montespertoli",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1745,
+        "records_by_type": {
+          "collection_point": 1,
+          "collection_rule": 20,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": [
+          {
+            "code": "facility_not_in_municipality",
+            "detail": "Nessun centro geolocalizzato nel territorio comunale nella fonte AliaEstra",
+            "url": "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-porto"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048032",
+        "municipality": "Pelago",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1744,
+        "records_by_type": {
+          "collection_rule": 20,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": [
+          {
+            "code": "facility_not_in_municipality",
+            "detail": "Nessun centro geolocalizzato nel territorio comunale nella fonte AliaEstra",
+            "url": "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-porto"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048033",
+        "municipality": "Pontassieve",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1744,
+        "records_by_type": {
+          "collection_rule": 20,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": [
+          {
+            "code": "facility_not_in_municipality",
+            "detail": "Nessun centro geolocalizzato nel territorio comunale nella fonte AliaEstra",
+            "url": "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-porto"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048035",
+        "municipality": "Reggello",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1772,
+        "records_by_type": {
+          "collection_rule": 20,
+          "facility": 1,
+          "facility_acceptance": 25,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048036",
+        "municipality": "Rignano sull'Arno",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1745,
+        "records_by_type": {
+          "collection_point": 1,
+          "collection_rule": 20,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": [
+          {
+            "code": "facility_not_in_municipality",
+            "detail": "Nessun centro geolocalizzato nel territorio comunale nella fonte AliaEstra",
+            "url": "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-porto"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048037",
+        "municipality": "Rufina",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1775,
+        "records_by_type": {
+          "collection_rule": 20,
+          "facility": 2,
+          "facility_acceptance": 25,
+          "facility_access": 2,
+          "opening_period": 2,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": [
+          {
+            "code": "collection_point_detail_missing",
+            "detail": "Scheda Sitecore non pubblicata per gli identificativi: 173",
+            "url": "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-porto"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048038",
+        "municipality": "San Casciano in Val di Pesa",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1775,
+        "records_by_type": {
+          "collection_point": 3,
+          "collection_rule": 20,
+          "facility": 1,
+          "facility_acceptance": 25,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048039",
+        "municipality": "San Godenzo",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1744,
+        "records_by_type": {
+          "collection_rule": 20,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": [
+          {
+            "code": "facility_not_in_municipality",
+            "detail": "Nessun centro geolocalizzato nel territorio comunale nella fonte AliaEstra",
+            "url": "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-porto"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048041",
+        "municipality": "Scandicci",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1778,
+        "records_by_type": {
+          "collection_point": 9,
+          "collection_rule": 20,
+          "facility": 1,
+          "facility_acceptance": 22,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048053",
+        "municipality": "Scarperia e San Piero",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1744,
+        "records_by_type": {
+          "collection_rule": 20,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": [
+          {
+            "code": "facility_not_in_municipality",
+            "detail": "Nessun centro geolocalizzato nel territorio comunale nella fonte AliaEstra",
+            "url": "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-porto"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048043",
+        "municipality": "Sesto Fiorentino",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1773,
+        "records_by_type": {
+          "collection_point": 1,
+          "collection_rule": 20,
+          "facility": 1,
+          "facility_acceptance": 25,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048044",
+        "municipality": "Signa",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1744,
+        "records_by_type": {
+          "collection_rule": 20,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": [
+          {
+            "code": "facility_not_in_municipality",
+            "detail": "Nessun centro geolocalizzato nel territorio comunale nella fonte AliaEstra",
+            "url": "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-porto"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048046",
+        "municipality": "Vaglia",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1752,
+        "records_by_type": {
+          "collection_point": 8,
+          "collection_rule": 20,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": [
+          {
+            "code": "facility_not_in_municipality",
+            "detail": "Nessun centro geolocalizzato nel territorio comunale nella fonte AliaEstra",
+            "url": "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-porto"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048049",
+        "municipality": "Vicchio",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1744,
+        "records_by_type": {
+          "collection_rule": 20,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": [
+          {
+            "code": "facility_not_in_municipality",
+            "detail": "Nessun centro geolocalizzato nel territorio comunale nella fonte AliaEstra",
+            "url": "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-porto"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048050",
+        "municipality": "Vinci",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1772,
+        "records_by_type": {
+          "collection_rule": 20,
+          "facility": 1,
+          "facility_acceptance": 25,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "100001",
+        "municipality": "Cantagallo",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1744,
+        "records_by_type": {
+          "collection_rule": 20,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": [
+          {
+            "code": "facility_not_in_municipality",
+            "detail": "Nessun centro geolocalizzato nel territorio comunale nella fonte AliaEstra",
+            "url": "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-porto"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "100002",
+        "municipality": "Carmignano",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1744,
+        "records_by_type": {
+          "collection_rule": 20,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": [
+          {
+            "code": "facility_not_in_municipality",
+            "detail": "Nessun centro geolocalizzato nel territorio comunale nella fonte AliaEstra",
+            "url": "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-porto"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "100003",
+        "municipality": "Montemurlo",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1771,
+        "records_by_type": {
+          "collection_rule": 20,
+          "facility": 1,
+          "facility_acceptance": 24,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "100004",
+        "municipality": "Poggio a Caiano",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1745,
+        "records_by_type": {
+          "collection_point": 1,
+          "collection_rule": 20,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": [
+          {
+            "code": "facility_not_in_municipality",
+            "detail": "Nessun centro geolocalizzato nel territorio comunale nella fonte AliaEstra",
+            "url": "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-porto"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "100005",
+        "municipality": "Prato",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1779,
+        "records_by_type": {
+          "collection_point": 10,
+          "collection_rule": 20,
+          "facility": 1,
+          "facility_acceptance": 22,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "100006",
+        "municipality": "Vaiano",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1771,
+        "records_by_type": {
+          "collection_rule": 20,
+          "facility": 1,
+          "facility_acceptance": 24,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "100007",
+        "municipality": "Vernio",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1745,
+        "records_by_type": {
+          "collection_point": 1,
+          "collection_rule": 20,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": [
+          {
+            "code": "facility_not_in_municipality",
+            "detail": "Nessun centro geolocalizzato nel territorio comunale nella fonte AliaEstra",
+            "url": "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-porto"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "047023",
+        "municipality": "Abetone Cutigliano",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1761,
+        "records_by_type": {
+          "collection_rule": 20,
+          "facility": 1,
+          "facility_acceptance": 14,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "047002",
+        "municipality": "Agliana",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1745,
+        "records_by_type": {
+          "collection_point": 1,
+          "collection_rule": 20,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": [
+          {
+            "code": "facility_not_in_municipality",
+            "detail": "Nessun centro geolocalizzato nel territorio comunale nella fonte AliaEstra",
+            "url": "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-porto"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "047003",
+        "municipality": "Buggiano",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1750,
+        "records_by_type": {
+          "collection_point": 6,
+          "collection_rule": 20,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": [
+          {
+            "code": "facility_not_in_municipality",
+            "detail": "Nessun centro geolocalizzato nel territorio comunale nella fonte AliaEstra",
+            "url": "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-porto"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "047022",
+        "municipality": "Chiesina Uzzanese",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1748,
+        "records_by_type": {
+          "collection_point": 4,
+          "collection_rule": 20,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": [
+          {
+            "code": "facility_not_in_municipality",
+            "detail": "Nessun centro geolocalizzato nel territorio comunale nella fonte AliaEstra",
+            "url": "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-porto"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "047005",
+        "municipality": "Lamporecchio",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1748,
+        "records_by_type": {
+          "collection_point": 4,
+          "collection_rule": 20,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": [
+          {
+            "code": "facility_not_in_municipality",
+            "detail": "Nessun centro geolocalizzato nel territorio comunale nella fonte AliaEstra",
+            "url": "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-porto"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "047006",
+        "municipality": "Larciano",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1746,
+        "records_by_type": {
+          "collection_point": 2,
+          "collection_rule": 20,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": [
+          {
+            "code": "facility_not_in_municipality",
+            "detail": "Nessun centro geolocalizzato nel territorio comunale nella fonte AliaEstra",
+            "url": "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-porto"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "047007",
+        "municipality": "Marliana",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1762,
+        "records_by_type": {
+          "collection_rule": 20,
+          "facility": 1,
+          "facility_acceptance": 15,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "047008",
+        "municipality": "Massa e Cozzile",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1748,
+        "records_by_type": {
+          "collection_point": 4,
+          "collection_rule": 20,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": [
+          {
+            "code": "facility_not_in_municipality",
+            "detail": "Nessun centro geolocalizzato nel territorio comunale nella fonte AliaEstra",
+            "url": "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-porto"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "047009",
+        "municipality": "Monsummano Terme",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1770,
+        "records_by_type": {
+          "collection_rule": 20,
+          "facility": 1,
+          "facility_acceptance": 23,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "047010",
+        "municipality": "Montale",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1771,
+        "records_by_type": {
+          "collection_point": 1,
+          "collection_rule": 20,
+          "facility": 1,
+          "facility_acceptance": 23,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "047011",
+        "municipality": "Montecatini-Terme",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1745,
+        "records_by_type": {
+          "collection_point": 1,
+          "collection_rule": 20,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": [
+          {
+            "code": "facility_not_in_municipality",
+            "detail": "Nessun centro geolocalizzato nel territorio comunale nella fonte AliaEstra",
+            "url": "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-porto"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "047012",
+        "municipality": "Pescia",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1771,
+        "records_by_type": {
+          "collection_rule": 20,
+          "facility": 1,
+          "facility_acceptance": 24,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "047013",
+        "municipality": "Pieve a Nievole",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1747,
+        "records_by_type": {
+          "collection_point": 3,
+          "collection_rule": 20,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": [
+          {
+            "code": "facility_not_in_municipality",
+            "detail": "Nessun centro geolocalizzato nel territorio comunale nella fonte AliaEstra",
+            "url": "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-porto"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "047014",
+        "municipality": "Pistoia",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1771,
+        "records_by_type": {
+          "collection_point": 5,
+          "collection_rule": 20,
+          "facility": 1,
+          "facility_acceptance": 19,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "047016",
+        "municipality": "Ponte Buggianese",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1744,
+        "records_by_type": {
+          "collection_rule": 20,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": [
+          {
+            "code": "facility_not_in_municipality",
+            "detail": "Nessun centro geolocalizzato nel territorio comunale nella fonte AliaEstra",
+            "url": "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-porto"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "047017",
+        "municipality": "Quarrata",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1772,
+        "records_by_type": {
+          "collection_point": 1,
+          "collection_rule": 20,
+          "facility": 1,
+          "facility_acceptance": 24,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "047018",
+        "municipality": "Sambuca Pistoiese",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1744,
+        "records_by_type": {
+          "collection_rule": 20,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": [
+          {
+            "code": "facility_not_in_municipality",
+            "detail": "Nessun centro geolocalizzato nel territorio comunale nella fonte AliaEstra",
+            "url": "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-porto"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "047024",
+        "municipality": "San Marcello Piteglio",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1788,
+        "records_by_type": {
+          "collection_point": 9,
+          "collection_rule": 20,
+          "facility": 2,
+          "facility_acceptance": 29,
+          "facility_access": 2,
+          "opening_period": 2,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": [
+          {
+            "code": "collection_point_detail_missing",
+            "detail": "Scheda Sitecore non pubblicata per gli identificativi: 51359",
+            "url": "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-porto"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "047020",
+        "municipality": "Serravalle Pistoiese",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1744,
+        "records_by_type": {
+          "collection_rule": 20,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": [
+          {
+            "code": "facility_not_in_municipality",
+            "detail": "Nessun centro geolocalizzato nel territorio comunale nella fonte AliaEstra",
+            "url": "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-porto"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "047021",
+        "municipality": "Uzzano",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1750,
+        "records_by_type": {
+          "collection_point": 6,
+          "collection_rule": 20,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 1722
+        },
+        "warnings": [
+          {
+            "code": "facility_not_in_municipality",
+            "detail": "Nessun centro geolocalizzato nel territorio comunale nella fonte AliaEstra",
+            "url": "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-porto"
+          }
+        ]
+      }
+    ],
+    "records": 114352,
+    "warnings": 37
+  },
+  "municipalities_touched": 65,
+  "observed_at": "2026-08-06T23:00:00+02:00",
+  "pages_by_category": {
+    "facilities": 1,
+    "pickup": 1,
+    "waste_lookup": 1
+  },
+  "pages_by_status": {
+    "snapshot": 3
+  },
+  "pages_checked": 3,
+  "pages_remaining": 0
+}

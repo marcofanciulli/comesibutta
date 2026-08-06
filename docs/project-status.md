@@ -1,7 +1,7 @@
 # Stato del progetto
 
 Ultimo aggiornamento: 6 agosto 2026
-Fase: ATO Toscana Sud e ATO Toscana Costa acquisite
+Fase: ATO Toscana Sud, Costa e Centro acquisite
 
 Questo documento e il punto di ripartenza del progetto. Va aggiornato al termine
 di ogni fase sostanziale, insieme ai dataset e ai rapporti prodotti.
@@ -42,7 +42,8 @@ La risposta deve poter indicare:
 8. Le coordinate pubblicate dalla fonte hanno priorita sulla geocodifica; il
    metodo e l'accuratezza devono sempre essere espliciti.
 9. ATO Toscana Sud e completa; ATO Toscana Costa usa adattatori distinti per
-   ciascuna societa operativa locale.
+   ciascuna societa operativa locale; ATO Toscana Centro usa le fonti pubbliche
+   AliaEstra.
 10. Comune, provincia, ATO, gestore unico e societa operativa locale sono
     dimensioni separate. Il codice ISTAT identifica il comune.
 11. Una voce di rifiutario senza destinazione viene conservata come irrisolta,
@@ -87,7 +88,7 @@ Comuni pilota gia acquisiti:
 
 Verifiche completate al 6 agosto 2026:
 
-- 70 test automatici superati;
+- 76 test automatici superati;
 - compilazione dei moduli Python riuscita;
 - validita sintattica JSON verificata per schemi, record e rapporti;
 - relazione Sassetta-Castagneto risolta sullo stesso identificatore stabile;
@@ -148,21 +149,21 @@ Completamento ATO Toscana Sud:
 
 Esploratore dati:
 
-- pacchetto statico generato in modo riproducibile da 36.943 record;
+- pacchetto statico generato in modo riproducibile da 151.295 record logici;
 - filtri gerarchici per ATO e provincia, seguiti dall'elenco dei comuni;
-- 204 comuni censiti e 204 con almeno una fonte materializzata;
+- 269 comuni censiti e 269 con almeno una fonte materializzata;
 - navigazione per comune e viste dedicate a centri, EER, regole, punti e ritiro;
 - vista rifiutario per le coppie nome quotidiano-destinazione;
 - ricerca trasversale, provenienza, evidenze e record JSON consultabili;
 - anomalie e pagine equivalenti esposte senza alterare i dati acquisiti.
 
-Catalogo canonico iniziale:
+Catalogo canonico corrente:
 
-- 26.412 record di rifiutario ridotti a 2.158 indicazioni sorgente distinte;
-- 1.311 concetti consultabili nell'esploratore;
+- 138.342 record di rifiutario ridotti a 3.880 indicazioni sorgente distinte;
+- 2.884 concetti consultabili nell'esploratore;
 - 331 concetti con EER concordante indicato dalla fonte e zero conflitti sui
   termini coincidenti;
-- 980 concetti senza EER e 330 con piu destinazioni locali osservate;
+- 2.553 concetti senza EER e 411 con piu destinazioni locali osservate;
 - materiale, condizioni, sinonimi semantici e note ambientali restano
   esplicitamente da verificare, senza riempimenti automatici.
 
@@ -221,6 +222,29 @@ Completamento ATO Toscana Costa:
   l'esploratore mostra ora anche servizi, centri intercomunali, orari, accesso
   e materiali accettati REA.
 
+Completamento ATO Toscana Centro:
+
+- costruito il registro ufficiale di 65 comuni: 38 FI, 7 PO e 20 PT;
+- esclusi correttamente Firenzuola, Marradi e Palazzuolo sul Senio, che non
+  appartengono al perimetro di ATO Toscana Centro;
+- verificato `robots.txt` di AliaEstra: nessuna URL pubblica usata dalla
+  pipeline e bloccata; il sottodominio API non pubblica un proprio file e
+  questa assenza resta dichiarata nel rapporto;
+- acquisiti 502 prefissi derivati dal catalogo toscano e 1.722 dettagli
+  Junker/AliaEstra, con checkpoint riprendibile e zero errori finali;
+- acquisiti 34 ecocentri, 135 ecofurgoni e 169 schede Sitecore con orari,
+  materiali e collegamenti alle regole di accesso;
+- materializzati 114.352 record: 111.930 voci del rifiutario, 1.300 regole,
+  755 materiali accettati, 34 centri, 135 punti mobili e 65 servizi di ritiro;
+- i materiali degli ecocentri privi di EER restano
+  `unmapped_description`; nessun codice e stato inventato;
+- 35 comuni senza un ecocentro nel proprio territorio e due punti privi di
+  scheda di dettaglio sono esposti come avvisi, non come dati mancanti
+  silenziosi;
+- l'esploratore deduplica soltanto la copia browser del rifiutario condiviso:
+  41.087 record fisici e circa 50 MB, mantenendo 151.295 record logici e i
+  file comunali completi.
+
 ## Limiti e questioni aperte
 
 - Le pagine di ritiro ingombranti non sono collegate dall'indice generale e
@@ -235,12 +259,14 @@ Completamento ATO Toscana Costa:
 
 ## Prossimi passi
 
-1. Estrarre e normalizzare i calendari contenuti nei 73 PDF REA acquisiti.
-2. Acquisire i dettagli dei centri ESA e cercare una guida AAMPS piu recente.
-3. Modellare l'accesso intergestore Montignoso-ERSU e approfondire i centri non
+1. Acquisire i quattro comuni toscani esterni alle tre ATO regionali: Sestino,
+   Firenzuola, Marradi e Palazzuolo sul Senio.
+2. Estrarre e normalizzare i calendari contenuti nei 73 PDF REA acquisiti.
+3. Acquisire i dettagli dei centri ESA e cercare una guida AAMPS piu recente.
+4. Modellare l'accesso intergestore Montignoso-ERSU e approfondire i centri non
    pubblicati o non attribuiti esplicitamente dalle fonti.
-4. Definire il livello canonico e il vocabolario unificato dei nomi quotidiani.
-5. Prototipare manifest, generazione dei delta e applicazione transazionale su
+5. Definire il livello canonico e il vocabolario unificato dei nomi quotidiani.
+6. Prototipare manifest, generazione dei delta e applicazione transazionale su
    una base SQLite locale.
 
 ## Regola di continuita

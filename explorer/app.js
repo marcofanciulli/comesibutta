@@ -10,7 +10,7 @@
   const views = [
     ["overview", "Panoramica"],
     ["waste", "Rifiutario"],
-    ["catalog", "Catalogo regionale"],
+    ["catalog", "Catalogo"],
     ["eer", "Registro EER"],
     ["facilities", "Centri"],
     ["rules", "Regole"],
@@ -88,7 +88,11 @@
   }
 
   function records(type = null) {
-    return data.records.filter(record => record.municipality_istat === state.municipality && (!type || record.record_type === type));
+    const atoRef = municipality().ato_ref;
+    return data.records.filter(record =>
+      (record.municipality_istat === state.municipality || record.shared_ato_ref === atoRef)
+      && (!type || record.record_type === type)
+    );
   }
 
   function scopedMunicipalities() {

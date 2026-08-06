@@ -4,9 +4,10 @@ Sistema informativo per rispondere alla domanda "Dove lo butto?" nei comuni
 della Toscana. Il progetto collega i nomi quotidiani dei rifiuti alle regole
 territoriali di raccolta, ai centri di conferimento e ai codici EER/CER.
 
-Il perimetro censito comprende i 104 comuni di ATO Toscana Sud e i 100 comuni
-di ATO Toscana Costa. Il repository contiene il modello dati, gli estrattori,
-gli snapshot di test, i dataset verificati e un esploratore locale.
+Il perimetro censito comprende i 104 comuni di ATO Toscana Sud, i 100 comuni
+di ATO Toscana Costa e i 65 comuni di ATO Toscana Centro. Il repository
+contiene il modello dati, gli estrattori, gli snapshot di test, i dataset
+verificati e un esploratore locale.
 
 ## Contenuti
 
@@ -18,6 +19,8 @@ gli snapshot di test, i dataset verificati e un esploratore locale.
   dei comuni SEI Toscana.
 - `docs/ato-costa-operations.md`: registro, fonti e acquisizioni multi-gestore
   di ATO Toscana Costa.
+- `docs/ato-centro-operations.md`: perimetro e acquisizione delle fonti
+  pubbliche AliaEstra per ATO Toscana Centro.
 - `docs/source-access-policy.md`: verifica delle condizioni pubblicate e
   regole obbligatorie di accesso alle fonti.
 - `docs/data-synchronization.md`: revisioni, snapshot e aggiornamenti atomici
@@ -99,6 +102,10 @@ riconciliata con ISTAT. Conserva separatamente gestore unico RetiAmbiente,
 societa operativa locale e stato del subentro. Le istruzioni sono in
 `docs/ato-costa-operations.md`.
 
+Il registro ATO Toscana Centro comprende i 65 comuni serviti da Plures Alia,
+riconciliati con ISTAT. Le istruzioni e i limiti di copertura del rifiutario
+sono documentati in `docs/ato-centro-operations.md`.
+
 ## Scansione controllata
 
 Il comando `sweep-sei` costruisce una coda dai 104 comuni, rispetta
@@ -118,8 +125,10 @@ Il catalogo regionale viene prima generato dai rifiutari acquisiti:
 PYTHONPATH=src python3 -m dovelobutto.cli build-waste-catalog \
   --input-dir outputs/sei-toscana \
   --input-dir outputs/ato-toscana-costa \
+  --input-dir outputs/ato-toscana-centro \
   --registry outputs/sei-toscana-municipalities.jsonl \
   --registry outputs/ato-toscana-costa-municipalities.jsonl \
+  --registry outputs/ato-toscana-centro-municipalities.jsonl \
   --eer-register outputs/eer-register.json \
   --generated-at 2026-08-06T23:00:00+02:00 \
   --output outputs/waste-catalog.json \
@@ -133,6 +142,7 @@ rigenerato esclusivamente dagli output acquisiti:
 PYTHONPATH=src python3 -m dovelobutto.explorer \
   --input-dir outputs/sei-toscana \
   --input-dir outputs/ato-toscana-costa \
+  --input-dir outputs/ato-toscana-centro \
   --batch-report outputs/sei-toscana-grosseto-01-report.json \
   --batch-report outputs/sei-toscana-grosseto-02-report.json \
   --batch-report outputs/sei-toscana-arezzo-report.json \
@@ -150,8 +160,10 @@ PYTHONPATH=src python3 -m dovelobutto.explorer \
   --batch-report outputs/ato-toscana-costa-retiambiente-carrara-report.json \
   --batch-report outputs/ato-toscana-costa-sea-ambiente-report.json \
   --batch-report outputs/ato-toscana-costa-sistema-ambiente-report.json \
+  --batch-report outputs/ato-toscana-centro-report.json \
   --registry outputs/sei-toscana-municipalities.jsonl \
   --registry outputs/ato-toscana-costa-municipalities.jsonl \
+  --registry outputs/ato-toscana-centro-municipalities.jsonl \
   --catalog outputs/waste-catalog.json \
   --eer-register outputs/eer-register.json \
   --generated-at 2026-08-06T23:00:00+02:00 \
@@ -161,12 +173,17 @@ PYTHONPATH=src python3 -m dovelobutto.explorer \
 L'interfaccia permette di filtrare per ATO e provincia, distinguere comuni
 censiti da comuni acquisiti, esplorare centri e regole, consultare il
 rifiutario, cercare materiali e codici EER e risalire alla fonte di ogni fatto.
-Il pacchetto corrente contiene 204 comuni censiti, tutti con almeno una fonte
-materializzata, e 36.943 record. Per i 17 comuni REA comprende anche pagine di
+Il pacchetto corrente contiene 269 comuni censiti, tutti con almeno una fonte
+materializzata, e 151.295 record logici. Per i 17 comuni REA comprende anche pagine di
 servizio, centri intercomunali, orari, accesso, ritiri e materiali accettati;
 gli EER non pubblicati dalla fonte sono indicati esplicitamente come tali. Per
 i 25 comuni GEOFOR comprende 388 voci del rifiutario e cinque regole
 generali per comune, oltre a centri, orari e ritiri quando pubblicati. La vista
-"Catalogo regionale" espone 1.311 concetti trasversali, 331 dei quali hanno un
+"Catalogo" espone 2.884 concetti trasversali, 331 dei quali hanno un
 EER concordante indicato dalle fonti; le destinazioni restano marcate come
 osservazioni locali.
+
+Per ATO Toscana Centro l'esploratore conserva una sola copia delle 1.722 voci
+AliaEstra condivise, continuando ad applicarle a ciascuno dei 65 comuni. Il
+bundle contiene quindi 41.087 record fisici e pesa circa 50 MB, mentre i file
+di acquisizione comunali restano completi e indipendenti.

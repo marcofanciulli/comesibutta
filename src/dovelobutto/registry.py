@@ -17,6 +17,13 @@ ATO_COSTA_SOURCE_URL = (
     "includes/download.php?id=3140"
 )
 
+ATO_CENTRO_SOURCE_URL = "https://www.atotoscanacentro.it/servizi/menu/dinamica.aspx?ID=16915"
+ATO_CENTRO_SCOPE_STATEMENT = (
+    "ATO Toscana Centro comprende i Comuni delle province di Firenze, Prato e "
+    "Pistoia, esclusi Marradi, Palazzuolo sul Senio e Firenzuola."
+)
+ATO_CENTRO_EXCLUDED = {"Marradi", "Palazzuolo sul Senio", "Firenzuola"}
+
 LOCAL_OPERATORS = {
     "aamps": ("AAMPS S.p.A.", "https://www.aamps.livorno.it/"),
     "ascit": ("ASCIT S.p.A.", "https://www.ascit.it/"),
@@ -108,6 +115,74 @@ def read_istat_municipalities(path: Path) -> dict[str, dict[str, str]]:
     with path.open(encoding="utf-8", newline="") as handle:
         rows = list(csv.DictReader(handle))
     return {_name_key(row["name"]): row for row in rows}
+
+
+def extract_ato_centro_municipality_registry(
+    retrieved_at: datetime,
+    istat_by_name: dict[str, dict[str, str]],
+) -> tuple[list[dict[str, Any]], list[dict[str, str]]]:
+    source = SourceDocument(
+        ATO_CENTRO_SOURCE_URL,
+        retrieved_at,
+        ATO_CENTRO_SCOPE_STATEMENT,
+        publisher="ATO Toscana Centro",
+        parser="ato_centro_istat_scope",
+        parser_version="0.1.0",
+    )
+    municipalities = sorted(
+        (
+            municipality for municipality in istat_by_name.values()
+            if municipality["province_code"] in {"FI", "PO", "PT"}
+            and municipality["name"] not in ATO_CENTRO_EXCLUDED
+        ),
+        key=lambda municipality: (municipality["province_code"], municipality["name"]),
+    )
+    records = []
+    for municipality in municipalities:
+        slug = _slugify(municipality["name"])
+        homepage = f"https://aliaestra.it/ambiente/comuni/{slug}"
+        records.append(make_record(
+            record_type="municipality",
+            natural_key=f"istat:{municipality['istat_code']}",
+            payload={
+                "istat_code": municipality["istat_code"],
+                "name": municipality["name"],
+                "province_code": municipality["province_code"],
+                "region_code": municipality["region_code"],
+                "ato_ref": "ato-toscana-centro",
+                "operator_ref": "plures-alia",
+                "local_operator_ref": "plures-alia",
+                "local_operator_name": "Plures Alia",
+                "local_operator_url": "https://aliaestra.it/ambiente",
+                "assignment_status": "active",
+                "assignment_note": None,
+                "source_slug": slug,
+                "homepage_url": homepage,
+                "service_urls": {
+                    "collection": [
+                        homepage,
+                        "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/sistemi-di-raccolta/",
+                        "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/kit-raccolta",
+                    ],
+                    "facilities": [
+                        "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-porto",
+                    ],
+                    "pickup": ["https://aliaestra.it/ambiente/ritiri-ondemand"],
+                    "street_cleaning": [],
+                    "other": ["https://aliaestra.it/ambiente"],
+                },
+            },
+            source=source,
+            evidence_selector="main",
+            evidence_quote=f"{ATO_CENTRO_SCOPE_STATEMENT} Comune incluso: {municipality['name']}.",
+        ))
+    warnings = []
+    if len(municipalities) != 65:
+        warnings.append({
+            "code": "unexpected_municipality_count",
+            "detail": f"Attesi 65 comuni, trovati {len(municipalities)}",
+        })
+    return records, warnings
 
 
 def extract_sei_municipality_registry(

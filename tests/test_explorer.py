@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime
+import json
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
@@ -118,7 +119,7 @@ class ExplorerDatasetTest(unittest.TestCase):
         )
         self.assertEqual(154, dataset["batch"]["municipalities_acquired"])
         self.assertEqual(24780, len(dataset["records"]))
-        self.assertEqual(1311, len(dataset["catalog"]["concepts"]))
+        self.assertEqual(2884, len(dataset["catalog"]["concepts"]))
         self.assertEqual(880, len(dataset["eer_register"]["entries"]))
         self.assertEqual("2026-12-09", dataset["eer_register"]["valid_from"])
         capoliveri = next(item for item in dataset["municipalities"] if item["name"] == "Capoliveri")
@@ -145,6 +146,38 @@ class ExplorerDatasetTest(unittest.TestCase):
         self.assertEqual("acquired", peccioli["acquisition_status"])
         self.assertEqual(388, peccioli["records_by_type"]["waste_lookup"])
         self.assertEqual("pending_subentry", peccioli["assignment_status"])
+
+    def test_deduplicates_shared_ato_centro_waste_only_in_browser_bundle(self) -> None:
+        with TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            registry = root / "registry.jsonl"
+            registry.write_text("\n".join(json.dumps({"payload": {
+                "name": name, "istat_code": istat, "source_slug": slug,
+                "ato_ref": "ato-toscana-centro", "province_code": "FI",
+                "operator_ref": "plures-alia", "local_operator_ref": "plures-alia",
+            }}) for name, istat, slug in (("Uno", "048901", "uno"), ("Due", "048902", "due"))) + "\n", encoding="utf-8")
+            for slug, istat in (("uno", "048901"), ("due", "048902")):
+                records = [
+                    {"record_type": "waste_lookup", "record_id": f"waste-{istat}", "payload": {"term": "Bottiglia"}},
+                    {"record_type": "service_zone", "record_id": f"zone-{istat}", "payload": {"municipality_ref": f"istat:{istat}"}},
+                ]
+                (root / f"{slug}-acquisition.jsonl").write_text("\n".join(json.dumps(record) for record in records) + "\n", encoding="utf-8")
+            report = root / "report.json"
+            report.write_text(json.dumps({
+                "observed_at": "2026-08-06T23:00:00+02:00", "pages_checked": 1,
+                "pages_remaining": 0, "errors": [], "extraction": {
+                    "municipality_reports": [
+                        {"istat_code": istat, "records_by_type": {"waste_lookup": 1, "service_zone": 1}, "pages_available": 1, "pages_materialized": 1, "warnings": [], "equivalent_pages": []}
+                        for istat in ("048901", "048902")
+                    ]
+                },
+            }), encoding="utf-8")
+            dataset = build_explorer_dataset(root, report, registry, datetime.fromisoformat("2026-08-06T23:30:00+02:00"))
+        self.assertEqual(4, dataset["batch"]["records"])
+        self.assertEqual(3, len(dataset["records"]))
+        shared = [record for record in dataset["records"] if record.get("shared_ato_ref")]
+        self.assertEqual(1, len(shared))
+        self.assertEqual("ato-toscana-centro", shared[0]["shared_ato_ref"])
 
 
 if __name__ == "__main__":

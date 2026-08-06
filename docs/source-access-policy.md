@@ -111,3 +111,27 @@ applicato questi vincoli pubblicati:
 Le passate verificate non hanno saltato alcuna URL per `robots.txt`. Ogni URL
 bloccata o non disponibile resta comunque nel manifesto e nel rapporto; non
 viene eliminata silenziosamente dal dataset.
+
+## Verifica ATO Toscana Centro
+
+Verifica operativa eseguita il 6 agosto 2026 sul portale AliaEstra e sulla
+pagina ufficiale del perimetro ATO Toscana Centro.
+
+`https://aliaestra.it/robots.txt` consente i percorsi informativi pubblici
+all'agente identificato del progetto. Le pagine collegate nel footer riguardano
+privacy e cookie; non e stato individuato un divieto esplicito di scraping o
+estrazione dei contenuti pubblici. Il sottodominio tecnico
+`bff.aliaserviziambientali.it` non pubblica un file `robots.txt` e risponde
+`404`: questa assenza e registrata nel bundle e nel rapporto.
+
+La pipeline interroga soltanto gli endpoint di lettura usati direttamente
+dalle pagine pubbliche "Dove lo butto?" e "Dove lo porto?". Non accede
+all'area cliente, non invia prenotazioni, non raccoglie dati personali e non
+usa endpoint amministrativi. Le richieste sono seriali, intervallate e
+identificate; il bundle progressivo permette di non ripetere quelle gia
+riuscite.
+
+L'assenza di un `robots.txt` separato sul sottodominio API non viene presentata
+come un'autorizzazione generale: vale soltanto come descrizione tecnica delle
+interfacce pubbliche osservate. Un cambiamento del portale, delle condizioni o
+del comportamento degli endpoint richiede una nuova verifica.

@@ -1,0 +1,25 @@
+{
+  "access_preflight": {
+    "bff_robots": {
+      "available": false,
+      "basis": "public_read_only_interface",
+      "status": 404,
+      "url": "https://bff.aliaserviziambientali.it/robots.txt"
+    },
+    "website_robots": {
+      "allowed": true,
+      "available": true,
+      "blocked_urls": [],
+      "url": "https://aliaestra.it/robots.txt"
+    }
+  },
+  "coverage": {
+    "autocomplete_queries": 502,
+    "centres": 34,
+    "eco_trucks": 135,
+    "sitecore_details": 169,
+    "waste_terms": 1722
+  },
+  "errors": [],
+  "observed_at": "2026-08-06T23:00:00+02:00"
+}
