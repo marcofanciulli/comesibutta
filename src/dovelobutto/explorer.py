@@ -28,6 +28,7 @@ def build_explorer_dataset(
     registry_path: Path | list[Path],
     generated_at: datetime,
     catalog_path: Path | None = None,
+    eer_register_path: Path | None = None,
 ) -> dict[str, Any]:
     registry = {}
     registry_paths = [registry_path] if isinstance(registry_path, Path) else registry_path
@@ -92,7 +93,23 @@ def build_explorer_dataset(
     )
     catalog = (
         json.loads(catalog_path.read_text(encoding="utf-8"))
-        if catalog_path is not None else {"version": 1, "generated_at": generated_at.isoformat(), "concepts": []}
+        if catalog_path is not None else {"version": 2, "generated_at": generated_at.isoformat(), "eer_register": None, "concepts": []}
+    )
+    eer_register = (
+        json.loads(eer_register_path.read_text(encoding="utf-8"))
+        if eer_register_path is not None else {
+            "version": 1,
+            "register_id": None,
+            "generated_at": generated_at.isoformat(),
+            "valid_from": None,
+            "status_at_generation": "unavailable",
+            "sources": [],
+            "changes": {"added_codes": [], "modified_codes": [], "retired_codes": []},
+            "chapters": [],
+            "subchapters": [],
+            "entries": [],
+            "retired_entries": [],
+        }
     )
     return {
         "version": 1,
@@ -122,6 +139,7 @@ def build_explorer_dataset(
         "municipalities": municipalities,
         "records": all_records,
         "catalog": catalog,
+        "eer_register": eer_register,
     }
 
 
@@ -142,6 +160,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--registry", type=Path, action="append", required=True)
     parser.add_argument("--generated-at", required=True)
     parser.add_argument("--catalog", type=Path)
+    parser.add_argument("--eer-register", type=Path)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args(argv)
     dataset = build_explorer_dataset(
@@ -150,6 +169,7 @@ def main(argv: list[str] | None = None) -> int:
         args.registry,
         datetime.fromisoformat(args.generated_at),
         args.catalog,
+        args.eer_register,
     )
     write_explorer_dataset(args.output, dataset)
     return 0

@@ -235,12 +235,16 @@
           {
             "code": "200110",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "Abbigliamento",
+            "register_status": "active_in_target",
             "source_labels": [
               "Abbigliamento"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -449,12 +453,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -670,12 +678,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -876,12 +888,16 @@
           {
             "code": "200113",
             "hazardous": true,
+            "official_hazardous": true,
+            "official_title": "Solventi",
+            "register_status": "active_in_target",
             "source_labels": [
               "Solventi"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -1011,12 +1027,16 @@
           {
             "code": "200113",
             "hazardous": true,
+            "official_hazardous": true,
+            "official_title": "Solventi",
+            "register_status": "active_in_target",
             "source_labels": [
               "Solventi"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -1217,12 +1237,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -1352,12 +1376,16 @@
           {
             "code": "200127",
             "hazardous": true,
+            "official_hazardous": true,
+            "official_title": "vernici, inchiostri, adesivi e resine contenenti sostanze pericolose",
+            "register_status": "active_in_target",
             "source_labels": [
               "vernici, inchiostri, adesivi e resine contenenti sostanze pericolose"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -1804,12 +1832,16 @@
           {
             "code": "200101",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "carta e cartone",
+            "register_status": "active_in_target",
             "source_labels": [
               "carta e cartone"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -1939,12 +1971,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -2145,12 +2181,16 @@
           {
             "code": "200201",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -2278,12 +2318,16 @@
           {
             "code": "200307",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti ingombranti",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti ingombranti"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -2627,12 +2671,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -2859,12 +2907,16 @@
           {
             "code": "170605",
             "hazardous": true,
+            "official_hazardous": true,
+            "official_title": "materiali da costruzione contenenti amianto",
+            "register_status": "active_in_target",
             "source_labels": [
               "materiali da costruzione contenenti amianto"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -3073,12 +3125,16 @@
           {
             "code": "200307",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti ingombranti",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti ingombranti"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -3216,12 +3272,16 @@
           {
             "code": "200307",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti ingombranti",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti ingombranti"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -3437,12 +3497,16 @@
           {
             "code": "200140",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "Metalli",
+            "register_status": "active_in_target",
             "source_labels": [
               "Metalli"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -3572,12 +3636,16 @@
           {
             "code": "200119",
             "hazardous": true,
+            "official_hazardous": true,
+            "official_title": "Pesticidi",
+            "register_status": "active_in_target",
             "source_labels": [
               "Pesticidi"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -3707,12 +3775,16 @@
           {
             "code": "200127",
             "hazardous": true,
+            "official_hazardous": true,
+            "official_title": "vernici, inchiostri, adesivi e resine contenenti sostanze pericolose",
+            "register_status": "active_in_target",
             "source_labels": [
               "vernici, inchiostri, adesivi e resine contenenti sostanze pericolose"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -3842,12 +3914,16 @@
           {
             "code": "200119",
             "hazardous": true,
+            "official_hazardous": true,
+            "official_title": "Pesticidi",
+            "register_status": "active_in_target",
             "source_labels": [
               "Pesticidi"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -4172,12 +4248,16 @@
           {
             "code": "200140",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "Metalli",
+            "register_status": "active_in_target",
             "source_labels": [
               "Metalli"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -4513,12 +4593,16 @@
           {
             "code": "200136",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35",
+            "register_status": "active_in_target",
             "source_labels": [
               "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -4702,12 +4786,16 @@
           {
             "code": "200136",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35",
+            "register_status": "active_in_target",
             "source_labels": [
               "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -4847,12 +4935,16 @@
           {
             "code": "200136",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35",
+            "register_status": "active_in_target",
             "source_labels": [
               "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -5056,12 +5148,16 @@
           {
             "code": "200307",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti ingombranti",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti ingombranti"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -5445,12 +5541,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -5580,12 +5680,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -6175,12 +6279,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -6484,12 +6592,16 @@
           {
             "code": "200307",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti ingombranti",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti ingombranti"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -6690,12 +6802,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -6896,12 +7012,16 @@
           {
             "code": "150103",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "imballaggi in legno",
+            "register_status": "active_in_target",
             "source_labels": [
               "imballaggi in legno"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -7173,12 +7293,16 @@
           {
             "code": "200111",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "Prodotti tessili",
+            "register_status": "active_in_target",
             "source_labels": [
               "descrizione non pubblicata"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -7361,12 +7485,16 @@
           {
             "code": "150110",
             "hazardous": true,
+            "official_hazardous": true,
+            "official_title": "imballaggi contenenti residui di sostanze pericolose o contaminati da tali sostanze",
+            "register_status": "active_in_target",
             "source_labels": [
               "imballaggi contenenti residui di sostanze pericolose o contaminati da tali sostanze"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -8113,12 +8241,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -8248,12 +8380,16 @@
           {
             "code": "200307",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti ingombranti",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti ingombranti"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -8383,12 +8519,16 @@
           {
             "code": "200133",
             "hazardous": true,
+            "official_hazardous": true,
+            "official_title": "batterie e accumulatori di cui alle voci 16 06 01, 16 06 02 e 16 06 03, nonché batterie e accumulatori non suddivisi contenenti tali batterie",
+            "register_status": "retired_in_target",
             "source_labels": [
               "batterie e accumulatori di cui alle voci 16 06 01, 16 06 02 e 16 06 03, nonché batterie e accumulatori non suddivisi contenenti tali batterie"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": "2026-12-08"
           }
         ],
         "status": "source_consensus"
@@ -8518,12 +8658,16 @@
           {
             "code": "200307",
             "hazardous": true,
+            "official_hazardous": false,
+            "official_title": "rifiuti ingombranti",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti ingombranti"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -8827,12 +8971,16 @@
           {
             "code": "200119",
             "hazardous": true,
+            "official_hazardous": true,
+            "official_title": "Pesticidi",
+            "register_status": "active_in_target",
             "source_labels": [
               "Pesticidi"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -9065,12 +9213,16 @@
           {
             "code": "200133",
             "hazardous": true,
+            "official_hazardous": true,
+            "official_title": "batterie e accumulatori di cui alle voci 16 06 01, 16 06 02 e 16 06 03, nonché batterie e accumulatori non suddivisi contenenti tali batterie",
+            "register_status": "retired_in_target",
             "source_labels": [
               "batterie e accumulatori di cui alle voci 16 06 01, 16 06 02 e 16 06 03, nonché batterie e accumulatori non suddivisi contenenti tali batterie"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": "2026-12-08"
           }
         ],
         "status": "source_consensus"
@@ -9271,12 +9423,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -10054,12 +10210,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -10189,12 +10349,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -10427,12 +10591,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -10735,12 +10903,16 @@
           {
             "code": "200307",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti ingombranti",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti ingombranti"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -11009,12 +11181,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -11197,12 +11373,16 @@
           {
             "code": "200307",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti ingombranti",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti ingombranti"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -11478,12 +11658,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -11613,12 +11797,16 @@
           {
             "code": "200136",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35",
+            "register_status": "active_in_target",
             "source_labels": [
               "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -11748,12 +11936,16 @@
           {
             "code": "200307",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti ingombranti",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti ingombranti"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -12356,12 +12548,16 @@
           {
             "code": "200136",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35",
+            "register_status": "active_in_target",
             "source_labels": [
               "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -12562,12 +12758,16 @@
           {
             "code": "150111",
             "hazardous": true,
+            "official_hazardous": true,
+            "official_title": "imballaggi metallici contenenti matrici solide porose pericolose (ad esempio amianto), compresi contenitori a pressione vuoti",
+            "register_status": "active_in_target",
             "source_labels": [
               "imballaggi metallici contenenti matrici solide porose pericolose (ad esempio amianto), compresi contenitori a pressione vuoti"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -13378,12 +13578,16 @@
           {
             "code": "200111",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "Prodotti tessili",
+            "register_status": "active_in_target",
             "source_labels": [
               "descrizione non pubblicata"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -13935,12 +14139,16 @@
           {
             "code": "150107",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "imballaggi di vetro",
+            "register_status": "active_in_target",
             "source_labels": [
               "imballaggi di vetro"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -14096,12 +14304,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -14388,12 +14600,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -14541,12 +14757,16 @@
           {
             "code": "200140",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "Metalli",
+            "register_status": "active_in_target",
             "source_labels": [
               "Metalli"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -14903,12 +15123,16 @@
           {
             "code": "200101",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "carta e cartone",
+            "register_status": "active_in_target",
             "source_labels": [
               "carta e cartone"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -15215,12 +15439,16 @@
           {
             "code": "170904",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti misti dell'attività di costruzione e demolizione, diversi da quelli di cui alle voci 17 09 01, 17 09 02 e 17 09 03",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti misti dell'attività di costruzione e demolizione, diversi da quelli di cui alle voci 17 09 01, 17 09 02 e 17 09 03"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -15453,12 +15681,16 @@
           {
             "code": "200136",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35",
+            "register_status": "active_in_target",
             "source_labels": [
               "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -15691,12 +15923,16 @@
           {
             "code": "200101",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "carta e cartone",
+            "register_status": "active_in_target",
             "source_labels": [
               "carta e cartone"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -15826,12 +16062,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -16103,12 +16343,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -16484,12 +16728,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -16619,12 +16867,16 @@
           {
             "code": "200136",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35",
+            "register_status": "active_in_target",
             "source_labels": [
               "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -16772,12 +17024,16 @@
           {
             "code": "200110",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "Abbigliamento",
+            "register_status": "active_in_target",
             "source_labels": [
               "Abbigliamento"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -17135,12 +17391,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -17270,12 +17530,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -17458,12 +17722,16 @@
           {
             "code": "200102",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "Vetro",
+            "register_status": "active_in_target",
             "source_labels": [
               "Vetro"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -17593,12 +17861,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -17728,12 +18000,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -17934,12 +18210,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -18069,12 +18349,16 @@
           {
             "code": "200101",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "carta e cartone",
+            "register_status": "active_in_target",
             "source_labels": [
               "carta e cartone"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -18204,12 +18488,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -18442,12 +18730,16 @@
           {
             "code": "170903",
             "hazardous": null,
+            "official_hazardous": true,
+            "official_title": "altri rifiuti dell'attività di costruzione e demolizione (compresi rifiuti misti) contenenti sostanze pericolose",
+            "register_status": "active_in_target",
             "source_labels": [
               "altri rifiuti dell'attività di costruzione e demolizione (compresi rifiuti misti) contenenti sostanze pericolose"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -18709,12 +19001,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -18969,12 +19265,16 @@
           {
             "code": "200101",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "carta e cartone",
+            "register_status": "active_in_target",
             "source_labels": [
               "carta e cartone"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -19157,12 +19457,16 @@
           {
             "code": "200101",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "carta e cartone",
+            "register_status": "active_in_target",
             "source_labels": [
               "carta e cartone"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -19310,12 +19614,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -19499,12 +19807,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -19687,12 +19999,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -19822,12 +20138,16 @@
           {
             "code": "200101",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "carta e cartone",
+            "register_status": "active_in_target",
             "source_labels": [
               "carta e cartone"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -19957,12 +20277,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -20092,12 +20416,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -20472,12 +20800,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -20785,12 +21117,16 @@
           {
             "code": "200101",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "carta e cartone",
+            "register_status": "active_in_target",
             "source_labels": [
               "carta e cartone"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -21229,12 +21565,16 @@
           {
             "code": "170802",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "materiali da costruzione a base di gesso, diversi da quelli di cui alla voce 17 08 01",
+            "register_status": "active_in_target",
             "source_labels": [
               "materiali da costruzione a base di gesso, diversi da quelli di cui alla voce 17 08 01"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -21362,12 +21702,16 @@
           {
             "code": "200101",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "carta e cartone",
+            "register_status": "active_in_target",
             "source_labels": [
               "carta e cartone"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -21497,12 +21841,16 @@
           {
             "code": "200101",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "carta e cartone",
+            "register_status": "active_in_target",
             "source_labels": [
               "carta e cartone"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -21756,12 +22104,16 @@
           {
             "code": "160216",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "componenti rimossi da apparecchiature fuori uso, diversi da quelli di cui alla voce 16 02 15",
+            "register_status": "active_in_target",
             "source_labels": [
               "componenti rimossi da apparecchiature fuori uso, diversi da quelli di cui alla voce 16 02 15"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -22127,12 +22479,16 @@
           {
             "code": "150101",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "imballaggi di carta e cartone",
+            "register_status": "active_in_target",
             "source_labels": [
               "imballaggi di carta e cartone"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -22262,12 +22618,16 @@
           {
             "code": "200138",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "legno diverso da quello di cui alla voce 20 01 37",
+            "register_status": "active_in_target",
             "source_labels": [
               "legno diverso da quello di cui alla voce 20 01 37"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -22574,12 +22934,16 @@
           {
             "code": "200307",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti ingombranti",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti ingombranti"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -22934,12 +23298,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -23224,12 +23592,16 @@
           {
             "code": "200136",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35",
+            "register_status": "active_in_target",
             "source_labels": [
               "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -23589,12 +23961,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -23724,12 +24100,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -24147,12 +24527,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -24315,12 +24699,16 @@
           {
             "code": "200140",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "Metalli",
+            "register_status": "active_in_target",
             "source_labels": [
               "Metalli"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -24553,12 +24941,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -24831,12 +25223,16 @@
           {
             "code": "200307",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti ingombranti",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti ingombranti"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -25680,12 +26076,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -26216,12 +26616,16 @@
           {
             "code": "200110",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "Abbigliamento",
+            "register_status": "active_in_target",
             "source_labels": [
               "Abbigliamento"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -26422,12 +26826,16 @@
           {
             "code": "200113",
             "hazardous": true,
+            "official_hazardous": true,
+            "official_title": "Solventi",
+            "register_status": "active_in_target",
             "source_labels": [
               "Solventi"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -26734,12 +27142,16 @@
           {
             "code": "200101",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "carta e cartone",
+            "register_status": "active_in_target",
             "source_labels": [
               "carta e cartone"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -27096,12 +27508,16 @@
           {
             "code": "200101",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "carta e cartone",
+            "register_status": "active_in_target",
             "source_labels": [
               "carta e cartone"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -28107,12 +28523,16 @@
           {
             "code": "200111",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "Prodotti tessili",
+            "register_status": "active_in_target",
             "source_labels": [
               "descrizione non pubblicata"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -28275,12 +28695,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -28584,12 +29008,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -28719,12 +29147,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -28854,12 +29286,16 @@
           {
             "code": "200110",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "Abbigliamento",
+            "register_status": "active_in_target",
             "source_labels": [
               "Abbigliamento"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -28997,12 +29433,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -29165,12 +29605,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -29514,12 +29958,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -29708,12 +30156,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -30071,12 +30523,16 @@
           {
             "code": "200102",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "Vetro",
+            "register_status": "active_in_target",
             "source_labels": [
               "Vetro"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -30473,12 +30929,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -30876,12 +31336,16 @@
           {
             "code": "200101",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "carta e cartone",
+            "register_status": "active_in_target",
             "source_labels": [
               "carta e cartone"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -31082,12 +31546,16 @@
           {
             "code": "200113",
             "hazardous": true,
+            "official_hazardous": true,
+            "official_title": "Solventi",
+            "register_status": "active_in_target",
             "source_labels": [
               "Solventi"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -31227,12 +31695,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -31487,12 +31959,16 @@
           {
             "code": "200119",
             "hazardous": true,
+            "official_hazardous": true,
+            "official_title": "Pesticidi",
+            "register_status": "active_in_target",
             "source_labels": [
               "Pesticidi"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -31928,12 +32404,16 @@
           {
             "code": "200307",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti ingombranti",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti ingombranti"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -32167,12 +32647,16 @@
           {
             "code": "200138",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "legno diverso da quello di cui alla voce 20 01 37",
+            "register_status": "active_in_target",
             "source_labels": [
               "legno diverso da quello di cui alla voce 20 01 37"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -32515,12 +32999,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -32729,12 +33217,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -33419,12 +33911,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -33746,12 +34242,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -34066,12 +34566,16 @@
           {
             "code": "200132",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "medicinali diversi da quelli di cui alla voce 20 01 31",
+            "register_status": "active_in_target",
             "source_labels": [
               "medicinali diversi da quelli di cui alla voce 20 01 31"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -34379,12 +34883,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -34656,12 +35164,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -34852,12 +35364,16 @@
           {
             "code": "200136",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35",
+            "register_status": "active_in_target",
             "source_labels": [
               "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -35020,12 +35536,16 @@
           {
             "code": "150110",
             "hazardous": true,
+            "official_hazardous": true,
+            "official_title": "imballaggi contenenti residui di sostanze pericolose o contaminati da tali sostanze",
+            "register_status": "active_in_target",
             "source_labels": [
               "imballaggi contenenti residui di sostanze pericolose o contaminati da tali sostanze"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -35208,12 +35728,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -35798,12 +36322,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -36019,12 +36547,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -36154,12 +36686,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -36342,12 +36878,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -36580,12 +37120,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -36928,12 +37472,16 @@
           {
             "code": "200138",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "legno diverso da quello di cui alla voce 20 01 37",
+            "register_status": "active_in_target",
             "source_labels": [
               "legno diverso da quello di cui alla voce 20 01 37"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -37063,12 +37611,16 @@
           {
             "code": "200140",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "Metalli",
+            "register_status": "active_in_target",
             "source_labels": [
               "Metalli"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -37277,12 +37829,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -37498,12 +38054,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -37807,12 +38367,16 @@
           {
             "code": "170904",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti misti dell'attività di costruzione e demolizione, diversi da quelli di cui alle voci 17 09 01, 17 09 02 e 17 09 03",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti misti dell'attività di costruzione e demolizione, diversi da quelli di cui alle voci 17 09 01, 17 09 02 e 17 09 03"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -38364,12 +38928,16 @@
           {
             "code": "150107",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "imballaggi di vetro",
+            "register_status": "active_in_target",
             "source_labels": [
               "imballaggi di vetro"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -39006,12 +39574,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -39141,12 +39713,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -39419,12 +39995,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -39625,12 +40205,16 @@
           {
             "code": "200136",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35",
+            "register_status": "active_in_target",
             "source_labels": [
               "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -39841,12 +40425,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -40091,12 +40679,16 @@
           {
             "code": "200123",
             "hazardous": null,
+            "official_hazardous": true,
+            "official_title": "apparecchiature fuori uso contenenti clorofluorocarburi",
+            "register_status": "active_in_target",
             "source_labels": [
               "apparecchiature fuori uso contenenti clorofluorocarburi"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -40330,12 +40922,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -40956,12 +41552,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -41520,12 +42120,16 @@
           {
             "code": "200136",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35",
+            "register_status": "active_in_target",
             "source_labels": [
               "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -41927,12 +42531,16 @@
           {
             "code": "200101",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "carta e cartone",
+            "register_status": "active_in_target",
             "source_labels": [
               "carta e cartone"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -42062,12 +42670,16 @@
           {
             "code": "200307",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti ingombranti",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti ingombranti"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -42268,12 +42880,16 @@
           {
             "code": "200307",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti ingombranti",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti ingombranti"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -42482,12 +43098,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -42668,12 +43288,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -42928,12 +43552,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -43063,12 +43691,16 @@
           {
             "code": "200140",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "Metalli",
+            "register_status": "active_in_target",
             "source_labels": [
               "Metalli"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -43198,12 +43830,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -43773,12 +44409,16 @@
           {
             "code": "200138",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "legno diverso da quello di cui alla voce 20 01 37",
+            "register_status": "active_in_target",
             "source_labels": [
               "legno diverso da quello di cui alla voce 20 01 37"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -44326,12 +44966,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -44635,12 +45279,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -44894,12 +45542,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -46081,12 +46733,16 @@
           {
             "code": "200101",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "carta e cartone",
+            "register_status": "active_in_target",
             "source_labels": [
               "carta e cartone"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -46461,12 +47117,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -46864,12 +47524,16 @@
           {
             "code": "200307",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti ingombranti",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti ingombranti"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -47102,12 +47766,16 @@
           {
             "code": "150111",
             "hazardous": true,
+            "official_hazardous": true,
+            "official_title": "imballaggi metallici contenenti matrici solide porose pericolose (ad esempio amianto), compresi contenitori a pressione vuoti",
+            "register_status": "active_in_target",
             "source_labels": [
               "imballaggi metallici contenenti matrici solide porose pericolose (ad esempio amianto), compresi contenitori a pressione vuoti"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -47511,12 +48179,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -47732,12 +48404,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -48071,12 +48747,16 @@
           {
             "code": "200136",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35",
+            "register_status": "active_in_target",
             "source_labels": [
               "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -48625,12 +49305,16 @@
           {
             "code": "200121",
             "hazardous": null,
+            "official_hazardous": true,
+            "official_title": "tubi fluorescenti ed altri rifiuti contenenti mercurio",
+            "register_status": "active_in_target",
             "source_labels": [
               "tubi fluorescenti ed altri rifiuti contenenti mercurio"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -48760,12 +49444,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -49505,12 +50193,16 @@
           {
             "code": "200102",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "Vetro",
+            "register_status": "active_in_target",
             "source_labels": [
               "Vetro"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -49764,12 +50456,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -50370,12 +51066,16 @@
           {
             "code": "200136",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35",
+            "register_status": "active_in_target",
             "source_labels": [
               "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -50585,12 +51285,16 @@
           {
             "code": "200136",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35",
+            "register_status": "active_in_target",
             "source_labels": [
               "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -50904,12 +51608,16 @@
           {
             "code": "200138",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "legno diverso da quello di cui alla voce 20 01 37",
+            "register_status": "active_in_target",
             "source_labels": [
               "legno diverso da quello di cui alla voce 20 01 37"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -51039,12 +51747,16 @@
           {
             "code": "200138",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "legno diverso da quello di cui alla voce 20 01 37",
+            "register_status": "active_in_target",
             "source_labels": [
               "legno diverso da quello di cui alla voce 20 01 37"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -51317,12 +52029,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -51576,12 +52292,16 @@
           {
             "code": "200136",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35",
+            "register_status": "active_in_target",
             "source_labels": [
               "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -51854,12 +52574,16 @@
           {
             "code": "200101",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "carta e cartone",
+            "register_status": "active_in_target",
             "source_labels": [
               "carta e cartone"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -52086,12 +52810,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -52551,12 +53279,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -52696,12 +53428,16 @@
           {
             "code": "200307",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti ingombranti",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti ingombranti"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -53357,12 +54093,16 @@
           {
             "code": "200138",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "legno diverso da quello di cui alla voce 20 01 37",
+            "register_status": "active_in_target",
             "source_labels": [
               "legno diverso da quello di cui alla voce 20 01 37"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -53492,12 +54232,16 @@
           {
             "code": "200139",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "Plastica",
+            "register_status": "active_in_target",
             "source_labels": [
               "descrizione non pubblicata"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -53627,12 +54371,16 @@
           {
             "code": "200102",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "Vetro",
+            "register_status": "active_in_target",
             "source_labels": [
               "Vetro"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -53856,12 +54604,16 @@
           {
             "code": "200138",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "legno diverso da quello di cui alla voce 20 01 37",
+            "register_status": "active_in_target",
             "source_labels": [
               "legno diverso da quello di cui alla voce 20 01 37"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -54142,12 +54894,16 @@
           {
             "code": "200135",
             "hazardous": null,
+            "official_hazardous": true,
+            "official_title": "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alla voce 20 01 21 e 20 01 23, contenenti componenti pericolosi",
+            "register_status": "active_in_target",
             "source_labels": [
               "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alla voce 20 01 21 e 20 01 23, contenenti componenti pericolosi (3)"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -54558,12 +55314,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -55236,12 +55996,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -55468,12 +56232,16 @@
           {
             "code": "200121",
             "hazardous": null,
+            "official_hazardous": true,
+            "official_title": "tubi fluorescenti ed altri rifiuti contenenti mercurio",
+            "register_status": "active_in_target",
             "source_labels": [
               "tubi fluorescenti ed altri rifiuti contenenti mercurio"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -55762,12 +56530,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -56221,12 +56993,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -56548,12 +57324,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -56683,12 +57463,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -56889,12 +57673,16 @@
           {
             "code": "130204",
             "hazardous": null,
+            "official_hazardous": true,
+            "official_title": "oli minerali per motori, ingranaggi e lubrificazione, clorurati",
+            "register_status": "active_in_target",
             "source_labels": [
               "descrizione non pubblicata"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -57172,12 +57960,16 @@
           {
             "code": "200125",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "oli e grassi commestibili",
+            "register_status": "active_in_target",
             "source_labels": [
               "oli e grassi commestibili"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -57577,12 +58369,16 @@
           {
             "code": "200307",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti ingombranti",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti ingombranti"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -57919,12 +58715,16 @@
           {
             "code": "200307",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti ingombranti",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti ingombranti"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -58268,12 +59068,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -58411,12 +59215,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -58587,12 +59395,16 @@
           {
             "code": "200140",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "Metalli",
+            "register_status": "active_in_target",
             "source_labels": [
               "Metalli"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -58826,12 +59638,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -59104,12 +59920,16 @@
           {
             "code": "150103",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "imballaggi in legno",
+            "register_status": "active_in_target",
             "source_labels": [
               "imballaggi in legno"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -59382,12 +60202,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -59517,12 +60341,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -59723,12 +60551,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -59886,12 +60718,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -60443,12 +61279,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -60649,12 +61489,16 @@
           {
             "code": "200307",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti ingombranti",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti ingombranti"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -60784,12 +61628,16 @@
           {
             "code": "200138",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "legno diverso da quello di cui alla voce 20 01 37",
+            "register_status": "active_in_target",
             "source_labels": [
               "legno diverso da quello di cui alla voce 20 01 37"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -61693,12 +62541,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -61889,12 +62741,16 @@
           {
             "code": "200140",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "Metalli",
+            "register_status": "active_in_target",
             "source_labels": [
               "Metalli"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -62160,12 +63016,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -62303,12 +63163,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -62471,12 +63335,16 @@
           {
             "code": "170904",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti misti dell'attività di costruzione e demolizione, diversi da quelli di cui alle voci 17 09 01, 17 09 02 e 17 09 03",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti misti dell'attività di costruzione e demolizione, diversi da quelli di cui alle voci 17 09 01, 17 09 02 e 17 09 03"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -62606,12 +63474,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -62741,12 +63613,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -62929,12 +63805,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -63488,12 +64368,16 @@
           {
             "code": "200136",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35",
+            "register_status": "active_in_target",
             "source_labels": [
               "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -63623,12 +64507,16 @@
           {
             "code": "170904",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti misti dell'attività di costruzione e demolizione, diversi da quelli di cui alle voci 17 09 01, 17 09 02 e 17 09 03",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti misti dell'attività di costruzione e demolizione, diversi da quelli di cui alle voci 17 09 01, 17 09 02 e 17 09 03"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -63882,12 +64770,16 @@
           {
             "code": "200134",
             "hazardous": true,
+            "official_hazardous": false,
+            "official_title": "batterie e accumulatori, diversi da quelli di cui alla voce 20 01 33",
+            "register_status": "retired_in_target",
             "source_labels": [
               "batterie e accumulatori, diversi da quelli di cui alla voce 20 01 33"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": "2026-12-08"
           }
         ],
         "status": "source_consensus"
@@ -64160,12 +65052,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -64348,12 +65244,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -64483,12 +65383,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -64813,12 +65717,16 @@
           {
             "code": "200307",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti ingombranti",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti ingombranti"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -65078,12 +65986,16 @@
           {
             "code": "160103",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "pneumatici fuori uso",
+            "register_status": "active_in_target",
             "source_labels": [
               "pneumatici fuori uso"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -65770,12 +66682,16 @@
           {
             "code": "200307",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti ingombranti",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti ingombranti"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -66041,12 +66957,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -66390,12 +67310,16 @@
           {
             "code": "200138",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "legno diverso da quello di cui alla voce 20 01 37",
+            "register_status": "active_in_target",
             "source_labels": [
               "legno diverso da quello di cui alla voce 20 01 37"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -66525,12 +67449,16 @@
           {
             "code": "200140",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "Metalli",
+            "register_status": "active_in_target",
             "source_labels": [
               "Metalli"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -66660,12 +67588,16 @@
           {
             "code": "200307",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti ingombranti",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti ingombranti"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -66793,12 +67725,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -66928,12 +67864,16 @@
           {
             "code": "200140",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "Metalli",
+            "register_status": "active_in_target",
             "source_labels": [
               "Metalli"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -67124,12 +68064,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -67516,12 +68460,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -67705,12 +68653,16 @@
           {
             "code": "150107",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "imballaggi di vetro",
+            "register_status": "active_in_target",
             "source_labels": [
               "imballaggi di vetro"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -68023,12 +68975,16 @@
           {
             "code": "200101",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "carta e cartone",
+            "register_status": "active_in_target",
             "source_labels": [
               "carta e cartone"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -68391,12 +69347,16 @@
           {
             "code": "200307",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti ingombranti",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti ingombranti"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -68747,12 +69707,16 @@
           {
             "code": "200136",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35",
+            "register_status": "active_in_target",
             "source_labels": [
               "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -69006,12 +69970,16 @@
           {
             "code": "200201",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -69818,12 +70786,16 @@
           {
             "code": "200140",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "Metalli",
+            "register_status": "active_in_target",
             "source_labels": [
               "Metalli"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -70364,12 +71336,16 @@
           {
             "code": "200140",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "Metalli",
+            "register_status": "active_in_target",
             "source_labels": [
               "Metalli"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -70499,12 +71475,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -70705,12 +71685,16 @@
           {
             "code": "200101",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "carta e cartone",
+            "register_status": "active_in_target",
             "source_labels": [
               "carta e cartone"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -71085,12 +72069,16 @@
           {
             "code": "200140",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "Metalli",
+            "register_status": "active_in_target",
             "source_labels": [
               "Metalli"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -71550,12 +72538,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -71685,12 +72677,16 @@
           {
             "code": "200101",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "carta e cartone",
+            "register_status": "active_in_target",
             "source_labels": [
               "carta e cartone"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -71820,12 +72816,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -72132,12 +73132,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -72267,12 +73271,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -72545,12 +73553,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -72680,12 +73692,16 @@
           {
             "code": "170904",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti misti dell'attività di costruzione e demolizione, diversi da quelli di cui alle voci 17 09 01, 17 09 02 e 17 09 03",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti misti dell'attività di costruzione e demolizione, diversi da quelli di cui alle voci 17 09 01, 17 09 02 e 17 09 03"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -72833,12 +73849,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -73022,12 +74042,16 @@
           {
             "code": "200140",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "Metalli",
+            "register_status": "active_in_target",
             "source_labels": [
               "Metalli"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -73291,12 +74315,16 @@
           {
             "code": "200110",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "Abbigliamento",
+            "register_status": "active_in_target",
             "source_labels": [
               "Abbigliamento"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -73675,12 +74703,16 @@
           {
             "code": "200101",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "carta e cartone",
+            "register_status": "active_in_target",
             "source_labels": [
               "carta e cartone"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -74081,12 +75113,16 @@
           {
             "code": "200307",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti ingombranti",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti ingombranti"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -74390,12 +75426,16 @@
           {
             "code": "200110",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "Abbigliamento",
+            "register_status": "active_in_target",
             "source_labels": [
               "Abbigliamento"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -74525,12 +75565,16 @@
           {
             "code": "200101",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "carta e cartone",
+            "register_status": "active_in_target",
             "source_labels": [
               "carta e cartone"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -74713,12 +75757,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -74991,12 +76039,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -75229,12 +76281,16 @@
           {
             "code": "150110",
             "hazardous": true,
+            "official_hazardous": true,
+            "official_title": "imballaggi contenenti residui di sostanze pericolose o contaminati da tali sostanze",
+            "register_status": "active_in_target",
             "source_labels": [
               "imballaggi contenenti residui di sostanze pericolose o contaminati da tali sostanze"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -75364,12 +76420,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -75570,12 +76630,16 @@
           {
             "code": "200307",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti ingombranti",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti ingombranti"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -75713,12 +76777,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -75881,12 +76949,16 @@
           {
             "code": "200307",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti ingombranti",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti ingombranti"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -76119,12 +77191,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -76254,12 +77330,16 @@
           {
             "code": "200201",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -76698,12 +77778,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -76957,12 +78041,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -77092,12 +78180,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -77280,12 +78372,16 @@
           {
             "code": "200119",
             "hazardous": true,
+            "official_hazardous": true,
+            "official_title": "Pesticidi",
+            "register_status": "active_in_target",
             "source_labels": [
               "Pesticidi"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -77415,12 +78511,16 @@
           {
             "code": "200113",
             "hazardous": true,
+            "official_hazardous": true,
+            "official_title": "Solventi",
+            "register_status": "active_in_target",
             "source_labels": [
               "Solventi"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -77603,12 +78703,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -77809,12 +78913,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -78047,12 +79155,16 @@
           {
             "code": "200136",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35",
+            "register_status": "active_in_target",
             "source_labels": [
               "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -78285,12 +79397,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -78534,12 +79650,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -78821,12 +79941,16 @@
           {
             "code": "200136",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35",
+            "register_status": "active_in_target",
             "source_labels": [
               "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -78977,12 +80101,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -79268,12 +80396,16 @@
           {
             "code": "200136",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35",
+            "register_status": "active_in_target",
             "source_labels": [
               "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -79585,12 +80717,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -79753,12 +80889,16 @@
           {
             "code": "200140",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "Metalli",
+            "register_status": "active_in_target",
             "source_labels": [
               "Metalli"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -80012,12 +81152,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -80290,12 +81434,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -80425,12 +81573,16 @@
           {
             "code": "200136",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35",
+            "register_status": "active_in_target",
             "source_labels": [
               "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -80560,12 +81712,16 @@
           {
             "code": "200138",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "legno diverso da quello di cui alla voce 20 01 37",
+            "register_status": "active_in_target",
             "source_labels": [
               "legno diverso da quello di cui alla voce 20 01 37"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -80695,12 +81851,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -80830,12 +81990,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -81036,12 +82200,16 @@
           {
             "code": "200307",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti ingombranti",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti ingombranti"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -81849,12 +83017,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -82069,12 +83241,16 @@
           {
             "code": "200136",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35",
+            "register_status": "active_in_target",
             "source_labels": [
               "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -82275,12 +83451,16 @@
           {
             "code": "200138",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "legno diverso da quello di cui alla voce 20 01 37",
+            "register_status": "active_in_target",
             "source_labels": [
               "legno diverso da quello di cui alla voce 20 01 37"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -82410,12 +83590,16 @@
           {
             "code": "200140",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "Metalli",
+            "register_status": "active_in_target",
             "source_labels": [
               "Metalli"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -82545,12 +83729,16 @@
           {
             "code": "200307",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti ingombranti",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti ingombranti"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -82751,12 +83939,16 @@
           {
             "code": "170904",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti misti dell'attività di costruzione e demolizione, diversi da quelli di cui alle voci 17 09 01, 17 09 02 e 17 09 03",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti misti dell'attività di costruzione e demolizione, diversi da quelli di cui alle voci 17 09 01, 17 09 02 e 17 09 03"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -83071,12 +84263,16 @@
           {
             "code": "200136",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35",
+            "register_status": "active_in_target",
             "source_labels": [
               "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -83247,12 +84443,16 @@
           {
             "code": "200135",
             "hazardous": null,
+            "official_hazardous": true,
+            "official_title": "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alla voce 20 01 21 e 20 01 23, contenenti componenti pericolosi",
+            "register_status": "active_in_target",
             "source_labels": [
               "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alla voce 20 01 21 e 20 01 23, contenenti componenti pericolosi (3)"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -83592,12 +84792,16 @@
           {
             "code": "200136",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35",
+            "register_status": "active_in_target",
             "source_labels": [
               "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -83745,12 +84949,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -84250,12 +85458,16 @@
           {
             "code": "170904",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti misti dell'attività di costruzione e demolizione, diversi da quelli di cui alle voci 17 09 01, 17 09 02 e 17 09 03",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti misti dell'attività di costruzione e demolizione, diversi da quelli di cui alle voci 17 09 01, 17 09 02 e 17 09 03"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -84456,12 +85668,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -85024,12 +86240,16 @@
           {
             "code": "160216",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "componenti rimossi da apparecchiature fuori uso, diversi da quelli di cui alla voce 16 02 15",
+            "register_status": "active_in_target",
             "source_labels": [
               "componenti rimossi da apparecchiature fuori uso, diversi da quelli di cui alla voce 16 02 15"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -85333,12 +86553,16 @@
           {
             "code": "200119",
             "hazardous": true,
+            "official_hazardous": true,
+            "official_title": "Pesticidi",
+            "register_status": "active_in_target",
             "source_labels": [
               "Pesticidi"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -85539,12 +86763,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -85745,12 +86973,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -85880,12 +87112,16 @@
           {
             "code": "200101",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "carta e cartone",
+            "register_status": "active_in_target",
             "source_labels": [
               "carta e cartone"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -86118,12 +87354,16 @@
           {
             "code": "200113",
             "hazardous": true,
+            "official_hazardous": true,
+            "official_title": "Solventi",
+            "register_status": "active_in_target",
             "source_labels": [
               "Solventi"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -86253,12 +87493,16 @@
           {
             "code": "200138",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "legno diverso da quello di cui alla voce 20 01 37",
+            "register_status": "active_in_target",
             "source_labels": [
               "legno diverso da quello di cui alla voce 20 01 37"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -86597,12 +87841,16 @@
           {
             "code": "150110",
             "hazardous": null,
+            "official_hazardous": true,
+            "official_title": "imballaggi contenenti residui di sostanze pericolose o contaminati da tali sostanze",
+            "register_status": "active_in_target",
             "source_labels": [
               "imballaggi contenenti residui di sostanze pericolose o contaminati da tali sostanze"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -86856,12 +88104,16 @@
           {
             "code": "200307",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti ingombranti",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti ingombranti"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -86991,12 +88243,16 @@
           {
             "code": "200307",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti ingombranti",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti ingombranti"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -87128,12 +88384,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -87626,12 +88886,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -87855,12 +89119,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -88380,12 +89648,16 @@
           {
             "code": "200111",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "Prodotti tessili",
+            "register_status": "active_in_target",
             "source_labels": [
               "descrizione non pubblicata"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -89558,12 +90830,16 @@
           {
             "code": "170904",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti misti dell'attività di costruzione e demolizione, diversi da quelli di cui alle voci 17 09 01, 17 09 02 e 17 09 03",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti misti dell'attività di costruzione e demolizione, diversi da quelli di cui alle voci 17 09 01, 17 09 02 e 17 09 03"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -89959,12 +91235,16 @@
           {
             "code": "200101",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "carta e cartone",
+            "register_status": "active_in_target",
             "source_labels": [
               "carta e cartone"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -90102,12 +91382,16 @@
           {
             "code": "200108",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti biodegradabili di cucine e mense",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti biodegradabili di cucine e mense"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -90475,12 +91759,16 @@
           {
             "code": "200110",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "Abbigliamento",
+            "register_status": "active_in_target",
             "source_labels": [
               "Abbigliamento"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -90643,12 +91931,16 @@
           {
             "code": "200102",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "Vetro",
+            "register_status": "active_in_target",
             "source_labels": [
               "Vetro"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -90849,12 +92141,16 @@
           {
             "code": "150107",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "imballaggi di vetro",
+            "register_status": "active_in_target",
             "source_labels": [
               "imballaggi di vetro"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -91087,12 +92383,16 @@
           {
             "code": "200307",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti ingombranti",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti ingombranti"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -91369,12 +92669,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -91583,12 +92887,16 @@
           {
             "code": "200136",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35",
+            "register_status": "active_in_target",
             "source_labels": [
               "apparecchiature elettriche ed elettroniche fuori uso, diverse da quelle di cui alle voci 20 01 21, 20 01 23 e 20 01 35"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -91893,12 +93201,16 @@
           {
             "code": "200101",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "carta e cartone",
+            "register_status": "active_in_target",
             "source_labels": [
               "carta e cartone"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -92184,12 +93496,16 @@
           {
             "code": "200110",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "Abbigliamento",
+            "register_status": "active_in_target",
             "source_labels": [
               "Abbigliamento"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -92598,12 +93914,16 @@
           {
             "code": "200307",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti ingombranti",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti ingombranti"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -92830,12 +94150,16 @@
           {
             "code": "200301",
             "hazardous": null,
+            "official_hazardous": false,
+            "official_title": "rifiuti urbani non differenziati",
+            "register_status": "active_in_target",
             "source_labels": [
               "rifiuti urbani non differenziati"
             ],
             "source_urls": [
               "https://www.geofor.it/dove-lo-butto/"
-            ]
+            ],
+            "valid_to": null
           }
         ],
         "status": "source_consensus"
@@ -93013,6 +94337,11 @@
       ]
     }
   ],
-  "generated_at": "2026-08-06T21:30:00+02:00",
-  "version": 1
+  "eer_register": {
+    "register_id": "eer:eu:2025-934-corrigendum-01",
+    "status_at_generation": "future",
+    "valid_from": "2026-12-09"
+  },
+  "generated_at": "2026-08-06T23:00:00+02:00",
+  "version": 2
 }

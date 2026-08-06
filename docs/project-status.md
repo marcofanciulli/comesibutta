@@ -55,6 +55,8 @@ La risposta deve poter indicare:
     incompatibili ripartono da uno snapshot completo.
 15. Pubblicazione e validita sono distinte: un dato futuro puo essere
     distribuito indicando `valid_from` senza essere presentato come gia attivo.
+16. Il registro EER importa la decisione 2025/934 e la rettifica ufficiale. La
+    nuova edizione e futura e si applica dal 9 dicembre 2026.
 
 ## Artefatti persistenti
 
@@ -62,6 +64,7 @@ La risposta deve poter indicare:
 - `docs/crawl-operations.md`: procedura di scansione e ripresa.
 - `docs/source-access-policy.md`: verifica legale-operativa delle fonti.
 - `docs/data-synchronization.md`: distribuzione remota e aggiornamenti atomici.
+- `docs/eer-register.md`: fonti, importazione e validazione del registro EER.
 - `schemas/`: schemi JSON dell'acquisizione e della risposta applicativa.
 - `src/dovelobutto/`: estrattore riproducibile e interfaccia a riga di comando.
 - `tests/fixtures/`: copie immutabili delle porzioni rilevanti delle fonti HTML.
@@ -84,7 +87,7 @@ Comuni pilota gia acquisiti:
 
 Verifiche completate al 6 agosto 2026:
 
-- 59 test automatici superati;
+- 64 test automatici superati;
 - compilazione dei moduli Python riuscita;
 - validita sintattica JSON verificata per schemi, record e rapporti;
 - relazione Sassetta-Castagneto risolta sullo stesso identificatore stabile;
@@ -162,6 +165,21 @@ Catalogo canonico iniziale:
 - 487 concetti senza EER e 135 con piu destinazioni locali osservate;
 - materiale, condizioni, sinonimi semantici e note ambientali restano
   esplicitamente da verificare, senza riempimenti automatici.
+
+Registro ufficiale EER:
+
+- tre fonti EUR-Lex italiane conservate con impronta: base consolidata 2023,
+  decisione 2025/934 e rettifica del 19 agosto 2025;
+- 880 voci future, 20 capitoli, 112 sottocapitoli e 435 voci pericolose;
+- applicabilita corretta al 9 dicembre 2026, distinta dalla pubblicazione;
+- 42 codici aggiunti, 6 modificati e 4 ritirati rispetto alla base;
+- 6.266 indicazioni dei centri controllate: nessun codice normalizzato
+  sconosciuto, 252 occorrenze di codici che saranno ritirati e 368 materiali
+  per i quali la fonte non pubblica un EER;
+- un rinvio inesistente gia presente nella fonte ufficiale resta segnalato nel
+  rapporto, senza correzione congetturale;
+- vista globale del registro aggiunta all'esploratore e catalogo dei nomi
+  quotidiani arricchito con titolo e pericolosita ufficiali.
 
 Avvio ATO Toscana Costa:
 

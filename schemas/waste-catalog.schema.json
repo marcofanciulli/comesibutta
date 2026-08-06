@@ -3,10 +3,25 @@
   "$id": "https://dovelobutto.example/schemas/waste-catalog.schema.json",
   "title": "Canonical waste vocabulary",
   "type": "object",
-  "required": ["version", "generated_at", "concepts"],
+  "required": ["version", "generated_at", "eer_register", "concepts"],
   "properties": {
-    "version": { "const": 1 },
+    "version": { "const": 2 },
     "generated_at": { "type": "string", "format": "date-time" },
+    "eer_register": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "required": ["register_id", "valid_from", "status_at_generation"],
+          "properties": {
+            "register_id": { "type": "string" },
+            "valid_from": { "type": "string", "format": "date" },
+            "status_at_generation": { "enum": ["future", "applicable"] }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
     "concepts": {
       "type": "array",
       "items": { "$ref": "#/$defs/wasteConcept" }
@@ -36,12 +51,21 @@
               "type": "array",
               "items": {
                 "type": "object",
-                "required": ["code", "source_labels", "hazardous", "source_urls"],
+                "required": [
+                  "code", "source_labels", "hazardous", "source_urls",
+                  "register_status", "official_title", "official_hazardous", "valid_to"
+                ],
                 "properties": {
                   "code": { "type": "string", "pattern": "^[0-9]{6}$" },
                   "source_labels": { "type": "array", "items": { "type": "string" } },
                   "hazardous": { "type": ["boolean", "null"] },
-                  "source_urls": { "type": "array", "items": { "type": "string", "format": "uri" } }
+                  "source_urls": { "type": "array", "items": { "type": "string", "format": "uri" } },
+                  "register_status": {
+                    "enum": ["active_in_target", "retired_in_target", "unknown_code", "not_checked"]
+                  },
+                  "official_title": { "type": ["string", "null"] },
+                  "official_hazardous": { "type": ["boolean", "null"] },
+                  "valid_to": { "type": ["string", "null"], "format": "date" }
                 },
                 "additionalProperties": false
               }

@@ -1,6 +1,6 @@
 # Catalogo canonico dei rifiuti
 
-Versione: 0.1.0  
+Versione: 0.2.0
 Ultimo aggiornamento: 6 agosto 2026
 
 ## Obiettivo
@@ -23,7 +23,8 @@ PYTHONPATH=src python3 -m dovelobutto.cli build-waste-catalog \
   --input-dir outputs/ato-toscana-costa \
   --registry outputs/sei-toscana-municipalities.jsonl \
   --registry outputs/ato-toscana-costa-municipalities.jsonl \
-  --generated-at 2026-08-06T21:30:00+02:00 \
+  --eer-register outputs/eer-register.json \
+  --generated-at 2026-08-06T23:00:00+02:00 \
   --output outputs/waste-catalog.json \
   --report outputs/waste-catalog-report.json
 ```
@@ -49,9 +50,13 @@ locali, non trattate come contraddizioni globali.
 - 135 concetti con piu destinazioni locali osservate.
 
 `source_consensus` significa che tutte le fonti che pubblicano un EER per quel
-termine indicano lo stesso codice. Non significa ancora che il codice sia
-stato validato contro l'elenco EER ufficiale. Per questo l'esploratore usa la
-dicitura "EER indicato dalla fonte".
+termine indicano lo stesso codice. Ogni candidato e ora controllato anche
+contro `outputs/eer-register.json` e conserva titolo e pericolosita ufficiali.
+La destinazione continua invece a essere un'osservazione territoriale.
+
+Il registro collegato e l'edizione futura applicabile dal 9 dicembre 2026. I
+codici `20 01 33` e `20 01 34` sono quindi marcati `retired_in_target`, senza
+essere descritti come invalidi alla data di acquisizione delle fonti.
 
 ## Arricchimento generale
 
@@ -59,10 +64,8 @@ Materiale, componenti, condizioni, sinonimi semantici, domande decisionali e
 note ambientali sono presenti nel modello ma restano null o vuoti finche non
 sono sostenuti da una fonte o da una revisione. Il prossimo ciclo deve:
 
-1. importare l'elenco EER ufficiale completo e collegare titoli, pericolosita,
-   capitoli, sottocapitoli e riferimenti;
-2. produrre candidati di sinonimia senza applicarli automaticamente;
-3. modellare le condizioni che cambiano la risposta, come contenuto residuo,
+1. produrre candidati di sinonimia senza applicarli automaticamente;
+2. modellare le condizioni che cambiano la risposta, come contenuto residuo,
    materiale, dimensione o presenza di componenti pericolosi;
-4. aggiungere spiegazioni ed effetti ambientali da fonti istituzionali;
-5. introdurre una coda di revisione con autore, motivazione e data.
+3. aggiungere spiegazioni ed effetti ambientali da fonti istituzionali;
+4. introdurre una coda di revisione con autore, motivazione e data.

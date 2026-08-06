@@ -22,6 +22,8 @@ gli snapshot di test, i dataset verificati e un esploratore locale.
   regole obbligatorie di accesso alle fonti.
 - `docs/data-synchronization.md`: revisioni, snapshot e aggiornamenti atomici
   della futura base dati locale.
+- `docs/eer-register.md`: importazione normativa, validita e controllo dei
+  codici EER pubblicati dai centri.
 - `schemas/acquisition-record.schema.json`: formato JSON Lines prodotto dagli
   estrattori.
 - `schemas/disposal-answer.schema.json`: contratto della risposta letta
@@ -29,6 +31,7 @@ gli snapshot di test, i dataset verificati e un esploratore locale.
 - `schemas/data-manifest.schema.json` e
   `schemas/data-update-package.schema.json`: protocollo di distribuzione dei
   dati indipendente dalle versioni dell'app.
+- `schemas/eer-register.schema.json`: gerarchia e voci ufficiali EER.
 - `examples/`: esempi illustrativi basati sulle pagine SEI Toscana di Manciano.
 - `explorer/`: interfaccia locale per controllare comuni, centri, codici EER,
   regole, punti di raccolta, fonti e anomalie.
@@ -117,7 +120,8 @@ PYTHONPATH=src python3 -m dovelobutto.cli build-waste-catalog \
   --input-dir outputs/ato-toscana-costa \
   --registry outputs/sei-toscana-municipalities.jsonl \
   --registry outputs/ato-toscana-costa-municipalities.jsonl \
-  --generated-at 2026-08-06T21:30:00+02:00 \
+  --eer-register outputs/eer-register.json \
+  --generated-at 2026-08-06T23:00:00+02:00 \
   --output outputs/waste-catalog.json \
   --report outputs/waste-catalog-report.json
 ```
@@ -141,7 +145,8 @@ PYTHONPATH=src python3 -m dovelobutto.explorer \
   --registry outputs/sei-toscana-municipalities.jsonl \
   --registry outputs/ato-toscana-costa-municipalities.jsonl \
   --catalog outputs/waste-catalog.json \
-  --generated-at 2026-08-06T21:30:00+02:00 \
+  --eer-register outputs/eer-register.json \
+  --generated-at 2026-08-06T23:00:00+02:00 \
   --output explorer/data.js
 ```
 

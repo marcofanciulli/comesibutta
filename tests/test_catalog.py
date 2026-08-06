@@ -37,6 +37,7 @@ class WasteCatalogTest(unittest.TestCase):
         self.assertEqual("source_consensus", concept["eer"]["status"])
         self.assertEqual("200136", concept["eer"]["candidates"][0]["code"])
         self.assertIsNone(concept["eer"]["candidates"][0]["hazardous"])
+        self.assertEqual("not_checked", concept["eer"]["candidates"][0]["register_status"])
         self.assertEqual(2, concept["coverage"]["source_assertions"])
         self.assertEqual(["050001", "050002", "053014"], concept["coverage"]["municipalities"])
         self.assertEqual(2, len(concept["local_destinations"]))

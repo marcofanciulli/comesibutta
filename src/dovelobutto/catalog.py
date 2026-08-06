@@ -78,8 +78,18 @@ def _read_municipal_records(
 
 
 def build_waste_catalog(
-    records: list[dict[str, Any]], generated_at: datetime
+    records: list[dict[str, Any]],
+    generated_at: datetime,
+    eer_register: dict[str, Any] | None = None,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
+    official_entries = {
+        entry["code"]: ("active_in_target", entry)
+        for entry in (eer_register or {}).get("entries", [])
+    }
+    official_entries.update({
+        entry["code"]: ("retired_in_target", entry)
+        for entry in (eer_register or {}).get("retired_entries", [])
+    })
     grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for record in records:
         normalized = normalize_term(record["payload"]["term"])
@@ -157,12 +167,19 @@ def build_waste_catalog(
         candidates = []
         for code, candidate in sorted(eer_candidates.items()):
             hazardous: bool | None = True if True in candidate["hazardous_assertions"] else None
+            official_status, official = official_entries.get(
+                code, ("unknown_code" if eer_register else "not_checked", None)
+            )
             candidates.append(
                 {
                     "code": code,
                     "source_labels": sorted(candidate["source_labels"], key=lambda item: (item.casefold(), item)),
                     "hazardous": hazardous,
                     "source_urls": sorted(candidate["source_urls"]),
+                    "register_status": official_status,
+                    "official_title": official["title"] if official else None,
+                    "official_hazardous": official["hazardous"] if official else None,
+                    "valid_to": official.get("valid_to") if official else None,
                 }
             )
         if len(candidates) == 1:
@@ -205,6 +222,11 @@ def build_waste_catalog(
             }
         )
 
+    candidate_statuses = [
+        candidate["register_status"]
+        for concept in concepts
+        for candidate in concept["eer"]["candidates"]
+    ]
     report = {
         "generated_at": generated_at.isoformat(),
         "waste_lookup_records": len(records),
@@ -215,15 +237,45 @@ def build_waste_catalog(
         "concepts_without_eer": sum(concept["eer"]["status"] == "not_available" for concept in concepts),
         "concepts_with_multiple_local_destinations": sum(len(concept["local_destinations"]) > 1 for concept in concepts),
         "general_details_pending": len(concepts),
+        "eer_register_id": (eer_register or {}).get("register_id"),
+        "eer_candidates_by_register_status": {
+            status: candidate_statuses.count(status)
+            for status in (
+                "active_in_target",
+                "retired_in_target",
+                "unknown_code",
+                "not_checked",
+            )
+        },
     }
-    return {"version": 1, "generated_at": generated_at.isoformat(), "concepts": concepts}, report
+    return {
+        "version": 2,
+        "generated_at": generated_at.isoformat(),
+        "eer_register": (
+            {
+                "register_id": eer_register["register_id"],
+                "valid_from": eer_register["valid_from"],
+                "status_at_generation": eer_register["status_at_generation"],
+            }
+            if eer_register else None
+        ),
+        "concepts": concepts,
+    }, report
 
 
 def build_catalog_from_paths(
-    input_dirs: list[Path], registry_paths: list[Path], generated_at: datetime
+    input_dirs: list[Path],
+    registry_paths: list[Path],
+    generated_at: datetime,
+    eer_register_path: Path | None = None,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     return build_waste_catalog(
-        _read_municipal_records(input_dirs, registry_paths), generated_at
+        _read_municipal_records(input_dirs, registry_paths),
+        generated_at,
+        (
+            json.loads(eer_register_path.read_text(encoding="utf-8"))
+            if eer_register_path else None
+        ),
     )
 
 

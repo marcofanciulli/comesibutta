@@ -114,10 +114,13 @@ class ExplorerDatasetTest(unittest.TestCase):
             ],
             datetime.fromisoformat("2026-08-06T16:00:00+02:00"),
             WORKSPACE / "outputs" / "waste-catalog.json",
+            WORKSPACE / "outputs" / "eer-register.json",
         )
         self.assertEqual(153, dataset["batch"]["municipalities_acquired"])
         self.assertEqual(24386, len(dataset["records"]))
         self.assertEqual(818, len(dataset["catalog"]["concepts"]))
+        self.assertEqual(880, len(dataset["eer_register"]["entries"]))
+        self.assertEqual("2026-12-09", dataset["eer_register"]["valid_from"])
         capoliveri = next(item for item in dataset["municipalities"] if item["name"] == "Capoliveri")
         self.assertEqual(292, capoliveri["records_by_type"]["waste_lookup"])
         tetrapak = next(

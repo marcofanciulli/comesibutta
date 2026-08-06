@@ -11,6 +11,7 @@
     ["overview", "Panoramica"],
     ["waste", "Rifiutario"],
     ["catalog", "Catalogo regionale"],
+    ["eer", "Registro EER"],
     ["facilities", "Centri"],
     ["rules", "Regole"],
     ["points", "Punti"],
@@ -49,6 +50,10 @@
     pending_subentry: "Subentro da completare",
     transition: "In transizione",
   };
+  const officialEerEntries = new Map([
+    ...data.eer_register.entries.map(entry => [entry.code, { ...entry, register_status: "active_in_target" }]),
+    ...data.eer_register.retired_entries.map(entry => [entry.code, { ...entry, register_status: "retired_in_target" }]),
+  ]);
   const defaultMunicipality = data.municipalities.find(item => item.slug === "grosseto") || data.municipalities[0];
   const state = {
     ato: defaultMunicipality?.ato_ref,
@@ -116,6 +121,11 @@
     return data.catalog.concepts.filter(concept => !query || JSON.stringify(concept).toLocaleLowerCase("it").includes(query));
   }
 
+  function eerEntries() {
+    const query = state.query.toLocaleLowerCase("it");
+    return data.eer_register.entries.filter(entry => !query || JSON.stringify(entry).toLocaleLowerCase("it").includes(query));
+  }
+
   function countForView(view) {
     const mapping = {
       waste: ["waste_lookup"],
@@ -125,6 +135,7 @@
       pickup: ["pickup_service"],
     };
     if (view === "catalog") return data.catalog.concepts.length;
+    if (view === "eer") return data.eer_register.entries.length;
     if (view === "records") return records().length;
     if (view === "overview") return null;
     return records().filter(record => mapping[view].includes(record.record_type)).length;
@@ -231,7 +242,11 @@
         <div class="facility-header"><div><h2>${escapeHtml(facility.payload.name)}</h2><p class="facility-address">${escapeHtml(facility.payload.address_raw || "Indirizzo non pubblicato")}</p><div class="facility-meta"><span>${facility.payload.phone ? `Telefono ${escapeHtml(facility.payload.phone)}` : "Telefono non pubblicato"}</span><span>${location ? `${location.latitude.toFixed(5)}, ${location.longitude.toFixed(5)}` : "Coordinate non disponibili"}</span></div></div>${mapUrl ? `<a class="link-button" href="${mapUrl}" target="_blank" rel="noreferrer">Apri mappa</a>` : ""}</div>
         ${closed ? `<div class="notice error"><strong>Centro temporaneamente chiuso</strong>${escapeHtml(facility.payload.status_raw)}</div>` : ""}
         <div class="facility-columns"><div><h3>Orari</h3>${openingHtml(periods)}${access.map(item => `<details class="access-block"><summary>Accesso ${item.payload.user_type === "non_domestic" ? "utenze non domestiche" : item.payload.user_type === "domestic" ? "utenze domestiche" : "tutte le utenze"}</summary><p>${escapeHtml(item.payload.requirements_raw || "Consulta i documenti collegati alla fonte.")}</p>${item.payload.information_urls.map(url => `<p><a href="${escapeHtml(url)}" target="_blank" rel="noreferrer">Documento informativo</a></p>`).join("")}</details>`).join("")}</div>
-      <div><h3>Rifiuti accettati <span class="muted">(${acceptances.length})</span></h3>${acceptances.length ? `<div class="table-wrap"><table class="data-table"><thead><tr><th>EER</th><th>Descrizione della fonte</th><th>Stato</th><th></th></tr></thead><tbody>${acceptances.map(item => `<tr><td>${item.payload.eer_code_raw ? `<span class="eer-code">${escapeHtml(item.payload.eer_code_raw)}</span>` : `<span class="muted">Non pubblicato</span>`}${item.payload.eer_code_status === "reconciled" ? `<span class="row-subtitle">→ ${escapeHtml(item.payload.eer_code_normalized)}</span>` : ""}</td><td>${escapeHtml(item.payload.description_raw)}${item.payload.operational_group ? `<span class="row-subtitle">${escapeHtml(item.payload.operational_group)}</span>` : ""}</td><td>${item.payload.hazardous ? `<span class="chip hazard">Pericoloso</span>` : ""}${item.payload.eer_code_status === "unmapped_description" ? `<span class="chip">Codice non pubblicato</span>` : item.payload.eer_code_status === "reconciled" ? `<span class="chip method">Riconciliato</span>` : item.payload.eer_code_status === "exact" ? `<span class="chip">Esatto</span>` : `<span class="chip review">Da revisionare</span>`}</td><td><button class="detail-button" data-record="${item.record_id}" type="button">Dettagli</button></td></tr>`).join("")}</tbody></table></div>` : `<p class="muted">Nessun materiale corrisponde alla ricerca o l'elenco non è pubblicato.</p>`}</div></div>
+      <div><h3>Rifiuti accettati <span class="muted">(${acceptances.length})</span></h3>${acceptances.length ? `<div class="table-wrap"><table class="data-table"><thead><tr><th>EER</th><th>Descrizione della fonte</th><th>Stato</th><th></th></tr></thead><tbody>${acceptances.map(item => {
+        const normalizedCode = item.payload.eer_code_normalized || String(item.payload.eer_code_raw || "").replace(/\D/g, "");
+        const official = officialEerEntries.get(normalizedCode);
+        return `<tr><td>${item.payload.eer_code_raw ? `<span class="eer-code">${escapeHtml(item.payload.eer_code_raw)}</span>` : `<span class="muted">Non pubblicato</span>`}${item.payload.eer_code_status === "reconciled" ? `<span class="row-subtitle">→ ${escapeHtml(item.payload.eer_code_normalized)}</span>` : ""}</td><td>${escapeHtml(item.payload.description_raw)}${official ? `<span class="row-subtitle">Ufficiale: ${escapeHtml(official.title)}</span>` : ""}${item.payload.operational_group ? `<span class="row-subtitle">${escapeHtml(item.payload.operational_group)}</span>` : ""}</td><td>${official?.hazardous ? `<span class="chip hazard">Pericoloso</span>` : ""}${official?.register_status === "retired_in_target" ? `<span class="chip review">Sostituito dal 9 dicembre 2026</span>` : ""}${item.payload.eer_code_status === "unmapped_description" ? `<span class="chip">Codice non pubblicato</span>` : item.payload.eer_code_status === "reconciled" ? `<span class="chip method">Riconciliato</span>` : item.payload.eer_code_status === "exact" ? `<span class="chip">Esatto</span>` : `<span class="chip review">Da revisionare</span>`}</td><td><button class="detail-button" data-record="${item.record_id}" type="button">Dettagli</button></td></tr>`;
+      }).join("")}</tbody></table></div>` : `<p class="muted">Nessun materiale corrisponde alla ricerca o l'elenco non è pubblicato.</p>`}</div></div>
       </article>`;
     }).join("")}`;
   }
@@ -248,8 +263,29 @@
       ${concepts.length ? `<div class="table-wrap"><table class="data-table"><thead><tr><th>Rifiuto</th><th>EER indicato dalla fonte</th><th>Categorie sorgente</th><th>Destinazioni locali osservate</th><th>Copertura</th><th></th></tr></thead><tbody>${concepts.map(concept => {
         const eer = concept.eer.candidates;
         const destinations = concept.local_destinations;
-        return `<tr><td><span class="row-title">${escapeHtml(concept.preferred_label)}</span>${concept.terms.length > 1 ? `<span class="row-subtitle">Varianti: ${escapeHtml(concept.terms.join(", "))}</span>` : ""}</td><td>${concept.eer.status === "source_consensus" ? eer.map(item => `<span class="eer-code">${escapeHtml(item.code)}</span>${item.hazardous ? `<span class="chip hazard">Pericoloso</span>` : ""}<span class="row-subtitle">${escapeHtml(item.source_labels.join("; "))}</span>`).join("") : concept.eer.status === "conflict" ? `<span class="chip review">Codici discordanti</span>` : `<span class="muted">Non disponibile</span>`}</td><td>${concept.source_categories.length ? concept.source_categories.map(item => `<span class="chip">${escapeHtml(item)}</span>`).join(" ") : `<span class="muted">Non pubblicate</span>`}</td><td>${destinations.length ? destinations.slice(0, 3).map(item => `<span class="row-title">${escapeHtml(item.label)}</span><span class="row-subtitle">${item.municipality_istats.length} comuni</span>`).join("") + (destinations.length > 3 ? `<span class="row-subtitle">e altre ${destinations.length - 3}</span>` : "") : `<span class="muted">Non pubblicate</span>`}</td><td>${concept.coverage.municipalities.length} comuni<span class="row-subtitle">${concept.coverage.source_assertions} indicazioni distinte</span></td><td><button class="detail-button" data-concept="${escapeHtml(concept.concept_id)}" type="button">Dettagli</button></td></tr>`;
+        return `<tr><td><span class="row-title">${escapeHtml(concept.preferred_label)}</span>${concept.terms.length > 1 ? `<span class="row-subtitle">Varianti: ${escapeHtml(concept.terms.join(", "))}</span>` : ""}</td><td>${concept.eer.status === "source_consensus" ? eer.map(item => `<span class="eer-code">${escapeHtml(item.code)}</span>${item.official_hazardous ? `<span class="chip hazard">Pericoloso</span>` : ""}${item.register_status === "retired_in_target" ? `<span class="chip review">Sostituito dal 9 dicembre 2026</span>` : ""}<span class="row-subtitle">${escapeHtml(item.official_title || item.source_labels.join("; "))}</span>`).join("") : concept.eer.status === "conflict" ? `<span class="chip review">Codici discordanti</span>` : `<span class="muted">Non disponibile</span>`}</td><td>${concept.source_categories.length ? concept.source_categories.map(item => `<span class="chip">${escapeHtml(item)}</span>`).join(" ") : `<span class="muted">Non pubblicate</span>`}</td><td>${destinations.length ? destinations.slice(0, 3).map(item => `<span class="row-title">${escapeHtml(item.label)}</span><span class="row-subtitle">${item.municipality_istats.length} comuni</span>`).join("") + (destinations.length > 3 ? `<span class="row-subtitle">e altre ${destinations.length - 3}</span>` : "") : `<span class="muted">Non pubblicate</span>`}</td><td>${concept.coverage.municipalities.length} comuni<span class="row-subtitle">${concept.coverage.source_assertions} indicazioni distinte</span></td><td><button class="detail-button" data-concept="${escapeHtml(concept.concept_id)}" type="button">Dettagli</button></td></tr>`;
       }).join("")}</tbody></table></div>` : `<div class="empty">Nessun concetto corrisponde alla ricerca.</div>`}`;
+  }
+
+  function renderEer() {
+    const register = data.eer_register;
+    const entries = eerEntries();
+    const chapters = new Map(register.chapters.map(chapter => [chapter.chapter_id, chapter]));
+    const validFrom = register.valid_from ? new Date(`${register.valid_from}T00:00:00`).toLocaleDateString("it-IT", { day: "numeric", month: "long", year: "numeric" }) : "non disponibile";
+    const hazardous = register.entries.filter(entry => entry.hazardous).length;
+    return `${sectionHeading("Elenco europeo dei rifiuti", "Gerarchia ufficiale italiana, indicazione di pericolosità e rinvii espansi tra le voci.")}
+      <div class="notice info"><strong>Edizione futura</strong>Il registro incorpora la decisione (UE) 2025/934 e la rettifica del 19 agosto 2025. Si applica dal ${escapeHtml(validFrom)}; fino ad allora i codici ritirati restano validi.</div>
+      <div class="metric-strip">
+        <div class="metric"><strong>${register.entries.length}</strong><span>voci EER</span></div>
+        <div class="metric"><strong>${hazardous}</strong><span>voci pericolose</span></div>
+        <div class="metric"><strong>${register.chapters.length}</strong><span>capitoli</span></div>
+        <div class="metric"><strong>${register.changes.added_codes.length}</strong><span>nuovi codici</span></div>
+      </div>
+      ${entries.length ? `<div class="table-wrap"><table class="data-table"><thead><tr><th>Codice</th><th>Descrizione ufficiale</th><th>Capitolo</th><th>Stato</th><th></th></tr></thead><tbody>${entries.map(entry => {
+        const chapter = chapters.get(entry.chapter_ref);
+        const expanded = entry.title_expanded !== entry.title;
+        return `<tr><td><span class="eer-code">${escapeHtml(entry.display_code)}${entry.hazardous ? "*" : ""}</span></td><td><span class="row-title">${escapeHtml(entry.title)}</span>${expanded ? `<span class="row-subtitle">Rinvii espansi: ${escapeHtml(entry.title_expanded)}</span>` : ""}</td><td><span class="eer-code">${escapeHtml(chapter?.code || entry.code.slice(0, 2))}</span><span class="row-subtitle">${escapeHtml(chapter?.title || "")}</span></td><td>${entry.hazardous ? `<span class="chip hazard">Pericoloso</span>` : `<span class="chip">Non pericoloso</span>`}${entry.source_celex === "32025D0934" ? `<span class="chip method">Aggiornato 2025</span>` : ""}</td><td><button class="detail-button" data-eer="${entry.code}" type="button">Dettagli</button></td></tr>`;
+      }).join("")}</tbody></table></div>` : `<div class="empty">Nessuna voce EER corrisponde alla ricerca.</div>`}`;
   }
 
   function scheduleText(rule, schedules) {
@@ -289,15 +325,15 @@
   function render() {
     const current = municipality();
     renderScopeFilters();
-    elements.pageTitle.textContent = state.view === "catalog" ? "Catalogo regionale" : current.name;
-    elements.provinceHeading.textContent = state.view === "catalog" ? "Vocabolario trasversale verificabile" : `${current.ato_name} · Provincia di ${current.province_name}`;
-    elements.globalSearch.placeholder = state.view === "catalog" ? "Cerca rifiuto, EER, categoria, destinazione" : "Cerca EER, materiale, zona, indirizzo";
+    elements.pageTitle.textContent = state.view === "catalog" ? "Catalogo regionale" : state.view === "eer" ? "Registro EER ufficiale" : current.name;
+    elements.provinceHeading.textContent = state.view === "catalog" ? "Vocabolario trasversale verificabile" : state.view === "eer" ? "Elenco europeo dei rifiuti · edizione italiana" : `${current.ato_name} · Provincia di ${current.province_name}`;
+    elements.globalSearch.placeholder = state.view === "catalog" ? "Cerca rifiuto, EER, categoria, destinazione" : state.view === "eer" ? "Cerca codice o descrizione EER" : "Cerca EER, materiale, zona, indirizzo";
     renderMunicipalities(elements.municipalitySearch.value);
     renderTabs();
-    const renderers = { overview: renderOverview, waste: renderWasteLookup, catalog: renderCatalog, facilities: renderFacilities, rules: renderRules, points: renderPoints, pickup: renderPickup, records: renderRecords };
+    const renderers = { overview: renderOverview, waste: renderWasteLookup, catalog: renderCatalog, eer: renderEer, facilities: renderFacilities, rules: renderRules, points: renderPoints, pickup: renderPickup, records: renderRecords };
     elements.content.innerHTML = renderers[state.view]();
-    const matching = state.view === "catalog" ? catalogConcepts().length : filtered().length;
-    elements.searchCount.textContent = state.view === "catalog" ? `${matching} concetti` : state.query ? `${matching} record totali` : `${current.records} record`;
+    const matching = state.view === "catalog" ? catalogConcepts().length : state.view === "eer" ? eerEntries().length : filtered().length;
+    elements.searchCount.textContent = state.view === "catalog" ? `${matching} concetti` : state.view === "eer" ? `${matching} voci` : state.query ? `${matching} record totali` : `${current.records} record`;
     history.replaceState(null, "", `#ato=${encodeURIComponent(state.ato)}&provincia=${state.province}&comune=${current.slug}&vista=${state.view}${state.query ? `&q=${encodeURIComponent(state.query)}` : ""}`);
   }
 
@@ -316,6 +352,14 @@
     const eer = concept.eer.candidates;
     elements.dialogTitle.textContent = concept.preferred_label;
     elements.dialogContent.innerHTML = `<div class="coverage-row"><span>Identificatore</span><strong>${escapeHtml(concept.concept_id)}</strong></div><div class="coverage-row"><span>Comuni coperti dalle fonti</span><strong>${concept.coverage.municipalities.length}</strong></div><div class="coverage-row"><span>EER</span><strong>${concept.eer.status === "source_consensus" ? escapeHtml(eer.map(item => item.code).join(", ")) : concept.eer.status === "conflict" ? "Discordante" : "Non disponibile"}</strong></div><section class="subsection"><h3 class="subsection-title">Dettagli generali</h3><div class="notice"><strong>Arricchimento da completare</strong>Materiale, condizioni, esempi ragionati e impatto ambientale non sono ancora stati verificati per questo concetto.</div></section><section class="subsection"><h3 class="subsection-title">Destinazioni pubblicate localmente</h3>${concept.local_destinations.map(item => `<div class="coverage-row"><span>${escapeHtml(item.label)}</span><strong>${escapeHtml(item.municipality_istats.map(code => municipalityNames.get(code) || code).join(", "))}</strong></div>`).join("") || `<p class="muted">Nessuna destinazione pubblicata.</p>`}</section><section class="subsection"><h3 class="subsection-title">Provenienza</h3>${concept.evidence.map(item => `<div class="evidence"><strong>${escapeHtml(item.publisher || "Fonte")}</strong><br><a href="${escapeHtml(item.source_url)}" target="_blank" rel="noreferrer">Apri la fonte</a><br>${escapeHtml(item.quote || "Citazione non disponibile")}</div>`).join("")}</section><section class="subsection"><h3 class="subsection-title">Dati canonici</h3><pre class="json-view">${escapeHtml(JSON.stringify(concept, null, 2))}</pre></section>`;
+    elements.dialog.showModal();
+  }
+
+  function showEer(code) {
+    const entry = data.eer_register.entries.find(item => item.code === code);
+    if (!entry) return;
+    elements.dialogTitle.textContent = `${entry.display_code}${entry.hazardous ? "*" : ""}`;
+    elements.dialogContent.innerHTML = `<div class="coverage-row"><span>Descrizione ufficiale</span><strong>${escapeHtml(entry.title)}</strong></div><div class="coverage-row"><span>Pericoloso</span><strong>${entry.hazardous ? "Sì" : "No"}</strong></div><div class="coverage-row"><span>Sottocapitolo</span><strong>${escapeHtml(entry.subchapter_ref.replace("eer-subchapter:", "").replace(/(..)(..)/, "$1 $2"))}</strong></div>${entry.references.length ? `<section class="subsection"><h3 class="subsection-title">Voci richiamate</h3>${entry.references.map(reference => `<div class="coverage-row"><span class="eer-code">${escapeHtml(reference.display_code)}${reference.hazardous ? "*" : ""}</span><strong>${escapeHtml(reference.title || "Riferimento non risolto")}</strong></div>`).join("")}</section>` : ""}<section class="subsection"><h3 class="subsection-title">Testo con rinvii espansi</h3><p class="evidence">${escapeHtml(entry.title_expanded)}</p></section><section class="subsection"><h3 class="subsection-title">Dati canonici</h3><pre class="json-view">${escapeHtml(JSON.stringify(entry, null, 2))}</pre></section>`;
     elements.dialog.showModal();
   }
 
@@ -359,6 +403,8 @@
     if (button) showRecord(button.dataset.record);
     const conceptButton = event.target.closest("[data-concept]");
     if (conceptButton) showConcept(conceptButton.dataset.concept);
+    const eerButton = event.target.closest("[data-eer]");
+    if (eerButton) showEer(eerButton.dataset.eer);
   });
   elements.municipalitySearch.addEventListener("input", event => renderMunicipalities(event.target.value));
   elements.globalSearch.addEventListener("input", event => {

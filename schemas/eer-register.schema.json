@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dovelobutto.example/schemas/eer-register.schema.json",
+  "title": "European List of Waste register",
+  "type": "object",
+  "required": [
+    "version",
+    "register_id",
+    "language",
+    "generated_at",
+    "valid_from",
+    "status_at_generation",
+    "sources",
+    "changes",
+    "chapters",
+    "subchapters",
+    "entries",
+    "retired_entries"
+  ],
+  "properties": {
+    "version": { "const": 1 },
+    "register_id": { "type": "string", "pattern": "^eer:" },
+    "language": { "const": "it" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "valid_from": { "type": "string", "format": "date" },
+    "status_at_generation": { "enum": ["future", "applicable"] },
+    "sources": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/source" } },
+    "changes": { "$ref": "#/$defs/changes" },
+    "chapters": { "type": "array", "items": { "$ref": "#/$defs/chapter" } },
+    "subchapters": { "type": "array", "items": { "$ref": "#/$defs/subchapter" } },
+    "entries": { "type": "array", "items": { "$ref": "#/$defs/entry" } },
+    "retired_entries": { "type": "array", "items": { "$ref": "#/$defs/retiredEntry" } }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "source": {
+      "type": "object",
+      "required": ["celex", "url", "document_date", "file", "sha256"],
+      "properties": {
+        "celex": { "type": "string" },
+        "url": { "type": "string", "format": "uri" },
+        "document_date": { "type": "string", "format": "date" },
+        "file": { "type": "string" },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      },
+      "additionalProperties": false
+    },
+    "changes": {
+      "type": "object",
+      "required": ["added_codes", "modified_codes", "retired_codes"],
+      "properties": {
+        "added_codes": { "$ref": "#/$defs/codeList" },
+        "modified_codes": { "$ref": "#/$defs/codeList" },
+        "retired_codes": { "$ref": "#/$defs/codeList" }
+      },
+      "additionalProperties": false
+    },
+    "codeList": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[0-9]{6}$" }
+    },
+    "chapter": {
+      "type": "object",
+      "required": ["chapter_id", "code", "display_code", "title", "subchapter_refs"],
+      "properties": {
+        "chapter_id": { "type": "string", "pattern": "^eer-chapter:[0-9]{2}$" },
+        "code": { "type": "string", "pattern": "^[0-9]{2}$" },
+        "display_code": { "type": "string" },
+        "title": { "type": "string" },
+        "subchapter_refs": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "subchapter": {
+      "type": "object",
+      "required": ["subchapter_id", "code", "display_code", "title", "chapter_ref", "entry_refs"],
+      "properties": {
+        "subchapter_id": { "type": "string", "pattern": "^eer-subchapter:[0-9]{4}$" },
+        "code": { "type": "string", "pattern": "^[0-9]{4}$" },
+        "display_code": { "type": "string" },
+        "title": { "type": "string" },
+        "chapter_ref": { "type": "string" },
+        "entry_refs": { "type": "array", "items": { "type": "string" } },
+        "source_celex": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "reference": {
+      "type": "object",
+      "required": ["code", "display_code", "title", "hazardous", "status"],
+      "properties": {
+        "code": { "type": "string", "pattern": "^[0-9]{6}$" },
+        "display_code": { "type": "string" },
+        "title": { "type": ["string", "null"] },
+        "hazardous": { "type": ["boolean", "null"] },
+        "status": { "enum": ["active", "retired", "unknown"] }
+      },
+      "additionalProperties": false
+    },
+    "entry": {
+      "type": "object",
+      "required": [
+        "entry_id", "code", "display_code", "title", "title_expanded",
+        "hazardous", "chapter_ref", "subchapter_ref", "source_celex", "references"
+      ],
+      "properties": {
+        "entry_id": { "type": "string", "pattern": "^eer:[0-9]{6}$" },
+        "code": { "type": "string", "pattern": "^[0-9]{6}$" },
+        "display_code": { "type": "string" },
+        "title": { "type": "string" },
+        "title_expanded": { "type": "string" },
+        "hazardous": { "type": "boolean" },
+        "chapter_ref": { "type": "string" },
+        "subchapter_ref": { "type": "string" },
+        "source_celex": { "type": "string" },
+        "references": { "type": "array", "items": { "$ref": "#/$defs/reference" } }
+      },
+      "additionalProperties": false
+    },
+    "retiredEntry": {
+      "allOf": [
+        { "$ref": "#/$defs/entryBase" },
+        {
+          "type": "object",
+          "required": ["valid_to", "retired_by_celex"],
+          "properties": {
+            "valid_to": { "type": "string", "format": "date" },
+            "retired_by_celex": { "type": "string" }
+          }
+        }
+      ]
+    },
+    "entryBase": {
+      "type": "object",
+      "required": [
+        "entry_id", "code", "display_code", "title", "hazardous",
+        "chapter_ref", "subchapter_ref", "source_celex"
+      ],
+      "properties": {
+        "entry_id": { "type": "string" },
+        "code": { "type": "string" },
+        "display_code": { "type": "string" },
+        "title": { "type": "string" },
+        "hazardous": { "type": "boolean" },
+        "chapter_ref": { "type": "string" },
+        "subchapter_ref": { "type": "string" },
+        "source_celex": { "type": "string" }
+      }
+    }
+  }
+}

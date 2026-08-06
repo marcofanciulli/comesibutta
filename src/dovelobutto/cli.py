@@ -24,6 +24,7 @@ from .crawl import (
     read_registry_jobs,
 )
 from .catalog import build_catalog_from_paths, write_catalog
+from .eer import build_eer_register, validate_acquired_eer, write_json
 from .ato_costa import (
     MunicipalityContext as CostaMunicipalityContext,
     extract_aamps_waste_lookup,
@@ -210,8 +211,20 @@ def build_parser() -> argparse.ArgumentParser:
     catalog.add_argument("--input-dir", type=Path, action="append", required=True)
     catalog.add_argument("--registry", type=Path, action="append", required=True)
     catalog.add_argument("--generated-at", required=True)
+    catalog.add_argument("--eer-register", type=Path)
     catalog.add_argument("--output", type=Path, required=True)
     catalog.add_argument("--report", type=Path, required=True)
+    eer = subparsers.add_parser(
+        "build-eer-register",
+        help="Build the official Italian EER register and validate acquired centre codes",
+    )
+    eer.add_argument("--base-html", type=Path, required=True)
+    eer.add_argument("--amendment-html", type=Path, required=True)
+    eer.add_argument("--corrigendum-html", type=Path, required=True)
+    eer.add_argument("--input-dir", type=Path, action="append", default=[])
+    eer.add_argument("--generated-at", required=True)
+    eer.add_argument("--output", type=Path, required=True)
+    eer.add_argument("--report", type=Path, required=True)
     sweep = subparsers.add_parser(
         "sweep-sei",
         help="Run a resumable and rate-limited sweep from the SEI municipality registry",
@@ -236,11 +249,26 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
+    if args.command == "build-eer-register":
+        register, report = build_eer_register(
+            args.base_html,
+            args.amendment_html,
+            args.corrigendum_html,
+            datetime.fromisoformat(args.generated_at),
+        )
+        if args.input_dir:
+            report["acquired_validation"] = validate_acquired_eer(
+                register, args.input_dir
+            )
+        write_json(args.output, register)
+        write_json(args.report, report)
+        return 0
     if args.command == "build-waste-catalog":
         catalog, report = build_catalog_from_paths(
             args.input_dir,
             args.registry,
             datetime.fromisoformat(args.generated_at),
+            args.eer_register,
         )
         write_catalog(args.output, catalog)
         args.report.parent.mkdir(parents=True, exist_ok=True)
