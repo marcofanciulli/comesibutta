@@ -26,5 +26,8 @@ venv/
 # Regenerable crawler working data
 data/crawl/
 data/snapshots/
+data/canonical/
+data/keys/
+outputs/distribution/
 outputs/sweep-pilot/
 tmp/

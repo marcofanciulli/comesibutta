@@ -1,7 +1,7 @@
 # Architettura dei dati
 
-Versione: 0.3.0
-Ambito corrente: ATO Toscana Sud e ATO Toscana Costa
+Versione: 0.4.0
+Ambito corrente: tutti i 273 comuni della Toscana
 
 ## 1. Perimetro del pilota
 

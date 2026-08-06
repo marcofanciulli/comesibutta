@@ -28,6 +28,8 @@ verificati e un esploratore locale.
   regole obbligatorie di accesso alle fonti.
 - `docs/data-synchronization.md`: revisioni, snapshot e aggiornamenti atomici
   della futura base dati locale.
+- `docs/sqlite-sync-operations.md`: pubblicazione firmata, database SQLite,
+  scelta del percorso minimo e applicazione atomica degli aggiornamenti.
 - `docs/eer-register.md`: importazione normativa, validita e controllo dei
   codici EER pubblicati dai centri.
 - `schemas/acquisition-record.schema.json`: formato JSON Lines prodotto dagli
@@ -50,7 +52,8 @@ validato e completo per l'intera Toscana.
 
 - Python 3.11 o successivo;
 - nessuna libreria Python esterna per gli estrattori correnti;
-- `pdftotext` di Poppler per preparare i PDF a colonne come la guida AAMPS.
+- `pdftotext` di Poppler per preparare i PDF a colonne come la guida AAMPS;
+- OpenSSL 3 con supporto Ed25519 per firmare e verificare i rilasci dati.
 
 ## Pilota Manciano
 
@@ -201,3 +204,11 @@ Per ATO Toscana Centro l'esploratore conserva una sola copia delle 1.722 voci
 AliaEstra condivise, continuando ad applicarle a ciascuno dei 65 comuni. Il
 bundle contiene quindi 42.490 record fisici e pesa circa 57 MB, mentre i file
 di acquisizione comunali restano completi e indipendenti.
+
+## Pubblicazione e aggiornamenti
+
+Il dataset puo essere pubblicato come snapshot e delta gzip firmati Ed25519.
+Il backend mantiene stato, changelog e tombstone in SQLite; il client verifica
+manifest e artefatti, sceglie automaticamente il percorso con meno byte e
+applica ogni pacchetto in una transazione. Comandi, gestione delle chiavi e
+risultati del collaudo completo sono in `docs/sqlite-sync-operations.md`.

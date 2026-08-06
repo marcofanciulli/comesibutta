@@ -37,5 +37,10 @@
         "value": "illustrative-signature"
       }
     }
-  ]
+  ],
+  "signature": {
+    "algorithm": "Ed25519",
+    "key_id": "distribution-2026-01",
+    "value": "illustrative-detached-manifest-signature"
+  }
 }

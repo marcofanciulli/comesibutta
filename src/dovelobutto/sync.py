@@ -1,0 +1,676 @@
+from __future__ import annotations
+
+from dataclasses import dataclass
+from datetime import datetime
+import base64
+import gzip
+import hashlib
+import json
+import os
+from pathlib import Path
+import sqlite3
+import subprocess
+import tempfile
+from typing import Any, Iterable
+from urllib.parse import urljoin
+
+
+DATASET_ID = "comesibutta-toscana"
+SCHEMA_VERSION = 1
+
+
+@dataclass(frozen=True)
+class CanonicalEntity:
+    entity_type: str
+    entity_id: str
+    data: dict[str, Any]
+    dependencies: tuple[tuple[str, str], ...] = ()
+    entity_revision: int | None = None
+
+    @property
+    def content_sha256(self) -> str:
+        return _sha256_json({"data": self.data, "dependencies": self.dependencies})
+
+
+def _json_bytes(value: Any) -> bytes:
+    return (json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n").encode("utf-8")
+
+
+def _sha256_json(value: Any) -> str:
+    return hashlib.sha256(_json_bytes(value)).hexdigest()
+
+
+def _gzip_json(value: Any) -> bytes:
+    return gzip.compress(_json_bytes(value), compresslevel=9, mtime=0)
+
+
+def _read_jsonl(paths: Iterable[Path]) -> list[dict[str, Any]]:
+    records = []
+    for path in sorted(set(paths)):
+        for line in path.read_text(encoding="utf-8").splitlines():
+            if line.strip():
+                records.append(json.loads(line))
+    return records
+
+
+def _record_core(record: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "natural_key": record["natural_key"],
+        "payload": record["payload"],
+        "validity": record.get("validity"),
+        "confidence": record.get("confidence"),
+    }
+
+
+def _source_identity(source: dict[str, Any]) -> str:
+    evidence = source.get("evidence") or {}
+    return _sha256_json({
+        "url": source.get("url"),
+        "selector": evidence.get("selector"),
+        "page": evidence.get("page"),
+        "quote": evidence.get("quote"),
+    })[:12]
+
+
+def _merge_acquisition_records(records: list[dict[str, Any]]) -> list[CanonicalEntity]:
+    grouped: dict[tuple[str, str], list[dict[str, Any]]] = {}
+    for record in records:
+        grouped.setdefault((record["record_type"], record["natural_key"]), []).append(record)
+    entities = []
+    for (entity_type, natural_key), variants in sorted(grouped.items()):
+        by_core: dict[str, list[dict[str, Any]]] = {}
+        for record in variants:
+            by_core.setdefault(_sha256_json(_record_core(record)), []).append(record)
+        for core_hash, observations in sorted(by_core.items()):
+            suffix = "" if len(by_core) == 1 else f":variant:{core_hash[:12]}"
+            sources = []
+            seen_sources = set()
+            for observation in sorted(observations, key=lambda item: (
+                item["source"].get("url", ""), _source_identity(item["source"]), item.get("observed_at", ""),
+            )):
+                source_key = _sha256_json(observation["source"])
+                if source_key not in seen_sources:
+                    sources.append(observation["source"])
+                    seen_sources.add(source_key)
+            latest = max(observations, key=lambda item: item.get("observed_at", ""))
+            data = {
+                **_record_core(latest),
+                "observed_at": max(item.get("observed_at", "") for item in observations),
+                "sources": sources,
+            }
+            entities.append(CanonicalEntity(entity_type, natural_key + suffix, data))
+    return entities
+
+
+def _reference_candidates(entity: CanonicalEntity) -> set[tuple[str, str]]:
+    payload = entity.data.get("payload") or {}
+    references = set()
+    mapping = {
+        "municipality_ref": "municipality",
+        "zone_ref": "service_zone",
+        "facility_ref": "facility",
+    }
+    for field, entity_type in mapping.items():
+        value = payload.get(field)
+        if value:
+            references.add((entity_type, str(value)))
+    eer_code = payload.get("eer_code_normalized")
+    if eer_code:
+        references.add(("eer_entry", f"eer:{eer_code}"))
+    if entity.entity_type == "waste_concept":
+        for candidate in (entity.data.get("eer") or {}).get("candidates", []):
+            if candidate.get("code"):
+                references.add(("eer_entry", f"eer:{candidate['code']}"))
+    return references
+
+
+def load_canonical_entities(
+    input_dirs: list[Path], registry_paths: list[Path],
+    catalog_path: Path | None = None, eer_register_path: Path | None = None,
+) -> dict[tuple[str, str], CanonicalEntity]:
+    acquisition_paths = [
+        path for directory in input_dirs
+        for path in directory.glob("*-acquisition.jsonl")
+    ]
+    records = _read_jsonl([*acquisition_paths, *registry_paths])
+    entities = _merge_acquisition_records(records)
+    if eer_register_path:
+        register = json.loads(eer_register_path.read_text(encoding="utf-8"))
+        entities.extend(
+            CanonicalEntity("eer_entry", entry["entry_id"], entry)
+            for entry in register.get("entries", [])
+        )
+    if catalog_path:
+        catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
+        entities.extend(
+            CanonicalEntity("waste_concept", concept["concept_id"], concept)
+            for concept in catalog.get("concepts", [])
+        )
+    indexed = {(entity.entity_type, entity.entity_id): entity for entity in entities}
+    if len(indexed) != len(entities):
+        raise ValueError("Canonical auxiliary entities contain duplicate identifiers")
+    result = {}
+    for key, entity in indexed.items():
+        dependencies = tuple(sorted(
+            dependency for dependency in _reference_candidates(entity)
+            if dependency in indexed and dependency != key
+        ))
+        result[key] = CanonicalEntity(
+            entity.entity_type, entity.entity_id, entity.data, dependencies, entity.entity_revision,
+        )
+    return result
+
+
+SCHEMA_SQL = """
+PRAGMA foreign_keys = ON;
+CREATE TABLE IF NOT EXISTS metadata (
+    key TEXT PRIMARY KEY,
+    value TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS entities (
+    entity_type TEXT NOT NULL,
+    entity_id TEXT NOT NULL,
+    entity_revision INTEGER NOT NULL,
+    content_sha256 TEXT NOT NULL,
+    data_json TEXT NOT NULL,
+    municipality_ref TEXT,
+    observed_at TEXT,
+    valid_from TEXT,
+    valid_to TEXT,
+    confidence TEXT,
+    PRIMARY KEY (entity_type, entity_id)
+);
+CREATE INDEX IF NOT EXISTS entities_type_municipality
+    ON entities(entity_type, municipality_ref);
+CREATE TABLE IF NOT EXISTS entity_dependencies (
+    entity_type TEXT NOT NULL,
+    entity_id TEXT NOT NULL,
+    dependency_type TEXT NOT NULL,
+    dependency_id TEXT NOT NULL,
+    PRIMARY KEY (entity_type, entity_id, dependency_type, dependency_id),
+    FOREIGN KEY (entity_type, entity_id)
+        REFERENCES entities(entity_type, entity_id) ON DELETE CASCADE
+        DEFERRABLE INITIALLY DEFERRED,
+    FOREIGN KEY (dependency_type, dependency_id)
+        REFERENCES entities(entity_type, entity_id) ON DELETE RESTRICT
+        DEFERRABLE INITIALLY DEFERRED
+);
+CREATE INDEX IF NOT EXISTS dependencies_target
+    ON entity_dependencies(dependency_type, dependency_id);
+CREATE TABLE IF NOT EXISTS changelog (
+    revision INTEGER NOT NULL,
+    sequence INTEGER NOT NULL,
+    operation TEXT NOT NULL CHECK(operation IN ('upsert', 'delete')),
+    entity_type TEXT NOT NULL,
+    entity_id TEXT NOT NULL,
+    operation_json BLOB NOT NULL,
+    changed_at TEXT NOT NULL,
+    PRIMARY KEY (revision, sequence)
+);
+CREATE TABLE IF NOT EXISTS tombstones (
+    entity_type TEXT NOT NULL,
+    entity_id TEXT NOT NULL,
+    deleted_revision INTEGER NOT NULL,
+    deleted_at TEXT NOT NULL,
+    reason TEXT,
+    PRIMARY KEY (entity_type, entity_id)
+);
+CREATE TABLE IF NOT EXISTS package_applications (
+    package_id TEXT PRIMARY KEY,
+    from_revision INTEGER,
+    to_revision INTEGER NOT NULL,
+    package_sha256 TEXT NOT NULL,
+    applied_at TEXT NOT NULL
+);
+"""
+
+
+def open_database(
+    path: Path, dataset_id: str = DATASET_ID, schema_version: int = SCHEMA_VERSION,
+    role: str = "server",
+) -> sqlite3.Connection:
+    if role not in {"server", "client"}:
+        raise ValueError("SQLite role must be server or client")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    connection = sqlite3.connect(path)
+    connection.row_factory = sqlite3.Row
+    connection.executescript(SCHEMA_SQL)
+    metadata = dict(connection.execute("SELECT key, value FROM metadata"))
+    if not metadata:
+        connection.executemany("INSERT INTO metadata(key, value) VALUES (?, ?)", (
+            ("dataset_id", dataset_id), ("schema_version", str(schema_version)),
+            ("revision", "0"), ("role", role),
+        ))
+        connection.commit()
+    elif (
+        metadata.get("dataset_id") != dataset_id
+        or int(metadata.get("schema_version", 0)) != schema_version
+        or metadata.get("role", "server") != role
+    ):
+        connection.close()
+        raise ValueError("SQLite dataset, schema version or role mismatch")
+    connection.execute("PRAGMA foreign_keys = ON")
+    return connection
+
+
+def read_database_entities(connection: sqlite3.Connection) -> dict[tuple[str, str], CanonicalEntity]:
+    dependencies: dict[tuple[str, str], list[tuple[str, str]]] = {}
+    for row in connection.execute("SELECT * FROM entity_dependencies ORDER BY 1, 2, 3, 4"):
+        dependencies.setdefault((row["entity_type"], row["entity_id"]), []).append(
+            (row["dependency_type"], row["dependency_id"])
+        )
+    return {
+        (row["entity_type"], row["entity_id"]): CanonicalEntity(
+            row["entity_type"], row["entity_id"], json.loads(row["data_json"]),
+            tuple(dependencies.get((row["entity_type"], row["entity_id"]), [])),
+            row["entity_revision"],
+        )
+        for row in connection.execute("SELECT * FROM entities ORDER BY entity_type, entity_id")
+    }
+
+
+def build_update_package(
+    current: dict[tuple[str, str], CanonicalEntity],
+    desired: dict[tuple[str, str], CanonicalEntity],
+    from_revision: int | None,
+    to_revision: int,
+    generated_at: datetime,
+) -> dict[str, Any]:
+    if to_revision < 1 or from_revision is not None and to_revision <= from_revision:
+        raise ValueError("Revision must increase")
+    kind = "snapshot" if from_revision is None else "delta"
+    operations = []
+    for key in sorted(desired):
+        entity = desired[key]
+        previous = current.get(key)
+        if kind == "delta" and previous and previous.content_sha256 == entity.content_sha256:
+            continue
+        operations.append({
+            "operation": "upsert", "entity_type": entity.entity_type, "entity_id": entity.entity_id,
+            "entity_revision": to_revision,
+            "dependencies": [
+                {"entity_type": dependency_type, "entity_id": dependency_id}
+                for dependency_type, dependency_id in entity.dependencies
+            ],
+            "data": entity.data,
+        })
+    if kind == "delta":
+        for key in sorted(set(current) - set(desired), reverse=True):
+            entity = current[key]
+            operations.append({
+                "operation": "delete", "entity_type": entity.entity_type, "entity_id": entity.entity_id,
+                "entity_revision": to_revision, "dependencies": [],
+                "deleted_at": generated_at.isoformat(), "reason": "absent_from_published_state",
+            })
+    for sequence, operation in enumerate(operations, 1):
+        operation["sequence"] = sequence
+    return {
+        "format_version": 1, "dataset_id": DATASET_ID, "schema_version": SCHEMA_VERSION,
+        "package_id": f"{kind}:{from_revision or 0}:{to_revision}", "kind": kind,
+        "generated_at": generated_at.isoformat(), "from_revision": from_revision,
+        "to_revision": to_revision, "operations": operations,
+    }
+
+
+def _validate_package(package: dict[str, Any]) -> None:
+    required = {
+        "format_version", "dataset_id", "schema_version", "package_id", "kind",
+        "generated_at", "from_revision", "to_revision", "operations",
+    }
+    if not required <= package.keys():
+        raise ValueError(f"Package fields missing: {sorted(required - package.keys())}")
+    if package["format_version"] != 1 or package["dataset_id"] != DATASET_ID or package["schema_version"] != SCHEMA_VERSION:
+        raise ValueError("Unsupported package contract")
+    if package["kind"] == "snapshot" and package["from_revision"] is not None:
+        raise ValueError("Snapshot must not have a starting revision")
+    if package["kind"] == "delta" and not isinstance(package["from_revision"], int):
+        raise ValueError("Delta requires a starting revision")
+    sequences = [operation.get("sequence") for operation in package["operations"]]
+    if sequences != list(range(1, len(sequences) + 1)):
+        raise ValueError("Package operation sequence is not contiguous")
+
+
+def _indexed_fields(data: dict[str, Any]) -> tuple[Any, ...]:
+    payload = data.get("payload") or data
+    validity = data.get("validity") or {}
+    return (
+        payload.get("municipality_ref"), data.get("observed_at"), validity.get("valid_from"),
+        validity.get("valid_to"), data.get("confidence"),
+    )
+
+
+def apply_package(
+    connection: sqlite3.Connection, package: dict[str, Any], package_sha256: str | None = None,
+) -> bool:
+    _validate_package(package)
+    package_hash = package_sha256 or hashlib.sha256(_json_bytes(package)).hexdigest()
+    metadata = dict(connection.execute("SELECT key, value FROM metadata"))
+    current_revision = int(metadata["revision"])
+    previous_application = connection.execute(
+        "SELECT package_sha256, to_revision FROM package_applications WHERE package_id = ?",
+        (package["package_id"],),
+    ).fetchone()
+    if previous_application:
+        if previous_application["package_sha256"] != package_hash or previous_application["to_revision"] != package["to_revision"]:
+            raise ValueError("Package ID was already applied with different content")
+        return False
+    if package["kind"] == "snapshot":
+        if current_revision not in {0, package["to_revision"]}:
+            raise ValueError("Snapshot can only initialize an empty database")
+    elif package["from_revision"] != current_revision:
+        raise ValueError(f"Delta starts at {package['from_revision']}, client is at {current_revision}")
+    try:
+        connection.execute("BEGIN IMMEDIATE")
+        if package["kind"] == "snapshot":
+            connection.execute("DELETE FROM entity_dependencies")
+            connection.execute("DELETE FROM entities")
+            connection.execute("DELETE FROM tombstones")
+        for operation in package["operations"]:
+            entity_key = (operation["entity_type"], operation["entity_id"])
+            if operation["operation"] == "upsert":
+                data_json = _json_bytes(operation["data"]).decode("utf-8").rstrip("\n")
+                dependencies = tuple(
+                    (item["entity_type"], item["entity_id"])
+                    for item in operation["dependencies"]
+                )
+                content_hash = _sha256_json({"data": operation["data"], "dependencies": dependencies})
+                connection.execute(
+                    """INSERT INTO entities(
+                        entity_type, entity_id, entity_revision, content_sha256, data_json,
+                        municipality_ref, observed_at, valid_from, valid_to, confidence
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    ON CONFLICT(entity_type, entity_id) DO UPDATE SET
+                        entity_revision=excluded.entity_revision,
+                        content_sha256=excluded.content_sha256, data_json=excluded.data_json,
+                        municipality_ref=excluded.municipality_ref, observed_at=excluded.observed_at,
+                        valid_from=excluded.valid_from, valid_to=excluded.valid_to,
+                        confidence=excluded.confidence""",
+                    (*entity_key, operation["entity_revision"], content_hash, data_json, *_indexed_fields(operation["data"])),
+                )
+                connection.execute(
+                    "DELETE FROM entity_dependencies WHERE entity_type = ? AND entity_id = ?", entity_key,
+                )
+                connection.executemany(
+                    "INSERT INTO entity_dependencies VALUES (?, ?, ?, ?)",
+                    ((*entity_key, *dependency) for dependency in dependencies),
+                )
+                connection.execute(
+                    "DELETE FROM tombstones WHERE entity_type = ? AND entity_id = ?", entity_key,
+                )
+            elif operation["operation"] == "delete":
+                connection.execute("DELETE FROM entities WHERE entity_type = ? AND entity_id = ?", entity_key)
+                connection.execute(
+                    """INSERT INTO tombstones(entity_type, entity_id, deleted_revision, deleted_at, reason)
+                    VALUES (?, ?, ?, ?, ?)
+                    ON CONFLICT(entity_type, entity_id) DO UPDATE SET
+                        deleted_revision=excluded.deleted_revision, deleted_at=excluded.deleted_at,
+                        reason=excluded.reason""",
+                    (*entity_key, operation["entity_revision"], operation["deleted_at"], operation.get("reason")),
+                )
+            else:
+                raise ValueError(f"Unknown operation {operation['operation']}")
+            if metadata.get("role", "server") == "server":
+                connection.execute(
+                    "INSERT INTO changelog VALUES (?, ?, ?, ?, ?, ?, ?)",
+                    (
+                        package["to_revision"], operation["sequence"], operation["operation"],
+                        *entity_key, gzip.compress(_json_bytes(operation), compresslevel=6, mtime=0),
+                        package["generated_at"],
+                    ),
+                )
+        violations = connection.execute("PRAGMA foreign_key_check").fetchall()
+        if violations:
+            raise ValueError(f"Foreign key validation failed: {len(violations)} violation(s)")
+        connection.execute("UPDATE metadata SET value = ? WHERE key = 'revision'", (str(package["to_revision"]),))
+        connection.execute(
+            "INSERT INTO package_applications VALUES (?, ?, ?, ?, ?)",
+            (
+                package["package_id"], package["from_revision"], package["to_revision"],
+                package_hash, package["generated_at"],
+            ),
+        )
+        connection.commit()
+        return True
+    except Exception:
+        connection.rollback()
+        raise
+
+
+def sign_artifact(path: Path, private_key: Path) -> str:
+    with tempfile.NamedTemporaryFile() as signature_file:
+        subprocess.run(
+            ["openssl", "pkeyutl", "-sign", "-rawin", "-inkey", str(private_key), "-in", str(path), "-out", signature_file.name],
+            check=True, capture_output=True,
+        )
+        return base64.b64encode(Path(signature_file.name).read_bytes()).decode("ascii")
+
+
+def verify_artifact(path: Path, public_key: Path, signature: str) -> None:
+    signature_bytes = base64.b64decode(signature, validate=True)
+    with tempfile.NamedTemporaryFile() as signature_file:
+        Path(signature_file.name).write_bytes(signature_bytes)
+        result = subprocess.run(
+            ["openssl", "pkeyutl", "-verify", "-rawin", "-pubin", "-inkey", str(public_key), "-in", str(path), "-sigfile", signature_file.name],
+            capture_output=True,
+        )
+    if result.returncode != 0:
+        raise ValueError("Ed25519 artifact signature is invalid")
+
+
+def _sign_manifest(manifest: dict[str, Any], private_key: Path, key_id: str) -> dict[str, Any]:
+    with tempfile.NamedTemporaryFile() as unsigned_file:
+        Path(unsigned_file.name).write_bytes(_json_bytes(manifest))
+        signature = sign_artifact(Path(unsigned_file.name), private_key)
+    return {
+        **manifest,
+        "signature": {"algorithm": "Ed25519", "key_id": key_id, "value": signature},
+    }
+
+
+def verify_manifest(manifest: dict[str, Any], public_key: Path) -> None:
+    signature = manifest.get("signature")
+    if not signature or signature.get("algorithm") != "Ed25519":
+        raise ValueError("Manifest has no supported signature")
+    unsigned = {key: value for key, value in manifest.items() if key != "signature"}
+    with tempfile.NamedTemporaryFile() as unsigned_file:
+        Path(unsigned_file.name).write_bytes(_json_bytes(unsigned))
+        verify_artifact(Path(unsigned_file.name), public_key, signature["value"])
+
+
+def write_artifact(
+    package: dict[str, Any], destination: Path, private_key: Path, key_id: str,
+    base_url: str,
+) -> dict[str, Any]:
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    temporary = destination.with_suffix(destination.suffix + ".tmp")
+    temporary.write_bytes(_gzip_json(package))
+    temporary.replace(destination)
+    body = destination.read_bytes()
+    return {
+        "package_id": package["package_id"], "kind": package["kind"],
+        "from_revision": package["from_revision"], "to_revision": package["to_revision"],
+        "url": urljoin(base_url.rstrip("/") + "/", destination.name),
+        "bytes": len(body), "sha256": hashlib.sha256(body).hexdigest(), "compression": "gzip",
+        "signature": {"algorithm": "Ed25519", "key_id": key_id, "value": sign_artifact(destination, private_key)},
+    }
+
+
+def read_artifact(path: Path, artifact: dict[str, Any], public_key: Path | None = None) -> dict[str, Any]:
+    body = path.read_bytes()
+    if len(body) != artifact["bytes"] or hashlib.sha256(body).hexdigest() != artifact["sha256"]:
+        raise ValueError("Artifact size or SHA-256 does not match the manifest")
+    if public_key:
+        verify_artifact(path, public_key, artifact["signature"]["value"])
+    if artifact["compression"] != "gzip":
+        raise ValueError("Only gzip artifacts are supported by this implementation")
+    return json.loads(gzip.decompress(body))
+
+
+def publish_release(
+    desired: dict[tuple[str, str], CanonicalEntity], database_path: Path,
+    artifact_dir: Path, manifest_path: Path, revision: int, generated_at: datetime,
+    private_key: Path, key_id: str, base_url: str,
+) -> dict[str, Any]:
+    connection = open_database(database_path, role="server")
+    try:
+        metadata = dict(connection.execute("SELECT key, value FROM metadata"))
+        current_revision = int(metadata["revision"])
+        pending_path = manifest_path.with_suffix(manifest_path.suffix + ".pending")
+        if pending_path.exists():
+            pending = json.loads(pending_path.read_text(encoding="utf-8"))
+            if current_revision == pending["latest_revision"]:
+                if revision != current_revision:
+                    raise ValueError(
+                        f"Pending revision {current_revision} must be finalized before revision {revision}"
+                    )
+                pending_path.replace(manifest_path)
+                recovered_delta = next(
+                    (item for item in reversed(pending["packages"]) if item["to_revision"] == revision),
+                    None,
+                )
+                return {
+                    "revision": revision, "previous_revision": recovered_delta["from_revision"] if recovered_delta else 0,
+                    "entities": len(desired), "snapshot_operations": len(desired),
+                    "delta_operations": None, "snapshot": pending["latest_snapshot"],
+                    "delta": recovered_delta, "recovered_pending_publication": True,
+                }
+            if current_revision < pending["latest_revision"]:
+                pending_path.unlink()
+            else:
+                raise ValueError("Pending manifest is older than the canonical database")
+        current = read_database_entities(connection)
+        if revision <= current_revision:
+            raise ValueError(f"Revision {revision} does not advance current revision {current_revision}")
+        delta = None if current_revision == 0 else build_update_package(current, desired, current_revision, revision, generated_at)
+        snapshot = build_update_package({}, desired, None, revision, generated_at)
+        snapshot["package_id"] = f"snapshot:{revision}"
+        artifact_dir.mkdir(parents=True, exist_ok=True)
+        snapshot_artifact = write_artifact(
+            snapshot, artifact_dir / f"snapshot-{revision}.json.gz", private_key, key_id, base_url,
+        )
+        delta_artifact = None
+        if delta is not None:
+            delta["package_id"] = f"delta:{current_revision}:{revision}"
+            delta_artifact = write_artifact(
+                delta, artifact_dir / f"delta-{current_revision}-{revision}.json.gz",
+                private_key, key_id, base_url,
+            )
+        previous = json.loads(manifest_path.read_text(encoding="utf-8")) if manifest_path.exists() else None
+        packages = list(previous.get("packages", [])) if previous else []
+        if delta_artifact:
+            packages.append(delta_artifact)
+        unsigned_manifest = {
+            "format_version": 1, "dataset_id": DATASET_ID, "schema_version": SCHEMA_VERSION,
+            "generated_at": generated_at.isoformat(), "latest_revision": revision,
+            "minimum_incremental_revision": previous["minimum_incremental_revision"] if previous else revision,
+            "minimum_client_version": previous.get("minimum_client_version") if previous else "1.0.0",
+            "latest_snapshot": snapshot_artifact, "packages": packages,
+        }
+        manifest = _sign_manifest(unsigned_manifest, private_key, key_id)
+        manifest_path.parent.mkdir(parents=True, exist_ok=True)
+        pending_path.write_bytes(_json_bytes(manifest))
+        package_to_apply = snapshot if delta is None else delta
+        artifact_to_apply = snapshot_artifact if delta_artifact is None else delta_artifact
+        apply_package(connection, package_to_apply, artifact_to_apply["sha256"])
+        pending_path.replace(manifest_path)
+        return {
+            "revision": revision, "previous_revision": current_revision,
+            "entities": len(desired), "snapshot_operations": len(snapshot["operations"]),
+            "delta_operations": len(delta["operations"]) if delta else None,
+            "snapshot": snapshot_artifact, "delta": delta_artifact,
+        }
+    finally:
+        connection.close()
+
+
+def apply_manifest_package(
+    database_path: Path, manifest_path: Path, package_id: str,
+    artifact_root: Path, public_key: Path | None,
+) -> bool:
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    if public_key:
+        verify_manifest(manifest, public_key)
+    artifacts = [manifest["latest_snapshot"], *manifest["packages"]]
+    artifact = next((item for item in artifacts if item["package_id"] == package_id), None)
+    if artifact is None:
+        raise ValueError(f"Package {package_id} is not present in the manifest")
+    artifact_path = artifact_root / Path(artifact["url"]).name
+    package = read_artifact(artifact_path, artifact, public_key)
+    connection = open_database(database_path, role="client")
+    try:
+        return apply_package(connection, package, artifact["sha256"])
+    finally:
+        connection.close()
+
+
+def plan_update(manifest: dict[str, Any], current_revision: int) -> list[dict[str, Any]]:
+    latest = manifest["latest_revision"]
+    if current_revision == latest:
+        return []
+    snapshot = manifest["latest_snapshot"]
+    if current_revision == 0 or current_revision < manifest["minimum_incremental_revision"]:
+        return [snapshot]
+    edges: dict[int, list[dict[str, Any]]] = {}
+    for artifact in manifest["packages"]:
+        if artifact["kind"] == "delta":
+            edges.setdefault(artifact["from_revision"], []).append(artifact)
+    distances = {current_revision: 0}
+    paths: dict[int, list[dict[str, Any]]] = {current_revision: []}
+    pending = {current_revision}
+    while pending:
+        revision = min(pending, key=lambda item: distances[item])
+        pending.remove(revision)
+        for artifact in edges.get(revision, []):
+            target = artifact["to_revision"]
+            distance = distances[revision] + artifact["bytes"]
+            if target not in distances or distance < distances[target]:
+                distances[target] = distance
+                paths[target] = [*paths[revision], artifact]
+                pending.add(target)
+    delta_path = paths.get(latest)
+    if delta_path is None or sum(item["bytes"] for item in delta_path) >= snapshot["bytes"]:
+        return [snapshot]
+    return delta_path
+
+
+def _database_revision(path: Path) -> int:
+    if not path.exists():
+        return 0
+    connection = open_database(path, role="client")
+    try:
+        return int(connection.execute("SELECT value FROM metadata WHERE key='revision'").fetchone()[0])
+    finally:
+        connection.close()
+
+
+def apply_update_plan(
+    database_path: Path, manifest_path: Path, artifact_root: Path, public_key: Path,
+) -> list[str]:
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    verify_manifest(manifest, public_key)
+    current_revision = _database_revision(database_path)
+    artifacts = plan_update(manifest, current_revision)
+    if not artifacts:
+        return []
+    if artifacts[0]["kind"] == "snapshot":
+        temporary = database_path.with_suffix(database_path.suffix + ".next")
+        if temporary.exists():
+            temporary.unlink()
+        apply_manifest_package(
+            temporary, manifest_path, artifacts[0]["package_id"], artifact_root, public_key,
+        )
+        if _database_revision(temporary) != manifest["latest_revision"]:
+            temporary.unlink(missing_ok=True)
+            raise ValueError("Snapshot did not produce the manifest revision")
+        database_path.parent.mkdir(parents=True, exist_ok=True)
+        os.replace(temporary, database_path)
+        return [artifacts[0]["package_id"]]
+    applied = []
+    for artifact in artifacts:
+        apply_manifest_package(
+            database_path, manifest_path, artifact["package_id"], artifact_root, public_key,
+        )
+        applied.append(artifact["package_id"])
+    if _database_revision(database_path) != manifest["latest_revision"]:
+        raise ValueError("Delta path did not produce the manifest revision")
+    return applied

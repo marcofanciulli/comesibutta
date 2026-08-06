@@ -267,6 +267,25 @@ Completamento dei comuni toscani in ATO extra-regionali:
   331 concetti associati a un EER concordante;
 - 80 test automatici superati.
 
+SQLite canonico e sincronizzazione remota:
+
+- materializzate 155.946 entita canoniche e 159.719 dipendenze dal dataset
+  regionale completo; 134 asserzioni variantate preservano le collisioni di
+  chiave senza perdita di dati;
+- aggiunti database SQLite distinti per backend e client, con chiavi esterne,
+  tombstone, pacchetti applicati e changelog backend compresso;
+- snapshot e delta gzip sono firmati Ed25519; anche il manifest e firmato e la
+  CLI client richiede la chiave pubblica;
+- il pianificatore sceglie il percorso di delta con meno byte oppure uno
+  snapshot, che viene costruito separatamente e sostituito atomicamente;
+- la pubblicazione usa un manifest `.pending` e recupera un'interruzione tra
+  aggiornamento del backend e pubblicazione del nuovo manifest;
+- collaudo completo: snapshot da 7,7 MB, delta di una singola modifica da 785
+  byte, 155.946 entita applicate e zero violazioni relazionali;
+- il SQLite client generico occupa circa 259 MB: la deduplicazione strutturale
+  di fonti e regole condivise resta il prossimo intervento di ottimizzazione;
+- 87 test automatici superati.
+
 ## Limiti e questioni aperte
 
 - Le pagine di ritiro ingombranti non sono collegate dall'indice generale e
@@ -285,9 +304,10 @@ Completamento dei comuni toscani in ATO extra-regionali:
 2. Acquisire i dettagli dei centri ESA e cercare una guida AAMPS piu recente.
 3. Modellare l'accesso intergestore Montignoso-ERSU e approfondire i centri non
    pubblicati o non attribuiti esplicitamente dalle fonti.
-4. Definire il livello canonico e il vocabolario unificato dei nomi quotidiani.
-5. Prototipare manifest, generazione dei delta e applicazione transazionale su
-   una base SQLite locale.
+4. Normalizzare in tabelle dedicate provenienza, regole condivise e
+   applicabilita territoriale per ridurre il database client.
+5. Aggiungere consolidati settimanali, mensili e annuali con conservazione e
+   compattazione automatica nella finestra incrementale di cinque anni.
 
 ## Regola di continuita
 

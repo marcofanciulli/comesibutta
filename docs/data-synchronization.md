@@ -1,6 +1,6 @@
 # Sincronizzazione remota dei dati
 
-Versione: 0.1.0
+Versione: 0.2.0
 Data: 6 agosto 2026
 
 ## 1. Obiettivo
@@ -168,3 +168,11 @@ viene eliminata insieme ai pacchetti di distribuzione.
 Questi contratti sono indipendenti dal trasporto. In produzione gli artefatti
 JSON possono essere compressi con Zstandard; durante sviluppo e debug possono
 restare JSON non compresso.
+
+## 11. Implementazione SQLite
+
+Il primo backend e client di riferimento sono implementati in
+`src/dovelobutto/sync.py`. Comprendono stato canonico, dipendenze, changelog,
+tombstone, firme Ed25519, snapshot, delta, ripresa della pubblicazione e scelta
+del percorso con meno byte. La procedura operativa e i limiti misurati sono in
+`docs/sqlite-sync-operations.md`.

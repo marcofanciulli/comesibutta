@@ -11,7 +11,8 @@
     "latest_revision",
     "minimum_incremental_revision",
     "latest_snapshot",
-    "packages"
+    "packages",
+    "signature"
   ],
   "properties": {
     "format_version": { "const": 1 },
@@ -25,7 +26,8 @@
     "packages": {
       "type": "array",
       "items": { "$ref": "#/$defs/artifact" }
-    }
+    },
+    "signature": { "$ref": "#/$defs/signature" }
   },
   "additionalProperties": false,
   "$defs": {

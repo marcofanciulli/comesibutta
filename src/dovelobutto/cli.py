@@ -58,6 +58,12 @@ from .sei_toscana import (
     extract_municipality_bundle,
     reconcile_eer_records,
 )
+from .sync import (
+    apply_manifest_package,
+    apply_update_plan,
+    load_canonical_entities,
+    publish_release,
+)
 
 
 PAGE_NAMES = ("raccolta-rifiuti", "centro-di-raccolta", "centri-di-raccolta", "ritiro-ingombranti")
@@ -302,6 +308,40 @@ def build_parser() -> argparse.ArgumentParser:
     catalog.add_argument("--eer-register", type=Path)
     catalog.add_argument("--output", type=Path, required=True)
     catalog.add_argument("--report", type=Path, required=True)
+    publish = subparsers.add_parser(
+        "publish-data-release",
+        help="Build the canonical SQLite state and signed snapshot/delta artifacts",
+    )
+    publish.add_argument("--input-dir", type=Path, action="append", required=True)
+    publish.add_argument("--registry", type=Path, action="append", required=True)
+    publish.add_argument("--catalog", type=Path)
+    publish.add_argument("--eer-register", type=Path)
+    publish.add_argument("--database", type=Path, required=True)
+    publish.add_argument("--artifact-dir", type=Path, required=True)
+    publish.add_argument("--manifest", type=Path, required=True)
+    publish.add_argument("--revision", type=int, required=True)
+    publish.add_argument("--generated-at", required=True)
+    publish.add_argument("--private-key", type=Path, required=True)
+    publish.add_argument("--key-id", required=True)
+    publish.add_argument("--base-url", required=True)
+    publish.add_argument("--report", type=Path, required=True)
+    apply_update = subparsers.add_parser(
+        "apply-data-update",
+        help="Verify and atomically apply one manifest package to a client SQLite database",
+    )
+    apply_update.add_argument("--database", type=Path, required=True)
+    apply_update.add_argument("--manifest", type=Path, required=True)
+    apply_update.add_argument("--package-id", required=True)
+    apply_update.add_argument("--artifact-root", type=Path, required=True)
+    apply_update.add_argument("--public-key", type=Path, required=True)
+    apply_plan = subparsers.add_parser(
+        "apply-data-plan",
+        help="Choose the smallest valid update path and apply it to a client database",
+    )
+    apply_plan.add_argument("--database", type=Path, required=True)
+    apply_plan.add_argument("--manifest", type=Path, required=True)
+    apply_plan.add_argument("--artifact-root", type=Path, required=True)
+    apply_plan.add_argument("--public-key", type=Path, required=True)
     eer = subparsers.add_parser(
         "build-eer-register",
         help="Build the official Italian EER register and validate acquired centre codes",
@@ -337,6 +377,34 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
+    if args.command == "publish-data-release":
+        entities = load_canonical_entities(
+            args.input_dir, args.registry, args.catalog, args.eer_register,
+        )
+        report = publish_release(
+            entities, args.database, args.artifact_dir, args.manifest,
+            args.revision, datetime.fromisoformat(args.generated_at),
+            args.private_key, args.key_id, args.base_url,
+        )
+        args.report.parent.mkdir(parents=True, exist_ok=True)
+        args.report.write_text(
+            json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+        return 0
+    if args.command == "apply-data-update":
+        changed = apply_manifest_package(
+            args.database, args.manifest, args.package_id,
+            args.artifact_root, args.public_key,
+        )
+        print("applied" if changed else "already_applied")
+        return 0
+    if args.command == "apply-data-plan":
+        packages = apply_update_plan(
+            args.database, args.manifest, args.artifact_root, args.public_key,
+        )
+        print(json.dumps({"applied_packages": packages}, ensure_ascii=False))
+        return 0
     if args.command == "fetch-boundary":
         bundle = fetch_boundary_bundle(
             args.bundle, datetime.fromisoformat(args.observed_at), args.user_agent, args.delay,
