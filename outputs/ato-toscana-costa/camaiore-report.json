@@ -1,0 +1,27 @@
+{
+  "equivalent_pages": [],
+  "errors": [],
+  "istat_code": "046005",
+  "municipality": "Camaiore",
+  "observed_at": "2026-08-06T22:00:00+02:00",
+  "pages_available": 12,
+  "pages_materialized": 12,
+  "records": 68,
+  "records_by_type": {
+    "collection_rule": 5,
+    "facility": 6,
+    "facility_acceptance": 43,
+    "facility_access": 6,
+    "opening_period": 6,
+    "pickup_service": 1,
+    "service_zone": 1
+  },
+  "slug": "camaiore",
+  "warnings": [
+    {
+      "code": "waste_lookup_not_published_or_not_structured",
+      "detail": "Rifiutario non pubblicato o non disponibile in forma strutturata nella fonte acquisita",
+      "url": "https://ersu.it/"
+    }
+  ]
+}

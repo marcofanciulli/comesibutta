@@ -1,0 +1,72 @@
+{
+  "errors": [],
+  "extraction": {
+    "municipalities": 2,
+    "municipality_reports": [
+      {
+        "equivalent_pages": [],
+        "errors": [],
+        "istat_code": "046033",
+        "municipality": "Viareggio",
+        "observed_at": "2026-08-06T22:00:00+02:00",
+        "pages_available": 2,
+        "pages_materialized": 2,
+        "records": 13,
+        "records_by_type": {
+          "collection_rule": 6,
+          "facility": 2,
+          "facility_access": 2,
+          "opening_period": 2,
+          "service_zone": 1
+        },
+        "slug": "viareggio",
+        "warnings": [
+          {
+            "code": "waste_lookup_not_published_or_not_structured",
+            "detail": "Rifiutario non pubblicato o non disponibile in forma strutturata nella fonte acquisita",
+            "url": "https://www.seaambiente-spa.it/it/raccolta-porta-a-porta/come-si-fa-la-raccolta"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "errors": [],
+        "istat_code": "045011",
+        "municipality": "Montignoso",
+        "observed_at": "2026-08-06T22:00:00+02:00",
+        "pages_available": 2,
+        "pages_materialized": 2,
+        "records": 7,
+        "records_by_type": {
+          "collection_rule": 6,
+          "service_zone": 1
+        },
+        "slug": "montignoso",
+        "warnings": [
+          {
+            "code": "waste_lookup_not_published_or_not_structured",
+            "detail": "Rifiutario non pubblicato o non disponibile in forma strutturata nella fonte acquisita",
+            "url": "https://www.seaambiente-spa.it/it/raccolta-porta-a-porta/come-si-fa-la-raccolta"
+          },
+          {
+            "code": "facility_page_not_published_or_not_structured",
+            "detail": "Centro di raccolta non pubblicato, non attribuito esplicitamente al comune o non disponibile in forma strutturata",
+            "url": "https://www.seaambiente-spa.it/it/raccolta-porta-a-porta/come-si-fa-la-raccolta"
+          }
+        ]
+      }
+    ],
+    "records": 20,
+    "warnings": 3
+  },
+  "municipalities_touched": 2,
+  "observed_at": "2026-08-06T22:00:00+02:00",
+  "operator_ref": "sea-ambiente",
+  "pages_by_status": {
+    "blocked_by_robots": 0,
+    "error": 0,
+    "snapshot": 2
+  },
+  "pages_checked": 2,
+  "pages_remaining": 0
+}

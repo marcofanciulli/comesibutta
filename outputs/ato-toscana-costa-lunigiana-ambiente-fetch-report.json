@@ -1,0 +1,15 @@
+{
+  "errors": [],
+  "municipalities_touched": 14,
+  "observed_at": "2026-08-06T20:27:00+02:00",
+  "operator_ref": "lunigiana-ambiente",
+  "pages_by_status": {
+    "blocked_by_robots": 0,
+    "error": 0,
+    "snapshot": 20
+  },
+  "pages_checked": 20,
+  "pages_remaining": 0,
+  "robots_status": "available",
+  "robots_url": "https://www.lunigianaambiente.it/robots.txt"
+}

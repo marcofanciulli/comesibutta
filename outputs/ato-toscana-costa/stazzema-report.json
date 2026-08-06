@@ -1,0 +1,26 @@
+{
+  "equivalent_pages": [],
+  "errors": [],
+  "istat_code": "046030",
+  "municipality": "Stazzema",
+  "observed_at": "2026-08-06T22:00:00+02:00",
+  "pages_available": 8,
+  "pages_materialized": 8,
+  "records": 59,
+  "records_by_type": {
+    "collection_rule": 6,
+    "facility": 2,
+    "facility_acceptance": 46,
+    "facility_access": 2,
+    "opening_period": 2,
+    "service_zone": 1
+  },
+  "slug": "stazzema",
+  "warnings": [
+    {
+      "code": "waste_lookup_not_published_or_not_structured",
+      "detail": "Rifiutario non pubblicato o non disponibile in forma strutturata nella fonte acquisita",
+      "url": "https://ersu.it/"
+    }
+  ]
+}

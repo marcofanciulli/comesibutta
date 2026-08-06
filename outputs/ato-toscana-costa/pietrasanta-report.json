@@ -1,0 +1,26 @@
+{
+  "equivalent_pages": [],
+  "errors": [],
+  "istat_code": "046024",
+  "municipality": "Pietrasanta",
+  "observed_at": "2026-08-06T22:00:00+02:00",
+  "pages_available": 11,
+  "pages_materialized": 11,
+  "records": 92,
+  "records_by_type": {
+    "collection_rule": 6,
+    "facility": 5,
+    "facility_acceptance": 69,
+    "facility_access": 5,
+    "opening_period": 6,
+    "service_zone": 1
+  },
+  "slug": "pietrasanta",
+  "warnings": [
+    {
+      "code": "waste_lookup_not_published_or_not_structured",
+      "detail": "Rifiutario non pubblicato o non disponibile in forma strutturata nella fonte acquisita",
+      "url": "https://ersu.it/"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "equivalent_pages": [],
+  "errors": [],
+  "istat_code": "046034",
+  "municipality": "Villa Basilica",
+  "observed_at": "2026-08-06T22:00:00+02:00",
+  "pages_available": 4,
+  "pages_materialized": 4,
+  "records": 583,
+  "records_by_type": {
+    "collection_rule": 3,
+    "facility": 2,
+    "facility_access": 2,
+    "pickup_service": 1,
+    "service_zone": 1,
+    "waste_lookup": 574
+  },
+  "slug": "villa-basilica",
+  "warnings": []
+}

@@ -1,0 +1,182 @@
+{
+  "errors": [
+    {
+      "code": "error",
+      "detail": "HTTPError: HTTP Error 404: Not Found",
+      "url": "https://ersu.it/project/impianto-colmate-pietrasanta/"
+    }
+  ],
+  "extraction": {
+    "municipalities": 6,
+    "municipality_reports": [
+      {
+        "equivalent_pages": [],
+        "errors": [],
+        "istat_code": "046005",
+        "municipality": "Camaiore",
+        "observed_at": "2026-08-06T22:00:00+02:00",
+        "pages_available": 12,
+        "pages_materialized": 12,
+        "records": 68,
+        "records_by_type": {
+          "collection_rule": 5,
+          "facility": 6,
+          "facility_acceptance": 43,
+          "facility_access": 6,
+          "opening_period": 6,
+          "pickup_service": 1,
+          "service_zone": 1
+        },
+        "slug": "camaiore",
+        "warnings": [
+          {
+            "code": "waste_lookup_not_published_or_not_structured",
+            "detail": "Rifiutario non pubblicato o non disponibile in forma strutturata nella fonte acquisita",
+            "url": "https://ersu.it/"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "errors": [],
+        "istat_code": "046013",
+        "municipality": "Forte dei Marmi",
+        "observed_at": "2026-08-06T22:00:00+02:00",
+        "pages_available": 11,
+        "pages_materialized": 11,
+        "records": 92,
+        "records_by_type": {
+          "collection_rule": 6,
+          "facility": 5,
+          "facility_acceptance": 69,
+          "facility_access": 5,
+          "opening_period": 6,
+          "service_zone": 1
+        },
+        "slug": "forte-dei-marmi",
+        "warnings": [
+          {
+            "code": "waste_lookup_not_published_or_not_structured",
+            "detail": "Rifiutario non pubblicato o non disponibile in forma strutturata nella fonte acquisita",
+            "url": "https://ersu.it/"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "errors": [],
+        "istat_code": "046018",
+        "municipality": "Massarosa",
+        "observed_at": "2026-08-06T22:00:00+02:00",
+        "pages_available": 8,
+        "pages_materialized": 8,
+        "records": 16,
+        "records_by_type": {
+          "collection_rule": 6,
+          "facility": 2,
+          "facility_acceptance": 5,
+          "facility_access": 2,
+          "service_zone": 1
+        },
+        "slug": "massarosa",
+        "warnings": [
+          {
+            "code": "waste_lookup_not_published_or_not_structured",
+            "detail": "Rifiutario non pubblicato o non disponibile in forma strutturata nella fonte acquisita",
+            "url": "https://ersu.it/"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "errors": [],
+        "istat_code": "046024",
+        "municipality": "Pietrasanta",
+        "observed_at": "2026-08-06T22:00:00+02:00",
+        "pages_available": 11,
+        "pages_materialized": 11,
+        "records": 92,
+        "records_by_type": {
+          "collection_rule": 6,
+          "facility": 5,
+          "facility_acceptance": 69,
+          "facility_access": 5,
+          "opening_period": 6,
+          "service_zone": 1
+        },
+        "slug": "pietrasanta",
+        "warnings": [
+          {
+            "code": "waste_lookup_not_published_or_not_structured",
+            "detail": "Rifiutario non pubblicato o non disponibile in forma strutturata nella fonte acquisita",
+            "url": "https://ersu.it/"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "errors": [],
+        "istat_code": "046028",
+        "municipality": "Seravezza",
+        "observed_at": "2026-08-06T22:00:00+02:00",
+        "pages_available": 9,
+        "pages_materialized": 9,
+        "records": 86,
+        "records_by_type": {
+          "collection_rule": 6,
+          "facility": 3,
+          "facility_acceptance": 69,
+          "facility_access": 3,
+          "opening_period": 4,
+          "service_zone": 1
+        },
+        "slug": "seravezza",
+        "warnings": [
+          {
+            "code": "waste_lookup_not_published_or_not_structured",
+            "detail": "Rifiutario non pubblicato o non disponibile in forma strutturata nella fonte acquisita",
+            "url": "https://ersu.it/"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "errors": [],
+        "istat_code": "046030",
+        "municipality": "Stazzema",
+        "observed_at": "2026-08-06T22:00:00+02:00",
+        "pages_available": 8,
+        "pages_materialized": 8,
+        "records": 59,
+        "records_by_type": {
+          "collection_rule": 6,
+          "facility": 2,
+          "facility_acceptance": 46,
+          "facility_access": 2,
+          "opening_period": 2,
+          "service_zone": 1
+        },
+        "slug": "stazzema",
+        "warnings": [
+          {
+            "code": "waste_lookup_not_published_or_not_structured",
+            "detail": "Rifiutario non pubblicato o non disponibile in forma strutturata nella fonte acquisita",
+            "url": "https://ersu.it/"
+          }
+        ]
+      }
+    ],
+    "records": 413,
+    "warnings": 6
+  },
+  "municipalities_touched": 6,
+  "observed_at": "2026-08-06T22:00:00+02:00",
+  "operator_ref": "ersu",
+  "pages_by_status": {
+    "blocked_by_robots": 0,
+    "error": 1,
+    "snapshot": 22
+  },
+  "pages_checked": 23,
+  "pages_remaining": 0
+}

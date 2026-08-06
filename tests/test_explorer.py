@@ -116,9 +116,9 @@ class ExplorerDatasetTest(unittest.TestCase):
             WORKSPACE / "outputs" / "waste-catalog.json",
             WORKSPACE / "outputs" / "eer-register.json",
         )
-        self.assertEqual(153, dataset["batch"]["municipalities_acquired"])
-        self.assertEqual(24386, len(dataset["records"]))
-        self.assertEqual(818, len(dataset["catalog"]["concepts"]))
+        self.assertEqual(154, dataset["batch"]["municipalities_acquired"])
+        self.assertEqual(24780, len(dataset["records"]))
+        self.assertEqual(1311, len(dataset["catalog"]["concepts"]))
         self.assertEqual(880, len(dataset["eer_register"]["entries"]))
         self.assertEqual("2026-12-09", dataset["eer_register"]["valid_from"])
         capoliveri = next(item for item in dataset["municipalities"] if item["name"] == "Capoliveri")
@@ -142,7 +142,8 @@ class ExplorerDatasetTest(unittest.TestCase):
         self.assertEqual(388, bientina["records_by_type"]["waste_lookup"])
         self.assertEqual(5, bientina["records_by_type"]["collection_rule"])
         peccioli = next(item for item in dataset["municipalities"] if item["name"] == "Peccioli")
-        self.assertEqual("registry_only", peccioli["acquisition_status"])
+        self.assertEqual("acquired", peccioli["acquisition_status"])
+        self.assertEqual(388, peccioli["records_by_type"]["waste_lookup"])
         self.assertEqual("pending_subentry", peccioli["assignment_status"])
 
 

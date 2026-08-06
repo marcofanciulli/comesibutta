@@ -142,6 +142,14 @@ PYTHONPATH=src python3 -m dovelobutto.explorer \
   --batch-report outputs/ato-toscana-costa-rea-report.json \
   --batch-report outputs/ato-toscana-costa-aamps-report.json \
   --batch-report outputs/ato-toscana-costa-geofor-report.json \
+  --batch-report outputs/ato-toscana-costa-ascit-report.json \
+  --batch-report outputs/ato-toscana-costa-asmiu-report.json \
+  --batch-report outputs/ato-toscana-costa-ersu-report.json \
+  --batch-report outputs/ato-toscana-costa-gea-report.json \
+  --batch-report outputs/ato-toscana-costa-lunigiana-ambiente-report.json \
+  --batch-report outputs/ato-toscana-costa-retiambiente-carrara-report.json \
+  --batch-report outputs/ato-toscana-costa-sea-ambiente-report.json \
+  --batch-report outputs/ato-toscana-costa-sistema-ambiente-report.json \
   --registry outputs/sei-toscana-municipalities.jsonl \
   --registry outputs/ato-toscana-costa-municipalities.jsonl \
   --catalog outputs/waste-catalog.json \
@@ -153,12 +161,12 @@ PYTHONPATH=src python3 -m dovelobutto.explorer \
 L'interfaccia permette di filtrare per ATO e provincia, distinguere comuni
 censiti da comuni acquisiti, esplorare centri e regole, consultare il
 rifiutario, cercare materiali e codici EER e risalire alla fonte di ogni fatto.
-Il pacchetto corrente contiene 204 comuni censiti, 153 con almeno una fonte
-materializzata e 24.386 record. Per i 17 comuni REA comprende anche pagine di
+Il pacchetto corrente contiene 204 comuni censiti, tutti con almeno una fonte
+materializzata, e 36.943 record. Per i 17 comuni REA comprende anche pagine di
 servizio, centri intercomunali, orari, accesso, ritiri e materiali accettati;
 gli EER non pubblicati dalla fonte sono indicati esplicitamente come tali. Per
-i 24 comuni GEOFOR attivi comprende 388 voci del rifiutario e cinque regole
+i 25 comuni GEOFOR comprende 388 voci del rifiutario e cinque regole
 generali per comune, oltre a centri, orari e ritiri quando pubblicati. La vista
-"Catalogo regionale" espone 818 concetti trasversali, 331 dei quali hanno un
+"Catalogo regionale" espone 1.311 concetti trasversali, 331 dei quali hanno un
 EER concordante indicato dalle fonti; le destinazioni restano marcate come
 osservazioni locali.

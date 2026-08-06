@@ -3,11 +3,16 @@
     {
       "code": "error",
       "detail": "HTTPError: HTTP Error 404: Not Found",
+      "url": "https://www.geofor.it/peccioli/"
+    },
+    {
+      "code": "error",
+      "detail": "HTTPError: HTTP Error 404: Not Found",
       "url": "https://www.geofor.it/wp-content/uploads/2024/05/Bientina_Stradario_sfalci_e_potature_2023.pdf"
     }
   ],
   "extraction": {
-    "municipalities": 24,
+    "municipalities": 25,
     "municipality_reports": [
       {
         "equivalent_pages": [],
@@ -363,6 +368,26 @@
       },
       {
         "equivalent_pages": [],
+        "istat_code": "050025",
+        "municipality": "Peccioli",
+        "pages_available": 1,
+        "pages_materialized": 1,
+        "records": 394,
+        "records_by_type": {
+          "collection_rule": 5,
+          "service_zone": 1,
+          "waste_lookup": 388
+        },
+        "warnings": [
+          {
+            "code": "facility_page_missing",
+            "detail": "Nessun centro comunale pubblicato o pagina non disponibile",
+            "url": "https://www.geofor.it/peccioli/"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
         "istat_code": "050026",
         "municipality": "Pisa",
         "pages_available": 9,
@@ -612,16 +637,16 @@
         ]
       }
     ],
-    "records": 13237,
-    "warnings": 30
+    "records": 13631,
+    "warnings": 31
   },
-  "municipalities_touched": 24,
-  "observed_at": "2026-08-06T20:30:00+02:00",
+  "municipalities_touched": 25,
+  "observed_at": "2026-08-06T20:25:00+02:00",
   "pages_by_category": {
     "calendar": 16,
     "centre": 18,
     "centre_index": 1,
-    "municipality": 24,
+    "municipality": 25,
     "municipality_document": 52,
     "other": 44,
     "pickup": 20,
@@ -630,9 +655,9 @@
   },
   "pages_by_status": {
     "blocked_by_robots": 0,
-    "error": 1,
+    "error": 2,
     "snapshot": 176
   },
-  "pages_checked": 177,
+  "pages_checked": 178,
   "pages_remaining": 0
 }

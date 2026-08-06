@@ -1,7 +1,7 @@
 # Stato del progetto
 
 Ultimo aggiornamento: 6 agosto 2026
-Fase: ATO Toscana Sud completa; ATO Toscana Costa censita e in acquisizione
+Fase: ATO Toscana Sud e ATO Toscana Costa acquisite
 
 Questo documento e il punto di ripartenza del progetto. Va aggiornato al termine
 di ogni fase sostanziale, insieme ai dataset e ai rapporti prodotti.
@@ -87,7 +87,7 @@ Comuni pilota gia acquisiti:
 
 Verifiche completate al 6 agosto 2026:
 
-- 64 test automatici superati;
+- 70 test automatici superati;
 - compilazione dei moduli Python riuscita;
 - validita sintattica JSON verificata per schemi, record e rapporti;
 - relazione Sassetta-Castagneto risolta sullo stesso identificatore stabile;
@@ -148,9 +148,9 @@ Completamento ATO Toscana Sud:
 
 Esploratore dati:
 
-- pacchetto statico generato in modo riproducibile da 24.386 record;
+- pacchetto statico generato in modo riproducibile da 36.943 record;
 - filtri gerarchici per ATO e provincia, seguiti dall'elenco dei comuni;
-- 204 comuni censiti, 153 con almeno una fonte materializzata;
+- 204 comuni censiti e 204 con almeno una fonte materializzata;
 - navigazione per comune e viste dedicate a centri, EER, regole, punti e ritiro;
 - vista rifiutario per le coppie nome quotidiano-destinazione;
 - ricerca trasversale, provenienza, evidenze e record JSON consultabili;
@@ -158,11 +158,11 @@ Esploratore dati:
 
 Catalogo canonico iniziale:
 
-- 14.711 record di rifiutario ridotti a 995 indicazioni sorgente distinte;
-- 818 concetti consultabili nell'esploratore;
+- 26.412 record di rifiutario ridotti a 2.158 indicazioni sorgente distinte;
+- 1.311 concetti consultabili nell'esploratore;
 - 331 concetti con EER concordante indicato dalla fonte e zero conflitti sui
   termini coincidenti;
-- 487 concetti senza EER e 135 con piu destinazioni locali osservate;
+- 980 concetti senza EER e 330 con piu destinazioni locali osservate;
 - materiale, condizioni, sinonimi semantici e note ambientali restano
   esplicitamente da verificare, senza riempimenti automatici.
 
@@ -181,14 +181,13 @@ Registro ufficiale EER:
 - vista globale del registro aggiunta all'esploratore e catalogo dei nomi
   quotidiani arricchito con titolo e pericolosita ufficiali.
 
-Avvio ATO Toscana Costa:
+Completamento ATO Toscana Costa:
 
 - importata la tabella ufficiale 2026 dei 100 comuni e delle 12 SOL;
 - riconciliati tutti i comuni con ISTAT: 13 LI, 33 LU, 17 MS e 37 PI;
 - conservati separatamente RetiAmbiente, SOL e stato del subentro; Porto
   Azzurro e Peccioli risultano da completare, Lucca in transizione entro 2029;
-- acquisiti 49 comuni e 19.296 record: 7 ESA, 17 REA, Livorno AAMPS e 24
-  GEOFOR;
+- acquisiti tutti i 100 comuni e 31.853 record attraverso le 12 SOL;
 - ESA: 292 voci del rifiutario per comune, cinque regole generali porta a porta
   e dieci centri complessivi associati ai comuni, 2.106 record senza avvisi;
 - REA: 425 URL di servizi, centri e allegati controllate; 423 snapshot, 73 PDF,
@@ -201,12 +200,23 @@ Avvio ATO Toscana Costa:
   strutturata;
 - AAMPS: 125 coppie estratte dal PDF 2017; cinque probabili continuazioni di
   colonna restano a confidenza media e sono elencate nel rapporto;
-- GEOFOR: 177 URL controllati, 176 snapshot e un vecchio PDF `404`; 13.237
-  record per 24 comuni attivi, inclusi 9.312 termini del rifiutario, 120 regole,
-  24 zone, 24 centri, 3.672 associazioni centro-EER e 37 servizi di ritiro;
-- GEOFOR: i calendari PDF sono inventariati ma non ancora strutturati; per sei
-  comuni la fonte non pubblica una pagina comunale del centro. Peccioli resta
-  censito come subentro da completare e non viene marcato come acquisito;
+- GEOFOR: 178 URL controllati, 176 snapshot e due `404`; 13.631 record per 25
+  comuni, inclusi 9.700 termini del rifiutario, 125 regole, 24 centri, 3.672
+  associazioni centro-EER e 37 servizi di ritiro;
+- GEOFOR: i calendari PDF sono inventariati ma non ancora strutturati; Peccioli
+  e materializzato dal rifiutario condiviso, mentre la sua pagina comunale
+  restituisce `404` e il centro resta dichiarato come non pubblicato;
+- ASCIT: 12 comuni, 6.888 termini, 36 regole e 33 relazioni di accesso ai
+  centri comunali o ai due centri Salanetti indicati per tutti i comuni;
+- Lunigiana Ambiente: 14 comuni, 4.130 termini e accesso intercomunale al
+  centro di Boceda; Novoleto e associato prudenzialmente al solo Pontremoli;
+- ERSU: sei comuni, 23 relazioni di accesso e 301 conferimenti EER estratti
+  dalle schede dei centri; il vecchio collegamento Colmate restituisce `404`;
+- GEA, ASMIU, Carrara, SEA Ambiente e Sistema Ambiente: acquisite le pagine
+  pubbliche disponibili, comprese regole, contatti, centri e orari quando
+  presenti; le fonti prive di rifiutario sono segnalate esplicitamente;
+- Montignoso dispone delle regole SEA, ma il collegamento intergestore al
+  centro ERSU Ciocche deve ancora essere rappresentato nel modello;
 - tutti i 13 comuni livornesi di ATO Costa hanno ora almeno un rifiutario;
   l'esploratore mostra ora anche servizi, centri intercomunali, orari, accesso
   e materiali accettati REA.
@@ -227,7 +237,8 @@ Avvio ATO Toscana Costa:
 
 1. Estrarre e normalizzare i calendari contenuti nei 73 PDF REA acquisiti.
 2. Acquisire i dettagli dei centri ESA e cercare una guida AAMPS piu recente.
-3. Proseguire con GEOFOR, ASCIT e le restanti SOL di ATO Toscana Costa.
+3. Modellare l'accesso intergestore Montignoso-ERSU e approfondire i centri non
+   pubblicati o non attribuiti esplicitamente dalle fonti.
 4. Definire il livello canonico e il vocabolario unificato dei nomi quotidiani.
 5. Prototipare manifest, generazione dei delta e applicazione transazionale su
    una base SQLite locale.

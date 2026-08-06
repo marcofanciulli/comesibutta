@@ -1,0 +1,24 @@
+{
+  "equivalent_pages": [],
+  "errors": [],
+  "istat_code": "046017",
+  "municipality": "Lucca",
+  "observed_at": "2026-08-06T22:00:00+02:00",
+  "pages_available": 3,
+  "pages_materialized": 3,
+  "records": 11,
+  "records_by_type": {
+    "collection_rule": 6,
+    "facility": 2,
+    "facility_access": 2,
+    "service_zone": 1
+  },
+  "slug": "lucca",
+  "warnings": [
+    {
+      "code": "waste_lookup_not_published_or_not_structured",
+      "detail": "Rifiutario non pubblicato o non disponibile in forma strutturata nella fonte acquisita",
+      "url": "https://www.sistemaambientelucca.it/it/centri-raccolta/"
+    }
+  ]
+}

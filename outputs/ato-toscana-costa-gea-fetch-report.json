@@ -1,0 +1,15 @@
+{
+  "errors": [],
+  "municipalities_touched": 13,
+  "observed_at": "2026-08-06T21:30:00+02:00",
+  "operator_ref": "gea",
+  "pages_by_status": {
+    "blocked_by_robots": 0,
+    "error": 0,
+    "snapshot": 7
+  },
+  "pages_checked": 7,
+  "pages_remaining": 0,
+  "robots_status": "available",
+  "robots_url": "https://geasrl.org/robots.txt"
+}

@@ -1,0 +1,21 @@
+{
+  "errors": [
+    {
+      "code": "error",
+      "detail": "HTTPError: HTTP Error 404: Not Found",
+      "url": "https://ersu.it/project/impianto-colmate-pietrasanta/"
+    }
+  ],
+  "municipalities_touched": 6,
+  "observed_at": "2026-08-06T21:50:00+02:00",
+  "operator_ref": "ersu",
+  "pages_by_status": {
+    "blocked_by_robots": 0,
+    "error": 1,
+    "snapshot": 22
+  },
+  "pages_checked": 23,
+  "pages_remaining": 0,
+  "robots_status": "available",
+  "robots_url": "https://ersu.it/robots.txt"
+}

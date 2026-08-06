@@ -108,30 +108,52 @@ PYTHONPATH=src python3 -m dovelobutto.cli materialize-geofor \
   --report outputs/ato-toscana-costa-geofor-report.json
 ```
 
-La passata verificata ha controllato 177 URL, salvato 176 snapshot e dichiarato
-un solo errore: un vecchio PDF di Bientina oggi `404`. I 13.237 record
-comprendono 9.312 termini, 120 regole, 24 zone, 24 centri con orari e accesso,
+La passata verificata ha controllato 178 URL, salvato 176 snapshot e dichiarato
+due errori: un vecchio PDF di Bientina e la pagina di Peccioli oggi `404`. I
+13.631 record comprendono 9.700 termini, 125 regole, 25 zone, 24 centri con orari e accesso,
 3.672 associazioni centro-EER e 37 servizi di ritiro. Il flag centro di raccolta
 del rifiutario GEOFOR e applicato ai centri pubblicati; eventuali limitazioni
 locali restano demandate alla scheda e al regolamento del singolo centro.
 
 I calendari PDF sono acquisiti e inventariati, ma non ancora trasformati in
 eventi strutturati. Per Chianni, Crespina Lorenzana, Fauglia, Lajatico, Palaia
-e Pisa non e pubblicata una pagina comunale del centro. Peccioli non compare
-tra le 24 schede operative e resta correttamente censito come subentro da
-completare.
+e Pisa non e pubblicata una pagina comunale del centro. Peccioli riceve il
+rifiutario condiviso ma mantiene l'avviso per la scheda comunale assente.
+
+## Restanti SOL
+
+Il comando generico `fetch-local-operator` acquisisce ASCIT, ASMIU, ERSU, GEA,
+Lunigiana Ambiente, RetiAmbiente Carrara, SEA Ambiente e Sistema Ambiente. Usa
+una configurazione per dominio, consulta `robots.txt`, salva un manifesto con
+ogni tentativo e non elimina URL bloccate o in errore. Il comando
+`materialize-local-operator` produce gli stessi record normalizzati delle
+pipeline precedenti.
+
+La passata del 6 agosto ha acquisito 50 comuni: 12 ASCIT, 14 Lunigiana
+Ambiente, 13 GEA, sei ERSU, due SEA e uno ciascuno per ASMIU, Carrara e Sistema
+Ambiente. ASCIT e Lunigiana forniscono rifiutari rispettivamente da 574 e 295
+termini per comune. ERSU pubblica schede dettagliate dei centri con ambito di
+accesso, orari e codici EER. Le fonti meno strutturate restano utili per regole,
+contatti e centri, ma producono avvisi quando rifiutario o dettaglio non sono
+pubblicati.
+
+Le relazioni centro-comune sono conservatrici: ASCIT usa le attribuzioni
+comunali e i due Salanetti dichiarati per tutti; Boceda e intercomunale per i
+14 comuni Lunigiana, mentre Novoleto e associato al solo Pontremoli. I centri
+di Viareggio non vengono attribuiti a Montignoso. La scheda ERSU di Ciocche
+dichiara l'accesso dei residenti di Montignoso, ma questa relazione tra due SOL
+resta da modellare senza duplicare la fonte.
 
 ## Copertura corrente
 
 - 100 comuni censiti;
-- 49 comuni con almeno una fonte acquisita: 7 ESA, 17 REA, Livorno AAMPS e 24
-  GEOFOR;
-- 19.296 record ATO Costa;
+- 100 comuni con almeno una fonte acquisita;
+- 31.853 record ATO Costa;
 - tutti i 13 comuni livornesi hanno almeno un rifiutario acquisito;
 - tutti i comuni REA hanno pagine di servizio; 14 hanno accesso ad almeno un
   centro pubblicato, mentre Capraia Isola, Orciano Pisano e Santa Luce non
   risultano collegati a un centro nella fonte acquisita.
 
-Prossimo ordine operativo: Lunigiana Ambiente, GEA, ASCIT, ERSU e le restanti
-SOL; in parallelo restano l'estrazione dei calendari PDF e l'approfondimento
-dei centri non pubblicati nelle schede comunali.
+Restano l'estrazione dei calendari PDF, il collegamento intergestore di
+Montignoso e l'approfondimento dei centri o rifiutari non pubblicati nelle
+schede disponibili.

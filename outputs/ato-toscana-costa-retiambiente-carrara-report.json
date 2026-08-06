@@ -1,0 +1,46 @@
+{
+  "errors": [],
+  "extraction": {
+    "municipalities": 1,
+    "municipality_reports": [
+      {
+        "equivalent_pages": [],
+        "errors": [],
+        "istat_code": "045003",
+        "municipality": "Carrara",
+        "observed_at": "2026-08-06T22:00:00+02:00",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 10,
+        "records_by_type": {
+          "collection_rule": 5,
+          "facility": 1,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 1
+        },
+        "slug": "carrara",
+        "warnings": [
+          {
+            "code": "waste_lookup_not_published_or_not_structured",
+            "detail": "Rifiutario non pubblicato o non disponibile in forma strutturata nella fonte acquisita",
+            "url": "https://www.retiambientecarrara.it/raccolta-porta-a-porta/"
+          }
+        ]
+      }
+    ],
+    "records": 10,
+    "warnings": 1
+  },
+  "municipalities_touched": 1,
+  "observed_at": "2026-08-06T22:00:00+02:00",
+  "operator_ref": "retiambiente-carrara",
+  "pages_by_status": {
+    "blocked_by_robots": 0,
+    "error": 0,
+    "snapshot": 3
+  },
+  "pages_checked": 3,
+  "pages_remaining": 0
+}

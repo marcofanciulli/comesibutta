@@ -1,0 +1,26 @@
+{
+  "equivalent_pages": [],
+  "errors": [],
+  "istat_code": "046028",
+  "municipality": "Seravezza",
+  "observed_at": "2026-08-06T22:00:00+02:00",
+  "pages_available": 9,
+  "pages_materialized": 9,
+  "records": 86,
+  "records_by_type": {
+    "collection_rule": 6,
+    "facility": 3,
+    "facility_acceptance": 69,
+    "facility_access": 3,
+    "opening_period": 4,
+    "service_zone": 1
+  },
+  "slug": "seravezza",
+  "warnings": [
+    {
+      "code": "waste_lookup_not_published_or_not_structured",
+      "detail": "Rifiutario non pubblicato o non disponibile in forma strutturata nella fonte acquisita",
+      "url": "https://ersu.it/"
+    }
+  ]
+}

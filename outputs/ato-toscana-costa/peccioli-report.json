@@ -1,0 +1,20 @@
+{
+  "equivalent_pages": [],
+  "istat_code": "050025",
+  "municipality": "Peccioli",
+  "pages_available": 1,
+  "pages_materialized": 1,
+  "records": 394,
+  "records_by_type": {
+    "collection_rule": 5,
+    "service_zone": 1,
+    "waste_lookup": 388
+  },
+  "warnings": [
+    {
+      "code": "facility_page_missing",
+      "detail": "Nessun centro comunale pubblicato o pagina non disponibile",
+      "url": "https://www.geofor.it/peccioli/"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "equivalent_pages": [],
+  "errors": [],
+  "istat_code": "045010",
+  "municipality": "Massa",
+  "observed_at": "2026-08-06T22:00:00+02:00",
+  "pages_available": 4,
+  "pages_materialized": 4,
+  "records": 306,
+  "records_by_type": {
+    "collection_rule": 6,
+    "facility": 1,
+    "facility_access": 1,
+    "opening_period": 1,
+    "pickup_service": 1,
+    "service_zone": 1,
+    "waste_lookup": 295
+  },
+  "slug": "massa",
+  "warnings": []
+}

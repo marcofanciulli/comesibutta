@@ -1,0 +1,25 @@
+{
+  "equivalent_pages": [],
+  "errors": [],
+  "istat_code": "046018",
+  "municipality": "Massarosa",
+  "observed_at": "2026-08-06T22:00:00+02:00",
+  "pages_available": 8,
+  "pages_materialized": 8,
+  "records": 16,
+  "records_by_type": {
+    "collection_rule": 6,
+    "facility": 2,
+    "facility_acceptance": 5,
+    "facility_access": 2,
+    "service_zone": 1
+  },
+  "slug": "massarosa",
+  "warnings": [
+    {
+      "code": "waste_lookup_not_published_or_not_structured",
+      "detail": "Rifiutario non pubblicato o non disponibile in forma strutturata nella fonte acquisita",
+      "url": "https://ersu.it/"
+    }
+  ]
+}

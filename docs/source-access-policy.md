@@ -95,3 +95,19 @@ in lettura. La pipeline interroga una volta ciascuna iniziale alfabetica,
 applica un intervallo seriale, conserva le iniziali vuote e registra
 separatamente gli errori. Non vengono usate le funzioni del sito che inviano
 suggerimenti o dati personali.
+
+La verifica e stata estesa alle restanti SOL il 6 agosto 2026. Non sono emersi
+divieti espliciti nelle pagine informative pubbliche esaminate. Il crawler ha
+applicato questi vincoli pubblicati:
+
+- ASCIT: esclusi i percorsi di upload WordPress vietati per gli anni 2020-2025;
+- Lunigiana Ambiente ed ERSU: consentito il punto pubblico
+  `/wp-admin/admin-ajax.php` necessario ai contenuti consultabili;
+- SEA Ambiente: escluso `/media/`;
+- Sistema Ambiente: esclusi i percorsi interni TYPO3;
+- ASMIU: nessun percorso vietato per l'agente generico;
+- GEA e RetiAmbiente Carrara: nessun divieto applicabile alle pagine visitate.
+
+Le passate verificate non hanno saltato alcuna URL per `robots.txt`. Ogni URL
+bloccata o non disponibile resta comunque nel manifesto e nel rapporto; non
+viene eliminata silenziosamente dal dataset.

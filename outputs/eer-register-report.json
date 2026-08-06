@@ -1,10 +1,10 @@
 {
   "acquired_validation": {
-    "assertions": 6266,
+    "assertions": 6567,
     "by_status": {
-      "active_in_target": 5646,
+      "active_in_target": 5934,
       "missing_or_malformed": 368,
-      "retired_in_target": 252,
+      "retired_in_target": 265,
       "unknown_code": 0
     },
     "issues": [
@@ -2493,6 +2493,30 @@
         "status": "retired_in_target"
       },
       {
+        "facility_ref": "ersu:facility:centro-di-raccolta-olmi-pietrasanta",
+        "normalized_code": "200133",
+        "official_hazardous": true,
+        "official_title": "batterie e accumulatori di cui alle voci 16 06 01, 16 06 02 e 16 06 03, nonché batterie e accumulatori non suddivisi contenenti tali batterie",
+        "record_id": "3c9c1c2b-51c7-53f3-9749-10db72632030",
+        "source_code": "200133*",
+        "source_description": "pile, batterie e accumulatori",
+        "source_file": "outputs/ato-toscana-costa/camaiore-acquisition.jsonl",
+        "source_url": "https://ersu.it/project/centro-di-raccolta-olmi/",
+        "status": "retired_in_target"
+      },
+      {
+        "facility_ref": "ersu:facility:centro-di-raccolta-tori-camaiore",
+        "normalized_code": "200133",
+        "official_hazardous": true,
+        "official_title": "batterie e accumulatori di cui alle voci 16 06 01, 16 06 02 e 16 06 03, nonché batterie e accumulatori non suddivisi contenenti tali batterie",
+        "record_id": "b6529d16-d82d-5811-8701-0dff947a8301",
+        "source_code": "200133*",
+        "source_description": "pile, batterie e accumulatori",
+        "source_file": "outputs/ato-toscana-costa/camaiore-acquisition.jsonl",
+        "source_url": "https://ersu.it/project/centro-di-raccolta-tori/",
+        "status": "retired_in_target"
+      },
+      {
         "facility_ref": "geofor:facility:capannoli-cdr-via-reggina",
         "normalized_code": "200133",
         "official_hazardous": true,
@@ -4533,6 +4557,42 @@
         "status": "missing_or_malformed"
       },
       {
+        "facility_ref": "ersu:facility:centro-di-raccolta-ceragiola",
+        "normalized_code": "200133",
+        "official_hazardous": true,
+        "official_title": "batterie e accumulatori di cui alle voci 16 06 01, 16 06 02 e 16 06 03, nonché batterie e accumulatori non suddivisi contenenti tali batterie",
+        "record_id": "4cc447d0-c1b0-5275-9c9f-deae234fdc37",
+        "source_code": "200133*",
+        "source_description": "pile, batterie e accumulatori",
+        "source_file": "outputs/ato-toscana-costa/forte-dei-marmi-acquisition.jsonl",
+        "source_url": "https://ersu.it/project/centro-di-raccolta-ceragiola/",
+        "status": "retired_in_target"
+      },
+      {
+        "facility_ref": "ersu:facility:centro-di-raccolta-ciocche-seravezza",
+        "normalized_code": "200133",
+        "official_hazardous": true,
+        "official_title": "batterie e accumulatori di cui alle voci 16 06 01, 16 06 02 e 16 06 03, nonché batterie e accumulatori non suddivisi contenenti tali batterie",
+        "record_id": "aa2c73e1-c8ff-5c8f-bd0d-ff5f68b7582b",
+        "source_code": "200133*",
+        "source_description": "pile, batterie e accumulatori",
+        "source_file": "outputs/ato-toscana-costa/forte-dei-marmi-acquisition.jsonl",
+        "source_url": "https://ersu.it/project/centro-di-raccolta-ciocche-seravezza/",
+        "status": "retired_in_target"
+      },
+      {
+        "facility_ref": "ersu:facility:centro-di-raccolta-olmi-pietrasanta",
+        "normalized_code": "200133",
+        "official_hazardous": true,
+        "official_title": "batterie e accumulatori di cui alle voci 16 06 01, 16 06 02 e 16 06 03, nonché batterie e accumulatori non suddivisi contenenti tali batterie",
+        "record_id": "3c9c1c2b-51c7-53f3-9749-10db72632030",
+        "source_code": "200133*",
+        "source_description": "pile, batterie e accumulatori",
+        "source_file": "outputs/ato-toscana-costa/forte-dei-marmi-acquisition.jsonl",
+        "source_url": "https://ersu.it/project/centro-di-raccolta-olmi/",
+        "status": "retired_in_target"
+      },
+      {
         "facility_ref": "rea:facility:guardistallo",
         "normalized_code": null,
         "official_hazardous": null,
@@ -6057,6 +6117,42 @@
         "status": "retired_in_target"
       },
       {
+        "facility_ref": "ersu:facility:centro-di-raccolta-ceragiola",
+        "normalized_code": "200133",
+        "official_hazardous": true,
+        "official_title": "batterie e accumulatori di cui alle voci 16 06 01, 16 06 02 e 16 06 03, nonché batterie e accumulatori non suddivisi contenenti tali batterie",
+        "record_id": "4cc447d0-c1b0-5275-9c9f-deae234fdc37",
+        "source_code": "200133*",
+        "source_description": "pile, batterie e accumulatori",
+        "source_file": "outputs/ato-toscana-costa/pietrasanta-acquisition.jsonl",
+        "source_url": "https://ersu.it/project/centro-di-raccolta-ceragiola/",
+        "status": "retired_in_target"
+      },
+      {
+        "facility_ref": "ersu:facility:centro-di-raccolta-ciocche-seravezza",
+        "normalized_code": "200133",
+        "official_hazardous": true,
+        "official_title": "batterie e accumulatori di cui alle voci 16 06 01, 16 06 02 e 16 06 03, nonché batterie e accumulatori non suddivisi contenenti tali batterie",
+        "record_id": "aa2c73e1-c8ff-5c8f-bd0d-ff5f68b7582b",
+        "source_code": "200133*",
+        "source_description": "pile, batterie e accumulatori",
+        "source_file": "outputs/ato-toscana-costa/pietrasanta-acquisition.jsonl",
+        "source_url": "https://ersu.it/project/centro-di-raccolta-ciocche-seravezza/",
+        "status": "retired_in_target"
+      },
+      {
+        "facility_ref": "ersu:facility:centro-di-raccolta-olmi-pietrasanta",
+        "normalized_code": "200133",
+        "official_hazardous": true,
+        "official_title": "batterie e accumulatori di cui alle voci 16 06 01, 16 06 02 e 16 06 03, nonché batterie e accumulatori non suddivisi contenenti tali batterie",
+        "record_id": "3c9c1c2b-51c7-53f3-9749-10db72632030",
+        "source_code": "200133*",
+        "source_description": "pile, batterie e accumulatori",
+        "source_file": "outputs/ato-toscana-costa/pietrasanta-acquisition.jsonl",
+        "source_url": "https://ersu.it/project/centro-di-raccolta-olmi/",
+        "status": "retired_in_target"
+      },
+      {
         "facility_ref": "rea:facility:pomarance-intercomunale-con-castelnuovo-val-di-cecina",
         "normalized_code": null,
         "official_hazardous": null,
@@ -7137,6 +7233,66 @@
         "status": "retired_in_target"
       },
       {
+        "facility_ref": "ersu:facility:centro-di-raccolta-ceragiola",
+        "normalized_code": "200133",
+        "official_hazardous": true,
+        "official_title": "batterie e accumulatori di cui alle voci 16 06 01, 16 06 02 e 16 06 03, nonché batterie e accumulatori non suddivisi contenenti tali batterie",
+        "record_id": "4cc447d0-c1b0-5275-9c9f-deae234fdc37",
+        "source_code": "200133*",
+        "source_description": "pile, batterie e accumulatori",
+        "source_file": "outputs/ato-toscana-costa/seravezza-acquisition.jsonl",
+        "source_url": "https://ersu.it/project/centro-di-raccolta-ceragiola/",
+        "status": "retired_in_target"
+      },
+      {
+        "facility_ref": "ersu:facility:centro-di-raccolta-ciocche-seravezza",
+        "normalized_code": "200133",
+        "official_hazardous": true,
+        "official_title": "batterie e accumulatori di cui alle voci 16 06 01, 16 06 02 e 16 06 03, nonché batterie e accumulatori non suddivisi contenenti tali batterie",
+        "record_id": "aa2c73e1-c8ff-5c8f-bd0d-ff5f68b7582b",
+        "source_code": "200133*",
+        "source_description": "pile, batterie e accumulatori",
+        "source_file": "outputs/ato-toscana-costa/seravezza-acquisition.jsonl",
+        "source_url": "https://ersu.it/project/centro-di-raccolta-ciocche-seravezza/",
+        "status": "retired_in_target"
+      },
+      {
+        "facility_ref": "ersu:facility:centro-di-raccolta-olmi-pietrasanta",
+        "normalized_code": "200133",
+        "official_hazardous": true,
+        "official_title": "batterie e accumulatori di cui alle voci 16 06 01, 16 06 02 e 16 06 03, nonché batterie e accumulatori non suddivisi contenenti tali batterie",
+        "record_id": "3c9c1c2b-51c7-53f3-9749-10db72632030",
+        "source_code": "200133*",
+        "source_description": "pile, batterie e accumulatori",
+        "source_file": "outputs/ato-toscana-costa/seravezza-acquisition.jsonl",
+        "source_url": "https://ersu.it/project/centro-di-raccolta-olmi/",
+        "status": "retired_in_target"
+      },
+      {
+        "facility_ref": "ersu:facility:centro-di-raccolta-ceragiola",
+        "normalized_code": "200133",
+        "official_hazardous": true,
+        "official_title": "batterie e accumulatori di cui alle voci 16 06 01, 16 06 02 e 16 06 03, nonché batterie e accumulatori non suddivisi contenenti tali batterie",
+        "record_id": "4cc447d0-c1b0-5275-9c9f-deae234fdc37",
+        "source_code": "200133*",
+        "source_description": "pile, batterie e accumulatori",
+        "source_file": "outputs/ato-toscana-costa/stazzema-acquisition.jsonl",
+        "source_url": "https://ersu.it/project/centro-di-raccolta-ceragiola/",
+        "status": "retired_in_target"
+      },
+      {
+        "facility_ref": "ersu:facility:centro-di-raccolta-ciocche-seravezza",
+        "normalized_code": "200133",
+        "official_hazardous": true,
+        "official_title": "batterie e accumulatori di cui alle voci 16 06 01, 16 06 02 e 16 06 03, nonché batterie e accumulatori non suddivisi contenenti tali batterie",
+        "record_id": "aa2c73e1-c8ff-5c8f-bd0d-ff5f68b7582b",
+        "source_code": "200133*",
+        "source_description": "pile, batterie e accumulatori",
+        "source_file": "outputs/ato-toscana-costa/stazzema-acquisition.jsonl",
+        "source_url": "https://ersu.it/project/centro-di-raccolta-ciocche-seravezza/",
+        "status": "retired_in_target"
+      },
+      {
         "facility_ref": "geofor:facility:terricciola-cdr-via-pian-d-era",
         "normalized_code": "200133",
         "official_hazardous": true,
@@ -7571,7 +7727,7 @@
   "chapters": 20,
   "entries": 880,
   "entries_with_references": 192,
-  "generated_at": "2026-08-06T23:00:00+02:00",
+  "generated_at": "2026-08-06T22:00:00+02:00",
   "hazardous_entries": 435,
   "sources": [
     {

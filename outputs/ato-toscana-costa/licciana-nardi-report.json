@@ -1,0 +1,21 @@
+{
+  "equivalent_pages": [],
+  "errors": [],
+  "istat_code": "045009",
+  "municipality": "Licciana Nardi",
+  "observed_at": "2026-08-06T22:00:00+02:00",
+  "pages_available": 7,
+  "pages_materialized": 7,
+  "records": 304,
+  "records_by_type": {
+    "collection_rule": 4,
+    "facility": 1,
+    "facility_access": 1,
+    "opening_period": 1,
+    "pickup_service": 1,
+    "service_zone": 1,
+    "waste_lookup": 295
+  },
+  "slug": "licciana-nardi",
+  "warnings": []
+}
