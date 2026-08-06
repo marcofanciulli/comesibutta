@@ -47,12 +47,21 @@ La risposta deve poter indicare:
     dimensioni separate. Il codice ISTAT identifica il comune.
 11. Una voce di rifiutario senza destinazione viene conservata come irrisolta,
     non eliminata.
+12. App e dataset hanno cicli di rilascio indipendenti. I dati usano revisioni
+    globali, ID stabili, snapshot e pacchetti incrementali atomici.
+13. Il backend puo generare un delta minimo da qualsiasi revisione supportata;
+    i percorsi comuni giornalieri, settimanali e mensili vengono precalcolati.
+14. La finestra incrementale prevista e di cinque anni. Client piu vecchi o
+    incompatibili ripartono da uno snapshot completo.
+15. Pubblicazione e validita sono distinte: un dato futuro puo essere
+    distribuito indicando `valid_from` senza essere presentato come gia attivo.
 
 ## Artefatti persistenti
 
 - `docs/data-architecture.md`: architettura, modello e strategia di raccolta.
 - `docs/crawl-operations.md`: procedura di scansione e ripresa.
 - `docs/source-access-policy.md`: verifica legale-operativa delle fonti.
+- `docs/data-synchronization.md`: distribuzione remota e aggiornamenti atomici.
 - `schemas/`: schemi JSON dell'acquisizione e della risposta applicativa.
 - `src/dovelobutto/`: estrattore riproducibile e interfaccia a riga di comando.
 - `tests/fixtures/`: copie immutabili delle porzioni rilevanti delle fonti HTML.
@@ -202,7 +211,8 @@ Avvio ATO Toscana Costa:
 2. Acquisire i dettagli dei centri ESA e cercare una guida AAMPS piu recente.
 3. Proseguire con GEOFOR, ASCIT e le restanti SOL di ATO Toscana Costa.
 4. Definire il livello canonico e il vocabolario unificato dei nomi quotidiani.
-5. Progettare l'aggiornamento periodico e il rilevamento delle variazioni.
+5. Prototipare manifest, generazione dei delta e applicazione transazionale su
+   una base SQLite locale.
 
 ## Regola di continuita
 

@@ -1,0 +1,35 @@
+{
+  "format_version": 1,
+  "dataset_id": "comesibutta-toscana",
+  "schema_version": 1,
+  "package_id": "delta:202608050002:202608060003",
+  "kind": "delta",
+  "generated_at": "2026-08-06T22:00:00+02:00",
+  "from_revision": 202608050002,
+  "to_revision": 202608060003,
+  "operations": [
+    {
+      "sequence": 1,
+      "operation": "upsert",
+      "entity_type": "opening_period",
+      "entity_id": "opening-period:example:facility-1:ordinary-1",
+      "entity_revision": 202608060003,
+      "dependencies": [
+        {
+          "entity_type": "facility",
+          "entity_id": "facility:example:facility-1"
+        }
+      ],
+      "data": {
+        "facility_ref": "facility:example:facility-1",
+        "valid_from": "2026-08-12",
+        "valid_to": null,
+        "weekday": "wednesday",
+        "opens_at": "08:00",
+        "closes_at": "13:00",
+        "observed_at": "2026-08-06T09:10:00+02:00",
+        "published_at": "2026-08-06T22:00:00+02:00"
+      }
+    }
+  ]
+}

@@ -20,10 +20,15 @@ gli snapshot di test, i dataset verificati e un esploratore locale.
   di ATO Toscana Costa.
 - `docs/source-access-policy.md`: verifica delle condizioni pubblicate e
   regole obbligatorie di accesso alle fonti.
+- `docs/data-synchronization.md`: revisioni, snapshot e aggiornamenti atomici
+  della futura base dati locale.
 - `schemas/acquisition-record.schema.json`: formato JSON Lines prodotto dagli
   estrattori.
 - `schemas/disposal-answer.schema.json`: contratto della risposta letta
   dall'app.
+- `schemas/data-manifest.schema.json` e
+  `schemas/data-update-package.schema.json`: protocollo di distribuzione dei
+  dati indipendente dalle versioni dell'app.
 - `examples/`: esempi illustrativi basati sulle pagine SEI Toscana di Manciano.
 - `explorer/`: interfaccia locale per controllare comuni, centri, codici EER,
   regole, punti di raccolta, fonti e anomalie.

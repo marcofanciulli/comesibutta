@@ -1,0 +1,41 @@
+{
+  "format_version": 1,
+  "dataset_id": "comesibutta-toscana",
+  "schema_version": 1,
+  "generated_at": "2026-08-06T22:00:00+02:00",
+  "latest_revision": 202608060003,
+  "minimum_incremental_revision": 202108060001,
+  "minimum_client_version": "1.0.0",
+  "latest_snapshot": {
+    "package_id": "snapshot:202608060003",
+    "kind": "snapshot",
+    "from_revision": null,
+    "to_revision": 202608060003,
+    "url": "/data/snapshot-202608060003.json.zst",
+    "bytes": 4812391,
+    "sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+    "compression": "zstd",
+    "signature": {
+      "algorithm": "Ed25519",
+      "key_id": "distribution-2026-01",
+      "value": "illustrative-signature"
+    }
+  },
+  "packages": [
+    {
+      "package_id": "delta:202608050002:202608060003",
+      "kind": "delta",
+      "from_revision": 202608050002,
+      "to_revision": 202608060003,
+      "url": "/data/delta-202608050002-202608060003.json.zst",
+      "bytes": 18421,
+      "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+      "compression": "zstd",
+      "signature": {
+        "algorithm": "Ed25519",
+        "key_id": "distribution-2026-01",
+        "value": "illustrative-signature"
+      }
+    }
+  ]
+}

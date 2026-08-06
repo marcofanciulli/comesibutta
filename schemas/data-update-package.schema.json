@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dovelobutto.example/schemas/data-update-package.schema.json",
+  "title": "Atomic data update package",
+  "type": "object",
+  "required": [
+    "format_version",
+    "dataset_id",
+    "schema_version",
+    "package_id",
+    "kind",
+    "generated_at",
+    "from_revision",
+    "to_revision",
+    "operations"
+  ],
+  "properties": {
+    "format_version": { "const": 1 },
+    "dataset_id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "schema_version": { "type": "integer", "minimum": 1 },
+    "package_id": { "type": "string", "pattern": "^[a-z0-9._:-]+$" },
+    "kind": { "enum": ["snapshot", "delta"] },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "from_revision": { "type": ["integer", "null"], "minimum": 1 },
+    "to_revision": { "type": "integer", "minimum": 1 },
+    "operations": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/operation" }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "kind": { "const": "snapshot" } } },
+      "then": { "properties": { "from_revision": { "type": "null" } } }
+    },
+    {
+      "if": { "properties": { "kind": { "const": "delta" } } },
+      "then": { "properties": { "from_revision": { "type": "integer", "minimum": 1 } } }
+    }
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "entityReference": {
+      "type": "object",
+      "required": ["entity_type", "entity_id"],
+      "properties": {
+        "entity_type": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+        "entity_id": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "operation": {
+      "type": "object",
+      "required": [
+        "sequence",
+        "operation",
+        "entity_type",
+        "entity_id",
+        "entity_revision",
+        "dependencies"
+      ],
+      "properties": {
+        "sequence": { "type": "integer", "minimum": 1 },
+        "operation": { "enum": ["upsert", "delete"] },
+        "entity_type": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+        "entity_id": { "type": "string", "minLength": 1 },
+        "entity_revision": { "type": "integer", "minimum": 1 },
+        "dependencies": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/entityReference" }
+        },
+        "data": { "type": "object" },
+        "deleted_at": { "type": "string", "format": "date-time" },
+        "reason": { "type": ["string", "null"] }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "operation": { "const": "upsert" } } },
+          "then": { "required": ["data"] }
+        },
+        {
+          "if": { "properties": { "operation": { "const": "delete" } } },
+          "then": {
+            "required": ["deleted_at"],
+            "not": { "required": ["data"] }
+          }
+        }
+      ],
+      "additionalProperties": false
+    }
+  }
+}

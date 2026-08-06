@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dovelobutto.example/schemas/data-manifest.schema.json",
+  "title": "Data distribution manifest",
+  "type": "object",
+  "required": [
+    "format_version",
+    "dataset_id",
+    "schema_version",
+    "generated_at",
+    "latest_revision",
+    "minimum_incremental_revision",
+    "latest_snapshot",
+    "packages"
+  ],
+  "properties": {
+    "format_version": { "const": 1 },
+    "dataset_id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "schema_version": { "type": "integer", "minimum": 1 },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "latest_revision": { "type": "integer", "minimum": 1 },
+    "minimum_incremental_revision": { "type": "integer", "minimum": 1 },
+    "minimum_client_version": { "type": ["string", "null"] },
+    "latest_snapshot": { "$ref": "#/$defs/artifact" },
+    "packages": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/artifact" }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "artifact": {
+      "type": "object",
+      "required": [
+        "package_id",
+        "kind",
+        "from_revision",
+        "to_revision",
+        "url",
+        "bytes",
+        "sha256",
+        "compression",
+        "signature"
+      ],
+      "properties": {
+        "package_id": { "type": "string", "pattern": "^[a-z0-9._:-]+$" },
+        "kind": { "enum": ["snapshot", "delta"] },
+        "from_revision": { "type": ["integer", "null"], "minimum": 1 },
+        "to_revision": { "type": "integer", "minimum": 1 },
+        "url": { "type": "string", "format": "uri-reference" },
+        "bytes": { "type": "integer", "minimum": 1 },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "compression": { "enum": ["none", "gzip", "zstd"] },
+        "signature": { "$ref": "#/$defs/signature" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "kind": { "const": "snapshot" } } },
+          "then": { "properties": { "from_revision": { "type": "null" } } }
+        },
+        {
+          "if": { "properties": { "kind": { "const": "delta" } } },
+          "then": { "properties": { "from_revision": { "type": "integer", "minimum": 1 } } }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "signature": {
+      "type": "object",
+      "required": ["algorithm", "key_id", "value"],
+      "properties": {
+        "algorithm": { "const": "Ed25519" },
+        "key_id": { "type": "string", "minLength": 1 },
+        "value": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    }
+  }
+}

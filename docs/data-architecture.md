@@ -1,6 +1,6 @@
 # Architettura dei dati
 
-Versione: 0.2.0
+Versione: 0.3.0
 Ambito corrente: ATO Toscana Sud e ATO Toscana Costa
 
 ## 1. Perimetro del pilota
@@ -51,6 +51,11 @@ contratto principale e descritto in `schemas/disposal-answer.schema.json`.
 Il primo catalogo canonico materializzato segue inoltre
 `schemas/waste-catalog.schema.json`; metodo e limiti sono descritti in
 `docs/waste-catalog.md`.
+
+Il dataset canonico ha un ciclo di pubblicazione indipendente dall'app. La
+distribuzione remota usa revisioni globali, snapshot e pacchetti atomici
+descritti in `docs/data-synchronization.md`. Gli identificatori canonici devono
+quindi essere stabili anche tra revisioni e aggiornamenti parziali.
 
 ## 3. Entita canoniche
 
