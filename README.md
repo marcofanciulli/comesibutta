@@ -23,6 +23,8 @@ i dataset verificati del pilota.
 - `schemas/disposal-answer.schema.json`: contratto della risposta letta
   dall'app.
 - `examples/`: esempi illustrativi basati sulle pagine SEI Toscana di Manciano.
+- `explorer/`: interfaccia locale per controllare comuni, centri, codici EER,
+  regole, punti di raccolta, fonti e anomalie.
 
 Il checkpoint corrente, comprese decisioni e prossimi passi, e mantenuto in
 `docs/project-status.md`. I dati di esempio non costituiscono ancora un dataset
@@ -91,3 +93,20 @@ complete sono in `docs/crawl-operations.md`.
 Il collaudo locale sui quattro comuni completi ha visitato 12 pagine e prodotto
 338 record senza avvisi. Una seconda passata ha riconosciuto tutte le pagine
 come invariate senza creare nuovi snapshot.
+
+## Esploratore dati
+
+L'esploratore e una console di verifica statica. Il pacchetto dati viene
+rigenerato esclusivamente dagli output acquisiti:
+
+```sh
+PYTHONPATH=src python3 -m dovelobutto.explorer \
+  --input-dir outputs/sei-toscana \
+  --batch-report outputs/sei-toscana-grosseto-01-report.json \
+  --registry outputs/sei-toscana-municipalities.jsonl \
+  --generated-at 2026-08-06T09:15:00+02:00 \
+  --output explorer/data.js
+```
+
+L'interfaccia in `explorer/index.html` permette di esplorare i record per
+comune, cercare materiali e codici EER e risalire alla fonte di ogni fatto.

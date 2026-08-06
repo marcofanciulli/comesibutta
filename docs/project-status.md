@@ -54,6 +54,7 @@ La risposta deve poter indicare:
 - `tests/`: verifiche automatiche dei casi reali e delle varianti di pagina.
 - `outputs/`: record JSONL estratti e rapporti di copertura per comune.
 - `examples/`: esempi illustrativi del formato dati.
+- `explorer/`: console statica di esplorazione e controllo dei dati acquisiti.
 
 ## Stato verificato
 
@@ -112,6 +113,13 @@ Primo lotto live `grosseto-01`:
 - la coda pendente viene salvata integralmente e ricostruita dagli snapshot per
   migrare gli stati creati da versioni precedenti.
 
+Esploratore dati:
+
+- pacchetto statico generato in modo riproducibile dai 589 record del lotto;
+- navigazione per comune e viste dedicate a centri, EER, regole, punti e ritiro;
+- ricerca trasversale, provenienza, evidenze e record JSON consultabili;
+- anomalie e pagine equivalenti esposte senza alterare i dati acquisiti.
+
 ## Limiti e questioni aperte
 
 - Le pagine di ritiro ingombranti non sono collegate dall'indice generale e
@@ -125,10 +133,11 @@ Primo lotto live `grosseto-01`:
 
 ## Prossimi passi
 
-1. Inserire le 3 segnalazioni nella futura coda di revisione umana.
-2. Preparare e acquisire il lotto successivo della provincia di Grosseto.
-3. Estendere progressivamente la scansione ai 104 comuni.
-4. Aggiungere la raccolta e la classificazione di PDF, guide e calendari.
+1. Usare l'esploratore per la revisione umana delle 3 segnalazioni.
+2. Definire il livello canonico e il vocabolario dei nomi quotidiani dei rifiuti.
+3. Preparare e acquisire il lotto successivo della provincia di Grosseto.
+4. Estendere progressivamente la scansione ai 104 comuni.
+5. Aggiungere la raccolta e la classificazione di PDF, guide e calendari.
 
 ## Regola di continuita
 
