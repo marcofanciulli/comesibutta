@@ -1,5 +1,16 @@
 {
-  "errors": [],
+  "errors": [
+    {
+      "code": "error",
+      "detail": "HTTPError: HTTP Error 404: Not Found",
+      "url": "https://www.reaspa.it/wp-content/uploads/2022/12/2023-distribuzione-kit.pdf"
+    },
+    {
+      "code": "error",
+      "detail": "HTTPError: HTTP Error 404: Not Found",
+      "url": "https://www.reaspa.it/wp-content/uploads/2023/01/2023-distribuzione-kit-vv2.pdf"
+    }
+  ],
   "extraction": {
     "municipalities": 17,
     "municipality_reports": [
@@ -7,13 +18,25 @@
         "equivalent_pages": [],
         "istat_code": "050006",
         "municipality": "Casale Marittimo",
-        "pages_available": 1,
-        "pages_materialized": 1,
-        "records": 190,
+        "pages_available": 32,
+        "pages_materialized": 23,
+        "records": 242,
         "records_by_type": {
+          "collection_rule": 5,
+          "facility": 2,
+          "facility_acceptance": 37,
+          "facility_access": 2,
+          "opening_period": 2,
+          "pickup_service": 3,
+          "service_zone": 1,
           "waste_lookup": 190
         },
         "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "9 PDF comunali acquisiti e conservati; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.reaspa.it/comuni/comune-di-casale-marittimo/"
+          },
           {
             "code": "waste_lookup_destinations_missing",
             "detail": "7 voci REA non hanno una destinazione pubblicata",
@@ -25,13 +48,25 @@
         "equivalent_pages": [],
         "istat_code": "050010",
         "municipality": "Castellina Marittima",
-        "pages_available": 1,
-        "pages_materialized": 1,
-        "records": 190,
+        "pages_available": 36,
+        "pages_materialized": 28,
+        "records": 227,
         "records_by_type": {
+          "collection_rule": 10,
+          "facility": 1,
+          "facility_acceptance": 20,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 3,
+          "service_zone": 1,
           "waste_lookup": 190
         },
         "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "8 PDF comunali acquisiti e conservati; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.reaspa.it/comuni/comune-di-castellina-marittima/"
+          },
           {
             "code": "waste_lookup_destinations_missing",
             "detail": "7 voci REA non hanno una destinazione pubblicata",
@@ -43,13 +78,25 @@
         "equivalent_pages": [],
         "istat_code": "050011",
         "municipality": "Castelnuovo di Val di Cecina",
-        "pages_available": 1,
-        "pages_materialized": 1,
-        "records": 190,
+        "pages_available": 11,
+        "pages_materialized": 9,
+        "records": 234,
         "records_by_type": {
+          "collection_rule": 5,
+          "facility": 1,
+          "facility_acceptance": 33,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 2,
+          "service_zone": 1,
           "waste_lookup": 190
         },
         "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "2 PDF comunali acquisiti e conservati; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.reaspa.it/comuni/comune-di-castelnuovo-val-di-cecina/servizi/"
+          },
           {
             "code": "waste_lookup_destinations_missing",
             "detail": "7 voci REA non hanno una destinazione pubblicata",
@@ -61,13 +108,25 @@
         "equivalent_pages": [],
         "istat_code": "050015",
         "municipality": "Guardistallo",
-        "pages_available": 1,
-        "pages_materialized": 1,
-        "records": 190,
+        "pages_available": 30,
+        "pages_materialized": 23,
+        "records": 242,
         "records_by_type": {
+          "collection_rule": 5,
+          "facility": 2,
+          "facility_acceptance": 37,
+          "facility_access": 2,
+          "opening_period": 2,
+          "pickup_service": 3,
+          "service_zone": 1,
           "waste_lookup": 190
         },
         "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "7 PDF comunali acquisiti e conservati; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.reaspa.it/comuni/comune-guardistallo/"
+          },
           {
             "code": "waste_lookup_destinations_missing",
             "detail": "7 voci REA non hanno una destinazione pubblicata",
@@ -79,13 +138,25 @@
         "equivalent_pages": [],
         "istat_code": "050019",
         "municipality": "Montecatini Val di Cecina",
-        "pages_available": 1,
-        "pages_materialized": 1,
-        "records": 190,
+        "pages_available": 13,
+        "pages_materialized": 9,
+        "records": 238,
         "records_by_type": {
+          "collection_rule": 1,
+          "facility": 2,
+          "facility_acceptance": 37,
+          "facility_access": 2,
+          "opening_period": 2,
+          "pickup_service": 3,
+          "service_zone": 1,
           "waste_lookup": 190
         },
         "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "4 PDF comunali acquisiti e conservati; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.reaspa.it/comuni/comune-di-montecatini-val-di-cecina/"
+          },
           {
             "code": "waste_lookup_destinations_missing",
             "detail": "7 voci REA non hanno una destinazione pubblicata",
@@ -97,13 +168,25 @@
         "equivalent_pages": [],
         "istat_code": "050020",
         "municipality": "Montescudaio",
-        "pages_available": 1,
-        "pages_materialized": 1,
-        "records": 190,
+        "pages_available": 31,
+        "pages_materialized": 22,
+        "records": 247,
         "records_by_type": {
+          "collection_rule": 10,
+          "facility": 2,
+          "facility_acceptance": 37,
+          "facility_access": 2,
+          "opening_period": 2,
+          "pickup_service": 3,
+          "service_zone": 1,
           "waste_lookup": 190
         },
         "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "9 PDF comunali acquisiti e conservati; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.reaspa.it/comuni/comune-di-montescudaio/"
+          },
           {
             "code": "waste_lookup_destinations_missing",
             "detail": "7 voci REA non hanno una destinazione pubblicata",
@@ -115,13 +198,25 @@
         "equivalent_pages": [],
         "istat_code": "050021",
         "municipality": "Monteverdi Marittimo",
-        "pages_available": 1,
-        "pages_materialized": 1,
-        "records": 190,
+        "pages_available": 12,
+        "pages_materialized": 10,
+        "records": 213,
         "records_by_type": {
+          "collection_rule": 4,
+          "facility": 1,
+          "facility_acceptance": 13,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 2,
+          "service_zone": 1,
           "waste_lookup": 190
         },
         "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "2 PDF comunali acquisiti e conservati; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.reaspa.it/comuni/comune-di-monteverdi/"
+          },
           {
             "code": "waste_lookup_destinations_missing",
             "detail": "7 voci REA non hanno una destinazione pubblicata",
@@ -133,13 +228,21 @@
         "equivalent_pages": [],
         "istat_code": "050023",
         "municipality": "Orciano Pisano",
-        "pages_available": 1,
-        "pages_materialized": 1,
-        "records": 190,
+        "pages_available": 26,
+        "pages_materialized": 22,
+        "records": 199,
         "records_by_type": {
+          "collection_rule": 5,
+          "pickup_service": 3,
+          "service_zone": 1,
           "waste_lookup": 190
         },
         "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "4 PDF comunali acquisiti e conservati; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.reaspa.it/comuni/comune-di-orciano-pisano/"
+          },
           {
             "code": "waste_lookup_destinations_missing",
             "detail": "7 voci REA non hanno una destinazione pubblicata",
@@ -151,13 +254,25 @@
         "equivalent_pages": [],
         "istat_code": "050027",
         "municipality": "Pomarance",
-        "pages_available": 1,
-        "pages_materialized": 1,
-        "records": 190,
+        "pages_available": 22,
+        "pages_materialized": 16,
+        "records": 234,
         "records_by_type": {
+          "collection_rule": 4,
+          "facility": 1,
+          "facility_acceptance": 33,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 3,
+          "service_zone": 1,
           "waste_lookup": 190
         },
         "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "6 PDF comunali acquisiti e conservati; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.reaspa.it/comuni/comune-di-pomarance/"
+          },
           {
             "code": "waste_lookup_destinations_missing",
             "detail": "7 voci REA non hanno una destinazione pubblicata",
@@ -169,13 +284,25 @@
         "equivalent_pages": [],
         "istat_code": "050030",
         "municipality": "Riparbella",
-        "pages_available": 1,
-        "pages_materialized": 1,
-        "records": 190,
+        "pages_available": 38,
+        "pages_materialized": 34,
+        "records": 223,
         "records_by_type": {
+          "collection_rule": 13,
+          "facility": 1,
+          "facility_acceptance": 13,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 3,
+          "service_zone": 1,
           "waste_lookup": 190
         },
         "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "4 PDF comunali acquisiti e conservati; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.reaspa.it/comuni/comune-di-riparbella/"
+          },
           {
             "code": "waste_lookup_destinations_missing",
             "detail": "7 voci REA non hanno una destinazione pubblicata",
@@ -187,13 +314,21 @@
         "equivalent_pages": [],
         "istat_code": "050034",
         "municipality": "Santa Luce",
-        "pages_available": 1,
-        "pages_materialized": 1,
-        "records": 190,
+        "pages_available": 28,
+        "pages_materialized": 24,
+        "records": 204,
         "records_by_type": {
+          "collection_rule": 10,
+          "pickup_service": 3,
+          "service_zone": 1,
           "waste_lookup": 190
         },
         "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "4 PDF comunali acquisiti e conservati; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.reaspa.it/comuni/comune-di-santa-luce/"
+          },
           {
             "code": "waste_lookup_destinations_missing",
             "detail": "7 voci REA non hanno una destinazione pubblicata",
@@ -205,13 +340,25 @@
         "equivalent_pages": [],
         "istat_code": "050039",
         "municipality": "Volterra",
-        "pages_available": 1,
-        "pages_materialized": 1,
-        "records": 190,
+        "pages_available": 15,
+        "pages_materialized": 12,
+        "records": 215,
         "records_by_type": {
+          "collection_rule": 4,
+          "facility": 1,
+          "facility_acceptance": 14,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 3,
+          "service_zone": 1,
           "waste_lookup": 190
         },
         "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "3 PDF comunali acquisiti e conservati; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.reaspa.it/comuni/comune-di-volterra/"
+          },
           {
             "code": "waste_lookup_destinations_missing",
             "detail": "7 voci REA non hanno una destinazione pubblicata",
@@ -223,13 +370,25 @@
         "equivalent_pages": [],
         "istat_code": "049001",
         "municipality": "Bibbona",
-        "pages_available": 1,
-        "pages_materialized": 1,
-        "records": 190,
+        "pages_available": 42,
+        "pages_materialized": 33,
+        "records": 222,
         "records_by_type": {
+          "collection_rule": 10,
+          "facility": 1,
+          "facility_acceptance": 15,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 3,
+          "service_zone": 1,
           "waste_lookup": 190
         },
         "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "9 PDF comunali acquisiti e conservati; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.reaspa.it/comuni/comune-di-bibbona/"
+          },
           {
             "code": "waste_lookup_destinations_missing",
             "detail": "7 voci REA non hanno una destinazione pubblicata",
@@ -241,13 +400,20 @@
         "equivalent_pages": [],
         "istat_code": "049005",
         "municipality": "Capraia Isola",
-        "pages_available": 1,
-        "pages_materialized": 1,
-        "records": 190,
+        "pages_available": 10,
+        "pages_materialized": 9,
+        "records": 196,
         "records_by_type": {
+          "collection_rule": 5,
+          "service_zone": 1,
           "waste_lookup": 190
         },
         "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "1 PDF comunali acquisiti e conservati; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.reaspa.it/comuni/comune-di-capraia-isola/"
+          },
           {
             "code": "waste_lookup_destinations_missing",
             "detail": "7 voci REA non hanno una destinazione pubblicata",
@@ -259,13 +425,25 @@
         "equivalent_pages": [],
         "istat_code": "049007",
         "municipality": "Cecina",
-        "pages_available": 1,
-        "pages_materialized": 1,
-        "records": 190,
+        "pages_available": 24,
+        "pages_materialized": 15,
+        "records": 223,
         "records_by_type": {
+          "collection_rule": 7,
+          "facility": 1,
+          "facility_acceptance": 19,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 3,
+          "service_zone": 1,
           "waste_lookup": 190
         },
         "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "9 PDF comunali acquisiti e conservati; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.reaspa.it/comuni/comune-di-cecina/"
+          },
           {
             "code": "waste_lookup_destinations_missing",
             "detail": "7 voci REA non hanno una destinazione pubblicata",
@@ -277,13 +455,25 @@
         "equivalent_pages": [],
         "istat_code": "049008",
         "municipality": "Collesalvetti",
-        "pages_available": 1,
-        "pages_materialized": 1,
-        "records": 190,
+        "pages_available": 29,
+        "pages_materialized": 21,
+        "records": 245,
         "records_by_type": {
+          "collection_rule": 5,
+          "facility": 2,
+          "facility_acceptance": 40,
+          "facility_access": 2,
+          "opening_period": 2,
+          "pickup_service": 3,
+          "service_zone": 1,
           "waste_lookup": 190
         },
         "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "8 PDF comunali acquisiti e conservati; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.reaspa.it/comuni/comune-di-collesalvetti/"
+          },
           {
             "code": "waste_lookup_destinations_missing",
             "detail": "7 voci REA non hanno una destinazione pubblicata",
@@ -295,13 +485,25 @@
         "equivalent_pages": [],
         "istat_code": "049017",
         "municipality": "Rosignano Marittimo",
-        "pages_available": 1,
-        "pages_materialized": 1,
-        "records": 190,
+        "pages_available": 34,
+        "pages_materialized": 24,
+        "records": 224,
         "records_by_type": {
+          "collection_rule": 7,
+          "facility": 1,
+          "facility_acceptance": 20,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 3,
+          "service_zone": 1,
           "waste_lookup": 190
         },
         "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "10 PDF comunali acquisiti e conservati; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.reaspa.it/comuni/comune-di-rosignano-marittimo/"
+          },
           {
             "code": "waste_lookup_destinations_missing",
             "detail": "7 voci REA non hanno una destinazione pubblicata",
@@ -310,18 +512,24 @@
         ]
       }
     ],
-    "records": 3230,
-    "unresolved_entries_per_municipality": 7,
-    "warnings": 17
+    "records": 3828,
+    "warnings": 34
   },
   "municipalities_touched": 17,
-  "observed_at": "2026-08-06T16:30:00+02:00",
+  "observed_at": "2026-08-06T19:00:00+02:00",
   "pages_by_category": {
-    "waste_lookup": 1
+    "centre_detail": 11,
+    "centre_index": 2,
+    "municipality": 17,
+    "municipality_document": 73,
+    "municipality_service": 317,
+    "shared_service": 5
   },
   "pages_by_status": {
-    "snapshot": 1
+    "blocked_by_robots": 0,
+    "error": 2,
+    "snapshot": 423
   },
-  "pages_checked": 1,
+  "pages_checked": 425,
   "pages_remaining": 0
 }

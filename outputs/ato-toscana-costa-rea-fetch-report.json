@@ -1,43 +1,31 @@
 {
-  "allowed": true,
-  "empty_prefixes": [
-    "h",
-    "j",
-    "k",
-    "w",
-    "x",
-    "y"
+  "errors": [
+    {
+      "code": "error",
+      "detail": "HTTPError: HTTP Error 404: Not Found",
+      "url": "https://www.reaspa.it/wp-content/uploads/2022/12/2023-distribuzione-kit.pdf"
+    },
+    {
+      "code": "error",
+      "detail": "HTTPError: HTTP Error 404: Not Found",
+      "url": "https://www.reaspa.it/wp-content/uploads/2023/01/2023-distribuzione-kit-vv2.pdf"
+    }
   ],
-  "errors": [],
-  "items": 190,
-  "queried_prefixes": [
-    "a",
-    "b",
-    "c",
-    "d",
-    "e",
-    "f",
-    "g",
-    "h",
-    "i",
-    "j",
-    "k",
-    "l",
-    "m",
-    "n",
-    "o",
-    "p",
-    "q",
-    "r",
-    "s",
-    "t",
-    "u",
-    "v",
-    "w",
-    "x",
-    "y",
-    "z"
-  ],
-  "robots_url": "https://www.reaspa.it/robots.txt",
-  "source_url": "https://www.reaspa.it/wp-admin/admin-ajax.php"
+  "municipalities_touched": 17,
+  "observed_at": "2026-08-06T19:00:00+02:00",
+  "pages_by_category": {
+    "centre_detail": 11,
+    "centre_index": 2,
+    "municipality": 17,
+    "municipality_document": 73,
+    "municipality_service": 317,
+    "shared_service": 5
+  },
+  "pages_by_status": {
+    "blocked_by_robots": 0,
+    "error": 2,
+    "snapshot": 423
+  },
+  "pages_checked": 425,
+  "pages_remaining": 0
 }

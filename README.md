@@ -129,4 +129,6 @@ L'interfaccia permette di filtrare per ATO e provincia, distinguere comuni
 censiti da comuni acquisiti, esplorare centri e regole, consultare il
 rifiutario, cercare materiali e codici EER e risalire alla fonte di ogni fatto.
 Il pacchetto corrente contiene 204 comuni censiti, 129 con almeno una fonte
-materializzata e 10.551 record.
+materializzata e 11.149 record. Per i 17 comuni REA comprende anche pagine di
+servizio, centri intercomunali, orari, accesso, ritiri e materiali accettati;
+gli EER non pubblicati dalla fonte sono indicati esplicitamente come tali.

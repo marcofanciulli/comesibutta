@@ -22,7 +22,7 @@
     collection_rule: "Regole di raccolta",
     collection_schedule: "Calendari",
     facility: "Centri di raccolta",
-    facility_acceptance: "Voci EER accettate",
+    facility_acceptance: "Materiali accettati dai centri",
     facility_access: "Regole di accesso",
     opening_period: "Periodi di apertura",
     pickup_service: "Servizi di ritiro",
@@ -34,6 +34,10 @@
     loose: "Sfuso",
     paper_bag: "Sacco di carta",
     biodegradable_bag: "Sacco biodegradabile",
+    compostable_bag: "Sacco compostabile",
+    plastic_bag: "Sacco di plastica",
+    bag_unspecified: "Sacco, materiale non specificato",
+    closed_bag: "Sacco chiuso",
     non_compostable_bag: "Sacco non compostabile",
     container: "Nel contenitore",
     mixed: "Modalità multiple",
@@ -142,6 +146,9 @@
     const labels = {
       invalid_eer_code: "Codice EER da revisionare",
       acceptance_table_missing: "Tabella dei conferimenti non pubblicata",
+      calendar_pdfs_inventoried: "Calendari acquisiti in PDF",
+      waste_lookup_destinations_missing: "Destinazioni non pubblicate nel rifiutario",
+      collection_rules_missing: "Regole di raccolta non trovate",
     };
     return `<div class="notice"><strong>${escapeHtml(labels[warning.code] || warning.code)}</strong><span>${escapeHtml(warning.detail)}</span><br><a href="${escapeHtml(warning.url)}" target="_blank" rel="noreferrer">Apri la fonte</a></div>`;
   }
@@ -171,7 +178,7 @@
     return `${sectionHeading("Quadro del comune", "Copertura dell'acquisizione del gestore locale e segnalazioni che richiedono controllo umano.")}
       <div class="metric-strip">
         <div class="metric"><strong>${facilityCount}</strong><span>centri o strutture</span></div>
-        <div class="metric"><strong>${eerCount}</strong><span>righe EER accettate</span></div>
+        <div class="metric"><strong>${eerCount}</strong><span>materiali accettati</span></div>
         <div class="metric"><strong>${ruleCount}</strong><span>regole territoriali</span></div>
         <div class="metric"><strong>${pointCount}</strong><span>punti speciali</span></div>
       </div>
@@ -195,7 +202,7 @@
 
   function openingHtml(periods) {
     if (!periods.length) return `<p class="muted">Orari non pubblicati nella pagina.</p>`;
-    return periods.map(period => `<div><span class="chip">${escapeHtml(period.payload.period_label || "Periodo")}</span><ul class="opening-list">${period.payload.weekly_intervals.map(interval => `<li><strong>${weekdayLabels[interval.weekday]}</strong><span>${interval.opens}–${interval.closes}</span></li>`).join("")}</ul></div>`).join("");
+    return periods.map(period => `<div><span class="chip">${escapeHtml(period.payload.period_label || "Periodo")}</span>${period.payload.weekly_intervals.length ? `<ul class="opening-list">${period.payload.weekly_intervals.map(interval => `<li><strong>${weekdayLabels[interval.weekday]}</strong><span>${interval.opens}–${interval.closes}</span></li>`).join("")}</ul>` : `<p class="raw-text">${escapeHtml(period.payload.exceptions_raw || "Orario non strutturato")}</p>`}</div>`).join("");
   }
 
   function renderFacilities() {
@@ -215,8 +222,8 @@
       return `<article class="facility-block">
         <div class="facility-header"><div><h2>${escapeHtml(facility.payload.name)}</h2><p class="facility-address">${escapeHtml(facility.payload.address_raw || "Indirizzo non pubblicato")}</p><div class="facility-meta"><span>${facility.payload.phone ? `Telefono ${escapeHtml(facility.payload.phone)}` : "Telefono non pubblicato"}</span><span>${location ? `${location.latitude.toFixed(5)}, ${location.longitude.toFixed(5)}` : "Coordinate non disponibili"}</span></div></div>${mapUrl ? `<a class="link-button" href="${mapUrl}" target="_blank" rel="noreferrer">Apri mappa</a>` : ""}</div>
         ${closed ? `<div class="notice error"><strong>Centro temporaneamente chiuso</strong>${escapeHtml(facility.payload.status_raw)}</div>` : ""}
-        <div class="facility-columns"><div><h3>Orari</h3>${openingHtml(periods)}${access.map(item => `<details class="access-block"><summary>Accesso ${item.payload.user_type === "non_domestic" ? "utenze non domestiche" : "utenze domestiche"}</summary><p>${escapeHtml(item.payload.requirements_raw || "Consulta i documenti collegati alla fonte.")}</p>${item.payload.information_urls.map(url => `<p><a href="${escapeHtml(url)}" target="_blank" rel="noreferrer">Documento informativo</a></p>`).join("")}</details>`).join("")}</div>
-      <div><h3>Rifiuti accettati <span class="muted">(${acceptances.length})</span></h3>${acceptances.length ? `<div class="table-wrap"><table class="data-table"><thead><tr><th>EER</th><th>Descrizione della fonte</th><th>Stato</th><th></th></tr></thead><tbody>${acceptances.map(item => `<tr><td><span class="eer-code">${escapeHtml(item.payload.eer_code_raw)}</span>${item.payload.eer_code_status === "reconciled" ? `<span class="row-subtitle">→ ${escapeHtml(item.payload.eer_code_normalized)}</span>` : ""}</td><td>${escapeHtml(item.payload.description_raw)}${item.payload.operational_group ? `<span class="row-subtitle">${escapeHtml(item.payload.operational_group)}</span>` : ""}</td><td>${item.payload.hazardous ? `<span class="chip hazard">Pericoloso</span>` : ""}${item.payload.eer_code_status === "reconciled" ? `<span class="chip method">Riconciliato</span>` : item.payload.eer_code_status === "exact" ? `<span class="chip">Esatto</span>` : `<span class="chip review">Da revisionare</span>`}</td><td><button class="detail-button" data-record="${item.record_id}" type="button">Dettagli</button></td></tr>`).join("")}</tbody></table></div>` : `<p class="muted">Nessuna riga EER corrisponde alla ricerca o l'elenco non è pubblicato.</p>`}</div></div>
+        <div class="facility-columns"><div><h3>Orari</h3>${openingHtml(periods)}${access.map(item => `<details class="access-block"><summary>Accesso ${item.payload.user_type === "non_domestic" ? "utenze non domestiche" : item.payload.user_type === "domestic" ? "utenze domestiche" : "tutte le utenze"}</summary><p>${escapeHtml(item.payload.requirements_raw || "Consulta i documenti collegati alla fonte.")}</p>${item.payload.information_urls.map(url => `<p><a href="${escapeHtml(url)}" target="_blank" rel="noreferrer">Documento informativo</a></p>`).join("")}</details>`).join("")}</div>
+      <div><h3>Rifiuti accettati <span class="muted">(${acceptances.length})</span></h3>${acceptances.length ? `<div class="table-wrap"><table class="data-table"><thead><tr><th>EER</th><th>Descrizione della fonte</th><th>Stato</th><th></th></tr></thead><tbody>${acceptances.map(item => `<tr><td>${item.payload.eer_code_raw ? `<span class="eer-code">${escapeHtml(item.payload.eer_code_raw)}</span>` : `<span class="muted">Non pubblicato</span>`}${item.payload.eer_code_status === "reconciled" ? `<span class="row-subtitle">→ ${escapeHtml(item.payload.eer_code_normalized)}</span>` : ""}</td><td>${escapeHtml(item.payload.description_raw)}${item.payload.operational_group ? `<span class="row-subtitle">${escapeHtml(item.payload.operational_group)}</span>` : ""}</td><td>${item.payload.hazardous ? `<span class="chip hazard">Pericoloso</span>` : ""}${item.payload.eer_code_status === "unmapped_description" ? `<span class="chip">Codice non pubblicato</span>` : item.payload.eer_code_status === "reconciled" ? `<span class="chip method">Riconciliato</span>` : item.payload.eer_code_status === "exact" ? `<span class="chip">Esatto</span>` : `<span class="chip review">Da revisionare</span>`}</td><td><button class="detail-button" data-record="${item.record_id}" type="button">Dettagli</button></td></tr>`).join("")}</tbody></table></div>` : `<p class="muted">Nessun materiale corrisponde alla ricerca o l'elenco non è pubblicato.</p>`}</div></div>
       </article>`;
     }).join("")}`;
   }

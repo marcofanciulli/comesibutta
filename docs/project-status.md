@@ -75,7 +75,7 @@ Comuni pilota gia acquisiti:
 
 Verifiche completate al 6 agosto 2026:
 
-- 48 test automatici superati;
+- 51 test automatici superati;
 - compilazione dei moduli Python riuscita;
 - validita sintattica JSON verificata per schemi, record e rapporti;
 - relazione Sassetta-Castagneto risolta sullo stesso identificatore stabile;
@@ -136,7 +136,7 @@ Completamento ATO Toscana Sud:
 
 Esploratore dati:
 
-- pacchetto statico generato in modo riproducibile da 10.551 record;
+- pacchetto statico generato in modo riproducibile da 11.149 record;
 - filtri gerarchici per ATO e provincia, seguiti dall'elenco dei comuni;
 - 204 comuni censiti, 129 con almeno una fonte materializzata;
 - navigazione per comune e viste dedicate a centri, EER, regole, punti e ritiro;
@@ -150,17 +150,22 @@ Avvio ATO Toscana Costa:
 - riconciliati tutti i comuni con ISTAT: 13 LI, 33 LU, 17 MS e 37 PI;
 - conservati separatamente RetiAmbiente, SOL e stato del subentro; Porto
   Azzurro e Peccioli risultano da completare, Lucca in transizione entro 2029;
-- acquisiti 25 comuni e 5.461 record: 7 ESA, 17 REA e Livorno AAMPS;
+- acquisiti 25 comuni e 6.059 record: 7 ESA, 17 REA e Livorno AAMPS;
 - ESA: 292 voci del rifiutario per comune, cinque regole generali porta a porta
   e dieci centri complessivi associati ai comuni, 2.106 record senza avvisi;
-- REA: 26 iniziali controllate, 190 voci, sei iniziali vuote e zero errori;
-  sette voci prive di destinazione restano visibili, per 3.230 record e un
-  avviso riepilogativo in ciascuno dei 17 comuni;
+- REA: 425 URL di servizi, centri e allegati controllate; 423 snapshot, 73 PDF,
+  11 centri, nessun blocco robots e due vecchi PDF oggi `404` documentati;
+- REA: 3.828 record complessivi, con 110 regole, 46 ritiri, 19 relazioni
+  comune-centro complete di orario e accesso e 368 materiali ammessi; le
+  descrizioni prive di EER restano marcate come codice non pubblicato;
+- REA: sette voci del rifiutario prive di destinazione restano visibili; i 73
+  PDF sono inventariati ma i calendari non sono ancora estratti in forma
+  strutturata;
 - AAMPS: 125 coppie estratte dal PDF 2017; cinque probabili continuazioni di
   colonna restano a confidenza media e sono elencate nel rapporto;
 - tutti i 13 comuni livornesi di ATO Costa hanno ora almeno un rifiutario;
-  la copertura completa di centri, orari, accesso e calendari e per ora
-  disponibile soltanto parzialmente per ESA.
+  l'esploratore mostra ora anche servizi, centri intercomunali, orari, accesso
+  e materiali accettati REA.
 
 ## Limiti e questioni aperte
 
@@ -176,7 +181,7 @@ Avvio ATO Toscana Costa:
 
 ## Prossimi passi
 
-1. Acquisire pagine comunali, centri, orari, accesso, calendari e ritiri REA.
+1. Estrarre e normalizzare i calendari contenuti nei 73 PDF REA acquisiti.
 2. Acquisire i dettagli dei centri ESA e cercare una guida AAMPS piu recente.
 3. Proseguire con GEOFOR, ASCIT e le restanti SOL di ATO Toscana Costa.
 4. Definire il livello canonico e il vocabolario unificato dei nomi quotidiani.

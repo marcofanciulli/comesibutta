@@ -31,6 +31,7 @@ from .ato_costa import (
 )
 from .html import clean_text, parse_html
 from .records import write_jsonl
+from .rea import crawl_rea_services, materialize_rea_services
 from .registry import (
     extract_ato_costa_municipality_registry,
     extract_sei_municipality_registry,
@@ -148,6 +149,28 @@ def build_parser() -> argparse.ArgumentParser:
     rea.add_argument("--retrieved-at", required=True)
     rea.add_argument("--output-dir", type=Path, required=True)
     rea.add_argument("--report", type=Path, required=True)
+    rea_services_fetch = subparsers.add_parser(
+        "fetch-rea-services",
+        help="Crawl linked REA municipality, service, centre and PDF pages",
+    )
+    rea_services_fetch.add_argument("--registry", type=Path, required=True)
+    rea_services_fetch.add_argument("--snapshot-root", type=Path, required=True)
+    rea_services_fetch.add_argument("--manifest", type=Path, required=True)
+    rea_services_fetch.add_argument("--report", type=Path, required=True)
+    rea_services_fetch.add_argument("--observed-at", required=True)
+    rea_services_fetch.add_argument("--user-agent", required=True)
+    rea_services_fetch.add_argument("--delay", type=float, default=1.0)
+    rea_services = subparsers.add_parser(
+        "materialize-rea-services",
+        help="Combine REA's waste dictionary with municipality and centre pages",
+    )
+    rea_services.add_argument("--registry", type=Path, required=True)
+    rea_services.add_argument("--manifest", type=Path, required=True)
+    rea_services.add_argument("--snapshot-root", type=Path, required=True)
+    rea_services.add_argument("--rifiutario-json", type=Path, required=True)
+    rea_services.add_argument("--retrieved-at", required=True)
+    rea_services.add_argument("--output-dir", type=Path, required=True)
+    rea_services.add_argument("--report", type=Path, required=True)
     aamps = subparsers.add_parser(
         "materialize-aamps-rifiutario",
         help="Extract the AAMPS two-column waste guide from pdftotext bbox XHTML",
@@ -181,6 +204,82 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
+    if args.command == "fetch-rea-services":
+        municipalities = [
+            json.loads(line)["payload"]
+            for line in args.registry.read_text(encoding="utf-8").splitlines()
+            if line.strip() and json.loads(line)["payload"].get("local_operator_ref") == "rea"
+        ]
+        previous_manifest = (
+            json.loads(args.manifest.read_text(encoding="utf-8"))
+            if args.manifest.exists() else None
+        )
+        manifest = crawl_rea_services(
+            municipalities, args.snapshot_root, datetime.fromisoformat(args.observed_at),
+            args.user_agent, args.delay, previous_manifest,
+        )
+        args.manifest.parent.mkdir(parents=True, exist_ok=True)
+        args.manifest.write_text(json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        errors = [
+            {"url": page["url"], "code": page["status"], "detail": page.get("error")}
+            for page in manifest["pages"] if page["status"] != "snapshot"
+        ]
+        report = {
+            "observed_at": manifest["observed_at"],
+            "pages_checked": manifest["summary"]["checked"],
+            "pages_remaining": 0,
+            "municipalities_touched": len(municipalities),
+            "pages_by_status": {
+                "snapshot": manifest["summary"]["snapshots"],
+                "blocked_by_robots": manifest["summary"]["blocked_by_robots"],
+                "error": manifest["summary"]["errors"],
+            },
+            "pages_by_category": manifest["summary"]["by_category"],
+            "errors": errors,
+        }
+        args.report.parent.mkdir(parents=True, exist_ok=True)
+        args.report.write_text(json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        return 0 if not errors else 1
+    if args.command == "materialize-rea-services":
+        retrieved_at = datetime.fromisoformat(args.retrieved_at)
+        municipalities = [
+            json.loads(line)["payload"]
+            for line in args.registry.read_text(encoding="utf-8").splitlines()
+            if line.strip() and json.loads(line)["payload"].get("local_operator_ref") == "rea"
+        ]
+        manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
+        results, municipality_reports = materialize_rea_services(
+            municipalities, manifest, args.snapshot_root,
+            args.rifiutario_json.read_text(encoding="utf-8"), retrieved_at,
+        )
+        args.output_dir.mkdir(parents=True, exist_ok=True)
+        for municipality in municipalities:
+            slug = municipality["source_slug"]
+            write_jsonl(args.output_dir / f"{slug}-acquisition.jsonl", results[slug])
+            municipal_report = next(report for report in municipality_reports if report["istat_code"] == municipality["istat_code"])
+            (args.output_dir / f"{slug}-report.json").write_text(json.dumps(municipal_report, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        report = {
+            "observed_at": retrieved_at.isoformat(),
+            "pages_checked": manifest["summary"]["checked"],
+            "pages_remaining": 0,
+            "municipalities_touched": len(municipalities),
+            "pages_by_status": {
+                "snapshot": manifest["summary"]["snapshots"],
+                "blocked_by_robots": manifest["summary"]["blocked_by_robots"],
+                "error": manifest["summary"]["errors"],
+            },
+            "pages_by_category": manifest["summary"]["by_category"],
+            "errors": [{"url": page["url"], "code": page["status"], "detail": page.get("error")} for page in manifest["pages"] if page["status"] != "snapshot"],
+            "extraction": {
+                "municipalities": len(municipalities),
+                "records": sum(report["records"] for report in municipality_reports),
+                "warnings": sum(len(report["warnings"]) for report in municipality_reports),
+                "municipality_reports": municipality_reports,
+            },
+        }
+        args.report.parent.mkdir(parents=True, exist_ok=True)
+        args.report.write_text(json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        return 0
     if args.command == "materialize-aamps-rifiutario":
         retrieved_at = datetime.fromisoformat(args.retrieved_at)
         bbox_html = args.bbox_html.read_text(encoding="utf-8")

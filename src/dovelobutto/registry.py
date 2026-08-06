@@ -201,6 +201,13 @@ def _slugify(value: str) -> str:
 
 def _ato_costa_homepage(local_operator_ref: str, slug: str) -> str:
     if local_operator_ref == "rea":
+        overrides = {
+            "castelnuovo-di-val-di-cecina": "https://www.reaspa.it/comuni/comune-di-castelnuovo-val-di-cecina/servizi/",
+            "guardistallo": "https://www.reaspa.it/comuni/comune-guardistallo/",
+            "monteverdi-marittimo": "https://www.reaspa.it/comuni/comune-di-monteverdi/",
+        }
+        if slug in overrides:
+            return overrides[slug]
         return f"https://www.reaspa.it/comuni/comune-di-{slug}/"
     return LOCAL_OPERATORS[local_operator_ref][1]
 
@@ -221,7 +228,7 @@ def _ato_costa_service_urls(local_operator_ref: str, slug: str) -> dict[str, lis
         urls["collection"] = ["https://www.esaspa.it/cittadini/raccolta-differenziata/"]
         urls["facilities"] = ["https://www.esaspa.it/centri-di-raccolta/"]
     elif local_operator_ref == "rea":
-        urls["collection"] = [f"https://www.reaspa.it/comuni/comune-di-{slug}/"]
+        urls["collection"] = [_ato_costa_homepage(local_operator_ref, slug)]
         urls["facilities"] = ["https://www.reaspa.it/centri-di-raccolta/"]
         urls["other"] = ["https://www.reaspa.it/ritiro-e-rifornimenti-kit/"]
     return urls

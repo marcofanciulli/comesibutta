@@ -2,13 +2,21 @@
   "equivalent_pages": [],
   "istat_code": "050023",
   "municipality": "Orciano Pisano",
-  "pages_available": 1,
-  "pages_materialized": 1,
-  "records": 190,
+  "pages_available": 26,
+  "pages_materialized": 22,
+  "records": 199,
   "records_by_type": {
+    "collection_rule": 5,
+    "pickup_service": 3,
+    "service_zone": 1,
     "waste_lookup": 190
   },
   "warnings": [
+    {
+      "code": "calendar_pdfs_inventoried",
+      "detail": "4 PDF comunali acquisiti e conservati; estrazione strutturata dei calendari ancora da completare",
+      "url": "https://www.reaspa.it/comuni/comune-di-orciano-pisano/"
+    },
     {
       "code": "waste_lookup_destinations_missing",
       "detail": "7 voci REA non hanno una destinazione pubblicata",

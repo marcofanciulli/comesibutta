@@ -283,16 +283,16 @@
       "required": ["facility_ref", "eer_code_raw", "description_raw"],
       "properties": {
         "facility_ref": { "type": "string" },
-        "eer_code_raw": { "type": "string" },
+        "eer_code_raw": { "type": ["string", "null"] },
         "eer_code_normalized": { "type": ["string", "null"], "pattern": "^[0-9]{6}$" },
         "eer_code_status": {
-          "enum": ["exact", "malformed", "inferred_candidate", "reconciled"]
+          "enum": ["exact", "malformed", "inferred_candidate", "reconciled", "unmapped_description"]
         },
         "reconciliation_basis": {
           "type": ["string", "null"],
           "enum": ["unique_batch_description_match", null]
         },
-        "hazardous": { "type": "boolean" },
+        "hazardous": { "type": ["boolean", "null"] },
         "description_raw": { "type": "string" },
         "operational_group": { "type": ["string", "null"] },
         "user_type": { "enum": ["domestic", "non_domestic", "all", "unspecified"] },

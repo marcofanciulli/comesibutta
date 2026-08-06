@@ -111,7 +111,7 @@ class ExplorerDatasetTest(unittest.TestCase):
             datetime.fromisoformat("2026-08-06T16:00:00+02:00"),
         )
         self.assertEqual(129, dataset["batch"]["municipalities_acquired"])
-        self.assertEqual(10551, len(dataset["records"]))
+        self.assertEqual(11149, len(dataset["records"]))
         capoliveri = next(item for item in dataset["municipalities"] if item["name"] == "Capoliveri")
         self.assertEqual(292, capoliveri["records_by_type"]["waste_lookup"])
         tetrapak = next(
@@ -123,7 +123,9 @@ class ExplorerDatasetTest(unittest.TestCase):
         self.assertIn("plastica e metallo", tetrapak["payload"]["destination_raw"].lower())
         bibbona = next(item for item in dataset["municipalities"] if item["name"] == "Bibbona")
         self.assertEqual(190, bibbona["records_by_type"]["waste_lookup"])
-        self.assertEqual(1, len(bibbona["warnings"]))
+        self.assertEqual(2, len(bibbona["warnings"]))
+        self.assertEqual(1, bibbona["records_by_type"]["opening_period"])
+        self.assertEqual(15, bibbona["records_by_type"]["facility_acceptance"])
         livorno = next(item for item in dataset["municipalities"] if item["name"] == "Livorno")
         self.assertEqual(125, livorno["records_by_type"]["waste_lookup"])
         self.assertEqual(5, len(livorno["warnings"]))

@@ -42,9 +42,35 @@ La passata verificata ha trovato 190 voci, sei iniziali senza risultati e zero
 errori. Sette voci approvate non hanno una destinazione: vengono conservate con
 `resolution_status: missing_destination`, non scartate.
 
-`materialize-rea-rifiutario` applica il dizionario ai 17 comuni REA, producendo
-190 record e un avviso riepilogativo per comune. I dati comunali su centri,
-calendari, sacchetti e ritiri richiedono un estrattore successivo.
+`fetch-rea-services` parte dalle 17 schede comunali e dall'indice dei centri,
+segue soltanto servizi e allegati pubblicati da REA, rispetta `robots.txt` e
+salva un manifesto completo. Se il manifesto esiste, la ripresa riusa gli
+snapshot riusciti e visita soltanto le nuove URL. La passata verificata ha
+controllato 425 URL: 423 snapshot, nessun blocco robots e due PDF del 2023
+rimossi dal server (`404`). Ha censito 317 pagine di servizio, 73 PDF comunali,
+11 centri e le due pagine dell'indice.
+
+```sh
+PYTHONPATH=src python3 -m dovelobutto.cli fetch-rea-services \
+  --registry outputs/ato-toscana-costa-municipalities.jsonl \
+  --snapshot-root data/crawl/ato-toscana-costa/2026-08-06/rea-services \
+  --manifest data/crawl/ato-toscana-costa/2026-08-06/rea-services-manifest.json \
+  --report outputs/ato-toscana-costa-rea-fetch-report.json \
+  --observed-at 2026-08-06T19:00:00+02:00 \
+  --user-agent 'DoveLoButtoData/0.1 (+mailto:marcofanciulli@me.com)'
+```
+
+`materialize-rea-services` combina queste pagine con il rifiutario. Produce
+3.828 record per i 17 comuni: 3.230 termini, 110 regole, 46 servizi di ritiro,
+17 zone, 19 relazioni comune-centro con orari e accesso e 368 descrizioni di
+materiali accettati. Quando REA non pubblica il codice EER, la descrizione
+resta acquisita con `eer_code_status: unmapped_description`; il codice non
+viene dedotto. I centri intercomunali restano associati a tutti i comuni
+esplicitamente serviti.
+
+I 73 PDF sono conservati e collegati ai comuni, ma i calendari al loro interno
+non sono ancora convertiti in eventi strutturati. Questa lacuna e esposta come
+avviso per comune, non nascosta.
 
 ## AAMPS
 
@@ -62,9 +88,11 @@ confidenza media e sono elencate nel rapporto; non vengono corrette a mano.
 
 - 100 comuni censiti;
 - 25 comuni con almeno una fonte acquisita: 7 ESA, 17 REA e Livorno AAMPS;
-- 5.461 record ATO Costa;
+- 6.059 record ATO Costa;
 - tutti i 13 comuni livornesi hanno almeno un rifiutario acquisito;
-- soltanto ESA dispone gia di regole generali e centri materializzati.
+- tutti i comuni REA hanno pagine di servizio; 14 hanno accesso ad almeno un
+  centro pubblicato, mentre Capraia Isola, Orciano Pisano e Santa Luce non
+  risultano collegati a un centro nella fonte acquisita.
 
-Prossimo ordine operativo: pagine comunali e centri REA, dettagli dei centri
-ESA, fonti AAMPS aggiornate, quindi GEOFOR, ASCIT e le restanti SOL.
+Prossimo ordine operativo: estrazione dei calendari PDF REA, dettagli dei
+centri ESA, fonti AAMPS aggiornate, quindi GEOFOR, ASCIT e le restanti SOL.

@@ -14,6 +14,7 @@ from dovelobutto.ato_costa import (
     extract_esa_bundle,
     extract_rea_waste_lookup,
 )
+from dovelobutto.rea import extract_rea_centre, extract_rea_collection_pages
 
 
 WORKSPACE = Path(__file__).parents[1]
@@ -60,6 +61,12 @@ class AtoCostaRegistryTest(unittest.TestCase):
         self.assertIn("Dove-lo-butto", records["Livorno"]["service_urls"]["collection"][0])
         self.assertEqual("https://www.esaspa.it/centri-di-raccolta/", records["Rio"]["service_urls"]["facilities"][0])
         self.assertIn("comune-di-bibbona", records["Bibbona"]["homepage_url"])
+
+    def test_preserves_rea_irregular_municipality_urls(self) -> None:
+        records = {record["payload"]["name"]: record["payload"] for record in self.records}
+        self.assertIn("castelnuovo-val-di-cecina/servizi", records["Castelnuovo di Val di Cecina"]["homepage_url"])
+        self.assertIn("comune-guardistallo", records["Guardistallo"]["homepage_url"])
+        self.assertIn("comune-di-monteverdi/", records["Monteverdi Marittimo"]["homepage_url"])
 
 class EsaExtractorTest(unittest.TestCase):
     def test_extracts_shared_rifiutario_rules_and_local_facilities(self) -> None:
@@ -124,6 +131,45 @@ class ReaExtractorTest(unittest.TestCase):
         lavatrice = next(record for record in records if record["payload"]["term"] == "Lavatrice")
         self.assertIsNone(lavatrice["payload"]["destination_raw"])
         self.assertEqual("missing_destination", lavatrice["payload"]["resolution_status"])
+
+    def test_extracts_bag_rules_and_pickup_service(self) -> None:
+        collection = """<main class="zui-content"><h1>Raccolta stradale</h1>
+        <h2>UTENZE DOMESTICHE</h2><h3>Organico</h3>
+        <p>Usare sacchi compostabili nel contenitore marrone.</p>
+        <h3>Carta e cartone</h3><p>Raccolta in contenitore blu.</p></main>"""
+        pickup = """<main class="zui-content"><h1>Raccolta ingombranti</h1>
+        <p>La raccolta degli ingombranti si prenota online.</p></main>"""
+        records, warnings = extract_rea_collection_pages(
+            MunicipalityContext("Bibbona", "049001", "bibbona"),
+            datetime.fromisoformat("2026-08-06T18:00:00+02:00"),
+            [
+                ("https://www.reaspa.it/servizi/raccolta-stradale/?comune=1", collection),
+                ("https://www.reaspa.it/servizi/raccolta-ingombranti/?comune=1", pickup),
+            ],
+        )
+        self.assertEqual([], warnings)
+        organic = next(record for record in records if record["record_type"] == "collection_rule" and record["payload"]["stream_name"] == "Rifiuti organici")
+        self.assertEqual("compostable_bag", organic["payload"]["presentation"]["mode"])
+        self.assertEqual("marrone", organic["payload"]["container_color"])
+        self.assertEqual(1, sum(record["record_type"] == "pickup_service" for record in records))
+
+    def test_preserves_centre_materials_without_inventing_eer_codes(self) -> None:
+        html = """<main class="zui-content"><h1>Cecina</h1>
+        <p>Quando: lunedi 8:00-12:00</p><p>Dove siamo: Cecina, Via Pasubio 130</p>
+        <h3>Cosa conferire</h3><ul><li>Legno</li><li>Vernici e bombolette spray</li></ul>
+        <h3>Modalità di accesso</h3><p>Tessera sanitaria per le utenze domestiche.</p></main>"""
+        records = extract_rea_centre(
+            MunicipalityContext("Cecina", "049007", "cecina"),
+            datetime.fromisoformat("2026-08-06T18:00:00+02:00"),
+            "https://www.reaspa.it/centri-di-raccolta/cecina/",
+            html,
+        )
+        accepted = [record for record in records if record["record_type"] == "facility_acceptance"]
+        self.assertEqual(2, len(accepted))
+        self.assertIsNone(accepted[0]["payload"]["eer_code_raw"])
+        self.assertIsNone(accepted[0]["payload"]["hazardous"])
+        self.assertEqual("unmapped_description", accepted[0]["payload"]["eer_code_status"])
+        self.assertEqual(1, sum(record["record_type"] == "opening_period" for record in records))
 
 
 class AampsExtractorTest(unittest.TestCase):

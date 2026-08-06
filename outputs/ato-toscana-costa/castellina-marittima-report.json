@@ -2,13 +2,25 @@
   "equivalent_pages": [],
   "istat_code": "050010",
   "municipality": "Castellina Marittima",
-  "pages_available": 1,
-  "pages_materialized": 1,
-  "records": 190,
+  "pages_available": 36,
+  "pages_materialized": 28,
+  "records": 227,
   "records_by_type": {
+    "collection_rule": 10,
+    "facility": 1,
+    "facility_acceptance": 20,
+    "facility_access": 1,
+    "opening_period": 1,
+    "pickup_service": 3,
+    "service_zone": 1,
     "waste_lookup": 190
   },
   "warnings": [
+    {
+      "code": "calendar_pdfs_inventoried",
+      "detail": "8 PDF comunali acquisiti e conservati; estrazione strutturata dei calendari ancora da completare",
+      "url": "https://www.reaspa.it/comuni/comune-di-castellina-marittima/"
+    },
     {
       "code": "waste_lookup_destinations_missing",
       "detail": "7 voci REA non hanno una destinazione pubblicata",
