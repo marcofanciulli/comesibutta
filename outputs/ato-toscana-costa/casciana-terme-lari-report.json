@@ -1,0 +1,25 @@
+{
+  "equivalent_pages": [],
+  "istat_code": "050040",
+  "municipality": "Casciana Terme Lari",
+  "pages_available": 11,
+  "pages_materialized": 6,
+  "records": 708,
+  "records_by_type": {
+    "collection_rule": 5,
+    "facility": 2,
+    "facility_acceptance": 306,
+    "facility_access": 2,
+    "opening_period": 2,
+    "pickup_service": 2,
+    "service_zone": 1,
+    "waste_lookup": 388
+  },
+  "warnings": [
+    {
+      "code": "calendar_pdfs_inventoried",
+      "detail": "5 PDF comunali acquisiti; estrazione strutturata dei calendari ancora da completare",
+      "url": "https://www.geofor.it/casciana-terme-lari/"
+    }
+  ]
+}

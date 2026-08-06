@@ -1,0 +1,638 @@
+{
+  "errors": [
+    {
+      "code": "error",
+      "detail": "HTTPError: HTTP Error 404: Not Found",
+      "url": "https://www.geofor.it/wp-content/uploads/2024/05/Bientina_Stradario_sfalci_e_potature_2023.pdf"
+    }
+  ],
+  "extraction": {
+    "municipalities": 24,
+    "municipality_reports": [
+      {
+        "equivalent_pages": [],
+        "istat_code": "050001",
+        "municipality": "Bientina",
+        "pages_available": 16,
+        "pages_materialized": 7,
+        "records": 552,
+        "records_by_type": {
+          "collection_rule": 5,
+          "facility": 1,
+          "facility_acceptance": 153,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 2,
+          "service_zone": 1,
+          "waste_lookup": 388
+        },
+        "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "9 PDF comunali acquisiti; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.geofor.it/bientina/"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "050002",
+        "municipality": "Buti",
+        "pages_available": 9,
+        "pages_materialized": 6,
+        "records": 552,
+        "records_by_type": {
+          "collection_rule": 5,
+          "facility": 1,
+          "facility_acceptance": 153,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 2,
+          "service_zone": 1,
+          "waste_lookup": 388
+        },
+        "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "3 PDF comunali acquisiti; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.geofor.it/buti/"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "050003",
+        "municipality": "Calci",
+        "pages_available": 12,
+        "pages_materialized": 9,
+        "records": 551,
+        "records_by_type": {
+          "collection_rule": 5,
+          "facility": 1,
+          "facility_acceptance": 153,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 388
+        },
+        "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "3 PDF comunali acquisiti; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.geofor.it/calci/"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "050004",
+        "municipality": "Calcinaia",
+        "pages_available": 15,
+        "pages_materialized": 9,
+        "records": 552,
+        "records_by_type": {
+          "collection_rule": 5,
+          "facility": 1,
+          "facility_acceptance": 153,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 2,
+          "service_zone": 1,
+          "waste_lookup": 388
+        },
+        "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "6 PDF comunali acquisiti; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.geofor.it/calcinaia/"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "050005",
+        "municipality": "Capannoli",
+        "pages_available": 12,
+        "pages_materialized": 7,
+        "records": 552,
+        "records_by_type": {
+          "collection_rule": 5,
+          "facility": 1,
+          "facility_acceptance": 153,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 2,
+          "service_zone": 1,
+          "waste_lookup": 388
+        },
+        "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "5 PDF comunali acquisiti; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.geofor.it/capannoli/"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "050040",
+        "municipality": "Casciana Terme Lari",
+        "pages_available": 11,
+        "pages_materialized": 6,
+        "records": 708,
+        "records_by_type": {
+          "collection_rule": 5,
+          "facility": 2,
+          "facility_acceptance": 306,
+          "facility_access": 2,
+          "opening_period": 2,
+          "pickup_service": 2,
+          "service_zone": 1,
+          "waste_lookup": 388
+        },
+        "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "5 PDF comunali acquisiti; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.geofor.it/casciana-terme-lari/"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "050008",
+        "municipality": "Cascina",
+        "pages_available": 16,
+        "pages_materialized": 8,
+        "records": 708,
+        "records_by_type": {
+          "collection_rule": 5,
+          "facility": 2,
+          "facility_acceptance": 306,
+          "facility_access": 2,
+          "opening_period": 2,
+          "pickup_service": 2,
+          "service_zone": 1,
+          "waste_lookup": 388
+        },
+        "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "8 PDF comunali acquisiti; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.geofor.it/cascina/"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "050009",
+        "municipality": "Castelfranco di Sotto",
+        "pages_available": 9,
+        "pages_materialized": 6,
+        "records": 708,
+        "records_by_type": {
+          "collection_rule": 5,
+          "facility": 2,
+          "facility_acceptance": 306,
+          "facility_access": 2,
+          "opening_period": 2,
+          "pickup_service": 2,
+          "service_zone": 1,
+          "waste_lookup": 388
+        },
+        "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "3 PDF comunali acquisiti; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.geofor.it/castelfranco-di-sotto/"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "050012",
+        "municipality": "Chianni",
+        "pages_available": 6,
+        "pages_materialized": 4,
+        "records": 396,
+        "records_by_type": {
+          "collection_rule": 5,
+          "pickup_service": 2,
+          "service_zone": 1,
+          "waste_lookup": 388
+        },
+        "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "2 PDF comunali acquisiti; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.geofor.it/chianni/"
+          },
+          {
+            "code": "facility_page_missing",
+            "detail": "Nessun centro comunale pubblicato o pagina non disponibile",
+            "url": "https://www.geofor.it/chianni/"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "050041",
+        "municipality": "Crespina Lorenzana",
+        "pages_available": 3,
+        "pages_materialized": 2,
+        "records": 394,
+        "records_by_type": {
+          "collection_rule": 5,
+          "service_zone": 1,
+          "waste_lookup": 388
+        },
+        "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "1 PDF comunali acquisiti; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.geofor.it/crespina-lorenzana/"
+          },
+          {
+            "code": "facility_page_missing",
+            "detail": "Nessun centro comunale pubblicato o pagina non disponibile",
+            "url": "https://www.geofor.it/crespina-lorenzana/"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "050014",
+        "municipality": "Fauglia",
+        "pages_available": 3,
+        "pages_materialized": 2,
+        "records": 394,
+        "records_by_type": {
+          "collection_rule": 5,
+          "service_zone": 1,
+          "waste_lookup": 388
+        },
+        "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "1 PDF comunali acquisiti; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.geofor.it/fauglia/"
+          },
+          {
+            "code": "facility_page_missing",
+            "detail": "Nessun centro comunale pubblicato o pagina non disponibile",
+            "url": "https://www.geofor.it/fauglia/"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "050016",
+        "municipality": "Lajatico",
+        "pages_available": 6,
+        "pages_materialized": 4,
+        "records": 396,
+        "records_by_type": {
+          "collection_rule": 5,
+          "pickup_service": 2,
+          "service_zone": 1,
+          "waste_lookup": 388
+        },
+        "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "2 PDF comunali acquisiti; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.geofor.it/lajatico/"
+          },
+          {
+            "code": "facility_page_missing",
+            "detail": "Nessun centro comunale pubblicato o pagina non disponibile",
+            "url": "https://www.geofor.it/lajatico/"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "050022",
+        "municipality": "Montopoli in Val d'Arno",
+        "pages_available": 10,
+        "pages_materialized": 7,
+        "records": 552,
+        "records_by_type": {
+          "collection_rule": 5,
+          "facility": 1,
+          "facility_acceptance": 153,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 2,
+          "service_zone": 1,
+          "waste_lookup": 388
+        },
+        "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "3 PDF comunali acquisiti; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.geofor.it/montopoli/"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "050024",
+        "municipality": "Palaia",
+        "pages_available": 4,
+        "pages_materialized": 3,
+        "records": 394,
+        "records_by_type": {
+          "collection_rule": 5,
+          "service_zone": 1,
+          "waste_lookup": 388
+        },
+        "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "1 PDF comunali acquisiti; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.geofor.it/palaia/"
+          },
+          {
+            "code": "facility_page_missing",
+            "detail": "Nessun centro comunale pubblicato o pagina non disponibile",
+            "url": "https://www.geofor.it/palaia/"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "050026",
+        "municipality": "Pisa",
+        "pages_available": 9,
+        "pages_materialized": 4,
+        "records": 394,
+        "records_by_type": {
+          "collection_rule": 5,
+          "service_zone": 1,
+          "waste_lookup": 388
+        },
+        "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "5 PDF comunali acquisiti; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.geofor.it/pisa/"
+          },
+          {
+            "code": "facility_page_missing",
+            "detail": "Nessun centro comunale pubblicato o pagina non disponibile",
+            "url": "https://www.geofor.it/pisa/"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "050028",
+        "municipality": "Ponsacco",
+        "pages_available": 11,
+        "pages_materialized": 7,
+        "records": 552,
+        "records_by_type": {
+          "collection_rule": 5,
+          "facility": 1,
+          "facility_acceptance": 153,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 2,
+          "service_zone": 1,
+          "waste_lookup": 388
+        },
+        "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "4 PDF comunali acquisiti; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.geofor.it/ponsacco/"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "050029",
+        "municipality": "Pontedera",
+        "pages_available": 13,
+        "pages_materialized": 7,
+        "records": 552,
+        "records_by_type": {
+          "collection_rule": 5,
+          "facility": 1,
+          "facility_acceptance": 153,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 2,
+          "service_zone": 1,
+          "waste_lookup": 388
+        },
+        "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "6 PDF comunali acquisiti; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.geofor.it/pontedera/"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "050031",
+        "municipality": "San Giuliano Terme",
+        "pages_available": 12,
+        "pages_materialized": 8,
+        "records": 863,
+        "records_by_type": {
+          "collection_rule": 5,
+          "facility": 3,
+          "facility_acceptance": 459,
+          "facility_access": 3,
+          "opening_period": 3,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 388
+        },
+        "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "4 PDF comunali acquisiti; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.geofor.it/s-giuliano-terme/"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "050032",
+        "municipality": "San Miniato",
+        "pages_available": 10,
+        "pages_materialized": 7,
+        "records": 552,
+        "records_by_type": {
+          "collection_rule": 5,
+          "facility": 1,
+          "facility_acceptance": 153,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 2,
+          "service_zone": 1,
+          "waste_lookup": 388
+        },
+        "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "3 PDF comunali acquisiti; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.geofor.it/san-miniato/"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "050033",
+        "municipality": "Santa Croce sull'Arno",
+        "pages_available": 8,
+        "pages_materialized": 6,
+        "records": 552,
+        "records_by_type": {
+          "collection_rule": 5,
+          "facility": 1,
+          "facility_acceptance": 153,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 2,
+          "service_zone": 1,
+          "waste_lookup": 388
+        },
+        "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "2 PDF comunali acquisiti; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.geofor.it/santa-croce-sull-arno/"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "050035",
+        "municipality": "Santa Maria a Monte",
+        "pages_available": 9,
+        "pages_materialized": 6,
+        "records": 552,
+        "records_by_type": {
+          "collection_rule": 5,
+          "facility": 1,
+          "facility_acceptance": 153,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 2,
+          "service_zone": 1,
+          "waste_lookup": 388
+        },
+        "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "3 PDF comunali acquisiti; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.geofor.it/santa-maria-a-monte/"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "050036",
+        "municipality": "Terricciola",
+        "pages_available": 7,
+        "pages_materialized": 5,
+        "records": 551,
+        "records_by_type": {
+          "collection_rule": 5,
+          "facility": 1,
+          "facility_acceptance": 153,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 1,
+          "waste_lookup": 388
+        },
+        "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "2 PDF comunali acquisiti; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.geofor.it/terricciola/"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "050037",
+        "municipality": "Vecchiano",
+        "pages_available": 16,
+        "pages_materialized": 8,
+        "records": 552,
+        "records_by_type": {
+          "collection_rule": 5,
+          "facility": 1,
+          "facility_acceptance": 153,
+          "facility_access": 1,
+          "opening_period": 1,
+          "pickup_service": 2,
+          "service_zone": 1,
+          "waste_lookup": 388
+        },
+        "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "8 PDF comunali acquisiti; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.geofor.it/vecchiano/"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "050038",
+        "municipality": "Vicopisano",
+        "pages_available": 12,
+        "pages_materialized": 8,
+        "records": 708,
+        "records_by_type": {
+          "collection_rule": 5,
+          "facility": 2,
+          "facility_acceptance": 306,
+          "facility_access": 2,
+          "opening_period": 2,
+          "pickup_service": 2,
+          "service_zone": 1,
+          "waste_lookup": 388
+        },
+        "warnings": [
+          {
+            "code": "calendar_pdfs_inventoried",
+            "detail": "4 PDF comunali acquisiti; estrazione strutturata dei calendari ancora da completare",
+            "url": "https://www.geofor.it/vicopisano/"
+          }
+        ]
+      }
+    ],
+    "records": 13237,
+    "warnings": 30
+  },
+  "municipalities_touched": 24,
+  "observed_at": "2026-08-06T20:30:00+02:00",
+  "pages_by_category": {
+    "calendar": 16,
+    "centre": 18,
+    "centre_index": 1,
+    "municipality": 24,
+    "municipality_document": 52,
+    "other": 44,
+    "pickup": 20,
+    "shared_pickup": 1,
+    "waste_lookup": 1
+  },
+  "pages_by_status": {
+    "blocked_by_robots": 0,
+    "error": 1,
+    "snapshot": 176
+  },
+  "pages_checked": 177,
+  "pages_remaining": 0
+}

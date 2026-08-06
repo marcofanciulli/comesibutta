@@ -119,16 +119,19 @@ PYTHONPATH=src python3 -m dovelobutto.explorer \
   --batch-report outputs/ato-toscana-costa-esa-report.json \
   --batch-report outputs/ato-toscana-costa-rea-report.json \
   --batch-report outputs/ato-toscana-costa-aamps-report.json \
+  --batch-report outputs/ato-toscana-costa-geofor-report.json \
   --registry outputs/sei-toscana-municipalities.jsonl \
   --registry outputs/ato-toscana-costa-municipalities.jsonl \
-  --generated-at 2026-08-06T17:30:00+02:00 \
+  --generated-at 2026-08-06T21:00:00+02:00 \
   --output explorer/data.js
 ```
 
 L'interfaccia permette di filtrare per ATO e provincia, distinguere comuni
 censiti da comuni acquisiti, esplorare centri e regole, consultare il
 rifiutario, cercare materiali e codici EER e risalire alla fonte di ogni fatto.
-Il pacchetto corrente contiene 204 comuni censiti, 129 con almeno una fonte
-materializzata e 11.149 record. Per i 17 comuni REA comprende anche pagine di
+Il pacchetto corrente contiene 204 comuni censiti, 153 con almeno una fonte
+materializzata e 24.386 record. Per i 17 comuni REA comprende anche pagine di
 servizio, centri intercomunali, orari, accesso, ritiri e materiali accettati;
-gli EER non pubblicati dalla fonte sono indicati esplicitamente come tali.
+gli EER non pubblicati dalla fonte sono indicati esplicitamente come tali. Per
+i 24 comuni GEOFOR attivi comprende 388 voci del rifiutario e cinque regole
+generali per comune, oltre a centri, orari e ritiri quando pubblicati.

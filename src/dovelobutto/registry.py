@@ -209,6 +209,12 @@ def _ato_costa_homepage(local_operator_ref: str, slug: str) -> str:
         if slug in overrides:
             return overrides[slug]
         return f"https://www.reaspa.it/comuni/comune-di-{slug}/"
+    if local_operator_ref == "geofor":
+        geofor_slug = {
+            "montopoli-in-val-d-arno": "montopoli",
+            "san-giuliano-terme": "s-giuliano-terme",
+        }.get(slug, slug)
+        return f"https://www.geofor.it/{geofor_slug}/"
     return LOCAL_OPERATORS[local_operator_ref][1]
 
 
@@ -231,4 +237,11 @@ def _ato_costa_service_urls(local_operator_ref: str, slug: str) -> dict[str, lis
         urls["collection"] = [_ato_costa_homepage(local_operator_ref, slug)]
         urls["facilities"] = ["https://www.reaspa.it/centri-di-raccolta/"]
         urls["other"] = ["https://www.reaspa.it/ritiro-e-rifornimenti-kit/"]
+    elif local_operator_ref == "geofor":
+        urls["collection"] = [
+            _ato_costa_homepage(local_operator_ref, slug),
+            "https://www.geofor.it/dove-lo-butto/",
+        ]
+        urls["facilities"] = ["https://www.geofor.it/centro-di-raccolta/"]
+        urls["pickup"] = ["https://www.geofor.it/prenotazione-servizi-e-segnalazioni/"]
     return urls

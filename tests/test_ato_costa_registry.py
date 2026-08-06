@@ -15,6 +15,7 @@ from dovelobutto.ato_costa import (
     extract_rea_waste_lookup,
 )
 from dovelobutto.rea import extract_rea_centre, extract_rea_collection_pages
+from dovelobutto.geofor import _facilities, _waste_and_rules, parse_rifiutario
 
 
 WORKSPACE = Path(__file__).parents[1]
@@ -67,6 +68,13 @@ class AtoCostaRegistryTest(unittest.TestCase):
         self.assertIn("castelnuovo-val-di-cecina/servizi", records["Castelnuovo di Val di Cecina"]["homepage_url"])
         self.assertIn("comune-guardistallo", records["Guardistallo"]["homepage_url"])
         self.assertIn("comune-di-monteverdi/", records["Monteverdi Marittimo"]["homepage_url"])
+
+    def test_seeds_geofor_municipality_urls(self) -> None:
+        records = {record["payload"]["name"]: record["payload"] for record in self.records}
+        self.assertEqual("https://www.geofor.it/bientina/", records["Bientina"]["homepage_url"])
+        self.assertEqual("https://www.geofor.it/montopoli/", records["Montopoli in Val d'Arno"]["homepage_url"])
+        self.assertEqual("https://www.geofor.it/s-giuliano-terme/", records["San Giuliano Terme"]["homepage_url"])
+        self.assertIn("dove-lo-butto", records["Pisa"]["service_urls"]["collection"][1])
 
 class EsaExtractorTest(unittest.TestCase):
     def test_extracts_shared_rifiutario_rules_and_local_facilities(self) -> None:
@@ -191,6 +199,44 @@ class AampsExtractorTest(unittest.TestCase):
         self.assertEqual("sacco giallo", records[0]["payload"]["destination_raw"])
         self.assertEqual("medium", records[1]["confidence"])
         self.assertEqual("possible_pdf_column_wrap", warnings[0]["code"])
+
+
+class GeoforExtractorTest(unittest.TestCase):
+    source = """<script>var rifiutario_data = [
+      {"CodiceMateriale":1,"DescrizioneMateriale":"VASCHETTA PULITA","DescrizioneRifiuto":"Plastica","DescrizioneDestinazione":"Azzurro-Contenitore Multimateriale","CER":"150106","DescrizioneCer":"imballaggi in materiali misti","FlagCdR":false},
+      {"CodiceMateriale":2,"DescrizioneMateriale":"TELEVISORE","DescrizioneRifiuto":"Elettronico (Raee)","DescrizioneDestinazione":"Cdr","CER":"200136","DescrizioneCer":"apparecchiature fuori uso","FlagCdR":true}
+    ];</script>"""
+
+    def test_extracts_embedded_waste_dictionary(self) -> None:
+        self.assertEqual(2, len(parse_rifiutario(self.source)))
+        records, _ = _waste_and_rules(
+            MunicipalityContext("Bientina", "050001", "bientina"),
+            datetime.fromisoformat("2026-08-06T20:00:00+02:00"),
+            "https://www.geofor.it/dove-lo-butto/",
+            self.source,
+        )
+        waste = [record for record in records if record["record_type"] == "waste_lookup"]
+        self.assertEqual(2, len(waste))
+        self.assertIn("EER 200136", waste[1]["payload"]["instructions_raw"])
+
+    def test_extracts_centre_hours_coordinates_and_eer(self) -> None:
+        html = """<div class="cdr"><div class="nome">Bientina CdR - Via E. Fermi
+        <a href="https://www.google.com/maps/?q=43.696268,10.623202">vedi mappa</a></div>
+        <table><tr><td>Lunedì</td><td>Martedì</td></tr>
+        <tr><td>13:00 - 19.00</td><td>CHIUSO</td></tr></table></div>"""
+        records = _facilities(
+            MunicipalityContext("Bientina", "050001", "bientina"),
+            datetime.fromisoformat("2026-08-06T20:00:00+02:00"),
+            "https://www.geofor.it/bientina/centro-di-raccolta-bientina/",
+            html,
+            parse_rifiutario(self.source),
+        )
+        facility = next(record for record in records if record["record_type"] == "facility")
+        self.assertAlmostEqual(43.696268, facility["payload"]["location"]["latitude"])
+        opening = next(record for record in records if record["record_type"] == "opening_period")
+        self.assertEqual([{"weekday": 1, "opens": "13:00", "closes": "19:00"}], opening["payload"]["weekly_intervals"])
+        acceptance = next(record for record in records if record["record_type"] == "facility_acceptance")
+        self.assertEqual("200136", acceptance["payload"]["eer_code_normalized"])
 
 
 if __name__ == "__main__":

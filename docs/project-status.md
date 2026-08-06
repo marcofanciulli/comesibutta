@@ -136,9 +136,9 @@ Completamento ATO Toscana Sud:
 
 Esploratore dati:
 
-- pacchetto statico generato in modo riproducibile da 11.149 record;
+- pacchetto statico generato in modo riproducibile da 24.386 record;
 - filtri gerarchici per ATO e provincia, seguiti dall'elenco dei comuni;
-- 204 comuni censiti, 129 con almeno una fonte materializzata;
+- 204 comuni censiti, 153 con almeno una fonte materializzata;
 - navigazione per comune e viste dedicate a centri, EER, regole, punti e ritiro;
 - vista rifiutario per le coppie nome quotidiano-destinazione;
 - ricerca trasversale, provenienza, evidenze e record JSON consultabili;
@@ -150,7 +150,8 @@ Avvio ATO Toscana Costa:
 - riconciliati tutti i comuni con ISTAT: 13 LI, 33 LU, 17 MS e 37 PI;
 - conservati separatamente RetiAmbiente, SOL e stato del subentro; Porto
   Azzurro e Peccioli risultano da completare, Lucca in transizione entro 2029;
-- acquisiti 25 comuni e 6.059 record: 7 ESA, 17 REA e Livorno AAMPS;
+- acquisiti 49 comuni e 19.296 record: 7 ESA, 17 REA, Livorno AAMPS e 24
+  GEOFOR;
 - ESA: 292 voci del rifiutario per comune, cinque regole generali porta a porta
   e dieci centri complessivi associati ai comuni, 2.106 record senza avvisi;
 - REA: 425 URL di servizi, centri e allegati controllate; 423 snapshot, 73 PDF,
@@ -163,6 +164,12 @@ Avvio ATO Toscana Costa:
   strutturata;
 - AAMPS: 125 coppie estratte dal PDF 2017; cinque probabili continuazioni di
   colonna restano a confidenza media e sono elencate nel rapporto;
+- GEOFOR: 177 URL controllati, 176 snapshot e un vecchio PDF `404`; 13.237
+  record per 24 comuni attivi, inclusi 9.312 termini del rifiutario, 120 regole,
+  24 zone, 24 centri, 3.672 associazioni centro-EER e 37 servizi di ritiro;
+- GEOFOR: i calendari PDF sono inventariati ma non ancora strutturati; per sei
+  comuni la fonte non pubblica una pagina comunale del centro. Peccioli resta
+  censito come subentro da completare e non viene marcato come acquisito;
 - tutti i 13 comuni livornesi di ATO Costa hanno ora almeno un rifiutario;
   l'esploratore mostra ora anche servizi, centri intercomunali, orari, accesso
   e materiali accettati REA.

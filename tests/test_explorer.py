@@ -103,6 +103,7 @@ class ExplorerDatasetTest(unittest.TestCase):
                 WORKSPACE / "outputs" / "ato-toscana-costa-esa-report.json",
                 WORKSPACE / "outputs" / "ato-toscana-costa-rea-report.json",
                 WORKSPACE / "outputs" / "ato-toscana-costa-aamps-report.json",
+                WORKSPACE / "outputs" / "ato-toscana-costa-geofor-report.json",
             ],
             [
                 WORKSPACE / "outputs" / "sei-toscana-municipalities.jsonl",
@@ -110,8 +111,8 @@ class ExplorerDatasetTest(unittest.TestCase):
             ],
             datetime.fromisoformat("2026-08-06T16:00:00+02:00"),
         )
-        self.assertEqual(129, dataset["batch"]["municipalities_acquired"])
-        self.assertEqual(11149, len(dataset["records"]))
+        self.assertEqual(153, dataset["batch"]["municipalities_acquired"])
+        self.assertEqual(24386, len(dataset["records"]))
         capoliveri = next(item for item in dataset["municipalities"] if item["name"] == "Capoliveri")
         self.assertEqual(292, capoliveri["records_by_type"]["waste_lookup"])
         tetrapak = next(
@@ -129,6 +130,12 @@ class ExplorerDatasetTest(unittest.TestCase):
         livorno = next(item for item in dataset["municipalities"] if item["name"] == "Livorno")
         self.assertEqual(125, livorno["records_by_type"]["waste_lookup"])
         self.assertEqual(5, len(livorno["warnings"]))
+        bientina = next(item for item in dataset["municipalities"] if item["name"] == "Bientina")
+        self.assertEqual(388, bientina["records_by_type"]["waste_lookup"])
+        self.assertEqual(5, bientina["records_by_type"]["collection_rule"])
+        peccioli = next(item for item in dataset["municipalities"] if item["name"] == "Peccioli")
+        self.assertEqual("registry_only", peccioli["acquisition_status"])
+        self.assertEqual("pending_subentry", peccioli["assignment_status"])
 
 
 if __name__ == "__main__":

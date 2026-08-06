@@ -1,0 +1,25 @@
+{
+  "equivalent_pages": [],
+  "istat_code": "050037",
+  "municipality": "Vecchiano",
+  "pages_available": 16,
+  "pages_materialized": 8,
+  "records": 552,
+  "records_by_type": {
+    "collection_rule": 5,
+    "facility": 1,
+    "facility_acceptance": 153,
+    "facility_access": 1,
+    "opening_period": 1,
+    "pickup_service": 2,
+    "service_zone": 1,
+    "waste_lookup": 388
+  },
+  "warnings": [
+    {
+      "code": "calendar_pdfs_inventoried",
+      "detail": "8 PDF comunali acquisiti; estrazione strutturata dei calendari ancora da completare",
+      "url": "https://www.geofor.it/vecchiano/"
+    }
+  ]
+}

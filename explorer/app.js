@@ -149,6 +149,7 @@
       calendar_pdfs_inventoried: "Calendari acquisiti in PDF",
       waste_lookup_destinations_missing: "Destinazioni non pubblicate nel rifiutario",
       collection_rules_missing: "Regole di raccolta non trovate",
+      facility_page_missing: "Centro comunale non pubblicato",
     };
     return `<div class="notice"><strong>${escapeHtml(labels[warning.code] || warning.code)}</strong><span>${escapeHtml(warning.detail)}</span><br><a href="${escapeHtml(warning.url)}" target="_blank" rel="noreferrer">Apri la fonte</a></div>`;
   }

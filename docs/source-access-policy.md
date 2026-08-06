@@ -73,7 +73,7 @@ rapporto di scansione.
 ## Verifica ATO Toscana Costa
 
 Verifica operativa eseguita il 6 agosto 2026 sulle fonti iniziali ATO Toscana
-Costa, AAMPS, ESA e REA. Non sono state individuate condizioni d'uso che
+Costa, AAMPS, ESA, REA e GEOFOR. Non sono state individuate condizioni d'uso che
 vietino esplicitamente l'acquisizione delle pagine informative pubbliche; i
 footer collegano principalmente informative privacy e cookie. Questa
 conclusione resta qualificata e non costituisce un parere legale.
@@ -86,7 +86,9 @@ Esiti `robots.txt` osservati:
 - AAMPS: vietati `/wp-json/` e `/?rest_route=`; le pagine HTML e il PDF pubblico
   "Dove lo butto?" non ricadono nei percorsi vietati;
 - ESA: nessun percorso vietato;
-- REA: nessun percorso vietato.
+- REA: nessun percorso vietato;
+- GEOFOR: nessun percorso vietato; il file dichiara una direttiva `Disallow`
+  vuota per gli agenti generici.
 
 Il rifiutario REA usa il punto pubblico `wp-admin/admin-ajax.php` esclusivamente
 in lettura. La pipeline interroga una volta ciascuna iniziale alfabetica,

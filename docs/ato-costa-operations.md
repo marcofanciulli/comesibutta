@@ -84,15 +84,54 @@ preserva le coordinate necessarie. `materialize-aamps-rifiutario` ricostruisce
 125 coppie. Cinque righe con probabili continuazioni di colonna restano a
 confidenza media e sono elencate nel rapporto; non vengono corrette a mano.
 
+## GEOFOR
+
+GEOFOR pubblica 24 schede comunali operative e un rifiutario condiviso
+incorporato nel sito. La pipeline acquisisce le schede, le pagine dei centri,
+i servizi di ritiro e gli allegati pubblici, quindi materializza 388 termini e
+cinque regole generali per ciascun comune attivo.
+
+```sh
+PYTHONPATH=src python3 -m dovelobutto.cli fetch-geofor \
+  --registry outputs/ato-toscana-costa-municipalities.jsonl \
+  --snapshot-root data/crawl/ato-toscana-costa/2026-08-06/geofor \
+  --manifest data/crawl/ato-toscana-costa/2026-08-06/geofor-manifest.json \
+  --report outputs/ato-toscana-costa-geofor-fetch-report.json \
+  --observed-at 2026-08-06T20:30:00+02:00 \
+  --user-agent 'DoveLoButtoData/0.1 (+mailto:marcofanciulli@me.com)'
+
+PYTHONPATH=src python3 -m dovelobutto.cli materialize-geofor \
+  --registry outputs/ato-toscana-costa-municipalities.jsonl \
+  --snapshot-root data/crawl/ato-toscana-costa/2026-08-06/geofor \
+  --retrieved-at 2026-08-06T20:30:00+02:00 \
+  --output-dir outputs/ato-toscana-costa \
+  --report outputs/ato-toscana-costa-geofor-report.json
+```
+
+La passata verificata ha controllato 177 URL, salvato 176 snapshot e dichiarato
+un solo errore: un vecchio PDF di Bientina oggi `404`. I 13.237 record
+comprendono 9.312 termini, 120 regole, 24 zone, 24 centri con orari e accesso,
+3.672 associazioni centro-EER e 37 servizi di ritiro. Il flag centro di raccolta
+del rifiutario GEOFOR e applicato ai centri pubblicati; eventuali limitazioni
+locali restano demandate alla scheda e al regolamento del singolo centro.
+
+I calendari PDF sono acquisiti e inventariati, ma non ancora trasformati in
+eventi strutturati. Per Chianni, Crespina Lorenzana, Fauglia, Lajatico, Palaia
+e Pisa non e pubblicata una pagina comunale del centro. Peccioli non compare
+tra le 24 schede operative e resta correttamente censito come subentro da
+completare.
+
 ## Copertura corrente
 
 - 100 comuni censiti;
-- 25 comuni con almeno una fonte acquisita: 7 ESA, 17 REA e Livorno AAMPS;
-- 6.059 record ATO Costa;
+- 49 comuni con almeno una fonte acquisita: 7 ESA, 17 REA, Livorno AAMPS e 24
+  GEOFOR;
+- 19.296 record ATO Costa;
 - tutti i 13 comuni livornesi hanno almeno un rifiutario acquisito;
 - tutti i comuni REA hanno pagine di servizio; 14 hanno accesso ad almeno un
   centro pubblicato, mentre Capraia Isola, Orciano Pisano e Santa Luce non
   risultano collegati a un centro nella fonte acquisita.
 
-Prossimo ordine operativo: estrazione dei calendari PDF REA, dettagli dei
-centri ESA, fonti AAMPS aggiornate, quindi GEOFOR, ASCIT e le restanti SOL.
+Prossimo ordine operativo: Lunigiana Ambiente, GEA, ASCIT, ERSU e le restanti
+SOL; in parallelo restano l'estrazione dei calendari PDF e l'approfondimento
+dei centri non pubblicati nelle schede comunali.
