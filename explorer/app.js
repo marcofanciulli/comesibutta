@@ -9,6 +9,7 @@
 
   const views = [
     ["overview", "Panoramica"],
+    ["waste", "Rifiutario"],
     ["facilities", "Centri"],
     ["rules", "Regole"],
     ["points", "Punti"],
@@ -16,6 +17,7 @@
     ["records", "Record"],
   ];
   const typeLabels = {
+    waste_lookup: "Voci del rifiutario",
     collection_point: "Punti di raccolta",
     collection_rule: "Regole di raccolta",
     collection_schedule: "Calendari",
@@ -36,6 +38,11 @@
     container: "Nel contenitore",
     mixed: "Modalità multiple",
     unspecified: "Non specificato",
+  };
+  const assignmentStatusLabels = {
+    active: "Attiva",
+    pending_subentry: "Subentro da completare",
+    transition: "In transizione",
   };
   const defaultMunicipality = data.municipalities.find(item => item.slug === "grosseto") || data.municipalities[0];
   const state = {
@@ -101,6 +108,7 @@
 
   function countForView(view) {
     const mapping = {
+      waste: ["waste_lookup"],
       facilities: ["facility"],
       rules: ["collection_rule", "collection_schedule", "service_zone"],
       points: ["collection_point"],
@@ -115,7 +123,7 @@
     const needle = filter.toLocaleLowerCase("it");
     elements.municipalityList.innerHTML = scopedMunicipalities()
       .filter(item => item.name.toLocaleLowerCase("it").includes(needle))
-      .map(item => `<button class="municipality-button ${item.istat_code === state.municipality ? "active" : ""}" data-municipality="${item.istat_code}" type="button"><span>${escapeHtml(item.name)}</span><small>${item.records} record · ${item.warnings.length} avvisi</small></button>`)
+      .map(item => `<button class="municipality-button ${item.istat_code === state.municipality ? "active" : ""}" data-municipality="${item.istat_code}" type="button"><span>${escapeHtml(item.name)}</span><small>${item.acquisition_status === "acquired" ? `${item.records} record · ${item.warnings.length} avvisi` : "Fonti da acquisire"}</small></button>`)
       .join("");
   }
 
@@ -140,13 +148,27 @@
 
   function renderOverview() {
     const current = municipality();
+    if (current.acquisition_status !== "acquired") {
+      return `${sectionHeading("Quadro del comune", "Anagrafe territoriale e stato dell’acquisizione delle fonti ufficiali.")}
+        <div class="notice info"><strong>Comune censito, contenuti da acquisire</strong>Il comune è incluso nel perimetro ufficiale di ${escapeHtml(current.ato_name)}. Le pagine del gestore locale non sono ancora state materializzate.</div>
+        <div class="overview-grid"><section class="subsection"><h3 class="subsection-title">Gestione del servizio</h3>
+          <div class="coverage-row"><span>Gestore unico</span><strong>RetiAmbiente</strong></div>
+          <div class="coverage-row"><span>Società operativa locale</span><strong><a href="${escapeHtml(current.local_operator_url)}" target="_blank" rel="noreferrer">${escapeHtml(current.local_operator_name)}</a></strong></div>
+          <div class="coverage-row"><span>Stato assegnazione</span><strong>${escapeHtml(assignmentStatusLabels[current.assignment_status] || current.assignment_status)}</strong></div>
+          ${current.assignment_note ? `<p class="raw-text">${escapeHtml(current.assignment_note)}</p>` : ""}
+        </section><section class="subsection"><h3 class="subsection-title">Perimetro</h3>
+          <div class="coverage-row"><span>ATO</span><strong>${escapeHtml(current.ato_name)}</strong></div>
+          <div class="coverage-row"><span>Provincia</span><strong>${escapeHtml(current.province_name)}</strong></div>
+          <div class="coverage-row"><span>Codice ISTAT</span><strong>${escapeHtml(current.istat_code)}</strong></div>
+        </section></div>`;
+    }
     const closedFacilities = records("facility").filter(record => record.payload.operational_status === "temporarily_closed");
     const facilityCount = records("facility").length;
     const eerCount = records("facility_acceptance").length;
     const ruleCount = records("collection_rule").length;
     const pointCount = records("collection_point").length;
     const coverage = Object.entries(current.records_by_type).sort((a, b) => (typeLabels[a[0]] || a[0]).localeCompare(typeLabels[b[0]] || b[0], "it"));
-    return `${sectionHeading("Quadro del comune", "Copertura dell'acquisizione SEI Toscana e segnalazioni che richiedono controllo umano.")}
+    return `${sectionHeading("Quadro del comune", "Copertura dell'acquisizione del gestore locale e segnalazioni che richiedono controllo umano.")}
       <div class="metric-strip">
         <div class="metric"><strong>${facilityCount}</strong><span>centri o strutture</span></div>
         <div class="metric"><strong>${eerCount}</strong><span>righe EER accettate</span></div>
@@ -181,8 +203,8 @@
       if (!state.query) return true;
       return matches(facility) || records().some(record => record.payload.facility_ref === facility.natural_key && matches(record));
     });
-    if (!facilities.length) return `${sectionHeading("Centri di raccolta", "Strutture, orari, accesso e rifiuti accettati secondo le pagine SEI Toscana.")}<div class="empty">Nessun centro corrisponde alla ricerca.</div>`;
-    return `${sectionHeading("Centri di raccolta", "Strutture, orari, accesso e rifiuti accettati secondo le pagine SEI Toscana.")}${facilities.map(facility => {
+    if (!facilities.length) return `${sectionHeading("Centri di raccolta", "Strutture, orari, accesso e rifiuti accettati secondo le fonti del gestore locale.")}<div class="empty">Nessun centro corrisponde alla ricerca.</div>`;
+    return `${sectionHeading("Centri di raccolta", "Strutture, orari, accesso e rifiuti accettati secondo le fonti del gestore locale.")}${facilities.map(facility => {
       const ref = facility.natural_key;
       const periods = records("opening_period").filter(record => record.payload.facility_ref === ref);
       const access = records("facility_access").filter(record => record.payload.facility_ref === ref);
@@ -197,6 +219,11 @@
       <div><h3>Rifiuti accettati <span class="muted">(${acceptances.length})</span></h3>${acceptances.length ? `<div class="table-wrap"><table class="data-table"><thead><tr><th>EER</th><th>Descrizione della fonte</th><th>Stato</th><th></th></tr></thead><tbody>${acceptances.map(item => `<tr><td><span class="eer-code">${escapeHtml(item.payload.eer_code_raw)}</span>${item.payload.eer_code_status === "reconciled" ? `<span class="row-subtitle">→ ${escapeHtml(item.payload.eer_code_normalized)}</span>` : ""}</td><td>${escapeHtml(item.payload.description_raw)}${item.payload.operational_group ? `<span class="row-subtitle">${escapeHtml(item.payload.operational_group)}</span>` : ""}</td><td>${item.payload.hazardous ? `<span class="chip hazard">Pericoloso</span>` : ""}${item.payload.eer_code_status === "reconciled" ? `<span class="chip method">Riconciliato</span>` : item.payload.eer_code_status === "exact" ? `<span class="chip">Esatto</span>` : `<span class="chip review">Da revisionare</span>`}</td><td><button class="detail-button" data-record="${item.record_id}" type="button">Dettagli</button></td></tr>`).join("")}</tbody></table></div>` : `<p class="muted">Nessuna riga EER corrisponde alla ricerca o l'elenco non è pubblicato.</p>`}</div></div>
       </article>`;
     }).join("")}`;
+  }
+
+  function renderWasteLookup() {
+    const items = filtered("waste_lookup");
+    return `${sectionHeading("Rifiutario", "Nomi quotidiani e destinazioni pubblicate dal gestore per questo comune.")}${items.length ? `<div class="table-wrap"><table class="data-table"><thead><tr><th>Rifiuto</th><th>Destinazione indicata</th><th></th></tr></thead><tbody>${items.map(item => `<tr><td><span class="row-title">${escapeHtml(item.payload.term)}</span></td><td>${item.payload.destination_raw ? escapeHtml(item.payload.destination_raw) : `<span class="chip review">Destinazione non pubblicata</span>`}${item.payload.instructions_raw ? `<span class="row-subtitle">${escapeHtml(item.payload.instructions_raw)}</span>` : ""}</td><td><button class="detail-button" data-record="${item.record_id}" type="button">Dettagli</button></td></tr>`).join("")}</tbody></table></div>` : `<div class="empty">Il rifiutario non è ancora stato acquisito o nessuna voce corrisponde alla ricerca.</div>`}`;
   }
 
   function scheduleText(rule, schedules) {
@@ -220,7 +247,7 @@
 
   function renderPickup() {
     const services = filtered("pickup_service");
-    return `${sectionHeading("Ritiro a domicilio", "Modalità di prenotazione, limiti e istruzioni pubblicate da SEI Toscana.")}${services.length ? services.map(service => `<div class="pickup-layout"><div><h3>${escapeHtml(service.payload.accepted_waste_raw)}</h3><div class="coverage-row"><span>Prenotazione</span><strong>${service.payload.booking_required ? "Obbligatoria" : "Non indicata"}</strong></div><div class="coverage-row"><span>Numero massimo</span><strong>${service.payload.max_items ?? "Non indicato"}</strong></div>${service.payload.booking_methods.map(method => `<div class="booking-method"><strong>${method.method === "web" ? "Prenotazione online" : "Prenotazione telefonica"}</strong><span>${escapeHtml(method.value)}</span>${method.method === "web" ? `<p><a class="link-button" href="${escapeHtml(method.value)}" target="_blank" rel="noreferrer">Apri prenotazione</a></p>` : ""}</div>`).join("")}</div><div><h3>Istruzioni</h3><p class="raw-text">${escapeHtml(service.payload.placement_instructions_raw)}</p><button class="detail-button" data-record="${service.record_id}" type="button">Fonte e record</button></div></div>`).join("") : `<div class="empty">Nessun servizio di ritiro corrisponde alla ricerca.</div>`}`;
+    return `${sectionHeading("Ritiro a domicilio", "Modalità di prenotazione, limiti e istruzioni pubblicate dal gestore locale.")}${services.length ? services.map(service => `<div class="pickup-layout"><div><h3>${escapeHtml(service.payload.accepted_waste_raw)}</h3><div class="coverage-row"><span>Prenotazione</span><strong>${service.payload.booking_required ? "Obbligatoria" : "Non indicata"}</strong></div><div class="coverage-row"><span>Numero massimo</span><strong>${service.payload.max_items ?? "Non indicato"}</strong></div>${service.payload.booking_methods.map(method => `<div class="booking-method"><strong>${method.method === "web" ? "Prenotazione online" : "Prenotazione telefonica"}</strong><span>${escapeHtml(method.value)}</span>${method.method === "web" ? `<p><a class="link-button" href="${escapeHtml(method.value)}" target="_blank" rel="noreferrer">Apri prenotazione</a></p>` : ""}</div>`).join("")}</div><div><h3>Istruzioni</h3><p class="raw-text">${escapeHtml(service.payload.placement_instructions_raw)}</p><button class="detail-button" data-record="${service.record_id}" type="button">Fonte e record</button></div></div>`).join("") : `<div class="empty">Nessun servizio di ritiro corrisponde alla ricerca.</div>`}`;
   }
 
   function recordSummary(record) {
@@ -230,7 +257,7 @@
 
   function renderRecords() {
     const items = filtered();
-    return `${sectionHeading("Tutti i record", "Vista tecnica completa dei fatti estratti e della loro provenienza.")}${items.length ? `<div class="table-wrap"><table class="data-table"><thead><tr><th>Tipo</th><th>Contenuto</th><th>Affidabilità</th><th>Fonte</th><th></th></tr></thead><tbody>${items.map(record => `<tr><td><span class="chip">${escapeHtml(typeLabels[record.record_type] || record.record_type)}</span></td><td><span class="row-title">${escapeHtml(recordSummary(record))}</span><span class="row-subtitle">${escapeHtml(record.natural_key)}</span></td><td>${escapeHtml(record.confidence)}</td><td><a href="${escapeHtml(record.source.url)}" target="_blank" rel="noreferrer">SEI Toscana</a></td><td><button class="detail-button" data-record="${record.record_id}" type="button">Apri</button></td></tr>`).join("")}</tbody></table></div>` : `<div class="empty">Nessun record corrisponde alla ricerca.</div>`}`;
+    return `${sectionHeading("Tutti i record", "Vista tecnica completa dei fatti estratti e della loro provenienza.")}${items.length ? `<div class="table-wrap"><table class="data-table"><thead><tr><th>Tipo</th><th>Contenuto</th><th>Affidabilità</th><th>Fonte</th><th></th></tr></thead><tbody>${items.map(record => `<tr><td><span class="chip">${escapeHtml(typeLabels[record.record_type] || record.record_type)}</span></td><td><span class="row-title">${escapeHtml(recordSummary(record))}</span><span class="row-subtitle">${escapeHtml(record.natural_key)}</span></td><td>${escapeHtml(record.confidence)}</td><td><a href="${escapeHtml(record.source.url)}" target="_blank" rel="noreferrer">${escapeHtml(record.source.publisher || "Fonte")}</a></td><td><button class="detail-button" data-record="${record.record_id}" type="button">Apri</button></td></tr>`).join("")}</tbody></table></div>` : `<div class="empty">Nessun record corrisponde alla ricerca.</div>`}`;
   }
 
   function render() {
@@ -240,7 +267,7 @@
     elements.provinceHeading.textContent = `${current.ato_name} · Provincia di ${current.province_name}`;
     renderMunicipalities(elements.municipalitySearch.value);
     renderTabs();
-    const renderers = { overview: renderOverview, facilities: renderFacilities, rules: renderRules, points: renderPoints, pickup: renderPickup, records: renderRecords };
+    const renderers = { overview: renderOverview, waste: renderWasteLookup, facilities: renderFacilities, rules: renderRules, points: renderPoints, pickup: renderPickup, records: renderRecords };
     elements.content.innerHTML = renderers[state.view]();
     const matching = filtered().length;
     elements.searchCount.textContent = state.query ? `${matching} record totali` : `${current.records} record`;
@@ -251,7 +278,7 @@
     const record = data.records.find(item => item.record_id === recordId);
     if (!record) return;
     elements.dialogTitle.textContent = typeLabels[record.record_type] || record.record_type;
-    elements.dialogContent.innerHTML = `<div class="coverage-row"><span>Affidabilità</span><strong>${escapeHtml(record.confidence)}</strong></div><div class="coverage-row"><span>Osservato il</span><strong>${escapeHtml(new Date(record.observed_at).toLocaleString("it-IT"))}</strong></div><div class="coverage-row"><span>Fonte</span><strong><a href="${escapeHtml(record.source.url)}" target="_blank" rel="noreferrer">Apri pagina SEI</a></strong></div><section class="subsection"><h3 class="subsection-title">Evidenza</h3><p class="evidence">${escapeHtml(record.source.evidence.quote || "Citazione non disponibile")}</p></section><section class="subsection"><h3 class="subsection-title">Dati originali</h3><pre class="json-view">${escapeHtml(JSON.stringify(record, null, 2))}</pre></section>`;
+    elements.dialogContent.innerHTML = `<div class="coverage-row"><span>Affidabilità</span><strong>${escapeHtml(record.confidence)}</strong></div><div class="coverage-row"><span>Osservato il</span><strong>${escapeHtml(new Date(record.observed_at).toLocaleString("it-IT"))}</strong></div><div class="coverage-row"><span>Fonte</span><strong><a href="${escapeHtml(record.source.url)}" target="_blank" rel="noreferrer">Apri ${escapeHtml(record.source.publisher || "fonte")}</a></strong></div><section class="subsection"><h3 class="subsection-title">Evidenza</h3><p class="evidence">${escapeHtml(record.source.evidence.quote || "Citazione non disponibile")}</p></section><section class="subsection"><h3 class="subsection-title">Dati originali</h3><pre class="json-view">${escapeHtml(JSON.stringify(record, null, 2))}</pre></section>`;
     elements.dialog.showModal();
   }
 
@@ -314,6 +341,6 @@
   if (views.some(([key]) => key === params.get("vista"))) state.view = params.get("vista");
   state.query = params.get("q") || "";
   elements.globalSearch.value = state.query;
-  elements.batchStatus.innerHTML = `<strong>${data.batch.records} record verificati</strong><br>${data.municipalities.length} comuni · ${data.batch.pages_checked} pagine<br>Aggiornati ${new Date(data.batch.observed_at).toLocaleDateString("it-IT")}`;
+  elements.batchStatus.innerHTML = `<strong>${data.batch.records} record verificati</strong><br>${data.batch.municipalities_acquired} acquisiti su ${data.batch.municipalities_registered} censiti · ${data.batch.pages_checked} pagine<br>Aggiornati ${new Date(data.batch.observed_at).toLocaleDateString("it-IT")}`;
   render();
 })();

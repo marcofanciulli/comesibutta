@@ -1,0 +1,101 @@
+order,province_code,name,local_operator_ref,assignment_status,assignment_note
+1,LI,Livorno,aamps,active,RetiAmbiente dal 01-01-2022
+2,LU,Altopascio,ascit,active,
+3,LU,Barga,ascit,active,
+4,LU,Borgo a Mozzano,ascit,active,
+5,LU,Capannori,ascit,active,
+6,LU,Coreglia Antelminelli,ascit,active,
+7,LU,Fabbriche di Vergemoli,ascit,active,
+8,LU,Montecarlo,ascit,active,
+9,LU,Pescaglia,ascit,active,
+10,LU,Porcari,ascit,active,
+11,LU,Sillano Giuncugnano,ascit,active,
+12,LU,Villa Basilica,ascit,active,
+13,LU,Bagni di Lucca,ascit,active,
+14,LI,Campo nell'Elba,esa,active,
+15,LI,Capoliveri,esa,active,
+16,LI,Marciana,esa,active,
+17,LI,Marciana Marina,esa,active,
+18,LI,Porto Azzurro,esa,pending_subentry,Subentro del gestore non ancora completato
+19,LI,Portoferraio,esa,active,
+20,LI,Rio,esa,active,
+21,PI,Bientina,geofor,active,
+22,PI,Buti,geofor,active,
+23,PI,Calci,geofor,active,
+24,PI,Calcinaia,geofor,active,
+25,PI,Capannoli,geofor,active,
+26,PI,Casciana Terme Lari,geofor,active,
+27,PI,Cascina,geofor,active,
+28,PI,Castelfranco di Sotto,geofor,active,
+29,PI,Chianni,geofor,active,
+30,PI,Crespina Lorenzana,geofor,active,
+31,PI,Fauglia,geofor,active,
+32,PI,Lajatico,geofor,active,
+33,PI,Montopoli in Val d'Arno,geofor,active,
+34,PI,Palaia,geofor,active,
+35,PI,Peccioli,geofor,pending_subentry,Subentro del gestore non ancora completato
+36,PI,Pisa,geofor,active,
+37,PI,Ponsacco,geofor,active,
+38,PI,Pontedera,geofor,active,
+39,PI,San Giuliano Terme,geofor,active,
+40,PI,San Miniato,geofor,active,
+41,PI,Santa Croce sull'Arno,geofor,active,
+42,PI,Santa Maria a Monte,geofor,active,
+43,PI,Terricciola,geofor,active,
+44,PI,Vecchiano,geofor,active,
+45,PI,Vicopisano,geofor,active,
+46,PI,Casale Marittimo,rea,active,
+47,PI,Castellina Marittima,rea,active,
+48,PI,Castelnuovo di Val di Cecina,rea,active,
+49,PI,Guardistallo,rea,active,
+50,PI,Montecatini Val di Cecina,rea,active,
+51,PI,Montescudaio,rea,active,
+52,PI,Monteverdi Marittimo,rea,active,
+53,PI,Orciano Pisano,rea,active,
+54,PI,Pomarance,rea,active,
+55,PI,Riparbella,rea,active,
+56,PI,Santa Luce,rea,active,
+57,PI,Volterra,rea,active,
+58,LI,Bibbona,rea,active,
+59,LI,Capraia Isola,rea,active,
+60,LI,Cecina,rea,active,
+61,LI,Collesalvetti,rea,active,
+62,LI,Rosignano Marittimo,rea,active,
+63,LU,Viareggio,sea-ambiente,active,
+64,MS,Montignoso,sea-ambiente,active,
+65,LU,Camaiore,ersu,active,
+66,LU,Forte dei Marmi,ersu,active,
+67,LU,Massarosa,ersu,active,
+68,LU,Pietrasanta,ersu,active,
+69,LU,Seravezza,ersu,active,
+70,LU,Stazzema,ersu,active,
+71,MS,Aulla,lunigiana-ambiente,active,
+72,MS,Bagnone,lunigiana-ambiente,active,
+73,MS,Casola in Lunigiana,lunigiana-ambiente,active,
+74,MS,Comano,lunigiana-ambiente,active,
+75,MS,Filattiera,lunigiana-ambiente,active,
+76,MS,Fivizzano,lunigiana-ambiente,active,
+77,MS,Fosdinovo,lunigiana-ambiente,active,
+78,MS,Licciana Nardi,lunigiana-ambiente,active,
+79,MS,Mulazzo,lunigiana-ambiente,active,
+80,MS,Podenzana,lunigiana-ambiente,active,
+81,MS,Pontremoli,lunigiana-ambiente,active,
+82,MS,Tresana,lunigiana-ambiente,active,
+83,MS,Villafranca in Lunigiana,lunigiana-ambiente,active,
+84,MS,Zeri,lunigiana-ambiente,active,
+85,LU,Camporgiano,gea,active,RetiAmbiente dal 01-01-2024
+86,LU,Careggine,gea,active,RetiAmbiente dal 01-01-2024
+87,LU,Castelnuovo di Garfagnana,gea,active,RetiAmbiente dal 01-01-2024
+88,LU,Castiglione di Garfagnana,gea,active,RetiAmbiente dal 01-01-2024
+89,LU,Fosciandora,gea,active,RetiAmbiente dal 01-01-2024
+90,LU,Gallicano,gea,active,RetiAmbiente dal 01-01-2024
+91,LU,Pieve Fosciana,gea,active,RetiAmbiente dal 01-01-2024
+92,LU,San Romano in Garfagnana,gea,active,RetiAmbiente dal 01-01-2024
+93,LU,Villa Collemandina,gea,active,RetiAmbiente dal 01-01-2024
+94,LU,Minucciano,gea,active,RetiAmbiente dal 01-01-2024
+95,LU,Molazzana,gea,active,RetiAmbiente dal 01-01-2024
+96,LU,Piazza al Serchio,gea,active,RetiAmbiente dal 01-01-2024
+97,LU,Vagli di Sotto,gea,active,RetiAmbiente dal 01-01-2024
+98,MS,Massa,asmiu,active,RetiAmbiente dal 01-01-2026
+99,MS,Carrara,retiambiente-carrara,active,RetiAmbiente dal 01-01-2026
+100,LU,Lucca,sistema-ambiente,transition,Subentro in RetiAmbiente entro il 31-12-2029

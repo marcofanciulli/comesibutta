@@ -1,0 +1,38 @@
+{
+  "equivalent_pages": [],
+  "istat_code": "049009",
+  "municipality": "Livorno",
+  "pages_available": 1,
+  "pages_materialized": 1,
+  "records": 125,
+  "records_by_type": {
+    "waste_lookup": 125
+  },
+  "warnings": [
+    {
+      "code": "possible_pdf_column_wrap",
+      "detail": "Pagina 1: lavastoviglie -> centri di raccolta o servizio ingombranti centri di",
+      "url": "https://www.aamps.livorno.it/wp-content/uploads/2017/04/Dove-lo-butto_logo-nuovo.pdf"
+    },
+    {
+      "code": "possible_pdf_column_wrap",
+      "detail": "Pagina 1: lavatrici -> raccolta o servizio ingombranti",
+      "url": "https://www.aamps.livorno.it/wp-content/uploads/2017/04/Dove-lo-butto_logo-nuovo.pdf"
+    },
+    {
+      "code": "possible_pdf_column_wrap",
+      "detail": "Pagina 2: scatole in cartone per alimenti -> contenitore biancocentri di raccolta o servizio",
+      "url": "https://www.aamps.livorno.it/wp-content/uploads/2017/04/Dove-lo-butto_logo-nuovo.pdf"
+    },
+    {
+      "code": "possible_pdf_column_wrap",
+      "detail": "Pagina 2: stampanti -> centri di raccolta o servizio ingombranticentri di",
+      "url": "https://www.aamps.livorno.it/wp-content/uploads/2017/04/Dove-lo-butto_logo-nuovo.pdf"
+    },
+    {
+      "code": "possible_pdf_column_wrap",
+      "detail": "Pagina 2: stendino/stendibiancheria -> raccolta o servizio ingombranti",
+      "url": "https://www.aamps.livorno.it/wp-content/uploads/2017/04/Dove-lo-butto_logo-nuovo.pdf"
+    }
+  ]
+}

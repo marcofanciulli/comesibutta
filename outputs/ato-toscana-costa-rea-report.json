@@ -1,0 +1,327 @@
+{
+  "errors": [],
+  "extraction": {
+    "municipalities": 17,
+    "municipality_reports": [
+      {
+        "equivalent_pages": [],
+        "istat_code": "050006",
+        "municipality": "Casale Marittimo",
+        "pages_available": 1,
+        "pages_materialized": 1,
+        "records": 190,
+        "records_by_type": {
+          "waste_lookup": 190
+        },
+        "warnings": [
+          {
+            "code": "waste_lookup_destinations_missing",
+            "detail": "7 voci REA non hanno una destinazione pubblicata",
+            "url": "https://www.reaspa.it/wp-admin/admin-ajax.php"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "050010",
+        "municipality": "Castellina Marittima",
+        "pages_available": 1,
+        "pages_materialized": 1,
+        "records": 190,
+        "records_by_type": {
+          "waste_lookup": 190
+        },
+        "warnings": [
+          {
+            "code": "waste_lookup_destinations_missing",
+            "detail": "7 voci REA non hanno una destinazione pubblicata",
+            "url": "https://www.reaspa.it/wp-admin/admin-ajax.php"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "050011",
+        "municipality": "Castelnuovo di Val di Cecina",
+        "pages_available": 1,
+        "pages_materialized": 1,
+        "records": 190,
+        "records_by_type": {
+          "waste_lookup": 190
+        },
+        "warnings": [
+          {
+            "code": "waste_lookup_destinations_missing",
+            "detail": "7 voci REA non hanno una destinazione pubblicata",
+            "url": "https://www.reaspa.it/wp-admin/admin-ajax.php"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "050015",
+        "municipality": "Guardistallo",
+        "pages_available": 1,
+        "pages_materialized": 1,
+        "records": 190,
+        "records_by_type": {
+          "waste_lookup": 190
+        },
+        "warnings": [
+          {
+            "code": "waste_lookup_destinations_missing",
+            "detail": "7 voci REA non hanno una destinazione pubblicata",
+            "url": "https://www.reaspa.it/wp-admin/admin-ajax.php"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "050019",
+        "municipality": "Montecatini Val di Cecina",
+        "pages_available": 1,
+        "pages_materialized": 1,
+        "records": 190,
+        "records_by_type": {
+          "waste_lookup": 190
+        },
+        "warnings": [
+          {
+            "code": "waste_lookup_destinations_missing",
+            "detail": "7 voci REA non hanno una destinazione pubblicata",
+            "url": "https://www.reaspa.it/wp-admin/admin-ajax.php"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "050020",
+        "municipality": "Montescudaio",
+        "pages_available": 1,
+        "pages_materialized": 1,
+        "records": 190,
+        "records_by_type": {
+          "waste_lookup": 190
+        },
+        "warnings": [
+          {
+            "code": "waste_lookup_destinations_missing",
+            "detail": "7 voci REA non hanno una destinazione pubblicata",
+            "url": "https://www.reaspa.it/wp-admin/admin-ajax.php"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "050021",
+        "municipality": "Monteverdi Marittimo",
+        "pages_available": 1,
+        "pages_materialized": 1,
+        "records": 190,
+        "records_by_type": {
+          "waste_lookup": 190
+        },
+        "warnings": [
+          {
+            "code": "waste_lookup_destinations_missing",
+            "detail": "7 voci REA non hanno una destinazione pubblicata",
+            "url": "https://www.reaspa.it/wp-admin/admin-ajax.php"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "050023",
+        "municipality": "Orciano Pisano",
+        "pages_available": 1,
+        "pages_materialized": 1,
+        "records": 190,
+        "records_by_type": {
+          "waste_lookup": 190
+        },
+        "warnings": [
+          {
+            "code": "waste_lookup_destinations_missing",
+            "detail": "7 voci REA non hanno una destinazione pubblicata",
+            "url": "https://www.reaspa.it/wp-admin/admin-ajax.php"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "050027",
+        "municipality": "Pomarance",
+        "pages_available": 1,
+        "pages_materialized": 1,
+        "records": 190,
+        "records_by_type": {
+          "waste_lookup": 190
+        },
+        "warnings": [
+          {
+            "code": "waste_lookup_destinations_missing",
+            "detail": "7 voci REA non hanno una destinazione pubblicata",
+            "url": "https://www.reaspa.it/wp-admin/admin-ajax.php"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "050030",
+        "municipality": "Riparbella",
+        "pages_available": 1,
+        "pages_materialized": 1,
+        "records": 190,
+        "records_by_type": {
+          "waste_lookup": 190
+        },
+        "warnings": [
+          {
+            "code": "waste_lookup_destinations_missing",
+            "detail": "7 voci REA non hanno una destinazione pubblicata",
+            "url": "https://www.reaspa.it/wp-admin/admin-ajax.php"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "050034",
+        "municipality": "Santa Luce",
+        "pages_available": 1,
+        "pages_materialized": 1,
+        "records": 190,
+        "records_by_type": {
+          "waste_lookup": 190
+        },
+        "warnings": [
+          {
+            "code": "waste_lookup_destinations_missing",
+            "detail": "7 voci REA non hanno una destinazione pubblicata",
+            "url": "https://www.reaspa.it/wp-admin/admin-ajax.php"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "050039",
+        "municipality": "Volterra",
+        "pages_available": 1,
+        "pages_materialized": 1,
+        "records": 190,
+        "records_by_type": {
+          "waste_lookup": 190
+        },
+        "warnings": [
+          {
+            "code": "waste_lookup_destinations_missing",
+            "detail": "7 voci REA non hanno una destinazione pubblicata",
+            "url": "https://www.reaspa.it/wp-admin/admin-ajax.php"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "049001",
+        "municipality": "Bibbona",
+        "pages_available": 1,
+        "pages_materialized": 1,
+        "records": 190,
+        "records_by_type": {
+          "waste_lookup": 190
+        },
+        "warnings": [
+          {
+            "code": "waste_lookup_destinations_missing",
+            "detail": "7 voci REA non hanno una destinazione pubblicata",
+            "url": "https://www.reaspa.it/wp-admin/admin-ajax.php"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "049005",
+        "municipality": "Capraia Isola",
+        "pages_available": 1,
+        "pages_materialized": 1,
+        "records": 190,
+        "records_by_type": {
+          "waste_lookup": 190
+        },
+        "warnings": [
+          {
+            "code": "waste_lookup_destinations_missing",
+            "detail": "7 voci REA non hanno una destinazione pubblicata",
+            "url": "https://www.reaspa.it/wp-admin/admin-ajax.php"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "049007",
+        "municipality": "Cecina",
+        "pages_available": 1,
+        "pages_materialized": 1,
+        "records": 190,
+        "records_by_type": {
+          "waste_lookup": 190
+        },
+        "warnings": [
+          {
+            "code": "waste_lookup_destinations_missing",
+            "detail": "7 voci REA non hanno una destinazione pubblicata",
+            "url": "https://www.reaspa.it/wp-admin/admin-ajax.php"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "049008",
+        "municipality": "Collesalvetti",
+        "pages_available": 1,
+        "pages_materialized": 1,
+        "records": 190,
+        "records_by_type": {
+          "waste_lookup": 190
+        },
+        "warnings": [
+          {
+            "code": "waste_lookup_destinations_missing",
+            "detail": "7 voci REA non hanno una destinazione pubblicata",
+            "url": "https://www.reaspa.it/wp-admin/admin-ajax.php"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "049017",
+        "municipality": "Rosignano Marittimo",
+        "pages_available": 1,
+        "pages_materialized": 1,
+        "records": 190,
+        "records_by_type": {
+          "waste_lookup": 190
+        },
+        "warnings": [
+          {
+            "code": "waste_lookup_destinations_missing",
+            "detail": "7 voci REA non hanno una destinazione pubblicata",
+            "url": "https://www.reaspa.it/wp-admin/admin-ajax.php"
+          }
+        ]
+      }
+    ],
+    "records": 3230,
+    "unresolved_entries_per_municipality": 7,
+    "warnings": 17
+  },
+  "municipalities_touched": 17,
+  "observed_at": "2026-08-06T16:30:00+02:00",
+  "pages_by_category": {
+    "waste_lookup": 1
+  },
+  "pages_by_status": {
+    "snapshot": 1
+  },
+  "pages_checked": 1,
+  "pages_remaining": 0
+}

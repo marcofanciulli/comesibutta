@@ -1,0 +1,30 @@
+{
+  "municipalities": 100,
+  "municipalities_by_assignment_status": {
+    "active": 97,
+    "pending_subentry": 2,
+    "transition": 1
+  },
+  "municipalities_by_local_operator": {
+    "aamps": 1,
+    "ascit": 12,
+    "asmiu": 1,
+    "ersu": 6,
+    "esa": 7,
+    "gea": 13,
+    "geofor": 25,
+    "lunigiana-ambiente": 14,
+    "rea": 17,
+    "retiambiente-carrara": 1,
+    "sea-ambiente": 2,
+    "sistema-ambiente": 1
+  },
+  "municipalities_by_province": {
+    "LI": 13,
+    "LU": 33,
+    "MS": 17,
+    "PI": 37
+  },
+  "source_url": "https://www.atotoscanacosta.it/wp-content/plugins/allegati-rev2/includes/download.php?id=3140",
+  "warnings": []
+}

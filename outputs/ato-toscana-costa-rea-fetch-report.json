@@ -1,0 +1,43 @@
+{
+  "allowed": true,
+  "empty_prefixes": [
+    "h",
+    "j",
+    "k",
+    "w",
+    "x",
+    "y"
+  ],
+  "errors": [],
+  "items": 190,
+  "queried_prefixes": [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "g",
+    "h",
+    "i",
+    "j",
+    "k",
+    "l",
+    "m",
+    "n",
+    "o",
+    "p",
+    "q",
+    "r",
+    "s",
+    "t",
+    "u",
+    "v",
+    "w",
+    "x",
+    "y",
+    "z"
+  ],
+  "robots_url": "https://www.reaspa.it/robots.txt",
+  "source_url": "https://www.reaspa.it/wp-admin/admin-ajax.php"
+}

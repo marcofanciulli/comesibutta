@@ -27,3 +27,4 @@ venv/
 data/crawl/
 data/snapshots/
 outputs/sweep-pilot/
+tmp/

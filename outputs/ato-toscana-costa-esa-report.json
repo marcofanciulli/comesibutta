@@ -1,0 +1,133 @@
+{
+  "errors": [],
+  "extraction": {
+    "municipalities": 7,
+    "municipality_reports": [
+      {
+        "equivalent_pages": [],
+        "istat_code": "049003",
+        "municipality": "Campo nell'Elba",
+        "pages_available": 2,
+        "pages_materialized": 2,
+        "records": 300,
+        "records_by_type": {
+          "collection_rule": 5,
+          "facility": 1,
+          "facility_access": 1,
+          "service_zone": 1,
+          "waste_lookup": 292
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "049004",
+        "municipality": "Capoliveri",
+        "pages_available": 2,
+        "pages_materialized": 2,
+        "records": 302,
+        "records_by_type": {
+          "collection_rule": 5,
+          "facility": 2,
+          "facility_access": 2,
+          "service_zone": 1,
+          "waste_lookup": 292
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "049010",
+        "municipality": "Marciana",
+        "pages_available": 2,
+        "pages_materialized": 2,
+        "records": 302,
+        "records_by_type": {
+          "collection_rule": 5,
+          "facility": 2,
+          "facility_access": 2,
+          "service_zone": 1,
+          "waste_lookup": 292
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "049011",
+        "municipality": "Marciana Marina",
+        "pages_available": 2,
+        "pages_materialized": 2,
+        "records": 300,
+        "records_by_type": {
+          "collection_rule": 5,
+          "facility": 1,
+          "facility_access": 1,
+          "service_zone": 1,
+          "waste_lookup": 292
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "049013",
+        "municipality": "Porto Azzurro",
+        "pages_available": 2,
+        "pages_materialized": 2,
+        "records": 300,
+        "records_by_type": {
+          "collection_rule": 5,
+          "facility": 1,
+          "facility_access": 1,
+          "service_zone": 1,
+          "waste_lookup": 292
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "049014",
+        "municipality": "Portoferraio",
+        "pages_available": 2,
+        "pages_materialized": 2,
+        "records": 300,
+        "records_by_type": {
+          "collection_rule": 5,
+          "facility": 1,
+          "facility_access": 1,
+          "service_zone": 1,
+          "waste_lookup": 292
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "049021",
+        "municipality": "Rio",
+        "pages_available": 2,
+        "pages_materialized": 2,
+        "records": 302,
+        "records_by_type": {
+          "collection_rule": 5,
+          "facility": 2,
+          "facility_access": 2,
+          "service_zone": 1,
+          "waste_lookup": 292
+        },
+        "warnings": []
+      }
+    ],
+    "records": 2106,
+    "warnings": 0
+  },
+  "municipalities_touched": 7,
+  "observed_at": "2026-08-06T15:30:00+02:00",
+  "pages_by_category": {
+    "collection": 1,
+    "facilities": 1
+  },
+  "pages_by_status": {
+    "snapshot": 2
+  },
+  "pages_checked": 2,
+  "pages_remaining": 0
+}

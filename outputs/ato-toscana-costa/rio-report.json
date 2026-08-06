@@ -1,0 +1,16 @@
+{
+  "equivalent_pages": [],
+  "istat_code": "049021",
+  "municipality": "Rio",
+  "pages_available": 2,
+  "pages_materialized": 2,
+  "records": 302,
+  "records_by_type": {
+    "collection_rule": 5,
+    "facility": 2,
+    "facility_access": 2,
+    "service_zone": 1,
+    "waste_lookup": 292
+  },
+  "warnings": []
+}

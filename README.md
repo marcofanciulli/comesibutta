@@ -4,9 +4,9 @@ Sistema informativo per rispondere alla domanda "Dove lo butto?" nei comuni
 della Toscana. Il progetto collega i nomi quotidiani dei rifiuti alle regole
 territoriali di raccolta, ai centri di conferimento e ai codici EER/CER.
 
-La prima fase riguarda i 104 comuni di ATO Toscana Sud gestiti da SEI Toscana.
-Il repository contiene il modello dati, gli estrattori, gli snapshot di test e
-i dataset verificati del pilota.
+Il perimetro censito comprende i 104 comuni di ATO Toscana Sud e i 100 comuni
+di ATO Toscana Costa. Il repository contiene il modello dati, gli estrattori,
+gli snapshot di test, i dataset verificati e un esploratore locale.
 
 ## Contenuti
 
@@ -16,6 +16,8 @@ i dataset verificati del pilota.
   verifiche, limiti e prossimi passi.
 - `docs/crawl-operations.md`: esecuzione, ripresa e controllo della scansione
   dei comuni SEI Toscana.
+- `docs/ato-costa-operations.md`: registro, fonti e acquisizioni multi-gestore
+  di ATO Toscana Costa.
 - `docs/source-access-policy.md`: verifica delle condizioni pubblicate e
   regole obbligatorie di accesso alle fonti.
 - `schemas/acquisition-record.schema.json`: formato JSON Lines prodotto dagli
@@ -33,7 +35,8 @@ validato e completo per l'intera Toscana.
 ## Requisiti
 
 - Python 3.11 o successivo;
-- nessuna dipendenza esterna per l'estrattore corrente.
+- nessuna libreria Python esterna per gli estrattori correnti;
+- `pdftotext` di Poppler per preparare i PDF a colonne come la guida AAMPS.
 
 ## Pilota Manciano
 
@@ -65,7 +68,7 @@ Il pilota comprende anche Castagneto Carducci, Siena, Campiglia Marittima e la
 pagina di Sassetta che documenta l'accesso intercomunale al centro di
 Castagneto. I dataset e i rapporti generati si trovano in `outputs/`.
 
-## Registro SEI Toscana
+## Registri territoriali
 
 Lo snapshot dell'indice SEI e stato incrociato con l'elenco ufficiale ISTAT
 aggiornato al 21 febbraio 2026. Il registro riproducibile dei 104 comuni si
@@ -82,6 +85,11 @@ PYTHONPATH=src python3 -m dovelobutto.cli build-sei-registry \
 
 Il file XLSX ISTAT originale e conservato in `data/sources/istat/` insieme al
 CSV toscano derivato usato dalla pipeline.
+
+Il registro ATO Toscana Costa deriva dalla tabella ufficiale Comune-SOL 2026,
+riconciliata con ISTAT. Conserva separatamente gestore unico RetiAmbiente,
+societa operativa locale e stato del subentro. Le istruzioni sono in
+`docs/ato-costa-operations.md`.
 
 ## Scansione controllata
 
@@ -102,17 +110,23 @@ rigenerato esclusivamente dagli output acquisiti:
 ```sh
 PYTHONPATH=src python3 -m dovelobutto.explorer \
   --input-dir outputs/sei-toscana \
+  --input-dir outputs/ato-toscana-costa \
   --batch-report outputs/sei-toscana-grosseto-01-report.json \
   --batch-report outputs/sei-toscana-grosseto-02-report.json \
   --batch-report outputs/sei-toscana-arezzo-report.json \
   --batch-report outputs/sei-toscana-siena-report.json \
   --batch-report outputs/sei-toscana-livorno-ato-sud-report.json \
+  --batch-report outputs/ato-toscana-costa-esa-report.json \
+  --batch-report outputs/ato-toscana-costa-rea-report.json \
+  --batch-report outputs/ato-toscana-costa-aamps-report.json \
   --registry outputs/sei-toscana-municipalities.jsonl \
-  --generated-at 2026-08-06T11:25:00+02:00 \
+  --registry outputs/ato-toscana-costa-municipalities.jsonl \
+  --generated-at 2026-08-06T17:30:00+02:00 \
   --output explorer/data.js
 ```
 
-L'interfaccia in `explorer/index.html` permette di filtrare per ATO e provincia,
-esplorare i record per comune, cercare materiali e codici EER e risalire alla
-fonte di ogni fatto. Il dataset corrente copre tutti i 104 comuni di ATO
-Toscana Sud.
+L'interfaccia permette di filtrare per ATO e provincia, distinguere comuni
+censiti da comuni acquisiti, esplorare centri e regole, consultare il
+rifiutario, cercare materiali e codici EER e risalire alla fonte di ogni fatto.
+Il pacchetto corrente contiene 204 comuni censiti, 129 con almeno una fonte
+materializzata e 10.551 record.

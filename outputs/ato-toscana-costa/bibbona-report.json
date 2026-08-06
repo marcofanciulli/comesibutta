@@ -1,0 +1,18 @@
+{
+  "equivalent_pages": [],
+  "istat_code": "049001",
+  "municipality": "Bibbona",
+  "pages_available": 1,
+  "pages_materialized": 1,
+  "records": 190,
+  "records_by_type": {
+    "waste_lookup": 190
+  },
+  "warnings": [
+    {
+      "code": "waste_lookup_destinations_missing",
+      "detail": "7 voci REA non hanno una destinazione pubblicata",
+      "url": "https://www.reaspa.it/wp-admin/admin-ajax.php"
+    }
+  ]
+}

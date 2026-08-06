@@ -1,7 +1,7 @@
 # Stato del progetto
 
 Ultimo aggiornamento: 6 agosto 2026
-Fase: acquisizione ATO Toscana Sud completata e validata
+Fase: ATO Toscana Sud completa; ATO Toscana Costa censita e in acquisizione
 
 Questo documento e il punto di ripartenza del progetto. Va aggiornato al termine
 di ogni fase sostanziale, insieme ai dataset e ai rapporti prodotti.
@@ -41,7 +41,12 @@ La risposta deve poter indicare:
    l'acquisizione: possono rappresentare raggruppamenti operativi distinti.
 8. Le coordinate pubblicate dalla fonte hanno priorita sulla geocodifica; il
    metodo e l'accuratezza devono sempre essere espliciti.
-9. Il pilota iniziale copre ATO Toscana Sud e le pagine SEI Toscana.
+9. ATO Toscana Sud e completa; ATO Toscana Costa usa adattatori distinti per
+   ciascuna societa operativa locale.
+10. Comune, provincia, ATO, gestore unico e societa operativa locale sono
+    dimensioni separate. Il codice ISTAT identifica il comune.
+11. Una voce di rifiutario senza destinazione viene conservata come irrisolta,
+    non eliminata.
 
 ## Artefatti persistenti
 
@@ -70,7 +75,7 @@ Comuni pilota gia acquisiti:
 
 Verifiche completate al 6 agosto 2026:
 
-- 31 test automatici superati;
+- 48 test automatici superati;
 - compilazione dei moduli Python riuscita;
 - validita sintattica JSON verificata per schemi, record e rapporti;
 - relazione Sassetta-Castagneto risolta sullo stesso identificatore stabile;
@@ -131,17 +136,38 @@ Completamento ATO Toscana Sud:
 
 Esploratore dati:
 
-- pacchetto statico generato in modo riproducibile dai 5.090 record dell'ATO;
+- pacchetto statico generato in modo riproducibile da 10.551 record;
 - filtri gerarchici per ATO e provincia, seguiti dall'elenco dei comuni;
+- 204 comuni censiti, 129 con almeno una fonte materializzata;
 - navigazione per comune e viste dedicate a centri, EER, regole, punti e ritiro;
+- vista rifiutario per le coppie nome quotidiano-destinazione;
 - ricerca trasversale, provenienza, evidenze e record JSON consultabili;
 - anomalie e pagine equivalenti esposte senza alterare i dati acquisiti.
+
+Avvio ATO Toscana Costa:
+
+- importata la tabella ufficiale 2026 dei 100 comuni e delle 12 SOL;
+- riconciliati tutti i comuni con ISTAT: 13 LI, 33 LU, 17 MS e 37 PI;
+- conservati separatamente RetiAmbiente, SOL e stato del subentro; Porto
+  Azzurro e Peccioli risultano da completare, Lucca in transizione entro 2029;
+- acquisiti 25 comuni e 5.461 record: 7 ESA, 17 REA e Livorno AAMPS;
+- ESA: 292 voci del rifiutario per comune, cinque regole generali porta a porta
+  e dieci centri complessivi associati ai comuni, 2.106 record senza avvisi;
+- REA: 26 iniziali controllate, 190 voci, sei iniziali vuote e zero errori;
+  sette voci prive di destinazione restano visibili, per 3.230 record e un
+  avviso riepilogativo in ciascuno dei 17 comuni;
+- AAMPS: 125 coppie estratte dal PDF 2017; cinque probabili continuazioni di
+  colonna restano a confidenza media e sono elencate nel rapporto;
+- tutti i 13 comuni livornesi di ATO Costa hanno ora almeno un rifiutario;
+  la copertura completa di centri, orari, accesso e calendari e per ora
+  disponibile soltanto parzialmente per ESA.
 
 ## Limiti e questioni aperte
 
 - Le pagine di ritiro ingombranti non sono collegate dall'indice generale e
   devono essere scoperte dalle pagine comunali o durante la scansione.
-- I PDF, le guide e i calendari allegati non sono ancora inclusi nella pipeline.
+- L'acquisizione PDF e iniziata con AAMPS, ma guide e calendari delle altre SOL
+  non sono ancora generalizzati nella pipeline.
 - Manca il livello canonico in PostgreSQL/PostGIS e la coda di revisione umana.
 - Il repository Git e inizializzato e collegato al remoto GitHub del progetto;
   snapshot e stato live restano esclusi per dimensione e variabilita.
@@ -150,10 +176,11 @@ Esploratore dati:
 
 ## Prossimi passi
 
-1. Usare l'esploratore per revisionare i 4 elenchi mancanti e gli 8 URL `404`.
-2. Definire il livello canonico e il vocabolario dei nomi quotidiani dei rifiuti.
-3. Aggiungere la raccolta e la classificazione di PDF, guide e calendari.
-4. Progettare l'aggiornamento periodico e il rilevamento delle variazioni.
+1. Acquisire pagine comunali, centri, orari, accesso, calendari e ritiri REA.
+2. Acquisire i dettagli dei centri ESA e cercare una guida AAMPS piu recente.
+3. Proseguire con GEOFOR, ASCIT e le restanti SOL di ATO Toscana Costa.
+4. Definire il livello canonico e il vocabolario unificato dei nomi quotidiani.
+5. Progettare l'aggiornamento periodico e il rilevamento delle variazioni.
 
 ## Regola di continuita
 

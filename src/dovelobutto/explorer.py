@@ -11,24 +11,33 @@ PROVINCE_NAMES = {
     "AR": "Arezzo",
     "GR": "Grosseto",
     "LI": "Livorno",
+    "LU": "Lucca",
+    "MS": "Massa-Carrara",
+    "PI": "Pisa",
     "SI": "Siena",
 }
-ATO_NAMES = {"ato-toscana-sud": "ATO Toscana Sud"}
+ATO_NAMES = {
+    "ato-toscana-costa": "ATO Toscana Costa",
+    "ato-toscana-sud": "ATO Toscana Sud",
+}
 
 
 def build_explorer_dataset(
-    input_dir: Path,
+    input_dir: Path | list[Path],
     batch_report_paths: Path | list[Path],
-    registry_path: Path,
+    registry_path: Path | list[Path],
     generated_at: datetime,
 ) -> dict[str, Any]:
     registry = {}
-    for line in registry_path.read_text(encoding="utf-8").splitlines():
-        if not line.strip():
-            continue
-        payload = json.loads(line)["payload"]
-        registry[payload["istat_code"]] = payload
+    registry_paths = [registry_path] if isinstance(registry_path, Path) else registry_path
+    for path in registry_paths:
+        for line in path.read_text(encoding="utf-8").splitlines():
+            if not line.strip():
+                continue
+            payload = json.loads(line)["payload"]
+            registry[payload["istat_code"]] = payload
 
+    input_dirs = [input_dir] if isinstance(input_dir, Path) else input_dir
     paths = [batch_report_paths] if isinstance(batch_report_paths, Path) else batch_report_paths
     batch_reports = [json.loads(path.read_text(encoding="utf-8")) for path in paths]
     report_by_istat = {}
@@ -39,14 +48,18 @@ def build_explorer_dataset(
         })
     municipalities = []
     all_records = []
-    for istat_code, report in sorted(report_by_istat.items()):
-        source = registry[istat_code]
-        acquisition_path = input_dir / f"{source['source_slug']}-acquisition.jsonl"
+    for istat_code, source in sorted(registry.items()):
+        report = report_by_istat.get(istat_code)
+        acquisition_path = next((
+            directory / f"{source['source_slug']}-acquisition.jsonl"
+            for directory in input_dirs
+            if (directory / f"{source['source_slug']}-acquisition.jsonl").exists()
+        ), input_dirs[0] / f"{source['source_slug']}-acquisition.jsonl")
         records = [
             json.loads(line)
             for line in acquisition_path.read_text(encoding="utf-8").splitlines()
             if line.strip()
-        ] if acquisition_path.exists() else []
+        ] if report and acquisition_path.exists() else []
         municipalities.append({
             "istat_code": istat_code,
             "name": source["name"],
@@ -55,17 +68,27 @@ def build_explorer_dataset(
             "ato_name": ATO_NAMES.get(source["ato_ref"], source["ato_ref"]),
             "province_code": source["province_code"],
             "province_name": PROVINCE_NAMES.get(source["province_code"], source["province_code"]),
+            "operator_ref": source.get("operator_ref"),
+            "local_operator_ref": source.get("local_operator_ref") or source.get("operator_ref"),
+            "local_operator_name": source.get("local_operator_name") or "SEI Toscana",
+            "local_operator_url": source.get("local_operator_url") or source.get("homepage_url"),
+            "assignment_status": source.get("assignment_status") or "active",
+            "assignment_note": source.get("assignment_note"),
+            "acquisition_status": "acquired" if report else "registry_only",
             "records": len(records),
-            "records_by_type": report["records_by_type"],
-            "pages_available": report["pages_available"],
-            "pages_materialized": report["pages_materialized"],
-            "warnings": report["warnings"],
-            "equivalent_pages": report["equivalent_pages"],
+            "records_by_type": report["records_by_type"] if report else {},
+            "pages_available": report["pages_available"] if report else 0,
+            "pages_materialized": report["pages_materialized"] if report else 0,
+            "warnings": report["warnings"] if report else [],
+            "equivalent_pages": report["equivalent_pages"] if report else [],
         })
         all_records.extend({**record, "municipality_istat": istat_code} for record in records)
 
     municipalities.sort(key=lambda item: item["name"])
     observed_at = max(report["observed_at"] for report in batch_reports)
+    acquired_municipalities = sum(
+        item["acquisition_status"] == "acquired" for item in municipalities
+    )
     return {
         "version": 1,
         "generated_at": generated_at.isoformat(),
@@ -74,6 +97,8 @@ def build_explorer_dataset(
             "pages_checked": sum(report["pages_checked"] for report in batch_reports),
             "pages_remaining": sum(report["pages_remaining"] for report in batch_reports),
             "records": len(all_records),
+            "municipalities_registered": len(municipalities),
+            "municipalities_acquired": acquired_municipalities,
             "warnings": sum(len(item["warnings"]) for item in municipalities),
             "errors": [error for report in batch_reports for error in report["errors"]],
         },
@@ -106,9 +131,9 @@ def write_explorer_dataset(destination: Path, dataset: dict[str, Any]) -> None:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Build the static data explorer bundle")
-    parser.add_argument("--input-dir", type=Path, required=True)
+    parser.add_argument("--input-dir", type=Path, action="append", required=True)
     parser.add_argument("--batch-report", type=Path, action="append", required=True)
-    parser.add_argument("--registry", type=Path, required=True)
+    parser.add_argument("--registry", type=Path, action="append", required=True)
     parser.add_argument("--generated-at", required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args(argv)

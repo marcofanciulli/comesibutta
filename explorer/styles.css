@@ -150,7 +150,7 @@ h3 { margin: 0; font-size: 15px; }
   .sidebar { position: static; width: 100%; height: auto; padding: 14px; }
   .brand { margin: 0 0 14px; }
   .field-label, .batch-status { display: none; }
-  .scope-filters { grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+  .scope-filters { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 8px; margin-bottom: 8px; }
   .side-select { margin-bottom: 0; }
   .municipality-list { display: flex; gap: 5px; margin: 9px 0 0; overflow-x: auto; }
   .municipality-button { width: auto; min-width: 150px; border-left: 0; border-bottom: 3px solid transparent; }

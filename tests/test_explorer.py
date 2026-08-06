@@ -61,6 +61,73 @@ class ExplorerDatasetTest(unittest.TestCase):
             self.assertTrue(text.startswith("window.COMESIBUTTA_DATA = "))
             self.assertTrue(text.endswith(";\n"))
 
+    def test_includes_registry_only_ato_costa_municipalities(self) -> None:
+        dataset = build_explorer_dataset(
+            WORKSPACE / "outputs" / "sei-toscana",
+            [
+                WORKSPACE / "outputs" / "sei-toscana-grosseto-01-report.json",
+                WORKSPACE / "outputs" / "sei-toscana-grosseto-02-report.json",
+                WORKSPACE / "outputs" / "sei-toscana-arezzo-report.json",
+                WORKSPACE / "outputs" / "sei-toscana-siena-report.json",
+                WORKSPACE / "outputs" / "sei-toscana-livorno-ato-sud-report.json",
+            ],
+            [
+                WORKSPACE / "outputs" / "sei-toscana-municipalities.jsonl",
+                WORKSPACE / "outputs" / "ato-toscana-costa-municipalities.jsonl",
+            ],
+            datetime.fromisoformat("2026-08-06T15:00:00+02:00"),
+        )
+        self.assertEqual(204, len(dataset["municipalities"]))
+        self.assertEqual(104, dataset["batch"]["municipalities_acquired"])
+        self.assertEqual(204, dataset["batch"]["municipalities_registered"])
+        self.assertEqual(
+            ["ato-toscana-costa", "ato-toscana-sud"],
+            [ato["id"] for ato in dataset["atos"]],
+        )
+        livorno = next(item for item in dataset["municipalities"] if item["name"] == "Livorno")
+        self.assertEqual("registry_only", livorno["acquisition_status"])
+        self.assertEqual("AAMPS S.p.A.", livorno["local_operator_name"])
+
+    def test_includes_acquired_esa_municipalities_and_waste_lookup(self) -> None:
+        dataset = build_explorer_dataset(
+            [
+                WORKSPACE / "outputs" / "sei-toscana",
+                WORKSPACE / "outputs" / "ato-toscana-costa",
+            ],
+            [
+                WORKSPACE / "outputs" / "sei-toscana-grosseto-01-report.json",
+                WORKSPACE / "outputs" / "sei-toscana-grosseto-02-report.json",
+                WORKSPACE / "outputs" / "sei-toscana-arezzo-report.json",
+                WORKSPACE / "outputs" / "sei-toscana-siena-report.json",
+                WORKSPACE / "outputs" / "sei-toscana-livorno-ato-sud-report.json",
+                WORKSPACE / "outputs" / "ato-toscana-costa-esa-report.json",
+                WORKSPACE / "outputs" / "ato-toscana-costa-rea-report.json",
+                WORKSPACE / "outputs" / "ato-toscana-costa-aamps-report.json",
+            ],
+            [
+                WORKSPACE / "outputs" / "sei-toscana-municipalities.jsonl",
+                WORKSPACE / "outputs" / "ato-toscana-costa-municipalities.jsonl",
+            ],
+            datetime.fromisoformat("2026-08-06T16:00:00+02:00"),
+        )
+        self.assertEqual(129, dataset["batch"]["municipalities_acquired"])
+        self.assertEqual(10551, len(dataset["records"]))
+        capoliveri = next(item for item in dataset["municipalities"] if item["name"] == "Capoliveri")
+        self.assertEqual(292, capoliveri["records_by_type"]["waste_lookup"])
+        tetrapak = next(
+            record for record in dataset["records"]
+            if record["municipality_istat"] == "049004"
+            and record["record_type"] == "waste_lookup"
+            and record["payload"]["term"] == "Tetrapak"
+        )
+        self.assertIn("plastica e metallo", tetrapak["payload"]["destination_raw"].lower())
+        bibbona = next(item for item in dataset["municipalities"] if item["name"] == "Bibbona")
+        self.assertEqual(190, bibbona["records_by_type"]["waste_lookup"])
+        self.assertEqual(1, len(bibbona["warnings"]))
+        livorno = next(item for item in dataset["municipalities"] if item["name"] == "Livorno")
+        self.assertEqual(125, livorno["records_by_type"]["waste_lookup"])
+        self.assertEqual(5, len(livorno["warnings"]))
+
 
 if __name__ == "__main__":
     unittest.main()

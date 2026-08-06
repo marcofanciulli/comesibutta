@@ -69,3 +69,27 @@ pipeline live, non presunto da questa analisi documentale. La passata viene
 considerata autorizzata operativamente solo dopo che il parser ha confermato
 che le URL comunali selezionate sono consentite. L'esito e conservato nel
 rapporto di scansione.
+
+## Verifica ATO Toscana Costa
+
+Verifica operativa eseguita il 6 agosto 2026 sulle fonti iniziali ATO Toscana
+Costa, AAMPS, ESA e REA. Non sono state individuate condizioni d'uso che
+vietino esplicitamente l'acquisizione delle pagine informative pubbliche; i
+footer collegano principalmente informative privacy e cookie. Questa
+conclusione resta qualificata e non costituisce un parere legale.
+
+Esiti `robots.txt` osservati:
+
+- ATO Toscana Costa: vietato `/wp-admin/`, consentito
+  `/wp-admin/admin-ajax.php`; il PDF Comune-SOL e servito da un percorso
+  pubblico del plugin allegati;
+- AAMPS: vietati `/wp-json/` e `/?rest_route=`; le pagine HTML e il PDF pubblico
+  "Dove lo butto?" non ricadono nei percorsi vietati;
+- ESA: nessun percorso vietato;
+- REA: nessun percorso vietato.
+
+Il rifiutario REA usa il punto pubblico `wp-admin/admin-ajax.php` esclusivamente
+in lettura. La pipeline interroga una volta ciascuna iniziale alfabetica,
+applica un intervallo seriale, conserva le iniziali vuote e registra
+separatamente gli errori. Non vengono usate le funzioni del sito che inviano
+suggerimenti o dati personali.

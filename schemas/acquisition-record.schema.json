@@ -15,6 +15,7 @@
     "record_type": {
       "enum": [
         "municipality",
+        "waste_lookup",
         "service_zone",
         "collection_rule",
         "facility",
@@ -40,6 +41,10 @@
     {
       "if": { "properties": { "record_type": { "const": "municipality" } } },
       "then": { "properties": { "payload": { "$ref": "#/$defs/municipality" } } }
+    },
+    {
+      "if": { "properties": { "record_type": { "const": "waste_lookup" } } },
+      "then": { "properties": { "payload": { "$ref": "#/$defs/wasteLookup" } } }
     },
     {
       "if": { "properties": { "record_type": { "const": "service_zone" } } },
@@ -135,6 +140,14 @@
         "region_code": { "type": "string", "pattern": "^[0-9]{2}$" },
         "ato_ref": { "type": ["string", "null"] },
         "operator_ref": { "type": ["string", "null"] },
+        "local_operator_ref": { "type": ["string", "null"] },
+        "local_operator_name": { "type": ["string", "null"] },
+        "local_operator_url": { "type": ["string", "null"], "format": "uri" },
+        "assignment_status": {
+          "type": ["string", "null"],
+          "enum": ["active", "pending_subentry", "transition", null]
+        },
+        "assignment_note": { "type": ["string", "null"] },
         "source_slug": { "type": ["string", "null"] },
         "homepage_url": { "type": ["string", "null"], "format": "uri" },
         "service_urls": {
@@ -154,6 +167,20 @@
     "urlList": {
       "type": "array",
       "items": { "type": "string", "format": "uri" }
+    },
+    "wasteLookup": {
+      "type": "object",
+      "required": ["municipality_ref", "term", "destination_raw"],
+      "properties": {
+        "municipality_ref": { "type": "string" },
+        "term": { "type": "string", "minLength": 1 },
+        "destination_raw": { "type": ["string", "null"], "minLength": 1 },
+        "resolution_status": {
+          "enum": ["resolved", "missing_destination"]
+        },
+        "instructions_raw": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
     },
     "serviceZone": {
       "type": "object",

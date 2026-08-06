@@ -1,7 +1,7 @@
 # Architettura dei dati
 
-Versione: 0.1.0  
-Ambito iniziale: ATO Toscana Sud / SEI Toscana
+Versione: 0.2.0
+Ambito corrente: ATO Toscana Sud e ATO Toscana Costa
 
 ## 1. Perimetro del pilota
 
@@ -65,12 +65,19 @@ Una `service_zone` puo essere descritta inizialmente con nomi di localita e in
 seguito dotata di geometria PostGIS. Deve sempre esistere una zona predefinita
 per la parte del comune non coperta da zone piu specifiche.
 
+ATO, provincia e gestore non sono gerarchie coincidenti. Il comune, identificato
+dal codice ISTAT, e l'entita territoriale canonica; l'appartenenza ATO, il
+gestore unico e la societa operativa locale sono assegnazioni distinte e
+datate. Questo consente di rappresentare province divise tra piu ATO e ATO che
+operano attraverso piu societa locali.
+
 ### Vocabolario dei rifiuti
 
 | Entita | Funzione |
 | --- | --- |
 | `waste_concept` | Oggetto o famiglia comprensibile al cittadino |
 | `waste_term` | Sinonimo, nome popolare, errore frequente o marchio generico |
+| `waste_lookup` | Coppia nome-destinazione pubblicata da un gestore locale |
 | `material` | Vetro, carta, sughero, bioplastica, ceramica ecc. |
 | `component` | Parte separabile di un oggetto composto |
 | `condition` | Vuoto, contaminato, rotto, contenente residui ecc. |
