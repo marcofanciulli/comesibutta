@@ -1,0 +1,23 @@
+{
+  "equivalent_pages": [],
+  "istat_code": "053012",
+  "municipality": "Isola del Giglio",
+  "pages_available": 3,
+  "pages_materialized": 3,
+  "records": 15,
+  "records_by_type": {
+    "collection_point": 7,
+    "collection_rule": 4,
+    "facility": 1,
+    "facility_access": 1,
+    "pickup_service": 1,
+    "service_zone": 1
+  },
+  "warnings": [
+    {
+      "code": "acceptance_table_missing",
+      "detail": "sei-toscana:isola-del-giglio:facility:centro-di-raccolta-isola-del-giglio",
+      "url": "https://seitoscana.it/comuni/isola-del-giglio/centro-di-raccolta"
+    }
+  ]
+}

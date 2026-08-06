@@ -1,0 +1,256 @@
+{
+  "access_preflight": {
+    "allowed": true,
+    "crawl_delay_seconds": 1.0,
+    "initial_urls_checked": 20,
+    "robots_url": "https://seitoscana.it/robots.txt"
+  },
+  "errors": [],
+  "extraction": {
+    "municipalities": 10,
+    "municipality_reports": [
+      {
+        "equivalent_pages": [],
+        "istat_code": "053001",
+        "municipality": "Arcidosso",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 58,
+        "records_by_type": {
+          "collection_point": 6,
+          "collection_rule": 13,
+          "collection_schedule": 8,
+          "facility": 1,
+          "facility_acceptance": 23,
+          "facility_access": 2,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 3
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [
+          {
+            "category": "facilities",
+            "equivalent_to": "https://seitoscana.it/comuni/capalbio/centro-di-raccolta",
+            "url": "https://seitoscana.it/comuni/capalbio/centri-di-raccolta"
+          }
+        ],
+        "istat_code": "053003",
+        "municipality": "Capalbio",
+        "pages_available": 4,
+        "pages_materialized": 3,
+        "records": 52,
+        "records_by_type": {
+          "collection_point": 10,
+          "collection_rule": 10,
+          "facility": 1,
+          "facility_acceptance": 26,
+          "facility_access": 2,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 1
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "053006",
+        "municipality": "Castiglione della Pescaia",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 55,
+        "records_by_type": {
+          "collection_point": 3,
+          "collection_rule": 10,
+          "facility": 1,
+          "facility_acceptance": 34,
+          "facility_access": 2,
+          "opening_period": 2,
+          "pickup_service": 1,
+          "service_zone": 2
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "053009",
+        "municipality": "Follonica",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 67,
+        "records_by_type": {
+          "collection_point": 5,
+          "collection_rule": 18,
+          "collection_schedule": 9,
+          "facility": 1,
+          "facility_acceptance": 26,
+          "facility_access": 2,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 4
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [
+          {
+            "category": "facilities",
+            "equivalent_to": "https://seitoscana.it/comuni/grosseto/centro-di-raccolta",
+            "url": "https://seitoscana.it/comuni/grosseto/centri-di-raccolta"
+          }
+        ],
+        "istat_code": "053011",
+        "municipality": "Grosseto",
+        "pages_available": 4,
+        "pages_materialized": 3,
+        "records": 104,
+        "records_by_type": {
+          "collection_point": 34,
+          "collection_rule": 20,
+          "collection_schedule": 6,
+          "facility": 2,
+          "facility_acceptance": 32,
+          "facility_access": 4,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 4
+        },
+        "warnings": [
+          {
+            "code": "invalid_eer_code",
+            "detail": "15106",
+            "url": "https://seitoscana.it/comuni/grosseto/centro-di-raccolta"
+          },
+          {
+            "code": "acceptance_table_missing",
+            "detail": "sei-toscana:grosseto:facility:centro-di-raccolta-riservato-ai-manutentori-del-verde",
+            "url": "https://seitoscana.it/comuni/grosseto/centro-di-raccolta"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "053012",
+        "municipality": "Isola del Giglio",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 15,
+        "records_by_type": {
+          "collection_point": 7,
+          "collection_rule": 4,
+          "facility": 1,
+          "facility_access": 1,
+          "pickup_service": 1,
+          "service_zone": 1
+        },
+        "warnings": [
+          {
+            "code": "acceptance_table_missing",
+            "detail": "sei-toscana:isola-del-giglio:facility:centro-di-raccolta-isola-del-giglio",
+            "url": "https://seitoscana.it/comuni/isola-del-giglio/centro-di-raccolta"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "053014",
+        "municipality": "Manciano",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 66,
+        "records_by_type": {
+          "collection_point": 27,
+          "collection_rule": 9,
+          "facility": 1,
+          "facility_acceptance": 23,
+          "facility_access": 2,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 2
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [
+          {
+            "category": "facilities",
+            "equivalent_to": "https://seitoscana.it/comuni/monte-argentario/centro-di-raccolta",
+            "url": "https://seitoscana.it/comuni/monte-argentario/centri-di-raccolta"
+          }
+        ],
+        "istat_code": "053016",
+        "municipality": "Monte Argentario",
+        "pages_available": 4,
+        "pages_materialized": 3,
+        "records": 67,
+        "records_by_type": {
+          "collection_point": 13,
+          "collection_rule": 5,
+          "facility": 2,
+          "facility_acceptance": 39,
+          "facility_access": 4,
+          "opening_period": 2,
+          "pickup_service": 1,
+          "service_zone": 1
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "053018",
+        "municipality": "Orbetello",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 69,
+        "records_by_type": {
+          "collection_point": 30,
+          "collection_rule": 5,
+          "facility": 1,
+          "facility_acceptance": 27,
+          "facility_access": 2,
+          "opening_period": 2,
+          "pickup_service": 1,
+          "service_zone": 1
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "053019",
+        "municipality": "Pitigliano",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 36,
+        "records_by_type": {
+          "collection_point": 1,
+          "collection_rule": 5,
+          "facility": 1,
+          "facility_acceptance": 23,
+          "facility_access": 2,
+          "opening_period": 2,
+          "pickup_service": 1,
+          "service_zone": 1
+        },
+        "warnings": []
+      }
+    ],
+    "records": 589,
+    "warnings": 3
+  },
+  "municipalities_touched": 10,
+  "observed_at": "2026-08-06T08:37:38+02:00",
+  "pages_by_category": {
+    "collection": 10,
+    "facilities": 13,
+    "pickup": 10
+  },
+  "pages_by_status": {
+    "new": 3,
+    "unchanged": 30
+  },
+  "pages_checked": 33,
+  "pages_remaining": 0,
+  "remaining_pages": []
+}

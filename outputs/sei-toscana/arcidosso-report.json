@@ -1,0 +1,20 @@
+{
+  "equivalent_pages": [],
+  "istat_code": "053001",
+  "municipality": "Arcidosso",
+  "pages_available": 3,
+  "pages_materialized": 3,
+  "records": 58,
+  "records_by_type": {
+    "collection_point": 6,
+    "collection_rule": 13,
+    "collection_schedule": 8,
+    "facility": 1,
+    "facility_acceptance": 23,
+    "facility_access": 2,
+    "opening_period": 1,
+    "pickup_service": 1,
+    "service_zone": 3
+  },
+  "warnings": []
+}

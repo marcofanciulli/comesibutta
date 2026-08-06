@@ -1,0 +1,37 @@
+{
+  "equivalent_pages": [
+    {
+      "category": "facilities",
+      "equivalent_to": "https://seitoscana.it/comuni/grosseto/centro-di-raccolta",
+      "url": "https://seitoscana.it/comuni/grosseto/centri-di-raccolta"
+    }
+  ],
+  "istat_code": "053011",
+  "municipality": "Grosseto",
+  "pages_available": 4,
+  "pages_materialized": 3,
+  "records": 104,
+  "records_by_type": {
+    "collection_point": 34,
+    "collection_rule": 20,
+    "collection_schedule": 6,
+    "facility": 2,
+    "facility_acceptance": 32,
+    "facility_access": 4,
+    "opening_period": 1,
+    "pickup_service": 1,
+    "service_zone": 4
+  },
+  "warnings": [
+    {
+      "code": "invalid_eer_code",
+      "detail": "15106",
+      "url": "https://seitoscana.it/comuni/grosseto/centro-di-raccolta"
+    },
+    {
+      "code": "acceptance_table_missing",
+      "detail": "sei-toscana:grosseto:facility:centro-di-raccolta-riservato-ai-manutentori-del-verde",
+      "url": "https://seitoscana.it/comuni/grosseto/centro-di-raccolta"
+    }
+  ]
+}

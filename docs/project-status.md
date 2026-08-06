@@ -1,7 +1,7 @@
 # Stato del progetto
 
 Ultimo aggiornamento: 6 agosto 2026
-Fase: primo lotto live acquisito, ripresa pronta
+Fase: primo lotto live completato e validato
 
 Questo documento e il punto di ripartenza del progetto. Va aggiornato al termine
 di ogni fase sostanziale, insieme ai dataset e ai rapporti prodotti.
@@ -100,15 +100,17 @@ Primo lotto live `grosseto-01`:
 - 3 coppie di URL SEI con contenuto utile equivalente individuate per Capalbio,
   Grosseto e Monte Argentario; gli snapshot restano distinti ma i record non
   vengono duplicati;
-- rigenerazione offline di controllo: 586 record e 3 avvisi reali;
+- ripresa completata il 6 agosto: 33 pagine disponibili, coda residua zero,
+  nessun errore e 589 record finali;
 - la voce EER `15106` di Grosseto viene conservata come dato malformato, con
   `150106` marcato soltanto come candidato da revisionare;
 - le altre 2 segnalazioni sono tabelle di conferimento non pubblicate dalla
   fonte per Isola del Giglio e per il centro riservato ai manutentori del verde
   di Grosseto;
-- 3 pagine lasciate in coda dal limite operativo di 30 richieste;
-- dalla versione successiva al primo passaggio, la coda pendente viene salvata
-  integralmente e ricostruita dagli snapshot per migrare lo stato precedente.
+- le 3 pagine di ritiro inizialmente pendenti sono state acquisite per Monte
+  Argentario, Orbetello e Pitigliano;
+- la coda pendente viene salvata integralmente e ricostruita dagli snapshot per
+  migrare gli stati creati da versioni precedenti.
 
 ## Limiti e questioni aperte
 
@@ -123,11 +125,10 @@ Primo lotto live `grosseto-01`:
 
 ## Prossimi passi
 
-1. Riprendere `grosseto-01` con un limite di 60 pagine per completare la coda.
-2. Validare e versionare gli output completi del lotto.
-3. Inserire le 3 segnalazioni nella futura coda di revisione umana.
-4. Estendere progressivamente la scansione ai 104 comuni.
-5. Aggiungere la raccolta e la classificazione di PDF, guide e calendari.
+1. Inserire le 3 segnalazioni nella futura coda di revisione umana.
+2. Preparare e acquisire il lotto successivo della provincia di Grosseto.
+3. Estendere progressivamente la scansione ai 104 comuni.
+4. Aggiungere la raccolta e la classificazione di PDF, guide e calendari.
 
 ## Regola di continuita
 
