@@ -149,9 +149,9 @@ Completamento ATO Toscana Sud:
 
 Esploratore dati:
 
-- pacchetto statico generato in modo riproducibile da 151.295 record logici;
+- pacchetto statico generato in modo riproducibile da 152.698 record logici;
 - filtri gerarchici per ATO e provincia, seguiti dall'elenco dei comuni;
-- 269 comuni censiti e 269 con almeno una fonte materializzata;
+- 273 comuni censiti e 273 con almeno una fonte materializzata;
 - navigazione per comune e viste dedicate a centri, EER, regole, punti e ritiro;
 - vista rifiutario per le coppie nome quotidiano-destinazione;
 - ricerca trasversale, provenienza, evidenze e record JSON consultabili;
@@ -160,7 +160,7 @@ Esploratore dati:
 Catalogo canonico corrente:
 
 - 138.342 record di rifiutario ridotti a 3.880 indicazioni sorgente distinte;
-- 2.884 concetti consultabili nell'esploratore;
+- 3.124 concetti consultabili nell'esploratore;
 - 331 concetti con EER concordante indicato dalla fonte e zero conflitti sui
   termini coincidenti;
 - 2.553 concetti senza EER e 411 con piu destinazioni locali osservate;
@@ -245,6 +245,28 @@ Completamento ATO Toscana Centro:
   41.087 record fisici e circa 50 MB, mantenendo 151.295 record logici e i
   file comunali completi.
 
+Completamento dei comuni toscani in ATO extra-regionali:
+
+- aggiunti Firenzuola, Marradi e Palazzuolo sul Senio al bacino bolognese
+  dell'ATO Emilia-Romagna e Sestino all'ATO 1 Marche - Pesaro e Urbino;
+- il perimetro censito raggiunge tutti i 273 comuni della Toscana;
+- acquisiti 883 prodotti e altrettante risposte del Rifiutologo Hera, tre
+  schede di stazione ecologica e tre pagine pubbliche Marche Multiservizi,
+  senza errori di rete finali;
+- materializzati 1.403 record: 883 voci di rifiutario, 102 regole legate a un
+  indirizzo campione, 102 punti geolocalizzati, 300 materiali accettati, tre
+  centri con accesso e orari e un servizio di ritiro per Sestino;
+- le regole Hera dipendenti dall'indirizzo sono marcate a confidenza media e
+  non vengono presentate come valide per l'intero comune;
+- il sito del Comune di Sestino vieta ogni acquisizione automatica; rifiutario,
+  regole locali e centri disponibili soltanto nell'app del gestore restano
+  quattro lacune esplicite, non assenze silenziose;
+- l'esploratore espone cinque ATO, limitando quelli extra-regionali alle sole
+  province e ai soli comuni toscani interessati;
+- il dataset conta 152.698 record logici e il catalogo 3.124 concetti, con
+  331 concetti associati a un EER concordante;
+- 80 test automatici superati.
+
 ## Limiti e questioni aperte
 
 - Le pagine di ritiro ingombranti non sono collegate dall'indice generale e
@@ -259,14 +281,12 @@ Completamento ATO Toscana Centro:
 
 ## Prossimi passi
 
-1. Acquisire i quattro comuni toscani esterni alle tre ATO regionali: Sestino,
-   Firenzuola, Marradi e Palazzuolo sul Senio.
-2. Estrarre e normalizzare i calendari contenuti nei 73 PDF REA acquisiti.
-3. Acquisire i dettagli dei centri ESA e cercare una guida AAMPS piu recente.
-4. Modellare l'accesso intergestore Montignoso-ERSU e approfondire i centri non
+1. Estrarre e normalizzare i calendari contenuti nei 73 PDF REA acquisiti.
+2. Acquisire i dettagli dei centri ESA e cercare una guida AAMPS piu recente.
+3. Modellare l'accesso intergestore Montignoso-ERSU e approfondire i centri non
    pubblicati o non attribuiti esplicitamente dalle fonti.
-5. Definire il livello canonico e il vocabolario unificato dei nomi quotidiani.
-6. Prototipare manifest, generazione dei delta e applicazione transazionale su
+4. Definire il livello canonico e il vocabolario unificato dei nomi quotidiani.
+5. Prototipare manifest, generazione dei delta e applicazione transazionale su
    una base SQLite locale.
 
 ## Regola di continuita

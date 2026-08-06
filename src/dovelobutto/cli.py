@@ -36,6 +36,11 @@ from .records import write_jsonl
 from .rea import crawl_rea_services, materialize_rea_services
 from .geofor import crawl_geofor, materialize_geofor
 from .alia import fetch_alia_bundle, materialize_alia
+from .boundary import (
+    build_boundary_registry,
+    fetch_boundary_bundle,
+    materialize_boundary,
+)
 from .local_operators import (
     OPERATOR_CONFIGS,
     crawl_local_operator,
@@ -140,6 +145,14 @@ def build_parser() -> argparse.ArgumentParser:
     centro_registry.add_argument("--retrieved-at", required=True)
     centro_registry.add_argument("--output", type=Path, required=True)
     centro_registry.add_argument("--report", type=Path, required=True)
+    boundary_registry = subparsers.add_parser(
+        "build-boundary-registry",
+        help="Build the registry of Tuscan municipalities assigned to extra-regional ATOs",
+    )
+    boundary_registry.add_argument("--istat-csv", type=Path, required=True)
+    boundary_registry.add_argument("--retrieved-at", required=True)
+    boundary_registry.add_argument("--output", type=Path, required=True)
+    boundary_registry.add_argument("--report", type=Path, required=True)
     esa = subparsers.add_parser(
         "materialize-esa",
         help="Extract the shared ESA collection and facility pages for Elba municipalities",
@@ -229,6 +242,24 @@ def build_parser() -> argparse.ArgumentParser:
     alia_materialize.add_argument("--retrieved-at", required=True)
     alia_materialize.add_argument("--output-dir", type=Path, required=True)
     alia_materialize.add_argument("--report", type=Path, required=True)
+    boundary_fetch = subparsers.add_parser(
+        "fetch-boundary",
+        help="Fetch Hera and Marche Multiservizi sources for the four boundary municipalities",
+    )
+    boundary_fetch.add_argument("--bundle", type=Path, required=True)
+    boundary_fetch.add_argument("--report", type=Path, required=True)
+    boundary_fetch.add_argument("--observed-at", required=True)
+    boundary_fetch.add_argument("--user-agent", required=True)
+    boundary_fetch.add_argument("--delay", type=float, default=0.5)
+    boundary_materialize = subparsers.add_parser(
+        "materialize-boundary",
+        help="Materialize the four Tuscan municipalities assigned to extra-regional ATOs",
+    )
+    boundary_materialize.add_argument("--registry", type=Path, required=True)
+    boundary_materialize.add_argument("--bundle", type=Path, required=True)
+    boundary_materialize.add_argument("--retrieved-at", required=True)
+    boundary_materialize.add_argument("--output-dir", type=Path, required=True)
+    boundary_materialize.add_argument("--report", type=Path, required=True)
     local_fetch = subparsers.add_parser(
         "fetch-local-operator",
         help="Fetch the declared public sources for one ATO Costa local operator",
@@ -306,6 +337,42 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
+    if args.command == "fetch-boundary":
+        bundle = fetch_boundary_bundle(
+            args.bundle, datetime.fromisoformat(args.observed_at), args.user_agent, args.delay,
+        )
+        report = {
+            "observed_at": bundle["observed_at"], "access_preflight": bundle["access"],
+            "errors": bundle["errors"],
+            "coverage": {
+                "hera_municipalities": len(bundle["hera"]),
+                "hera_products": sum(len(item.get("products", [])) for item in bundle["hera"].values()),
+                "hera_product_details": sum(len(item.get("product_data", {})) for item in bundle["hera"].values()),
+                "hera_stations": sum(len(item.get("stations", {})) for item in bundle["hera"].values()),
+                "mms_public_pages": sum(page.get("status") == "snapshot" for page in bundle["mms"]["pages"].values()),
+            },
+        }
+        args.report.parent.mkdir(parents=True, exist_ok=True)
+        args.report.write_text(json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        complete_hera = all(
+            len(item.get("products", [])) == len(item.get("product_data", {}))
+            for item in bundle["hera"].values()
+        )
+        return 0 if not bundle["errors"] and len(bundle["hera"]) == 3 and complete_hera else 1
+    if args.command == "materialize-boundary":
+        municipalities = [
+            json.loads(line)["payload"]
+            for line in args.registry.read_text(encoding="utf-8").splitlines()
+            if line.strip()
+        ]
+        report = materialize_boundary(
+            municipalities,
+            json.loads(args.bundle.read_text(encoding="utf-8")),
+            datetime.fromisoformat(args.retrieved_at), args.output_dir,
+        )
+        args.report.parent.mkdir(parents=True, exist_ok=True)
+        args.report.write_text(json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        return 0 if report["extraction"]["municipalities"] == 4 and not report["errors"] else 1
     if args.command == "fetch-alia":
         bundle = fetch_alia_bundle(
             json.loads(args.catalog.read_text(encoding="utf-8")),
@@ -887,6 +954,26 @@ def main(argv: list[str] | None = None) -> int:
             "warnings": warnings,
         }, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
         return 0 if len(records) == 65 and not warnings else 1
+    if args.command == "build-boundary-registry":
+        records, warnings = build_boundary_registry(
+            datetime.fromisoformat(args.retrieved_at),
+            read_istat_municipalities(args.istat_csv),
+        )
+        write_jsonl(args.output, records)
+        ato_counts: dict[str, int] = {}
+        province_counts: dict[str, int] = {}
+        for record in records:
+            payload = record["payload"]
+            ato_counts[payload["ato_ref"]] = ato_counts.get(payload["ato_ref"], 0) + 1
+            province_counts[payload["province_code"]] = province_counts.get(payload["province_code"], 0) + 1
+        args.report.parent.mkdir(parents=True, exist_ok=True)
+        args.report.write_text(json.dumps({
+            "municipalities": len(records), "municipalities_by_ato": ato_counts,
+            "municipalities_by_province": province_counts,
+            "scope": "Tuscan municipalities assigned to ATOs with headquarters outside Tuscany",
+            "warnings": warnings,
+        }, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        return 0 if len(records) == 4 and not warnings else 1
     if args.command == "sweep-sei":
         observed_at = datetime.fromisoformat(args.observed_at)
         jobs = read_registry_jobs(args.registry)

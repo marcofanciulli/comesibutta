@@ -51,8 +51,10 @@ scansione di domini diversi.
 2. Non proseguire se il file non puo essere acquisito o vieta la URL.
 3. Usare un'identita e un contatto riconoscibili:
    `DoveLoButtoData/0.1 (+mailto:marcofanciulli@me.com)`.
-4. Eseguire richieste seriali con almeno un secondo di intervallo, elevandolo
-   quando `robots.txt` richiede un tempo maggiore.
+4. Eseguire richieste seriali con almeno un secondo di intervallo per pagine e
+   documenti. Gli endpoint JSON pubblici usati dall'interfaccia possono essere
+   limitati a due richieste al secondo quando `robots.txt` non prescrive un
+   intervallo maggiore; il limite specifico deve essere documentato.
 5. Usare ETag e Last-Modified per evitare trasferimenti non necessari.
 6. Visitare soltanto pagine informative pubbliche pertinenti al progetto.
 7. Non compilare form, eseguire prenotazioni o accedere ad aree riservate.
@@ -135,3 +137,28 @@ L'assenza di un `robots.txt` separato sul sottodominio API non viene presentata
 come un'autorizzazione generale: vale soltanto come descrizione tecnica delle
 interfacce pubbliche osservate. Un cambiamento del portale, delle condizioni o
 del comportamento degli endpoint richiede una nuova verifica.
+
+## Verifica comuni in ATO extra-regionali
+
+Verifica operativa eseguita il 7 agosto 2026 per Hera, Marche Multiservizi e il
+sito istituzionale del Comune di Sestino. Non e stato individuato nelle pagine
+legali pubbliche esaminate un divieto esplicito di acquisizione dei dati
+informativi pubblici; la conclusione non costituisce un parere legale.
+
+Il dominio `webapp-ambiente.gruppohera.it`, che serve l'interfaccia pubblica
+del Rifiutologo, pubblica un `robots.txt` con direttiva `Disallow` vuota. La
+pipeline usa soltanto gli endpoint JSON di lettura chiamati dall'interfaccia,
+con richieste seriali, identificazione del progetto e checkpoint dopo ogni
+prodotto. Non scarica i PDF del dominio principale Hera, che risultano vietati
+dal relativo `robots.txt`.
+
+Il `robots.txt` di Marche Multiservizi consente le pagine informative visitate,
+ma vieta i percorsi tecnici `/o/*`, `/web/*`, `/it/*`, `documents/d` e alcune
+query Liferay. La pipeline non usa questi percorsi e non interroga il filtro
+comunale basato su una query vietata. Per questo rifiutario e centri disponibili
+soltanto nell'app restano lacune dichiarate per Sestino.
+
+Il sito `www.comune.sestino.ar.it` pubblica `Disallow: /` per tutti gli agenti.
+La pipeline registra il blocco e non visita alcuna pagina del sito. Il salto e
+visibile nel rapporto comunale con il codice
+`municipality_source_blocked_by_robots`; non produce un'assenza silenziosa.

@@ -1,0 +1,25 @@
+{
+  "equivalent_pages": [],
+  "istat_code": "048031",
+  "municipality": "Palazzuolo sul Senio",
+  "pages_available": 3,
+  "pages_materialized": 3,
+  "records": 455,
+  "records_by_type": {
+    "collection_point": 21,
+    "collection_rule": 34,
+    "facility": 1,
+    "facility_acceptance": 100,
+    "facility_access": 1,
+    "opening_period": 2,
+    "service_zone": 1,
+    "waste_lookup": 295
+  },
+  "warnings": [
+    {
+      "code": "address_specific_collection_rules",
+      "detail": "Rifiutario e regole derivano da un indirizzo campione; l'utente deve selezionare il proprio indirizzo per la conferma.",
+      "url": "https://www.ilrifiutologo.it/casa/rifiutologo/Palazzuolo%20sul%20Senio"
+    }
+  ]
+}

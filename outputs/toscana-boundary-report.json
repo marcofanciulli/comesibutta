@@ -1,0 +1,168 @@
+{
+  "access_preflight": {
+    "hera_api": {
+      "allowed": true,
+      "available": true,
+      "blocked_urls": [],
+      "content": "User-agent: *\nDisallow: \n",
+      "crawl_delay": null,
+      "url": "https://webapp-ambiente.gruppohera.it/robots.txt"
+    },
+    "mms": {
+      "allowed": true,
+      "available": true,
+      "blocked_urls": [],
+      "checked_urls": [
+        "https://www.gruppomarchemultiservizi.it/servizi/ambiente/il-rifiutologo",
+        "https://www.gruppomarchemultiservizi.it/servizi/ambiente/gestione-integrata-dei-rifiuti/servizi-di-raccolta-differenziata",
+        "https://www.gruppomarchemultiservizi.it/servizi/ambiente/gestione-integrata-dei-rifiuti/servizi-di-raccolta-a-domicilio"
+      ],
+      "content": "User-Agent: *\nDisallow: */o/*\nDisallow: /web/*\nDisallow: /it/*\nDisallow:*?p_p_id=*   \nDisallow: */control_panel*  \nDisallow: *?delta*\nDisallow: */documents/d/*\nSitemap: https://www.gruppomarchemultiservizi.it/sitemap.xml",
+      "crawl_delay": null,
+      "url": "https://www.gruppomarchemultiservizi.it/robots.txt"
+    },
+    "sestino_municipality": {
+      "allowed": false,
+      "available": true,
+      "blocked_urls": [
+        "https://www.comune.sestino.ar.it/"
+      ],
+      "content": "User-agent: *\nDisallow: /\n\n# but allow only important bots\nUser-agent: Googlebot\nCrawl-delay: 600\nDisallow: /de/\nDisallow: /mc/\nDisallow: /images/\nDisallow: /*/de/*\nDisallow: /*/mc/*\nDisallow: /*/images/*\n\nUser-agent: Googlebot-Image\nCrawl-delay: 600\nDisallow: /de/\nDisallow: /mc/\nDisallow: /images/\nDisallow: /*/de/*\nDisallow: /*/mc/*\nDisallow: /*/images/*\n\nUser-agent: Mediapartners-Google\nCrawl-delay: 600\nDisallow: /de/\nDisallow: /mc/\nDisallow: /images/\nDisallow: /*/de/*\nDisallow: /*/mc/*\nDisallow: /*/images/*\n\nUser-agent: bingbot\nCrawl-delay: 600\nDisallow: /de/\nDisallow: /mc/\nDisallow: /images/\nDisallow: /*/de/*\nDisallow: /*/mc/*\nDisallow: /*/images/*\n\nUser-agent: msnbot\nCrawl-delay: 600\nDisallow: /de/\nDisallow: /mc/\nDisallow: /images/\nDisallow: /*/de/*\nDisallow: /*/mc/*\nDisallow: /*/images/*\n\nUser-agent: msnbot-media\nCrawl-delay: 600\nDisallow: /de/\nDisallow: /mc/\nDisallow: /images/\nDisallow: /*/de/*\nDisallow: /*/mc/*\nDisallow: /*/images/*\n\nUser-agent: Yahoo-Blogs\nCrawl-delay: 600\nDisallow: /de/\nDisallow: /mc/\nDisallow: /images/\nDisallow: /*/de/*\nDisallow: /*/mc/*\nDisallow: /*/images/*\n\nUser-agent: Yahoo-MMCrawler\nCrawl-delay: 600\nDisallow: /de/\nDisallow: /mc/\nDisallow: /images/\nDisallow: /*/de/*\nDisallow: /*/mc/*\nDisallow: /*/images/*\n\nUser-agent: facebookexternalhit\nCrawl-delay: 600\nDisallow: /de/\nDisallow: /mc/\nDisallow: /images/\nDisallow: /*/de/*\nDisallow: /*/mc/*\nDisallow: /*/images/*\n",
+      "url": "https://www.comune.sestino.ar.it/robots.txt"
+    }
+  },
+  "coverage": {
+    "hera_municipalities": 3,
+    "hera_product_details": 883,
+    "hera_products": 883,
+    "hera_stations": 3,
+    "sestino_detail_status": "partial_due_to_robots_and_app_only_sources"
+  },
+  "errors": [],
+  "extraction": {
+    "municipalities": 4,
+    "municipality_reports": [
+      {
+        "equivalent_pages": [],
+        "istat_code": "048018",
+        "municipality": "Firenzuola",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 480,
+        "records_by_type": {
+          "collection_point": 47,
+          "collection_rule": 34,
+          "facility": 1,
+          "facility_acceptance": 100,
+          "facility_access": 1,
+          "opening_period": 2,
+          "service_zone": 1,
+          "waste_lookup": 294
+        },
+        "warnings": [
+          {
+            "code": "address_specific_collection_rules",
+            "detail": "Rifiutario e regole derivano da un indirizzo campione; l'utente deve selezionare il proprio indirizzo per la conferma.",
+            "url": "https://www.ilrifiutologo.it/casa/rifiutologo/Firenzuola"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048026",
+        "municipality": "Marradi",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 467,
+        "records_by_type": {
+          "collection_point": 34,
+          "collection_rule": 34,
+          "facility": 1,
+          "facility_acceptance": 100,
+          "facility_access": 1,
+          "opening_period": 2,
+          "service_zone": 1,
+          "waste_lookup": 294
+        },
+        "warnings": [
+          {
+            "code": "address_specific_collection_rules",
+            "detail": "Rifiutario e regole derivano da un indirizzo campione; l'utente deve selezionare il proprio indirizzo per la conferma.",
+            "url": "https://www.ilrifiutologo.it/casa/rifiutologo/Marradi"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "048031",
+        "municipality": "Palazzuolo sul Senio",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 455,
+        "records_by_type": {
+          "collection_point": 21,
+          "collection_rule": 34,
+          "facility": 1,
+          "facility_acceptance": 100,
+          "facility_access": 1,
+          "opening_period": 2,
+          "service_zone": 1,
+          "waste_lookup": 295
+        },
+        "warnings": [
+          {
+            "code": "address_specific_collection_rules",
+            "detail": "Rifiutario e regole derivano da un indirizzo campione; l'utente deve selezionare il proprio indirizzo per la conferma.",
+            "url": "https://www.ilrifiutologo.it/casa/rifiutologo/Palazzuolo%20sul%20Senio"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "051035",
+        "municipality": "Sestino",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 1,
+        "records_by_type": {
+          "pickup_service": 1
+        },
+        "warnings": [
+          {
+            "code": "municipality_source_blocked_by_robots",
+            "detail": "Il sito istituzionale del Comune di Sestino vieta l'acquisizione automatica di tutte le pagine; nessuna pagina comunale e stata visitata.",
+            "url": "https://www.comune.sestino.ar.it/robots.txt"
+          },
+          {
+            "code": "waste_dictionary_app_only",
+            "detail": "Marche Multiservizi pubblica il rifiutario dettagliato nell'app, ma non espone una versione web acquisibile senza usare percorsi vietati da robots.txt.",
+            "url": "https://www.gruppomarchemultiservizi.it/servizi/ambiente/il-rifiutologo"
+          },
+          {
+            "code": "local_collection_configuration_not_published",
+            "detail": "La pagina generale del gestore descrive sistemi diversi; non e stata attribuita a Sestino una regola locale non verificata.",
+            "url": "https://www.gruppomarchemultiservizi.it/servizi/ambiente/gestione-integrata-dei-rifiuti/servizi-di-raccolta-differenziata"
+          },
+          {
+            "code": "facility_data_app_only",
+            "detail": "Localizzazione, orari e materiali dei centri sono dichiarati disponibili nell'app Il Rifiutologo, ma non in una fonte web acquisibile individuata.",
+            "url": "https://www.gruppomarchemultiservizi.it/servizi/ambiente/il-rifiutologo"
+          }
+        ]
+      }
+    ],
+    "records": 1403,
+    "warnings": 7
+  },
+  "observed_at": "2026-08-07T12:00:00+02:00",
+  "pages_by_category": {
+    "facilities": 4,
+    "pickup": 1,
+    "waste_lookup": 4
+  },
+  "pages_by_status": {
+    "snapshot": 12
+  },
+  "pages_checked": 12,
+  "pages_remaining": 0
+}

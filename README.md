@@ -5,7 +5,8 @@ della Toscana. Il progetto collega i nomi quotidiani dei rifiuti alle regole
 territoriali di raccolta, ai centri di conferimento e ai codici EER/CER.
 
 Il perimetro censito comprende i 104 comuni di ATO Toscana Sud, i 100 comuni
-di ATO Toscana Costa e i 65 comuni di ATO Toscana Centro. Il repository
+di ATO Toscana Costa, i 65 comuni di ATO Toscana Centro e i quattro comuni
+toscani assegnati ad ATO extra-regionali. Il repository
 contiene il modello dati, gli estrattori, gli snapshot di test, i dataset
 verificati e un esploratore locale.
 
@@ -21,6 +22,8 @@ verificati e un esploratore locale.
   di ATO Toscana Costa.
 - `docs/ato-centro-operations.md`: perimetro e acquisizione delle fonti
   pubbliche AliaEstra per ATO Toscana Centro.
+- `docs/toscana-boundary-operations.md`: acquisizione dei quattro comuni
+  toscani appartenenti agli ATO Emilia-Romagna e Marche.
 - `docs/source-access-policy.md`: verifica delle condizioni pubblicate e
   regole obbligatorie di accesso alle fonti.
 - `docs/data-synchronization.md`: revisioni, snapshot e aggiornamenti atomici
@@ -106,6 +109,11 @@ Il registro ATO Toscana Centro comprende i 65 comuni serviti da Plures Alia,
 riconciliati con ISTAT. Le istruzioni e i limiti di copertura del rifiutario
 sono documentati in `docs/ato-centro-operations.md`.
 
+Il registro di confine completa la Toscana con Firenzuola, Marradi, Palazzuolo
+sul Senio e Sestino. Mantiene gli ATO extra-regionali come dimensioni autonome,
+limitandone la vista ai soli comuni toscani. Fonti, comandi e limiti sono in
+`docs/toscana-boundary-operations.md`.
+
 ## Scansione controllata
 
 Il comando `sweep-sei` costruisce una coda dai 104 comuni, rispetta
@@ -126,11 +134,13 @@ PYTHONPATH=src python3 -m dovelobutto.cli build-waste-catalog \
   --input-dir outputs/sei-toscana \
   --input-dir outputs/ato-toscana-costa \
   --input-dir outputs/ato-toscana-centro \
+  --input-dir outputs/toscana-boundary \
   --registry outputs/sei-toscana-municipalities.jsonl \
   --registry outputs/ato-toscana-costa-municipalities.jsonl \
   --registry outputs/ato-toscana-centro-municipalities.jsonl \
+  --registry outputs/toscana-boundary-municipalities.jsonl \
   --eer-register outputs/eer-register.json \
-  --generated-at 2026-08-06T23:00:00+02:00 \
+  --generated-at 2026-08-07T13:00:00+02:00 \
   --output outputs/waste-catalog.json \
   --report outputs/waste-catalog-report.json
 ```
@@ -143,6 +153,7 @@ PYTHONPATH=src python3 -m dovelobutto.explorer \
   --input-dir outputs/sei-toscana \
   --input-dir outputs/ato-toscana-costa \
   --input-dir outputs/ato-toscana-centro \
+  --input-dir outputs/toscana-boundary \
   --batch-report outputs/sei-toscana-grosseto-01-report.json \
   --batch-report outputs/sei-toscana-grosseto-02-report.json \
   --batch-report outputs/sei-toscana-arezzo-report.json \
@@ -161,29 +172,32 @@ PYTHONPATH=src python3 -m dovelobutto.explorer \
   --batch-report outputs/ato-toscana-costa-sea-ambiente-report.json \
   --batch-report outputs/ato-toscana-costa-sistema-ambiente-report.json \
   --batch-report outputs/ato-toscana-centro-report.json \
+  --batch-report outputs/toscana-boundary-report.json \
   --registry outputs/sei-toscana-municipalities.jsonl \
   --registry outputs/ato-toscana-costa-municipalities.jsonl \
   --registry outputs/ato-toscana-centro-municipalities.jsonl \
+  --registry outputs/toscana-boundary-municipalities.jsonl \
   --catalog outputs/waste-catalog.json \
   --eer-register outputs/eer-register.json \
-  --generated-at 2026-08-06T23:00:00+02:00 \
+  --generated-at 2026-08-07T13:00:00+02:00 \
   --output explorer/data.js
 ```
 
 L'interfaccia permette di filtrare per ATO e provincia, distinguere comuni
 censiti da comuni acquisiti, esplorare centri e regole, consultare il
 rifiutario, cercare materiali e codici EER e risalire alla fonte di ogni fatto.
-Il pacchetto corrente contiene 269 comuni censiti, tutti con almeno una fonte
-materializzata, e 151.295 record logici. Per i 17 comuni REA comprende anche pagine di
-servizio, centri intercomunali, orari, accesso, ritiri e materiali accettati;
+Il pacchetto corrente contiene tutti i 273 comuni toscani censiti, ciascuno con
+almeno una fonte materializzata, e 152.698 record logici. Per i 17 comuni REA
+comprende anche pagine di servizio, centri intercomunali, orari, accesso,
+ritiri e materiali accettati;
 gli EER non pubblicati dalla fonte sono indicati esplicitamente come tali. Per
 i 25 comuni GEOFOR comprende 388 voci del rifiutario e cinque regole
 generali per comune, oltre a centri, orari e ritiri quando pubblicati. La vista
-"Catalogo" espone 2.884 concetti trasversali, 331 dei quali hanno un
+"Catalogo" espone 3.124 concetti trasversali, 331 dei quali hanno un
 EER concordante indicato dalle fonti; le destinazioni restano marcate come
 osservazioni locali.
 
 Per ATO Toscana Centro l'esploratore conserva una sola copia delle 1.722 voci
 AliaEstra condivise, continuando ad applicarle a ciascuno dei 65 comuni. Il
-bundle contiene quindi 41.087 record fisici e pesa circa 50 MB, mentre i file
+bundle contiene quindi 42.490 record fisici e pesa circa 57 MB, mentre i file
 di acquisizione comunali restano completi e indipendenti.

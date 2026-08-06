@@ -20,6 +20,8 @@ PROVINCE_NAMES = {
     "SI": "Siena",
 }
 ATO_NAMES = {
+    "ato-emilia-romagna-bologna": "ATO Emilia-Romagna - bacino Bologna",
+    "ato-marche-1-pesaro-urbino": "ATO 1 Marche - Pesaro e Urbino",
     "ato-toscana-centro": "ATO Toscana Centro",
     "ato-toscana-costa": "ATO Toscana Costa",
     "ato-toscana-sud": "ATO Toscana Sud",

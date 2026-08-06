@@ -1,0 +1,13 @@
+{
+  "municipalities": 4,
+  "municipalities_by_ato": {
+    "ato-emilia-romagna-bologna": 3,
+    "ato-marche-1-pesaro-urbino": 1
+  },
+  "municipalities_by_province": {
+    "AR": 1,
+    "FI": 3
+  },
+  "scope": "Tuscan municipalities assigned to ATOs with headquarters outside Tuscany",
+  "warnings": []
+}

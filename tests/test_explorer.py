@@ -119,7 +119,7 @@ class ExplorerDatasetTest(unittest.TestCase):
         )
         self.assertEqual(154, dataset["batch"]["municipalities_acquired"])
         self.assertEqual(24780, len(dataset["records"]))
-        self.assertEqual(2884, len(dataset["catalog"]["concepts"]))
+        self.assertEqual(3124, len(dataset["catalog"]["concepts"]))
         self.assertEqual(880, len(dataset["eer_register"]["entries"]))
         self.assertEqual("2026-12-09", dataset["eer_register"]["valid_from"])
         capoliveri = next(item for item in dataset["municipalities"] if item["name"] == "Capoliveri")
@@ -178,6 +178,22 @@ class ExplorerDatasetTest(unittest.TestCase):
         shared = [record for record in dataset["records"] if record.get("shared_ato_ref")]
         self.assertEqual(1, len(shared))
         self.assertEqual("ato-toscana-centro", shared[0]["shared_ato_ref"])
+
+    def test_exposes_extra_regional_atos_only_for_tuscan_municipalities(self) -> None:
+        dataset = build_explorer_dataset(
+            WORKSPACE / "outputs" / "toscana-boundary",
+            WORKSPACE / "outputs" / "toscana-boundary-report.json",
+            WORKSPACE / "outputs" / "toscana-boundary-municipalities.jsonl",
+            datetime.fromisoformat("2026-08-07T13:00:00+02:00"),
+        )
+        self.assertEqual(4, len(dataset["municipalities"]))
+        self.assertEqual([
+            {"id": "ato-emilia-romagna-bologna", "name": "ATO Emilia-Romagna - bacino Bologna", "provinces": ["FI"]},
+            {"id": "ato-marche-1-pesaro-urbino", "name": "ATO 1 Marche - Pesaro e Urbino", "provinces": ["AR"]},
+        ], dataset["atos"])
+        sestino = next(item for item in dataset["municipalities"] if item["name"] == "Sestino")
+        self.assertEqual(4, len(sestino["warnings"]))
+        self.assertEqual(1, sestino["records_by_type"]["pickup_service"])
 
 
 if __name__ == "__main__":

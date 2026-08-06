@@ -1,0 +1,33 @@
+{
+  "equivalent_pages": [],
+  "istat_code": "051035",
+  "municipality": "Sestino",
+  "pages_available": 3,
+  "pages_materialized": 3,
+  "records": 1,
+  "records_by_type": {
+    "pickup_service": 1
+  },
+  "warnings": [
+    {
+      "code": "municipality_source_blocked_by_robots",
+      "detail": "Il sito istituzionale del Comune di Sestino vieta l'acquisizione automatica di tutte le pagine; nessuna pagina comunale e stata visitata.",
+      "url": "https://www.comune.sestino.ar.it/robots.txt"
+    },
+    {
+      "code": "waste_dictionary_app_only",
+      "detail": "Marche Multiservizi pubblica il rifiutario dettagliato nell'app, ma non espone una versione web acquisibile senza usare percorsi vietati da robots.txt.",
+      "url": "https://www.gruppomarchemultiservizi.it/servizi/ambiente/il-rifiutologo"
+    },
+    {
+      "code": "local_collection_configuration_not_published",
+      "detail": "La pagina generale del gestore descrive sistemi diversi; non e stata attribuita a Sestino una regola locale non verificata.",
+      "url": "https://www.gruppomarchemultiservizi.it/servizi/ambiente/gestione-integrata-dei-rifiuti/servizi-di-raccolta-differenziata"
+    },
+    {
+      "code": "facility_data_app_only",
+      "detail": "Localizzazione, orari e materiali dei centri sono dichiarati disponibili nell'app Il Rifiutologo, ma non in una fonte web acquisibile individuata.",
+      "url": "https://www.gruppomarchemultiservizi.it/servizi/ambiente/il-rifiutologo"
+    }
+  ]
+}

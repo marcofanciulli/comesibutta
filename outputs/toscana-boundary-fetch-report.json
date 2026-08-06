@@ -1,0 +1,43 @@
+{
+  "access_preflight": {
+    "hera_api": {
+      "allowed": true,
+      "available": true,
+      "blocked_urls": [],
+      "content": "User-agent: *\nDisallow: \n",
+      "crawl_delay": null,
+      "url": "https://webapp-ambiente.gruppohera.it/robots.txt"
+    },
+    "mms": {
+      "allowed": true,
+      "available": true,
+      "blocked_urls": [],
+      "checked_urls": [
+        "https://www.gruppomarchemultiservizi.it/servizi/ambiente/il-rifiutologo",
+        "https://www.gruppomarchemultiservizi.it/servizi/ambiente/gestione-integrata-dei-rifiuti/servizi-di-raccolta-differenziata",
+        "https://www.gruppomarchemultiservizi.it/servizi/ambiente/gestione-integrata-dei-rifiuti/servizi-di-raccolta-a-domicilio"
+      ],
+      "content": "User-Agent: *\nDisallow: */o/*\nDisallow: /web/*\nDisallow: /it/*\nDisallow:*?p_p_id=*   \nDisallow: */control_panel*  \nDisallow: *?delta*\nDisallow: */documents/d/*\nSitemap: https://www.gruppomarchemultiservizi.it/sitemap.xml",
+      "crawl_delay": null,
+      "url": "https://www.gruppomarchemultiservizi.it/robots.txt"
+    },
+    "sestino_municipality": {
+      "allowed": false,
+      "available": true,
+      "blocked_urls": [
+        "https://www.comune.sestino.ar.it/"
+      ],
+      "content": "User-agent: *\nDisallow: /\n\n# but allow only important bots\nUser-agent: Googlebot\nCrawl-delay: 600\nDisallow: /de/\nDisallow: /mc/\nDisallow: /images/\nDisallow: /*/de/*\nDisallow: /*/mc/*\nDisallow: /*/images/*\n\nUser-agent: Googlebot-Image\nCrawl-delay: 600\nDisallow: /de/\nDisallow: /mc/\nDisallow: /images/\nDisallow: /*/de/*\nDisallow: /*/mc/*\nDisallow: /*/images/*\n\nUser-agent: Mediapartners-Google\nCrawl-delay: 600\nDisallow: /de/\nDisallow: /mc/\nDisallow: /images/\nDisallow: /*/de/*\nDisallow: /*/mc/*\nDisallow: /*/images/*\n\nUser-agent: bingbot\nCrawl-delay: 600\nDisallow: /de/\nDisallow: /mc/\nDisallow: /images/\nDisallow: /*/de/*\nDisallow: /*/mc/*\nDisallow: /*/images/*\n\nUser-agent: msnbot\nCrawl-delay: 600\nDisallow: /de/\nDisallow: /mc/\nDisallow: /images/\nDisallow: /*/de/*\nDisallow: /*/mc/*\nDisallow: /*/images/*\n\nUser-agent: msnbot-media\nCrawl-delay: 600\nDisallow: /de/\nDisallow: /mc/\nDisallow: /images/\nDisallow: /*/de/*\nDisallow: /*/mc/*\nDisallow: /*/images/*\n\nUser-agent: Yahoo-Blogs\nCrawl-delay: 600\nDisallow: /de/\nDisallow: /mc/\nDisallow: /images/\nDisallow: /*/de/*\nDisallow: /*/mc/*\nDisallow: /*/images/*\n\nUser-agent: Yahoo-MMCrawler\nCrawl-delay: 600\nDisallow: /de/\nDisallow: /mc/\nDisallow: /images/\nDisallow: /*/de/*\nDisallow: /*/mc/*\nDisallow: /*/images/*\n\nUser-agent: facebookexternalhit\nCrawl-delay: 600\nDisallow: /de/\nDisallow: /mc/\nDisallow: /images/\nDisallow: /*/de/*\nDisallow: /*/mc/*\nDisallow: /*/images/*\n",
+      "url": "https://www.comune.sestino.ar.it/robots.txt"
+    }
+  },
+  "coverage": {
+    "hera_municipalities": 3,
+    "hera_product_details": 883,
+    "hera_products": 883,
+    "hera_stations": 3,
+    "mms_public_pages": 3
+  },
+  "errors": [],
+  "observed_at": "2026-08-07T12:00:00+02:00"
+}
