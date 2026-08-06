@@ -102,12 +102,13 @@ Primo lotto live `grosseto-01`:
   Grosseto e Monte Argentario; gli snapshot restano distinti ma i record non
   vengono duplicati;
 - ripresa completata il 6 agosto: 33 pagine disponibili, coda residua zero,
-  nessun errore e 589 record finali;
-- la voce EER `15106` di Grosseto viene conservata come dato malformato, con
-  `150106` marcato soltanto come candidato da revisionare;
-- le altre 2 segnalazioni sono tabelle di conferimento non pubblicate dalla
-  fonte per Isola del Giglio e per il centro riservato ai manutentori del verde
-  di Grosseto;
+  nessun errore e 590 record dopo la revisione dell'estrattore;
+- la voce sorgente `15106` di Grosseto viene riconciliata automaticamente con
+  `150106` tramite la descrizione univoca presente nel lotto;
+- il centro riservato ai manutentori del verde espone nel testo il solo EER
+  `200201`, acquisito anche in assenza di tabella;
+- resta 1 segnalazione: l'elenco dei conferimenti non pubblicato per Isola del
+  Giglio; il centro risulta temporaneamente chiuso per lavori di adeguamento;
 - le 3 pagine di ritiro inizialmente pendenti sono state acquisite per Monte
   Argentario, Orbetello e Pitigliano;
 - la coda pendente viene salvata integralmente e ricostruita dagli snapshot per
@@ -115,7 +116,7 @@ Primo lotto live `grosseto-01`:
 
 Esploratore dati:
 
-- pacchetto statico generato in modo riproducibile dai 589 record del lotto;
+- pacchetto statico generato in modo riproducibile dai 590 record del lotto;
 - navigazione per comune e viste dedicate a centri, EER, regole, punti e ritiro;
 - ricerca trasversale, provenienza, evidenze e record JSON consultabili;
 - anomalie e pagine equivalenti esposte senza alterare i dati acquisiti.
@@ -133,7 +134,7 @@ Esploratore dati:
 
 ## Prossimi passi
 
-1. Usare l'esploratore per la revisione umana delle 3 segnalazioni.
+1. Usare l'esploratore per monitorare la segnalazione residua e gli stati operativi dei centri.
 2. Definire il livello canonico e il vocabolario dei nomi quotidiani dei rifiuti.
 3. Preparare e acquisire il lotto successivo della provincia di Grosseto.
 4. Estendere progressivamente la scansione ai 104 comuni.

@@ -224,7 +224,11 @@
         "address_raw": { "type": ["string", "null"] },
         "location": { "oneOf": [{ "$ref": "#/$defs/geoPoint" }, { "type": "null" }] },
         "phone": { "type": ["string", "null"] },
-        "email": { "type": ["string", "null"], "format": "email" }
+        "email": { "type": ["string", "null"], "format": "email" },
+        "operational_status": {
+          "enum": ["open", "closed", "temporarily_closed", "unknown"]
+        },
+        "status_raw": { "type": ["string", "null"] }
       },
       "additionalProperties": false
     },
@@ -254,7 +258,13 @@
         "facility_ref": { "type": "string" },
         "eer_code_raw": { "type": "string" },
         "eer_code_normalized": { "type": ["string", "null"], "pattern": "^[0-9]{6}$" },
-        "eer_code_status": { "enum": ["exact", "malformed", "inferred_candidate"] },
+        "eer_code_status": {
+          "enum": ["exact", "malformed", "inferred_candidate", "reconciled"]
+        },
+        "reconciliation_basis": {
+          "type": ["string", "null"],
+          "enum": ["unique_batch_description_match", null]
+        },
         "hazardous": { "type": "boolean" },
         "description_raw": { "type": "string" },
         "operational_group": { "type": ["string", "null"] },

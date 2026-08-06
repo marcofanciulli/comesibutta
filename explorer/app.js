@@ -114,6 +114,7 @@
 
   function renderOverview() {
     const current = municipality();
+    const closedFacilities = records("facility").filter(record => record.payload.operational_status === "temporarily_closed");
     const facilityCount = records("facility").length;
     const eerCount = records("facility_acceptance").length;
     const ruleCount = records("collection_rule").length;
@@ -138,7 +139,8 @@
             <div class="coverage-row"><span>Record</span><strong>${current.records}</strong></div>
             <div class="coverage-row"><span>Avvisi</span><strong>${current.warnings.length}</strong></div>
           </section>
-          <section class="subsection"><h3 class="subsection-title">Segnalazioni</h3>${current.warnings.length ? current.warnings.map(warningNotice).join("") : `<div class="notice ok"><strong>Nessuna segnalazione</strong>L'estrazione non ha rilevato anomalie note.</div>`}</section>
+          <section class="subsection"><h3 class="subsection-title">Stato operativo</h3>${closedFacilities.length ? closedFacilities.map(item => `<div class="notice error"><strong>${escapeHtml(item.payload.name)}</strong>${escapeHtml(item.payload.status_raw)}</div>`).join("") : `<div class="notice ok"><strong>Nessuna chiusura pubblicata</strong>La fonte non segnala chiusure temporanee dei centri.</div>`}</section>
+          <section class="subsection"><h3 class="subsection-title">Segnalazioni sui dati</h3>${current.warnings.length ? current.warnings.map(warningNotice).join("") : `<div class="notice ok"><strong>Nessuna segnalazione</strong>L'estrazione non ha rilevato anomalie note.</div>`}</section>
         </div>
       </div>`;
   }
@@ -161,10 +163,12 @@
       const acceptances = records("facility_acceptance").filter(record => record.payload.facility_ref === ref && matches(record));
       const location = facility.payload.location;
       const mapUrl = location ? `https://www.openstreetmap.org/?mlat=${location.latitude}&mlon=${location.longitude}#map=17/${location.latitude}/${location.longitude}` : null;
+      const closed = facility.payload.operational_status === "temporarily_closed";
       return `<article class="facility-block">
         <div class="facility-header"><div><h2>${escapeHtml(facility.payload.name)}</h2><p class="facility-address">${escapeHtml(facility.payload.address_raw || "Indirizzo non pubblicato")}</p><div class="facility-meta"><span>${facility.payload.phone ? `Telefono ${escapeHtml(facility.payload.phone)}` : "Telefono non pubblicato"}</span><span>${location ? `${location.latitude.toFixed(5)}, ${location.longitude.toFixed(5)}` : "Coordinate non disponibili"}</span></div></div>${mapUrl ? `<a class="link-button" href="${mapUrl}" target="_blank" rel="noreferrer">Apri mappa</a>` : ""}</div>
+        ${closed ? `<div class="notice error"><strong>Centro temporaneamente chiuso</strong>${escapeHtml(facility.payload.status_raw)}</div>` : ""}
         <div class="facility-columns"><div><h3>Orari</h3>${openingHtml(periods)}${access.map(item => `<details class="access-block"><summary>Accesso ${item.payload.user_type === "non_domestic" ? "utenze non domestiche" : "utenze domestiche"}</summary><p>${escapeHtml(item.payload.requirements_raw || "Consulta i documenti collegati alla fonte.")}</p>${item.payload.information_urls.map(url => `<p><a href="${escapeHtml(url)}" target="_blank" rel="noreferrer">Documento informativo</a></p>`).join("")}</details>`).join("")}</div>
-        <div><h3>Rifiuti accettati <span class="muted">(${acceptances.length})</span></h3>${acceptances.length ? `<div class="table-wrap"><table class="data-table"><thead><tr><th>EER</th><th>Descrizione della fonte</th><th>Stato</th><th></th></tr></thead><tbody>${acceptances.map(item => `<tr><td><span class="eer-code">${escapeHtml(item.payload.eer_code_raw)}</span></td><td>${escapeHtml(item.payload.description_raw)}${item.payload.operational_group ? `<span class="row-subtitle">${escapeHtml(item.payload.operational_group)}</span>` : ""}</td><td>${item.payload.hazardous ? `<span class="chip hazard">Pericoloso</span>` : ""}${item.payload.eer_code_status !== "exact" ? `<span class="chip review">Da revisionare</span>` : `<span class="chip">Esatto</span>`}</td><td><button class="detail-button" data-record="${item.record_id}" type="button">Dettagli</button></td></tr>`).join("")}</tbody></table></div>` : `<p class="muted">Nessuna riga EER corrisponde alla ricerca o la tabella non è pubblicata.</p>`}</div></div>
+      <div><h3>Rifiuti accettati <span class="muted">(${acceptances.length})</span></h3>${acceptances.length ? `<div class="table-wrap"><table class="data-table"><thead><tr><th>EER</th><th>Descrizione della fonte</th><th>Stato</th><th></th></tr></thead><tbody>${acceptances.map(item => `<tr><td><span class="eer-code">${escapeHtml(item.payload.eer_code_raw)}</span>${item.payload.eer_code_status === "reconciled" ? `<span class="row-subtitle">→ ${escapeHtml(item.payload.eer_code_normalized)}</span>` : ""}</td><td>${escapeHtml(item.payload.description_raw)}${item.payload.operational_group ? `<span class="row-subtitle">${escapeHtml(item.payload.operational_group)}</span>` : ""}</td><td>${item.payload.hazardous ? `<span class="chip hazard">Pericoloso</span>` : ""}${item.payload.eer_code_status === "reconciled" ? `<span class="chip method">Riconciliato</span>` : item.payload.eer_code_status === "exact" ? `<span class="chip">Esatto</span>` : `<span class="chip review">Da revisionare</span>`}</td><td><button class="detail-button" data-record="${item.record_id}" type="button">Dettagli</button></td></tr>`).join("")}</tbody></table></div>` : `<p class="muted">Nessuna riga EER corrisponde alla ricerca o l'elenco non è pubblicato.</p>`}</div></div>
       </article>`;
     }).join("")}`;
   }

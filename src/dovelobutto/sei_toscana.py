@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from datetime import date, datetime
 import re
 from typing import Any, Iterable
+import unicodedata
 from urllib.parse import unquote, urlparse
 
 from .html import Element, clean_text, has_class, parse_html, table_matrix
@@ -76,6 +77,7 @@ class SeiToscanaExtractor:
             facility_ref = f"{self.context.source_prefix}:facility:{section_id}"
             map_link = self._map_link(section)
             location = self._coordinates(map_link) if map_link else None
+            operational_status, status_raw = self._facility_status(section)
             records.append(make_record(
                 record_type="facility",
                 natural_key=facility_ref,
@@ -87,6 +89,8 @@ class SeiToscanaExtractor:
                     "location": location,
                     "phone": operator_phone,
                     "email": None,
+                    "operational_status": operational_status,
+                    "status_raw": status_raw,
                 },
                 source=source,
                 evidence_selector=f"section.{next(iter(section.classes), 'section-cdr')}",
@@ -255,6 +259,9 @@ class SeiToscanaExtractor:
         records = []
         tables = section.find_all(has_class("tabellaconferimenti"))
         if not tables:
+            prose_records = self._extract_prose_acceptances(section, facility_ref, source)
+            if prose_records:
+                return prose_records
             self._warn(source.url, "acceptance_table_missing", facility_ref)
         for table in tables:
             _, rows = table_matrix(table)
@@ -262,45 +269,99 @@ class SeiToscanaExtractor:
                 if len(row) < 2:
                     continue
                 code, description = row[0].replace(" ", ""), row[1]
-                normalized_code = code.rstrip("*") if re.fullmatch(r"\d{6}\*?", code) else None
-                code_status = "exact"
-                confidence = "high"
-                if normalized_code is None:
-                    self._warn(source.url, "invalid_eer_code", code)
-                    code_status = "malformed"
-                    confidence = "low"
-                    if re.fullmatch(r"\d{5}\*?", code):
-                        raw_digits = code.rstrip("*")
-                        normalized_code = f"{raw_digits[:2]}0{raw_digits[2:]}"
-                        code_status = "inferred_candidate"
-                operational = None
-                match = re.match(r"(RAEE\s+R\d+)", description, re.IGNORECASE)
-                if match:
-                    operational = match.group(1).upper()
-                discriminator = self._slug(operational or description[:40])
-                natural_key = f"{facility_ref}:eer:{code.rstrip('*')}:{discriminator}:{index}"
-                records.append(make_record(
-                    record_type="facility_acceptance",
-                    natural_key=natural_key,
-                    payload={
-                        "facility_ref": facility_ref,
-                        "eer_code_raw": code,
-                        "eer_code_normalized": normalized_code,
-                        "eer_code_status": code_status,
-                        "hazardous": code.endswith("*"),
-                        "description_raw": description,
-                        "operational_group": operational,
-                        "user_type": "unspecified",
-                        "quantity_limit_raw": None,
-                        "notes_raw": None,
-                    },
+                records.append(self._acceptance_record(
+                    code=code,
+                    description=description,
+                    index=index,
+                    facility_ref=facility_ref,
                     source=source,
-                    evidence_kind="table",
-                    evidence_selector="table.tabellaconferimenti",
-                    evidence_quote=f"{code} - {description}",
-                    confidence=confidence,
+                    selector="table.tabellaconferimenti",
                 ))
         return records
+
+    def _extract_prose_acceptances(
+        self, section: Element, facility_ref: str, source: SourceDocument
+    ) -> list[dict[str, Any]]:
+        records = []
+        pattern = re.compile(
+            r"(?P<context>[^.!?]{1,220}?)\(\s*(?:CER|EER)\s*(?P<code>\d{6}\*?)\s*\)",
+            re.IGNORECASE,
+        )
+        for index, match in enumerate(pattern.finditer(section.text)):
+            description = clean_text(match.group("context"))
+            conferimento = re.search(r"conferimento\s+(?:del(?:la)?|dei|degli|di)\s+(.+)$", description, re.IGNORECASE)
+            if conferimento:
+                description = conferimento.group(1)
+            description = re.sub(r"^solo\s+", "", description, flags=re.IGNORECASE)
+            code = match.group("code")
+            records.append(self._acceptance_record(
+                code=code,
+                description=description,
+                index=index,
+                facility_ref=facility_ref,
+                source=source,
+                selector="section.section-cdr",
+            ))
+        return records
+
+    def _acceptance_record(
+        self,
+        *,
+        code: str,
+        description: str,
+        index: int,
+        facility_ref: str,
+        source: SourceDocument,
+        selector: str,
+    ) -> dict[str, Any]:
+        normalized_code = code.rstrip("*") if re.fullmatch(r"\d{6}\*?", code) else None
+        code_status = "exact"
+        confidence = "high"
+        if normalized_code is None:
+            self._warn(source.url, "invalid_eer_code", code)
+            code_status = "malformed"
+            confidence = "low"
+            if re.fullmatch(r"\d{5}\*?", code):
+                raw_digits = code.rstrip("*")
+                normalized_code = f"{raw_digits[:2]}0{raw_digits[2:]}"
+                code_status = "inferred_candidate"
+        operational = None
+        match = re.match(r"(RAEE\s+R\d+)", description, re.IGNORECASE)
+        if match:
+            operational = match.group(1).upper()
+        discriminator = self._slug(operational or description[:40])
+        natural_key = f"{facility_ref}:eer:{code.rstrip('*')}:{discriminator}:{index}"
+        return make_record(
+            record_type="facility_acceptance",
+            natural_key=natural_key,
+            payload={
+                "facility_ref": facility_ref,
+                "eer_code_raw": code,
+                "eer_code_normalized": normalized_code,
+                "eer_code_status": code_status,
+                "reconciliation_basis": None,
+                "hazardous": code.endswith("*"),
+                "description_raw": description,
+                "operational_group": operational,
+                "user_type": "unspecified",
+                "quantity_limit_raw": None,
+                "notes_raw": None,
+            },
+            source=source,
+            evidence_kind="table" if selector.startswith("table") else "html",
+            evidence_selector=selector,
+            evidence_quote=f"{code} - {description}",
+            confidence=confidence,
+        )
+
+    @staticmethod
+    def _facility_status(section: Element) -> tuple[str, str | None]:
+        status_element = section.find_first(
+            lambda element: "alert" in element.classes and "chius" in element.text.lower()
+        )
+        if status_element:
+            return "temporarily_closed", status_element.text
+        return "unknown", None
 
     def _extract_facility_access(
         self, root: Element, facility_ref: str, source: SourceDocument
@@ -895,3 +956,54 @@ def extract_municipality_bundle(
         elif path.endswith("/ritiro-ingombranti"):
             records.extend(extractor.extract_pickup_service(html, url))
     return records, extractor.warnings
+
+
+def build_eer_description_reference(
+    record_groups: Iterable[Iterable[dict[str, Any]]],
+) -> dict[str, set[str]]:
+    reference: dict[str, set[str]] = {}
+    for records in record_groups:
+        for record in records:
+            if record["record_type"] != "facility_acceptance":
+                continue
+            payload = record["payload"]
+            if payload.get("eer_code_status") != "exact" or not payload.get("eer_code_normalized"):
+                continue
+            key = _eer_description_key(payload["description_raw"])
+            reference.setdefault(key, set()).add(payload["eer_code_normalized"])
+    return reference
+
+
+def reconcile_eer_records(
+    records: list[dict[str, Any]],
+    warnings: list[dict[str, str]],
+    reference: dict[str, set[str]],
+) -> tuple[list[dict[str, Any]], list[dict[str, str]]]:
+    reconciled_warning_keys: set[tuple[str, str]] = set()
+    for record in records:
+        if record["record_type"] != "facility_acceptance":
+            continue
+        payload = record["payload"]
+        if payload.get("eer_code_status") != "inferred_candidate":
+            continue
+        matches = reference.get(_eer_description_key(payload["description_raw"]), set())
+        if matches == {payload.get("eer_code_normalized")}:
+            payload["eer_code_status"] = "reconciled"
+            payload["reconciliation_basis"] = "unique_batch_description_match"
+            record["confidence"] = "high"
+            reconciled_warning_keys.add((record["source"]["url"], payload["eer_code_raw"]))
+    remaining_warnings = [
+        warning for warning in warnings
+        if not (
+            warning["code"] == "invalid_eer_code"
+            and (warning["url"], warning["detail"]) in reconciled_warning_keys
+        )
+    ]
+    return records, remaining_warnings
+
+
+def _eer_description_key(value: str) -> str:
+    without_details = re.sub(r"\([^)]*\)", "", value)
+    normalized = unicodedata.normalize("NFKD", without_details)
+    ascii_value = "".join(character for character in normalized if not unicodedata.combining(character))
+    return re.sub(r"[^a-z0-9]+", " ", ascii_value.lower()).strip()

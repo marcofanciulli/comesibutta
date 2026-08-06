@@ -5,7 +5,12 @@ import json
 from pathlib import Path
 import unittest
 
-from dovelobutto.sei_toscana import MunicipalityContext, extract_municipality_bundle
+from dovelobutto.sei_toscana import (
+    MunicipalityContext,
+    build_eer_description_reference,
+    extract_municipality_bundle,
+    reconcile_eer_records,
+)
 
 
 FIXTURES = Path(__file__).parent / "fixtures" / "sei_toscana" / "manciano"
@@ -71,6 +76,74 @@ class SeiToscanaExtractorTest(unittest.TestCase):
         self.assertEqual("inferred_candidate", acceptance["payload"]["eer_code_status"])
         self.assertEqual("low", acceptance["confidence"])
         self.assertEqual("invalid_eer_code", warnings[0]["code"])
+
+    def test_reconciles_malformed_eer_from_unique_description(self) -> None:
+        malformed_html = """
+        <section class="section-cdr">
+          <h2 class="section-cdr__title">Centro di Raccolta Grosseto</h2>
+          <table class="tabellaconferimenti"><tbody>
+            <tr><td>15106</td><td>Imballaggi in materiali misti (Plastica, Alluminio, Vetro)</td></tr>
+          </tbody></table>
+        </section>
+        """
+        reference_html = """
+        <section class="section-cdr">
+          <h2 class="section-cdr__title">Centro di Raccolta Manciano</h2>
+          <table class="tabellaconferimenti"><tbody>
+            <tr><td>150106</td><td>Imballaggi in materiali misti</td></tr>
+          </tbody></table>
+        </section>
+        """
+        malformed, warnings = extract_municipality_bundle(
+            context=MunicipalityContext("Grosseto", "053011", "grosseto"),
+            retrieved_at=datetime.fromisoformat("2026-08-05T10:00:00+02:00"),
+            pages=[("https://seitoscana.it/comuni/grosseto/centro-di-raccolta", malformed_html)],
+        )
+        reference_records, _ = extract_municipality_bundle(
+            context=MunicipalityContext("Manciano", "053014", "manciano"),
+            retrieved_at=datetime.fromisoformat("2026-08-05T10:00:00+02:00"),
+            pages=[("https://seitoscana.it/comuni/manciano/centro-di-raccolta", reference_html)],
+        )
+        reference = build_eer_description_reference([malformed, reference_records])
+        reconciled, remaining_warnings = reconcile_eer_records(malformed, warnings, reference)
+        acceptance = next(record for record in reconciled if record["record_type"] == "facility_acceptance")
+        self.assertEqual("reconciled", acceptance["payload"]["eer_code_status"])
+        self.assertEqual("unique_batch_description_match", acceptance["payload"]["reconciliation_basis"])
+        self.assertEqual("high", acceptance["confidence"])
+        self.assertEqual([], remaining_warnings)
+
+    def test_extracts_explicit_prose_acceptance_without_table_warning(self) -> None:
+        html = """
+        <section class="section-cdr">
+          <h2 class="section-cdr__title">Centro riservato ai manutentori del verde</h2>
+          <p>I professionisti possono accedere per il conferimento del SOLO rifiuto biodegradabile (CER 200201).</p>
+        </section>
+        """
+        records, warnings = extract_municipality_bundle(
+            context=MunicipalityContext("Grosseto", "053011", "grosseto"),
+            retrieved_at=datetime.fromisoformat("2026-08-05T10:00:00+02:00"),
+            pages=[("https://seitoscana.it/comuni/grosseto/centro-di-raccolta", html)],
+        )
+        acceptance = next(record for record in records if record["record_type"] == "facility_acceptance")
+        self.assertEqual("200201", acceptance["payload"]["eer_code_normalized"])
+        self.assertEqual("rifiuto biodegradabile", acceptance["payload"]["description_raw"])
+        self.assertEqual([], warnings)
+
+    def test_extracts_temporary_facility_closure(self) -> None:
+        html = """
+        <section class="section-cdr">
+          <h2 class="section-cdr__title">Centro di Raccolta Isola del Giglio</h2>
+          <div class="alert alert--danger"><span>Chiuso per lavori di adeguamento</span></div>
+        </section>
+        """
+        records, _ = extract_municipality_bundle(
+            context=MunicipalityContext("Isola del Giglio", "053012", "isola-del-giglio"),
+            retrieved_at=datetime.fromisoformat("2026-08-05T10:00:00+02:00"),
+            pages=[("https://seitoscana.it/comuni/isola-del-giglio/centro-di-raccolta", html)],
+        )
+        facility = next(record for record in records if record["record_type"] == "facility")
+        self.assertEqual("temporarily_closed", facility["payload"]["operational_status"])
+        self.assertEqual("Chiuso per lavori di adeguamento", facility["payload"]["status_raw"])
 
     def test_extracts_domestic_and_non_domestic_access(self) -> None:
         access_records = self.records_of_type("facility_access")

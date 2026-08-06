@@ -24,7 +24,12 @@ from .crawl import (
 from .html import clean_text, parse_html
 from .records import write_jsonl
 from .registry import extract_sei_municipality_registry, read_istat_municipalities
-from .sei_toscana import MunicipalityContext, extract_municipality_bundle
+from .sei_toscana import (
+    MunicipalityContext,
+    build_eer_description_reference,
+    extract_municipality_bundle,
+    reconcile_eer_records,
+)
 
 
 PAGE_NAMES = ("raccolta-rifiuti", "centro-di-raccolta", "centri-di-raccolta", "ritiro-ingombranti")
@@ -284,6 +289,7 @@ def _materialize_sweep(
     municipalities: list[dict[str, Any]] = []
     total_records = 0
     total_warnings = 0
+    prepared: list[dict[str, Any]] = []
     for istat_code, documents in sorted(grouped.items()):
         first = documents[0]
         documents, equivalent_pages = _deduplicate_materialization_documents(documents)
@@ -299,6 +305,22 @@ def _materialize_sweep(
             retrieved_at=observed_at,
             pages=pages,
         )
+        prepared.append({
+            "first": first,
+            "istat_code": istat_code,
+            "documents": documents,
+            "pages": pages,
+            "equivalent_pages": equivalent_pages,
+            "records": records,
+            "warnings": warnings,
+        })
+
+    reference = build_eer_description_reference(item["records"] for item in prepared)
+    for item in prepared:
+        first = item["first"]
+        records, warnings = reconcile_eer_records(
+            item["records"], item["warnings"], reference
+        )
         output_dir.mkdir(parents=True, exist_ok=True)
         write_jsonl(output_dir / f"{first['slug']}-acquisition.jsonl", records)
         counts: dict[str, int] = {}
@@ -306,10 +328,10 @@ def _materialize_sweep(
             counts[record["record_type"]] = counts.get(record["record_type"], 0) + 1
         municipality_report = {
             "municipality": first["municipality"],
-            "istat_code": istat_code,
-            "pages_available": len(documents) + len(equivalent_pages),
-            "pages_materialized": len(pages),
-            "equivalent_pages": equivalent_pages,
+            "istat_code": item["istat_code"],
+            "pages_available": len(item["documents"]) + len(item["equivalent_pages"]),
+            "pages_materialized": len(item["pages"]),
+            "equivalent_pages": item["equivalent_pages"],
             "records": len(records),
             "records_by_type": counts,
             "warnings": warnings,
