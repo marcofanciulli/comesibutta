@@ -1,0 +1,26 @@
+{
+  "equivalent_pages": [
+    {
+      "category": "facilities",
+      "equivalent_to": "https://seitoscana.it/comuni/piombino/centro-di-raccolta",
+      "url": "https://seitoscana.it/comuni/piombino/centri-di-raccolta"
+    }
+  ],
+  "istat_code": "049012",
+  "municipality": "Piombino",
+  "pages_available": 4,
+  "pages_materialized": 3,
+  "records": 107,
+  "records_by_type": {
+    "collection_point": 8,
+    "collection_rule": 19,
+    "collection_schedule": 14,
+    "facility": 2,
+    "facility_acceptance": 52,
+    "facility_access": 4,
+    "opening_period": 2,
+    "pickup_service": 1,
+    "service_zone": 5
+  },
+  "warnings": []
+}

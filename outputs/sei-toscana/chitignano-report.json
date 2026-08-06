@@ -1,0 +1,22 @@
+{
+  "equivalent_pages": [],
+  "istat_code": "051014",
+  "municipality": "Chitignano",
+  "pages_available": 3,
+  "pages_materialized": 3,
+  "records": 10,
+  "records_by_type": {
+    "collection_rule": 5,
+    "facility": 1,
+    "facility_access": 2,
+    "pickup_service": 1,
+    "service_zone": 1
+  },
+  "warnings": [
+    {
+      "code": "acceptance_table_missing",
+      "detail": "sei-toscana:chitignano:facility:sei-toscana-srl-cdr-chitignano",
+      "url": "https://seitoscana.it/comuni/chitignano/centro-di-raccolta"
+    }
+  ]
+}

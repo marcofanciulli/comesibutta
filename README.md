@@ -103,10 +103,16 @@ rigenerato esclusivamente dagli output acquisiti:
 PYTHONPATH=src python3 -m dovelobutto.explorer \
   --input-dir outputs/sei-toscana \
   --batch-report outputs/sei-toscana-grosseto-01-report.json \
+  --batch-report outputs/sei-toscana-grosseto-02-report.json \
+  --batch-report outputs/sei-toscana-arezzo-report.json \
+  --batch-report outputs/sei-toscana-siena-report.json \
+  --batch-report outputs/sei-toscana-livorno-ato-sud-report.json \
   --registry outputs/sei-toscana-municipalities.jsonl \
-  --generated-at 2026-08-06T09:15:00+02:00 \
+  --generated-at 2026-08-06T11:25:00+02:00 \
   --output explorer/data.js
 ```
 
-L'interfaccia in `explorer/index.html` permette di esplorare i record per
-comune, cercare materiali e codici EER e risalire alla fonte di ogni fatto.
+L'interfaccia in `explorer/index.html` permette di filtrare per ATO e provincia,
+esplorare i record per comune, cercare materiali e codici EER e risalire alla
+fonte di ogni fatto. Il dataset corrente copre tutti i 104 comuni di ATO
+Toscana Sud.

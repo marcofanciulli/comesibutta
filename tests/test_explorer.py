@@ -16,16 +16,35 @@ class ExplorerDatasetTest(unittest.TestCase):
     def setUpClass(cls) -> None:
         cls.dataset = build_explorer_dataset(
             WORKSPACE / "outputs" / "sei-toscana",
-            WORKSPACE / "outputs" / "sei-toscana-grosseto-01-report.json",
+            [
+                WORKSPACE / "outputs" / "sei-toscana-grosseto-01-report.json",
+                WORKSPACE / "outputs" / "sei-toscana-grosseto-02-report.json",
+                WORKSPACE / "outputs" / "sei-toscana-arezzo-report.json",
+                WORKSPACE / "outputs" / "sei-toscana-siena-report.json",
+                WORKSPACE / "outputs" / "sei-toscana-livorno-ato-sud-report.json",
+            ],
             WORKSPACE / "outputs" / "sei-toscana-municipalities.jsonl",
             datetime.fromisoformat("2026-08-06T09:00:00+02:00"),
         )
 
     def test_includes_complete_batch(self) -> None:
-        self.assertEqual(10, len(self.dataset["municipalities"]))
-        self.assertEqual(590, len(self.dataset["records"]))
+        self.assertEqual(104, len(self.dataset["municipalities"]))
+        self.assertEqual(5090, len(self.dataset["records"]))
         self.assertEqual(0, self.dataset["batch"]["pages_remaining"])
-        self.assertEqual(1, self.dataset["batch"]["warnings"])
+        self.assertEqual(4, self.dataset["batch"]["warnings"])
+        self.assertEqual(8, len(self.dataset["batch"]["errors"]))
+
+    def test_exposes_ato_and_province_filters(self) -> None:
+        self.assertEqual([{
+            "id": "ato-toscana-sud",
+            "name": "ATO Toscana Sud",
+            "provinces": ["AR", "GR", "LI", "SI"],
+        }], self.dataset["atos"])
+        counts = {}
+        for municipality in self.dataset["municipalities"]:
+            counts[municipality["province_code"]] = counts.get(municipality["province_code"], 0) + 1
+            self.assertEqual("ato-toscana-sud", municipality["ato_ref"])
+        self.assertEqual({"AR": 35, "GR": 28, "LI": 6, "SI": 35}, counts)
 
     def test_joins_reports_and_registry(self) -> None:
         grosseto = next(item for item in self.dataset["municipalities"] if item["name"] == "Grosseto")

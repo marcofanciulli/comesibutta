@@ -1,0 +1,16 @@
+{
+  "equivalent_pages": [],
+  "istat_code": "053022",
+  "municipality": "Santa Fiora",
+  "pages_available": 3,
+  "pages_materialized": 3,
+  "records": 11,
+  "records_by_type": {
+    "collection_point": 3,
+    "collection_rule": 5,
+    "facility_access": 1,
+    "pickup_service": 1,
+    "service_zone": 1
+  },
+  "warnings": []
+}

@@ -1,0 +1,15 @@
+{
+  "equivalent_pages": [],
+  "istat_code": "053028",
+  "municipality": "Semproniano",
+  "pages_available": 2,
+  "pages_materialized": 2,
+  "records": 13,
+  "records_by_type": {
+    "collection_point": 6,
+    "collection_rule": 5,
+    "pickup_service": 1,
+    "service_zone": 1
+  },
+  "warnings": []
+}

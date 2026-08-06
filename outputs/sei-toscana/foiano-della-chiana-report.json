@@ -1,0 +1,20 @@
+{
+  "equivalent_pages": [],
+  "istat_code": "051018",
+  "municipality": "Foiano della Chiana",
+  "pages_available": 3,
+  "pages_materialized": 3,
+  "records": 67,
+  "records_by_type": {
+    "collection_point": 26,
+    "collection_rule": 7,
+    "collection_schedule": 3,
+    "facility": 1,
+    "facility_acceptance": 25,
+    "facility_access": 2,
+    "opening_period": 1,
+    "pickup_service": 1,
+    "service_zone": 1
+  },
+  "warnings": []
+}

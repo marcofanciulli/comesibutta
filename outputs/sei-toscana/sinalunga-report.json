@@ -1,0 +1,26 @@
+{
+  "equivalent_pages": [
+    {
+      "category": "facilities",
+      "equivalent_to": "https://seitoscana.it/comuni/sinalunga/centro-di-raccolta",
+      "url": "https://seitoscana.it/comuni/sinalunga/centri-di-raccolta"
+    }
+  ],
+  "istat_code": "052033",
+  "municipality": "Sinalunga",
+  "pages_available": 4,
+  "pages_materialized": 3,
+  "records": 88,
+  "records_by_type": {
+    "collection_point": 10,
+    "collection_rule": 16,
+    "collection_schedule": 12,
+    "facility": 2,
+    "facility_acceptance": 37,
+    "facility_access": 4,
+    "opening_period": 2,
+    "pickup_service": 1,
+    "service_zone": 4
+  },
+  "warnings": []
+}

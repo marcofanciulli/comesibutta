@@ -1,0 +1,19 @@
+{
+  "equivalent_pages": [],
+  "istat_code": "052007",
+  "municipality": "Castiglione d'Orcia",
+  "pages_available": 3,
+  "pages_materialized": 3,
+  "records": 28,
+  "records_by_type": {
+    "collection_point": 1,
+    "collection_rule": 5,
+    "facility": 1,
+    "facility_acceptance": 16,
+    "facility_access": 2,
+    "opening_period": 1,
+    "pickup_service": 1,
+    "service_zone": 1
+  },
+  "warnings": []
+}

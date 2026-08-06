@@ -1,0 +1,16 @@
+{
+  "equivalent_pages": [],
+  "istat_code": "051010",
+  "municipality": "Castel San Niccolò",
+  "pages_available": 3,
+  "pages_materialized": 3,
+  "records": 15,
+  "records_by_type": {
+    "collection_point": 1,
+    "collection_rule": 11,
+    "facility_access": 1,
+    "pickup_service": 1,
+    "service_zone": 1
+  },
+  "warnings": []
+}

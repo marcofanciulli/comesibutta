@@ -38,11 +38,20 @@
     unspecified: "Non specificato",
   };
   const defaultMunicipality = data.municipalities.find(item => item.slug === "grosseto") || data.municipalities[0];
-  const state = { municipality: defaultMunicipality?.istat_code, view: "overview", query: "" };
+  const state = {
+    ato: defaultMunicipality?.ato_ref,
+    province: defaultMunicipality?.province_code,
+    municipality: defaultMunicipality?.istat_code,
+    view: "overview",
+    query: "",
+  };
   const elements = {
+    atoFilter: document.querySelector("#ato-filter"),
+    provinceFilter: document.querySelector("#province-filter"),
     municipalityList: document.querySelector("#municipality-list"),
     municipalitySearch: document.querySelector("#municipality-search"),
     batchStatus: document.querySelector("#batch-status"),
+    provinceHeading: document.querySelector("#province-heading"),
     pageTitle: document.querySelector("#page-title"),
     globalSearch: document.querySelector("#global-search"),
     searchCount: document.querySelector("#search-count"),
@@ -63,6 +72,23 @@
 
   function records(type = null) {
     return data.records.filter(record => record.municipality_istat === state.municipality && (!type || record.record_type === type));
+  }
+
+  function scopedMunicipalities() {
+    return data.municipalities.filter(item => item.ato_ref === state.ato && item.province_code === state.province);
+  }
+
+  function renderScopeFilters() {
+    elements.atoFilter.innerHTML = data.atos
+      .map(item => `<option value="${escapeHtml(item.id)}" ${item.id === state.ato ? "selected" : ""}>${escapeHtml(item.name)}</option>`)
+      .join("");
+    const provinces = [...new Map(data.municipalities
+      .filter(item => item.ato_ref === state.ato)
+      .map(item => [item.province_code, item.province_name])).entries()]
+      .sort((a, b) => a[1].localeCompare(b[1], "it"));
+    elements.provinceFilter.innerHTML = provinces
+      .map(([code, name]) => `<option value="${escapeHtml(code)}" ${code === state.province ? "selected" : ""}>${escapeHtml(name)}</option>`)
+      .join("");
   }
 
   function matches(record, query = state.query) {
@@ -87,7 +113,7 @@
 
   function renderMunicipalities(filter = "") {
     const needle = filter.toLocaleLowerCase("it");
-    elements.municipalityList.innerHTML = data.municipalities
+    elements.municipalityList.innerHTML = scopedMunicipalities()
       .filter(item => item.name.toLocaleLowerCase("it").includes(needle))
       .map(item => `<button class="municipality-button ${item.istat_code === state.municipality ? "active" : ""}" data-municipality="${item.istat_code}" type="button"><span>${escapeHtml(item.name)}</span><small>${item.records} record · ${item.warnings.length} avvisi</small></button>`)
       .join("");
@@ -209,14 +235,16 @@
 
   function render() {
     const current = municipality();
+    renderScopeFilters();
     elements.pageTitle.textContent = current.name;
+    elements.provinceHeading.textContent = `${current.ato_name} · Provincia di ${current.province_name}`;
     renderMunicipalities(elements.municipalitySearch.value);
     renderTabs();
     const renderers = { overview: renderOverview, facilities: renderFacilities, rules: renderRules, points: renderPoints, pickup: renderPickup, records: renderRecords };
     elements.content.innerHTML = renderers[state.view]();
     const matching = filtered().length;
     elements.searchCount.textContent = state.query ? `${matching} record totali` : `${current.records} record`;
-    history.replaceState(null, "", `#comune=${current.slug}&vista=${state.view}${state.query ? `&q=${encodeURIComponent(state.query)}` : ""}`);
+    history.replaceState(null, "", `#ato=${encodeURIComponent(state.ato)}&provincia=${state.province}&comune=${current.slug}&vista=${state.view}${state.query ? `&q=${encodeURIComponent(state.query)}` : ""}`);
   }
 
   function showRecord(recordId) {
@@ -230,8 +258,29 @@
   elements.municipalityList.addEventListener("click", event => {
     const button = event.target.closest("[data-municipality]");
     if (!button) return;
-    state.municipality = button.dataset.municipality;
+    const selected = data.municipalities.find(item => item.istat_code === button.dataset.municipality);
+    state.ato = selected.ato_ref;
+    state.province = selected.province_code;
+    state.municipality = selected.istat_code;
     state.query = "";
+    elements.globalSearch.value = "";
+    render();
+  });
+  elements.atoFilter.addEventListener("change", event => {
+    state.ato = event.target.value;
+    const first = data.municipalities.find(item => item.ato_ref === state.ato);
+    state.province = first.province_code;
+    state.municipality = first.istat_code;
+    state.query = "";
+    elements.municipalitySearch.value = "";
+    elements.globalSearch.value = "";
+    render();
+  });
+  elements.provinceFilter.addEventListener("change", event => {
+    state.province = event.target.value;
+    state.municipality = scopedMunicipalities()[0].istat_code;
+    state.query = "";
+    elements.municipalitySearch.value = "";
     elements.globalSearch.value = "";
     render();
   });
@@ -257,7 +306,11 @@
 
   const params = new URLSearchParams(location.hash.replace(/^#/, ""));
   const initialMunicipality = data.municipalities.find(item => item.slug === params.get("comune"));
-  if (initialMunicipality) state.municipality = initialMunicipality.istat_code;
+  if (initialMunicipality) {
+    state.ato = initialMunicipality.ato_ref;
+    state.province = initialMunicipality.province_code;
+    state.municipality = initialMunicipality.istat_code;
+  }
   if (views.some(([key]) => key === params.get("vista"))) state.view = params.get("vista");
   state.query = params.get("q") || "";
   elements.globalSearch.value = state.query;

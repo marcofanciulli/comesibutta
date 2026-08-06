@@ -13,6 +13,12 @@
         <span class="brand-mark">CSB</span>
         <div><strong>Come si butta?</strong><small>Esploratore dati</small></div>
       </div>
+      <div class="scope-filters">
+        <label class="field-label" for="ato-filter">ATO</label>
+        <select id="ato-filter" class="side-select"></select>
+        <label class="field-label" for="province-filter">Provincia</label>
+        <select id="province-filter" class="side-select"></select>
+      </div>
       <label class="field-label" for="municipality-search">Comuni acquisiti</label>
       <input id="municipality-search" class="side-search" type="search" placeholder="Filtra comuni">
       <nav id="municipality-list" class="municipality-list" aria-label="Comuni"></nav>
@@ -22,7 +28,7 @@
     <main class="workspace">
       <header class="topbar">
         <div>
-          <p class="eyebrow">Provincia di Grosseto</p>
+          <p id="province-heading" class="eyebrow">Provincia</p>
           <h1 id="page-title">Esplorazione dati</h1>
         </div>
         <div class="global-search-wrap">

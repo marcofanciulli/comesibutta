@@ -132,7 +132,19 @@ Se il preflight trova divieti in `robots.txt`, il rapporto contiene
 `blocked_by_robots` per ogni URL. Il lotto termina prima di acquisire pagine:
 non esistono esclusioni silenziose.
 
-## Primo lotto Grosseto
+## Lotti provinciali ATO Toscana Sud
+
+Le selezioni riproducibili sono in `config/sweep-batches/`:
+
+- `grosseto-01.txt`: primo campione di 10 comuni;
+- `grosseto-02.txt`: i 18 comuni necessari a completare Grosseto;
+- `arezzo.txt`: i 35 comuni della provincia di Arezzo;
+- `siena.txt`: i 35 comuni della provincia di Siena;
+- `livorno-ato-sud.txt`: i 6 comuni livornesi appartenenti all'ATO.
+
+Ogni esecuzione usa lo stesso stato riprendibile e produce un rapporto distinto.
+Il comando seguente mostra il modello usato per il primo lotto; per gli altri si
+sostituiscono file di selezione, rapporto, data e limite pagine.
 
 ```sh
 PYTHONPATH=src python3 -m dovelobutto.cli sweep-sei \

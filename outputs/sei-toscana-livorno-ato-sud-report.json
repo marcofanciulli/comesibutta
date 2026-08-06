@@ -1,0 +1,158 @@
+{
+  "access_preflight": {
+    "allowed": true,
+    "crawl_delay_seconds": 1.0,
+    "initial_urls_checked": 12,
+    "robots_url": "https://seitoscana.it/robots.txt"
+  },
+  "errors": [],
+  "extraction": {
+    "municipalities": 6,
+    "municipality_reports": [
+      {
+        "equivalent_pages": [],
+        "istat_code": "049002",
+        "municipality": "Campiglia Marittima",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 78,
+        "records_by_type": {
+          "collection_point": 5,
+          "collection_rule": 20,
+          "collection_schedule": 15,
+          "facility": 1,
+          "facility_acceptance": 28,
+          "facility_access": 2,
+          "opening_period": 2,
+          "pickup_service": 1,
+          "service_zone": 4
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [
+          {
+            "category": "facilities",
+            "equivalent_to": "https://seitoscana.it/comuni/castagneto-carducci/centro-di-raccolta",
+            "url": "https://seitoscana.it/comuni/castagneto-carducci/centri-di-raccolta"
+          }
+        ],
+        "istat_code": "049006",
+        "municipality": "Castagneto Carducci",
+        "pages_available": 4,
+        "pages_materialized": 3,
+        "records": 68,
+        "records_by_type": {
+          "collection_point": 1,
+          "collection_rule": 17,
+          "collection_schedule": 12,
+          "facility": 1,
+          "facility_acceptance": 29,
+          "facility_access": 2,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 4
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [
+          {
+            "category": "facilities",
+            "equivalent_to": "https://seitoscana.it/comuni/piombino/centro-di-raccolta",
+            "url": "https://seitoscana.it/comuni/piombino/centri-di-raccolta"
+          }
+        ],
+        "istat_code": "049012",
+        "municipality": "Piombino",
+        "pages_available": 4,
+        "pages_materialized": 3,
+        "records": 107,
+        "records_by_type": {
+          "collection_point": 8,
+          "collection_rule": 19,
+          "collection_schedule": 14,
+          "facility": 2,
+          "facility_acceptance": 52,
+          "facility_access": 4,
+          "opening_period": 2,
+          "pickup_service": 1,
+          "service_zone": 5
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "049018",
+        "municipality": "San Vincenzo",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 50,
+        "records_by_type": {
+          "collection_point": 1,
+          "collection_rule": 9,
+          "collection_schedule": 4,
+          "facility": 1,
+          "facility_acceptance": 28,
+          "facility_access": 2,
+          "opening_period": 2,
+          "pickup_service": 1,
+          "service_zone": 2
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "049019",
+        "municipality": "Sassetta",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 20,
+        "records_by_type": {
+          "collection_point": 1,
+          "collection_rule": 10,
+          "collection_schedule": 5,
+          "facility_access": 1,
+          "pickup_service": 1,
+          "service_zone": 2
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "049020",
+        "municipality": "Suvereto",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 65,
+        "records_by_type": {
+          "collection_point": 1,
+          "collection_rule": 16,
+          "collection_schedule": 11,
+          "facility": 1,
+          "facility_acceptance": 28,
+          "facility_access": 2,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 4
+        },
+        "warnings": []
+      }
+    ],
+    "records": 388,
+    "warnings": 0
+  },
+  "municipalities_touched": 6,
+  "observed_at": "2026-08-06T11:15:00+02:00",
+  "pages_by_category": {
+    "collection": 6,
+    "facilities": 8,
+    "pickup": 6
+  },
+  "pages_by_status": {
+    "new": 20
+  },
+  "pages_checked": 20,
+  "pages_remaining": 0,
+  "remaining_pages": []
+}

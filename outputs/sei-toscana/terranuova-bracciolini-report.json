@@ -1,0 +1,24 @@
+{
+  "equivalent_pages": [],
+  "istat_code": "051039",
+  "municipality": "Terranuova Bracciolini",
+  "pages_available": 3,
+  "pages_materialized": 3,
+  "records": 46,
+  "records_by_type": {
+    "collection_point": 2,
+    "collection_rule": 20,
+    "collection_schedule": 16,
+    "facility": 1,
+    "facility_access": 2,
+    "pickup_service": 1,
+    "service_zone": 4
+  },
+  "warnings": [
+    {
+      "code": "acceptance_table_missing",
+      "detail": "sei-toscana:terranuova-bracciolini:facility:centro-di-raccolta-terranuova-bracciolini",
+      "url": "https://seitoscana.it/comuni/terranuova-bracciolini/centro-di-raccolta"
+    }
+  ]
+}

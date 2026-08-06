@@ -1,0 +1,17 @@
+{
+  "equivalent_pages": [],
+  "istat_code": "053004",
+  "municipality": "Castel del Piano",
+  "pages_available": 3,
+  "pages_materialized": 3,
+  "records": 22,
+  "records_by_type": {
+    "collection_point": 5,
+    "collection_rule": 9,
+    "collection_schedule": 4,
+    "facility_access": 1,
+    "pickup_service": 1,
+    "service_zone": 2
+  },
+  "warnings": []
+}

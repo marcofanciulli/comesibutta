@@ -1,0 +1,19 @@
+{
+  "equivalent_pages": [],
+  "istat_code": "051040",
+  "municipality": "Castelfranco Piandiscò",
+  "pages_available": 3,
+  "pages_materialized": 3,
+  "records": 53,
+  "records_by_type": {
+    "collection_rule": 8,
+    "collection_schedule": 8,
+    "facility": 1,
+    "facility_acceptance": 30,
+    "facility_access": 2,
+    "opening_period": 1,
+    "pickup_service": 1,
+    "service_zone": 2
+  },
+  "warnings": []
+}

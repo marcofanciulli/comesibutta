@@ -1,0 +1,19 @@
+{
+  "equivalent_pages": [],
+  "istat_code": "051006",
+  "municipality": "Capolona",
+  "pages_available": 3,
+  "pages_materialized": 3,
+  "records": 38,
+  "records_by_type": {
+    "collection_point": 3,
+    "collection_rule": 4,
+    "facility": 1,
+    "facility_acceptance": 25,
+    "facility_access": 2,
+    "opening_period": 1,
+    "pickup_service": 1,
+    "service_zone": 1
+  },
+  "warnings": []
+}

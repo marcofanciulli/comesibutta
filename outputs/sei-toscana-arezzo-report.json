@@ -1,0 +1,722 @@
+{
+  "access_preflight": {
+    "allowed": true,
+    "crawl_delay_seconds": 1.0,
+    "initial_urls_checked": 70,
+    "robots_url": "https://seitoscana.it/robots.txt"
+  },
+  "errors": [
+    {
+      "error": "HTTP 404",
+      "status": "http_error",
+      "url": "https://seitoscana.it/comuni/badia-tedalda/centro-di-raccolta"
+    },
+    {
+      "error": "HTTP 404",
+      "status": "http_error",
+      "url": "https://seitoscana.it/comuni/caprese-michelangelo/centro-di-raccolta"
+    },
+    {
+      "error": "HTTP 404",
+      "status": "http_error",
+      "url": "https://seitoscana.it/comuni/caprese-michelangelo/ritiro-ingombranti"
+    }
+  ],
+  "extraction": {
+    "municipalities": 35,
+    "municipality_reports": [
+      {
+        "equivalent_pages": [],
+        "istat_code": "051001",
+        "municipality": "Anghiari",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 43,
+        "records_by_type": {
+          "collection_point": 4,
+          "collection_rule": 4,
+          "facility": 1,
+          "facility_acceptance": 28,
+          "facility_access": 2,
+          "opening_period": 2,
+          "pickup_service": 1,
+          "service_zone": 1
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [
+          {
+            "category": "facilities",
+            "equivalent_to": "https://seitoscana.it/comuni/arezzo/centro-di-raccolta",
+            "url": "https://seitoscana.it/comuni/arezzo/centri-di-raccolta"
+          }
+        ],
+        "istat_code": "051002",
+        "municipality": "Arezzo",
+        "pages_available": 4,
+        "pages_materialized": 3,
+        "records": 228,
+        "records_by_type": {
+          "collection_point": 42,
+          "collection_rule": 56,
+          "collection_schedule": 47,
+          "facility": 2,
+          "facility_acceptance": 63,
+          "facility_access": 4,
+          "opening_period": 2,
+          "pickup_service": 1,
+          "service_zone": 11
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "051003",
+        "municipality": "Badia Tedalda",
+        "pages_available": 2,
+        "pages_materialized": 2,
+        "records": 5,
+        "records_by_type": {
+          "collection_rule": 3,
+          "pickup_service": 1,
+          "service_zone": 1
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "051004",
+        "municipality": "Bibbiena",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 13,
+        "records_by_type": {
+          "collection_point": 1,
+          "collection_rule": 9,
+          "facility_access": 1,
+          "pickup_service": 1,
+          "service_zone": 1
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "051005",
+        "municipality": "Bucine",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 40,
+        "records_by_type": {
+          "collection_point": 1,
+          "collection_rule": 5,
+          "facility": 1,
+          "facility_acceptance": 28,
+          "facility_access": 2,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 1
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "051006",
+        "municipality": "Capolona",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 38,
+        "records_by_type": {
+          "collection_point": 3,
+          "collection_rule": 4,
+          "facility": 1,
+          "facility_acceptance": 25,
+          "facility_access": 2,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 1
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "051007",
+        "municipality": "Caprese Michelangelo",
+        "pages_available": 1,
+        "pages_materialized": 1,
+        "records": 0,
+        "records_by_type": {},
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "051008",
+        "municipality": "Castel Focognano",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 9,
+        "records_by_type": {
+          "collection_point": 1,
+          "collection_rule": 5,
+          "facility_access": 1,
+          "pickup_service": 1,
+          "service_zone": 1
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "051010",
+        "municipality": "Castel San Niccolò",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 15,
+        "records_by_type": {
+          "collection_point": 1,
+          "collection_rule": 11,
+          "facility_access": 1,
+          "pickup_service": 1,
+          "service_zone": 1
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "051011",
+        "municipality": "Castiglion Fibocchi",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 43,
+        "records_by_type": {
+          "collection_point": 1,
+          "collection_rule": 6,
+          "collection_schedule": 2,
+          "facility": 1,
+          "facility_acceptance": 26,
+          "facility_access": 2,
+          "opening_period": 2,
+          "pickup_service": 1,
+          "service_zone": 2
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "051012",
+        "municipality": "Castiglion Fiorentino",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 73,
+        "records_by_type": {
+          "collection_point": 21,
+          "collection_rule": 14,
+          "collection_schedule": 9,
+          "facility": 1,
+          "facility_acceptance": 20,
+          "facility_access": 2,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 4
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "051013",
+        "municipality": "Cavriglia",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 37,
+        "records_by_type": {
+          "collection_rule": 4,
+          "facility": 1,
+          "facility_acceptance": 26,
+          "facility_access": 2,
+          "opening_period": 2,
+          "pickup_service": 1,
+          "service_zone": 1
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "051014",
+        "municipality": "Chitignano",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 10,
+        "records_by_type": {
+          "collection_rule": 5,
+          "facility": 1,
+          "facility_access": 2,
+          "pickup_service": 1,
+          "service_zone": 1
+        },
+        "warnings": [
+          {
+            "code": "acceptance_table_missing",
+            "detail": "sei-toscana:chitignano:facility:sei-toscana-srl-cdr-chitignano",
+            "url": "https://seitoscana.it/comuni/chitignano/centro-di-raccolta"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [
+          {
+            "category": "facilities",
+            "equivalent_to": "https://seitoscana.it/comuni/chiusi-della-verna/centro-di-raccolta",
+            "url": "https://seitoscana.it/comuni/chiusi-della-verna/centri-di-raccolta"
+          }
+        ],
+        "istat_code": "051015",
+        "municipality": "Chiusi della Verna",
+        "pages_available": 4,
+        "pages_materialized": 3,
+        "records": 64,
+        "records_by_type": {
+          "collection_rule": 8,
+          "facility": 2,
+          "facility_acceptance": 46,
+          "facility_access": 4,
+          "opening_period": 2,
+          "pickup_service": 1,
+          "service_zone": 1
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "051016",
+        "municipality": "Civitella in Val di Chiana",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 24,
+        "records_by_type": {
+          "collection_point": 2,
+          "collection_rule": 11,
+          "collection_schedule": 6,
+          "facility_access": 1,
+          "pickup_service": 1,
+          "service_zone": 3
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [
+          {
+            "category": "facilities",
+            "equivalent_to": "https://seitoscana.it/comuni/cortona/centro-di-raccolta",
+            "url": "https://seitoscana.it/comuni/cortona/centri-di-raccolta"
+          }
+        ],
+        "istat_code": "051017",
+        "municipality": "Cortona",
+        "pages_available": 4,
+        "pages_materialized": 3,
+        "records": 174,
+        "records_by_type": {
+          "collection_point": 19,
+          "collection_rule": 43,
+          "collection_schedule": 39,
+          "facility": 2,
+          "facility_acceptance": 53,
+          "facility_access": 4,
+          "opening_period": 2,
+          "pickup_service": 1,
+          "service_zone": 11
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "051018",
+        "municipality": "Foiano della Chiana",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 67,
+        "records_by_type": {
+          "collection_point": 26,
+          "collection_rule": 7,
+          "collection_schedule": 3,
+          "facility": 1,
+          "facility_acceptance": 25,
+          "facility_access": 2,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 1
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [
+          {
+            "category": "facilities",
+            "equivalent_to": "https://seitoscana.it/comuni/loro-ciuffenna/centro-di-raccolta",
+            "url": "https://seitoscana.it/comuni/loro-ciuffenna/centri-di-raccolta"
+          }
+        ],
+        "istat_code": "051020",
+        "municipality": "Loro Ciuffenna",
+        "pages_available": 4,
+        "pages_materialized": 3,
+        "records": 83,
+        "records_by_type": {
+          "collection_point": 2,
+          "collection_rule": 12,
+          "collection_schedule": 4,
+          "facility": 2,
+          "facility_acceptance": 53,
+          "facility_access": 4,
+          "opening_period": 2,
+          "pickup_service": 1,
+          "service_zone": 3
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "051021",
+        "municipality": "Lucignano",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 18,
+        "records_by_type": {
+          "collection_point": 2,
+          "collection_rule": 6,
+          "collection_schedule": 6,
+          "facility_access": 1,
+          "pickup_service": 1,
+          "service_zone": 2
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "051022",
+        "municipality": "Marciano della Chiana",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 22,
+        "records_by_type": {
+          "collection_point": 7,
+          "collection_rule": 8,
+          "collection_schedule": 3,
+          "facility_access": 1,
+          "pickup_service": 1,
+          "service_zone": 2
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "051023",
+        "municipality": "Montemignaio",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 9,
+        "records_by_type": {
+          "collection_point": 1,
+          "collection_rule": 5,
+          "facility_access": 1,
+          "pickup_service": 1,
+          "service_zone": 1
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "051024",
+        "municipality": "Monterchi",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 38,
+        "records_by_type": {
+          "collection_rule": 5,
+          "facility": 1,
+          "facility_acceptance": 27,
+          "facility_access": 2,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 1
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "051025",
+        "municipality": "Monte San Savino",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 67,
+        "records_by_type": {
+          "collection_point": 17,
+          "collection_rule": 11,
+          "collection_schedule": 6,
+          "facility": 1,
+          "facility_acceptance": 25,
+          "facility_access": 2,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 3
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "051026",
+        "municipality": "Montevarchi",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 51,
+        "records_by_type": {
+          "collection_point": 1,
+          "collection_rule": 11,
+          "collection_schedule": 3,
+          "facility": 1,
+          "facility_acceptance": 28,
+          "facility_access": 2,
+          "opening_period": 2,
+          "pickup_service": 1,
+          "service_zone": 2
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "051027",
+        "municipality": "Ortignano Raggiolo",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 9,
+        "records_by_type": {
+          "collection_point": 1,
+          "collection_rule": 5,
+          "facility_access": 1,
+          "pickup_service": 1,
+          "service_zone": 1
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "051030",
+        "municipality": "Pieve Santo Stefano",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 37,
+        "records_by_type": {
+          "collection_point": 1,
+          "collection_rule": 5,
+          "facility": 1,
+          "facility_acceptance": 25,
+          "facility_access": 2,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 1
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [
+          {
+            "category": "facilities",
+            "equivalent_to": "https://seitoscana.it/comuni/poppi/centro-di-raccolta",
+            "url": "https://seitoscana.it/comuni/poppi/centri-di-raccolta"
+          }
+        ],
+        "istat_code": "051031",
+        "municipality": "Poppi",
+        "pages_available": 4,
+        "pages_materialized": 3,
+        "records": 83,
+        "records_by_type": {
+          "collection_point": 1,
+          "collection_rule": 9,
+          "facility": 2,
+          "facility_acceptance": 62,
+          "facility_access": 4,
+          "opening_period": 2,
+          "pickup_service": 1,
+          "service_zone": 2
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "051033",
+        "municipality": "San Giovanni Valdarno",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 40,
+        "records_by_type": {
+          "collection_point": 1,
+          "collection_rule": 4,
+          "facility": 1,
+          "facility_acceptance": 28,
+          "facility_access": 2,
+          "opening_period": 2,
+          "pickup_service": 1,
+          "service_zone": 1
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "051034",
+        "municipality": "Sansepolcro",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 108,
+        "records_by_type": {
+          "collection_point": 37,
+          "collection_rule": 20,
+          "collection_schedule": 15,
+          "facility": 1,
+          "facility_acceptance": 26,
+          "facility_access": 2,
+          "opening_period": 2,
+          "pickup_service": 1,
+          "service_zone": 4
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "051037",
+        "municipality": "Subbiano",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 56,
+        "records_by_type": {
+          "collection_point": 2,
+          "collection_rule": 12,
+          "collection_schedule": 8,
+          "facility": 1,
+          "facility_acceptance": 26,
+          "facility_access": 2,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 3
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "051038",
+        "municipality": "Talla",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 8,
+        "records_by_type": {
+          "collection_rule": 5,
+          "facility_access": 1,
+          "pickup_service": 1,
+          "service_zone": 1
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "051039",
+        "municipality": "Terranuova Bracciolini",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 46,
+        "records_by_type": {
+          "collection_point": 2,
+          "collection_rule": 20,
+          "collection_schedule": 16,
+          "facility": 1,
+          "facility_access": 2,
+          "pickup_service": 1,
+          "service_zone": 4
+        },
+        "warnings": [
+          {
+            "code": "acceptance_table_missing",
+            "detail": "sei-toscana:terranuova-bracciolini:facility:centro-di-raccolta-terranuova-bracciolini",
+            "url": "https://seitoscana.it/comuni/terranuova-bracciolini/centro-di-raccolta"
+          }
+        ]
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "051040",
+        "municipality": "Castelfranco Piandiscò",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 53,
+        "records_by_type": {
+          "collection_rule": 8,
+          "collection_schedule": 8,
+          "facility": 1,
+          "facility_acceptance": 30,
+          "facility_access": 2,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 2
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "051041",
+        "municipality": "Pratovecchio Stia",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 30,
+        "records_by_type": {
+          "collection_rule": 5,
+          "facility": 1,
+          "facility_acceptance": 19,
+          "facility_access": 2,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 1
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [
+          {
+            "category": "facilities",
+            "equivalent_to": "https://seitoscana.it/comuni/laterina-pergine-valdarno/centro-di-raccolta",
+            "url": "https://seitoscana.it/comuni/laterina-pergine-valdarno/centri-di-raccolta"
+          }
+        ],
+        "istat_code": "051042",
+        "municipality": "Laterina Pergine Valdarno",
+        "pages_available": 4,
+        "pages_materialized": 3,
+        "records": 88,
+        "records_by_type": {
+          "collection_rule": 8,
+          "collection_schedule": 4,
+          "facility": 2,
+          "facility_acceptance": 63,
+          "facility_access": 4,
+          "opening_period": 4,
+          "pickup_service": 1,
+          "service_zone": 2
+        },
+        "warnings": []
+      }
+    ],
+    "records": 1729,
+    "warnings": 2
+  },
+  "municipalities_touched": 35,
+  "observed_at": "2026-08-06T10:30:00+02:00",
+  "pages_by_category": {
+    "collection": 35,
+    "facilities": 41,
+    "pickup": 35
+  },
+  "pages_by_status": {
+    "http_error": 3,
+    "new": 108
+  },
+  "pages_checked": 111,
+  "pages_remaining": 0,
+  "remaining_pages": []
+}

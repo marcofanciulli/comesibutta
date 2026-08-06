@@ -1,0 +1,20 @@
+{
+  "equivalent_pages": [],
+  "istat_code": "051025",
+  "municipality": "Monte San Savino",
+  "pages_available": 3,
+  "pages_materialized": 3,
+  "records": 67,
+  "records_by_type": {
+    "collection_point": 17,
+    "collection_rule": 11,
+    "collection_schedule": 6,
+    "facility": 1,
+    "facility_acceptance": 25,
+    "facility_access": 2,
+    "opening_period": 1,
+    "pickup_service": 1,
+    "service_zone": 3
+  },
+  "warnings": []
+}

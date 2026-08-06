@@ -1,0 +1,25 @@
+{
+  "equivalent_pages": [
+    {
+      "category": "facilities",
+      "equivalent_to": "https://seitoscana.it/comuni/laterina-pergine-valdarno/centro-di-raccolta",
+      "url": "https://seitoscana.it/comuni/laterina-pergine-valdarno/centri-di-raccolta"
+    }
+  ],
+  "istat_code": "051042",
+  "municipality": "Laterina Pergine Valdarno",
+  "pages_available": 4,
+  "pages_materialized": 3,
+  "records": 88,
+  "records_by_type": {
+    "collection_rule": 8,
+    "collection_schedule": 4,
+    "facility": 2,
+    "facility_acceptance": 63,
+    "facility_access": 4,
+    "opening_period": 4,
+    "pickup_service": 1,
+    "service_zone": 2
+  },
+  "warnings": []
+}

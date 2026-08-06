@@ -1,0 +1,20 @@
+{
+  "equivalent_pages": [],
+  "istat_code": "053021",
+  "municipality": "Roccastrada",
+  "pages_available": 3,
+  "pages_materialized": 3,
+  "records": 46,
+  "records_by_type": {
+    "collection_point": 8,
+    "collection_rule": 8,
+    "collection_schedule": 4,
+    "facility": 1,
+    "facility_acceptance": 19,
+    "facility_access": 2,
+    "opening_period": 1,
+    "pickup_service": 1,
+    "service_zone": 2
+  },
+  "warnings": []
+}

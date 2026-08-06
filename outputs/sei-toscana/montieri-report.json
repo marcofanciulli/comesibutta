@@ -1,0 +1,16 @@
+{
+  "equivalent_pages": [],
+  "istat_code": "053017",
+  "municipality": "Montieri",
+  "pages_available": 2,
+  "pages_materialized": 2,
+  "records": 13,
+  "records_by_type": {
+    "collection_point": 1,
+    "collection_rule": 6,
+    "collection_schedule": 3,
+    "pickup_service": 1,
+    "service_zone": 2
+  },
+  "warnings": []
+}

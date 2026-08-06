@@ -1,0 +1,20 @@
+{
+  "equivalent_pages": [],
+  "istat_code": "053015",
+  "municipality": "Massa Marittima",
+  "pages_available": 3,
+  "pages_materialized": 3,
+  "records": 65,
+  "records_by_type": {
+    "collection_point": 5,
+    "collection_rule": 16,
+    "collection_schedule": 12,
+    "facility": 1,
+    "facility_acceptance": 23,
+    "facility_access": 2,
+    "opening_period": 1,
+    "pickup_service": 1,
+    "service_zone": 4
+  },
+  "warnings": []
+}

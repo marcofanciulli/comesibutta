@@ -1,0 +1,15 @@
+{
+  "equivalent_pages": [],
+  "istat_code": "051038",
+  "municipality": "Talla",
+  "pages_available": 3,
+  "pages_materialized": 3,
+  "records": 8,
+  "records_by_type": {
+    "collection_rule": 5,
+    "facility_access": 1,
+    "pickup_service": 1,
+    "service_zone": 1
+  },
+  "warnings": []
+}

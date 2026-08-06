@@ -1,0 +1,26 @@
+{
+  "equivalent_pages": [
+    {
+      "category": "facilities",
+      "equivalent_to": "https://seitoscana.it/comuni/montepulciano/centro-di-raccolta",
+      "url": "https://seitoscana.it/comuni/montepulciano/centri-di-raccolta"
+    }
+  ],
+  "istat_code": "052015",
+  "municipality": "Montepulciano",
+  "pages_available": 4,
+  "pages_materialized": 3,
+  "records": 78,
+  "records_by_type": {
+    "collection_point": 1,
+    "collection_rule": 12,
+    "collection_schedule": 7,
+    "facility": 2,
+    "facility_acceptance": 46,
+    "facility_access": 4,
+    "opening_period": 2,
+    "pickup_service": 1,
+    "service_zone": 3
+  },
+  "warnings": []
+}

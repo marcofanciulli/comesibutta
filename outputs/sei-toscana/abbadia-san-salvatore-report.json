@@ -1,0 +1,20 @@
+{
+  "equivalent_pages": [],
+  "istat_code": "052001",
+  "municipality": "Abbadia San Salvatore",
+  "pages_available": 3,
+  "pages_materialized": 3,
+  "records": 59,
+  "records_by_type": {
+    "collection_point": 3,
+    "collection_rule": 15,
+    "collection_schedule": 10,
+    "facility": 1,
+    "facility_acceptance": 23,
+    "facility_access": 2,
+    "opening_period": 1,
+    "pickup_service": 1,
+    "service_zone": 3
+  },
+  "warnings": []
+}

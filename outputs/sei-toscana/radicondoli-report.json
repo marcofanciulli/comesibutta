@@ -1,0 +1,19 @@
+{
+  "equivalent_pages": [],
+  "istat_code": "052025",
+  "municipality": "Radicondoli",
+  "pages_available": 3,
+  "pages_materialized": 3,
+  "records": 39,
+  "records_by_type": {
+    "collection_rule": 10,
+    "collection_schedule": 5,
+    "facility": 1,
+    "facility_acceptance": 17,
+    "facility_access": 2,
+    "opening_period": 1,
+    "pickup_service": 1,
+    "service_zone": 2
+  },
+  "warnings": []
+}

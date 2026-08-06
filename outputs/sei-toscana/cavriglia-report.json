@@ -1,0 +1,18 @@
+{
+  "equivalent_pages": [],
+  "istat_code": "051013",
+  "municipality": "Cavriglia",
+  "pages_available": 3,
+  "pages_materialized": 3,
+  "records": 37,
+  "records_by_type": {
+    "collection_rule": 4,
+    "facility": 1,
+    "facility_acceptance": 26,
+    "facility_access": 2,
+    "opening_period": 2,
+    "pickup_service": 1,
+    "service_zone": 1
+  },
+  "warnings": []
+}

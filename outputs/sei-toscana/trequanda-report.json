@@ -1,0 +1,16 @@
+{
+  "equivalent_pages": [],
+  "istat_code": "052036",
+  "municipality": "Trequanda",
+  "pages_available": 3,
+  "pages_materialized": 3,
+  "records": 14,
+  "records_by_type": {
+    "collection_rule": 7,
+    "collection_schedule": 3,
+    "facility_access": 1,
+    "pickup_service": 1,
+    "service_zone": 2
+  },
+  "warnings": []
+}

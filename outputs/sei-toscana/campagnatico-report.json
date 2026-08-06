@@ -1,0 +1,15 @@
+{
+  "equivalent_pages": [],
+  "istat_code": "053002",
+  "municipality": "Campagnatico",
+  "pages_available": 2,
+  "pages_materialized": 2,
+  "records": 11,
+  "records_by_type": {
+    "collection_point": 5,
+    "collection_rule": 4,
+    "pickup_service": 1,
+    "service_zone": 1
+  },
+  "warnings": []
+}

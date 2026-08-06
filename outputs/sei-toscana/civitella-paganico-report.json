@@ -1,0 +1,16 @@
+{
+  "equivalent_pages": [],
+  "istat_code": "053008",
+  "municipality": "Civitella Paganico",
+  "pages_available": 2,
+  "pages_materialized": 2,
+  "records": 22,
+  "records_by_type": {
+    "collection_point": 4,
+    "collection_rule": 10,
+    "collection_schedule": 5,
+    "pickup_service": 1,
+    "service_zone": 2
+  },
+  "warnings": []
+}

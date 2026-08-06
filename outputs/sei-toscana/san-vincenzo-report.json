@@ -1,0 +1,20 @@
+{
+  "equivalent_pages": [],
+  "istat_code": "049018",
+  "municipality": "San Vincenzo",
+  "pages_available": 3,
+  "pages_materialized": 3,
+  "records": 50,
+  "records_by_type": {
+    "collection_point": 1,
+    "collection_rule": 9,
+    "collection_schedule": 4,
+    "facility": 1,
+    "facility_acceptance": 28,
+    "facility_access": 2,
+    "opening_period": 2,
+    "pickup_service": 1,
+    "service_zone": 2
+  },
+  "warnings": []
+}

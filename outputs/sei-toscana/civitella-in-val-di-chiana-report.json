@@ -1,0 +1,17 @@
+{
+  "equivalent_pages": [],
+  "istat_code": "051016",
+  "municipality": "Civitella in Val di Chiana",
+  "pages_available": 3,
+  "pages_materialized": 3,
+  "records": 24,
+  "records_by_type": {
+    "collection_point": 2,
+    "collection_rule": 11,
+    "collection_schedule": 6,
+    "facility_access": 1,
+    "pickup_service": 1,
+    "service_zone": 3
+  },
+  "warnings": []
+}

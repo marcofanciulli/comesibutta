@@ -1,0 +1,25 @@
+{
+  "equivalent_pages": [],
+  "istat_code": "052021",
+  "municipality": "Pienza",
+  "pages_available": 3,
+  "pages_materialized": 3,
+  "records": 30,
+  "records_by_type": {
+    "collection_point": 2,
+    "collection_rule": 12,
+    "collection_schedule": 8,
+    "facility": 1,
+    "facility_access": 2,
+    "opening_period": 1,
+    "pickup_service": 1,
+    "service_zone": 3
+  },
+  "warnings": [
+    {
+      "code": "acceptance_table_missing",
+      "detail": "sei-toscana:pienza:facility:centro-di-raccolta-pienza",
+      "url": "https://seitoscana.it/comuni/pienza/centro-di-raccolta"
+    }
+  ]
+}

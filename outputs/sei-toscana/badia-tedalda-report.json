@@ -1,0 +1,14 @@
+{
+  "equivalent_pages": [],
+  "istat_code": "051003",
+  "municipality": "Badia Tedalda",
+  "pages_available": 2,
+  "pages_materialized": 2,
+  "records": 5,
+  "records_by_type": {
+    "collection_rule": 3,
+    "pickup_service": 1,
+    "service_zone": 1
+  },
+  "warnings": []
+}

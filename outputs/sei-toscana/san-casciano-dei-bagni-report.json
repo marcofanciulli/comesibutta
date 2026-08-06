@@ -1,0 +1,26 @@
+{
+  "equivalent_pages": [
+    {
+      "category": "facilities",
+      "equivalent_to": "https://seitoscana.it/comuni/san-casciano-dei-bagni/centro-di-raccolta",
+      "url": "https://seitoscana.it/comuni/san-casciano-dei-bagni/centri-di-raccolta"
+    }
+  ],
+  "istat_code": "052027",
+  "municipality": "San Casciano dei Bagni",
+  "pages_available": 4,
+  "pages_materialized": 3,
+  "records": 60,
+  "records_by_type": {
+    "collection_point": 2,
+    "collection_rule": 9,
+    "collection_schedule": 1,
+    "facility": 2,
+    "facility_acceptance": 37,
+    "facility_access": 4,
+    "opening_period": 2,
+    "pickup_service": 1,
+    "service_zone": 2
+  },
+  "warnings": []
+}

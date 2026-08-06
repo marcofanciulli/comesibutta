@@ -1,0 +1,20 @@
+{
+  "equivalent_pages": [],
+  "istat_code": "053013",
+  "municipality": "Magliano in Toscana",
+  "pages_available": 3,
+  "pages_materialized": 3,
+  "records": 58,
+  "records_by_type": {
+    "collection_point": 6,
+    "collection_rule": 12,
+    "collection_schedule": 9,
+    "facility": 1,
+    "facility_acceptance": 22,
+    "facility_access": 2,
+    "opening_period": 2,
+    "pickup_service": 1,
+    "service_zone": 3
+  },
+  "warnings": []
+}

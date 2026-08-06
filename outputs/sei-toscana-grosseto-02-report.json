@@ -1,0 +1,374 @@
+{
+  "access_preflight": {
+    "allowed": true,
+    "crawl_delay_seconds": 1.0,
+    "initial_urls_checked": 36,
+    "robots_url": "https://seitoscana.it/robots.txt"
+  },
+  "errors": [
+    {
+      "error": "HTTP 404",
+      "status": "http_error",
+      "url": "https://seitoscana.it/comuni/campagnatico/centro-di-raccolta"
+    },
+    {
+      "error": "HTTP 404",
+      "status": "http_error",
+      "url": "https://seitoscana.it/comuni/civitella-paganico/centro-di-raccolta"
+    },
+    {
+      "error": "HTTP 404",
+      "status": "http_error",
+      "url": "https://seitoscana.it/comuni/montieri/centro-di-raccolta"
+    },
+    {
+      "error": "HTTP 404",
+      "status": "http_error",
+      "url": "https://seitoscana.it/comuni/roccalbegna/centro-di-raccolta"
+    },
+    {
+      "error": "HTTP 404",
+      "status": "http_error",
+      "url": "https://seitoscana.it/comuni/semproniano/centro-di-raccolta"
+    }
+  ],
+  "extraction": {
+    "municipalities": 18,
+    "municipality_reports": [
+      {
+        "equivalent_pages": [],
+        "istat_code": "053002",
+        "municipality": "Campagnatico",
+        "pages_available": 2,
+        "pages_materialized": 2,
+        "records": 11,
+        "records_by_type": {
+          "collection_point": 5,
+          "collection_rule": 4,
+          "pickup_service": 1,
+          "service_zone": 1
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "053004",
+        "municipality": "Castel del Piano",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 22,
+        "records_by_type": {
+          "collection_point": 5,
+          "collection_rule": 9,
+          "collection_schedule": 4,
+          "facility_access": 1,
+          "pickup_service": 1,
+          "service_zone": 2
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "053005",
+        "municipality": "Castell'Azzara",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 44,
+        "records_by_type": {
+          "collection_point": 1,
+          "collection_rule": 9,
+          "collection_schedule": 4,
+          "facility": 1,
+          "facility_acceptance": 23,
+          "facility_access": 2,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 2
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "053007",
+        "municipality": "Cinigiano",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 10,
+        "records_by_type": {
+          "collection_point": 2,
+          "collection_rule": 5,
+          "facility_access": 1,
+          "pickup_service": 1,
+          "service_zone": 1
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "053008",
+        "municipality": "Civitella Paganico",
+        "pages_available": 2,
+        "pages_materialized": 2,
+        "records": 22,
+        "records_by_type": {
+          "collection_point": 4,
+          "collection_rule": 10,
+          "collection_schedule": 5,
+          "pickup_service": 1,
+          "service_zone": 2
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "053010",
+        "municipality": "Gavorrano",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 53,
+        "records_by_type": {
+          "collection_point": 16,
+          "collection_rule": 5,
+          "facility": 1,
+          "facility_acceptance": 26,
+          "facility_access": 2,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 1
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "053013",
+        "municipality": "Magliano in Toscana",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 58,
+        "records_by_type": {
+          "collection_point": 6,
+          "collection_rule": 12,
+          "collection_schedule": 9,
+          "facility": 1,
+          "facility_acceptance": 22,
+          "facility_access": 2,
+          "opening_period": 2,
+          "pickup_service": 1,
+          "service_zone": 3
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "053015",
+        "municipality": "Massa Marittima",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 65,
+        "records_by_type": {
+          "collection_point": 5,
+          "collection_rule": 16,
+          "collection_schedule": 12,
+          "facility": 1,
+          "facility_acceptance": 23,
+          "facility_access": 2,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 4
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "053017",
+        "municipality": "Montieri",
+        "pages_available": 2,
+        "pages_materialized": 2,
+        "records": 13,
+        "records_by_type": {
+          "collection_point": 1,
+          "collection_rule": 6,
+          "collection_schedule": 3,
+          "pickup_service": 1,
+          "service_zone": 2
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "053020",
+        "municipality": "Roccalbegna",
+        "pages_available": 2,
+        "pages_materialized": 2,
+        "records": 9,
+        "records_by_type": {
+          "collection_point": 2,
+          "collection_rule": 5,
+          "pickup_service": 1,
+          "service_zone": 1
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "053021",
+        "municipality": "Roccastrada",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 46,
+        "records_by_type": {
+          "collection_point": 8,
+          "collection_rule": 8,
+          "collection_schedule": 4,
+          "facility": 1,
+          "facility_acceptance": 19,
+          "facility_access": 2,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 2
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "053022",
+        "municipality": "Santa Fiora",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 11,
+        "records_by_type": {
+          "collection_point": 3,
+          "collection_rule": 5,
+          "facility_access": 1,
+          "pickup_service": 1,
+          "service_zone": 1
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "053023",
+        "municipality": "Scansano",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 42,
+        "records_by_type": {
+          "collection_point": 1,
+          "collection_rule": 4,
+          "facility": 1,
+          "facility_acceptance": 31,
+          "facility_access": 2,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 1
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "053024",
+        "municipality": "Scarlino",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 55,
+        "records_by_type": {
+          "collection_point": 1,
+          "collection_rule": 14,
+          "collection_schedule": 9,
+          "facility": 1,
+          "facility_acceptance": 22,
+          "facility_access": 2,
+          "opening_period": 2,
+          "pickup_service": 1,
+          "service_zone": 3
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "053025",
+        "municipality": "Seggiano",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 9,
+        "records_by_type": {
+          "collection_point": 1,
+          "collection_rule": 5,
+          "facility_access": 1,
+          "pickup_service": 1,
+          "service_zone": 1
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "053026",
+        "municipality": "Sorano",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 40,
+        "records_by_type": {
+          "collection_rule": 10,
+          "facility": 1,
+          "facility_acceptance": 23,
+          "facility_access": 2,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 2
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "053027",
+        "municipality": "Monterotondo Marittimo",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 40,
+        "records_by_type": {
+          "collection_point": 2,
+          "collection_rule": 7,
+          "collection_schedule": 3,
+          "facility": 1,
+          "facility_acceptance": 21,
+          "facility_access": 2,
+          "opening_period": 1,
+          "pickup_service": 1,
+          "service_zone": 2
+        },
+        "warnings": []
+      },
+      {
+        "equivalent_pages": [],
+        "istat_code": "053028",
+        "municipality": "Semproniano",
+        "pages_available": 2,
+        "pages_materialized": 2,
+        "records": 13,
+        "records_by_type": {
+          "collection_point": 6,
+          "collection_rule": 5,
+          "pickup_service": 1,
+          "service_zone": 1
+        },
+        "warnings": []
+      }
+    ],
+    "records": 563,
+    "warnings": 0
+  },
+  "municipalities_touched": 18,
+  "observed_at": "2026-08-06T10:15:00+02:00",
+  "pages_by_category": {
+    "collection": 18,
+    "facilities": 18,
+    "pickup": 18
+  },
+  "pages_by_status": {
+    "http_error": 5,
+    "new": 49
+  },
+  "pages_checked": 54,
+  "pages_remaining": 0,
+  "remaining_pages": []
+}

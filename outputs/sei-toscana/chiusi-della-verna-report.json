@@ -1,0 +1,24 @@
+{
+  "equivalent_pages": [
+    {
+      "category": "facilities",
+      "equivalent_to": "https://seitoscana.it/comuni/chiusi-della-verna/centro-di-raccolta",
+      "url": "https://seitoscana.it/comuni/chiusi-della-verna/centri-di-raccolta"
+    }
+  ],
+  "istat_code": "051015",
+  "municipality": "Chiusi della Verna",
+  "pages_available": 4,
+  "pages_materialized": 3,
+  "records": 64,
+  "records_by_type": {
+    "collection_rule": 8,
+    "facility": 2,
+    "facility_acceptance": 46,
+    "facility_access": 4,
+    "opening_period": 2,
+    "pickup_service": 1,
+    "service_zone": 1
+  },
+  "warnings": []
+}

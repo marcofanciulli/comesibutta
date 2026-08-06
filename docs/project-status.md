@@ -1,7 +1,7 @@
 # Stato del progetto
 
 Ultimo aggiornamento: 6 agosto 2026
-Fase: primo lotto live completato e validato
+Fase: acquisizione ATO Toscana Sud completata e validata
 
 Questo documento e il punto di ripartenza del progetto. Va aggiornato al termine
 di ogni fase sostanziale, insieme ai dataset e ai rapporti prodotti.
@@ -114,9 +114,25 @@ Primo lotto live `grosseto-01`:
 - la coda pendente viene salvata integralmente e ricostruita dagli snapshot per
   migrare gli stati creati da versioni precedenti.
 
+Completamento ATO Toscana Sud:
+
+- acquisiti e materializzati tutti i 104 comuni: 35 di Arezzo, 28 di Grosseto,
+  6 di Livorno e 35 di Siena;
+- 328 pagine controllate, coda residua zero e 5.090 record finali;
+- 8 URL restituiscono `404` e restano dichiarati nei rapporti: 5 in provincia
+  di Grosseto e 3 in provincia di Arezzo;
+- 4 elenchi dei conferimenti non risultano pubblicati: Isola del Giglio,
+  Chitignano, Terranuova Bracciolini e Pienza;
+- Caprese Michelangelo resta visibile come comune acquisito con zero record:
+  la pagina disponibile non produce fatti e gli URL di centro e ritiro sono
+  entrambi `404`;
+- ogni provincia ha un file di selezione e un rapporto autonomo; l'esploratore
+  fonde i cinque lotti senza perdere il perimetro e la provenienza.
+
 Esploratore dati:
 
-- pacchetto statico generato in modo riproducibile dai 590 record del lotto;
+- pacchetto statico generato in modo riproducibile dai 5.090 record dell'ATO;
+- filtri gerarchici per ATO e provincia, seguiti dall'elenco dei comuni;
 - navigazione per comune e viste dedicate a centri, EER, regole, punti e ritiro;
 - ricerca trasversale, provenienza, evidenze e record JSON consultabili;
 - anomalie e pagine equivalenti esposte senza alterare i dati acquisiti.
@@ -134,11 +150,10 @@ Esploratore dati:
 
 ## Prossimi passi
 
-1. Usare l'esploratore per monitorare la segnalazione residua e gli stati operativi dei centri.
+1. Usare l'esploratore per revisionare i 4 elenchi mancanti e gli 8 URL `404`.
 2. Definire il livello canonico e il vocabolario dei nomi quotidiani dei rifiuti.
-3. Preparare e acquisire il lotto successivo della provincia di Grosseto.
-4. Estendere progressivamente la scansione ai 104 comuni.
-5. Aggiungere la raccolta e la classificazione di PDF, guide e calendari.
+3. Aggiungere la raccolta e la classificazione di PDF, guide e calendari.
+4. Progettare l'aggiornamento periodico e il rilevamento delle variazioni.
 
 ## Regola di continuita
 
