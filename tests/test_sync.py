@@ -100,6 +100,54 @@ class SyncTests(unittest.TestCase):
             ).fetchone()[0])
             connection.close()
 
+    def test_storage_deduplicates_territorial_templates(self) -> None:
+        with TemporaryDirectory() as temporary:
+            connection = open_database(Path(temporary) / "client.sqlite", role="client")
+            entities = {}
+            for suffix, municipality in (("a", "istat:001"), ("b", "istat:002")):
+                entity = CanonicalEntity(
+                    "waste_lookup", f"lookup:{suffix}", {
+                        "natural_key": f"lookup:{suffix}",
+                        "payload": {
+                            "municipality_ref": municipality,
+                            "zone_ref": f"zone:{suffix}",
+                            "term": "Bottiglia di vetro",
+                            "destination_raw": "Vetro",
+                        },
+                        "confidence": "high",
+                    },
+                )
+                entities[(entity.entity_type, entity.entity_id)] = entity
+            apply_package(connection, build_update_package({}, entities, None, 1, GENERATED_AT))
+            self.assertEqual(1, connection.execute("SELECT COUNT(*) FROM entity_templates").fetchone()[0])
+            self.assertEqual(2, connection.execute(
+                "SELECT COUNT(*) FROM entities WHERE template_key IS NOT NULL AND data_json IS NULL"
+            ).fetchone()[0])
+            reconstructed = read_database_entities(connection)
+            self.assertEqual(entities, {
+                key: CanonicalEntity(value.entity_type, value.entity_id, value.data, value.dependencies)
+                for key, value in reconstructed.items()
+            })
+
+            desired = dict(entities)
+            first = desired[("waste_lookup", "lookup:a")]
+            changed_data = json.loads(json.dumps(first.data))
+            changed_data["payload"]["destination_raw"] = "Multimateriale"
+            desired[("waste_lookup", "lookup:a")] = CanonicalEntity(
+                first.entity_type, first.entity_id, changed_data,
+            )
+            apply_package(connection, build_update_package(reconstructed, desired, 1, 2, GENERATED_AT))
+            self.assertEqual(2, connection.execute("SELECT COUNT(*) FROM entity_templates").fetchone()[0])
+
+            current = read_database_entities(connection)
+            desired.pop(("waste_lookup", "lookup:b"))
+            apply_package(connection, build_update_package(current, desired, 2, 3, GENERATED_AT))
+            self.assertEqual(1, connection.execute("SELECT COUNT(*) FROM entity_templates").fetchone()[0])
+            self.assertEqual(desired[("waste_lookup", "lookup:a")].data, read_database_entities(
+                connection
+            )[("waste_lookup", "lookup:a")].data)
+            connection.close()
+
     def test_invalid_dependency_rolls_back_every_operation(self) -> None:
         with TemporaryDirectory() as temporary:
             connection = open_database(Path(temporary) / "client.sqlite")
@@ -128,6 +176,21 @@ class SyncTests(unittest.TestCase):
             delta = build_update_package({}, _entities(), 9, 10, GENERATED_AT)
             with self.assertRaisesRegex(ValueError, "client is at 0"):
                 apply_package(connection, delta)
+            connection.close()
+
+    def test_empty_delta_advances_revision_without_changing_entities(self) -> None:
+        with TemporaryDirectory() as temporary:
+            connection = open_database(Path(temporary) / "client.sqlite", role="client")
+            entities = _entities()
+            apply_package(connection, build_update_package({}, entities, None, 1, GENERATED_AT))
+            current = read_database_entities(connection)
+            delta = build_update_package(current, current, 1, 2, GENERATED_AT)
+            self.assertEqual([], delta["operations"])
+            self.assertTrue(apply_package(connection, delta))
+            self.assertEqual("2", connection.execute(
+                "SELECT value FROM metadata WHERE key='revision'"
+            ).fetchone()[0])
+            self.assertEqual(current, read_database_entities(connection))
             connection.close()
 
     def test_old_storage_requires_snapshot_rebuild(self) -> None:

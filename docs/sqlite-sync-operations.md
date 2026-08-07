@@ -22,6 +22,7 @@ Entrambi i ruoli usano lo stesso schema e attivano le chiavi esterne:
 - `metadata`: dataset, versione dello schema, revisione e ruolo;
 - `entities`: stato canonico corrente, corpo JSON compresso, hash e campi di
   ricerca, territorio, destinazione, flusso e centro immediatamente leggibili;
+- `entity_templates`: contenuto condiviso delle regole e delle voci territoriali;
 - `source_documents`: documenti sorgente deduplicati tramite SHA-256;
 - `source_evidence`: evidenze deduplicate e collegate al documento;
 - `entity_sources`: collegamenti ordinati tra entita ed evidenze;
@@ -42,6 +43,14 @@ database o si genera un nuovo pacchetto. La versione del formato SQLite e
 distinta dalla versione del contratto distribuito: un database locale creato
 con un formato precedente deve essere ricostruito da uno snapshot firmato,
 senza richiedere modifiche al pacchetto.
+
+Le entita `waste_lookup`, `collection_rule` e `service_zone` separano il
+contenuto comune dall'applicabilita. Il modello conserva termine, destinazione,
+modalita e istruzioni; la riga dell'entita conserva ID, comune e zona. La
+lettura ricostruisce il JSON canonico originario, mentre aggiornamento e
+cancellazione eliminano automaticamente i modelli non piu referenziati.
+La pulizia incrementale controlla soltanto evidenze e modelli toccati dal
+pacchetto; un delta vuoto avanza la revisione senza scandire tutte le entita.
 
 ## Identita e collisioni
 
@@ -138,13 +147,15 @@ Sul dataset del 7 agosto 2026:
 - snapshot: 155.946 operazioni, 7,7 MB compressi;
 - database client: 155.946 entita e 159.719 dipendenze valide;
 - provenienza: 152.485 collegamenti, 524 documenti e 14.232 evidenze distinte;
-- delta simulato per la modifica di una sola entita: una operazione, 783 byte;
+- applicabilita: 142.575 entita territoriali usano 5.360 modelli condivisi,
+  composti da 4.424 voci di rifiutario, 794 regole e 142 zone;
+- delta simulato per la modifica di una voce territoriale: una operazione,
+  711 byte;
 - applicazione snapshot e delta con firma verificata e nessuna violazione di
   chiave esterna.
 
-Il database client generico occupa circa 129 MB, contro i 259 MB della prima
-materializzazione: la normalizzazione della provenienza, la compressione dei
-corpi JSON e le chiavi relazionali numeriche dimezzano lo spazio senza
-modificare il protocollo di aggiornamento. Il margine successivo consiste nel
-rappresentare le copie territoriali di una stessa regola tramite una regola
-condivisa e relazioni di applicabilita.
+Il database client generico occupa circa 97 MB, contro i 259 MB della prima
+materializzazione e i 129 MB ottenuti con la sola normalizzazione della
+provenienza. La riduzione complessiva e del 63%, senza modificare il protocollo
+di aggiornamento. Una pubblicazione senza variazioni genera zero operazioni,
+confermando che la ricostruzione dei record e esatta sull'intero dataset.

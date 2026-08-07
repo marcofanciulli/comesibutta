@@ -17,7 +17,8 @@ from urllib.parse import urljoin
 
 DATASET_ID = "comesibutta-toscana"
 SCHEMA_VERSION = 1
-STORAGE_VERSION = 3
+STORAGE_VERSION = 4
+TERRITORIAL_TEMPLATE_TYPES = frozenset({"collection_rule", "service_zone", "waste_lookup"})
 
 
 @dataclass(frozen=True)
@@ -178,8 +179,11 @@ CREATE TABLE IF NOT EXISTS entities (
     entity_id TEXT NOT NULL,
     entity_revision INTEGER NOT NULL,
     content_sha256 TEXT NOT NULL,
-    data_json BLOB NOT NULL,
+    data_json BLOB,
+    template_key INTEGER,
+    territory_fields INTEGER NOT NULL DEFAULT 0,
     municipality_ref TEXT,
+    zone_ref TEXT,
     observed_at TEXT,
     valid_from TEXT,
     valid_to TEXT,
@@ -188,12 +192,22 @@ CREATE TABLE IF NOT EXISTS entities (
     destination_raw TEXT,
     stream_name TEXT,
     facility_ref TEXT,
-    UNIQUE (entity_type, entity_id)
+    UNIQUE (entity_type, entity_id),
+    FOREIGN KEY (template_key) REFERENCES entity_templates(template_key)
+        ON DELETE RESTRICT DEFERRABLE INITIALLY DEFERRED,
+    CHECK ((data_json IS NULL) != (template_key IS NULL))
 );
 CREATE INDEX IF NOT EXISTS entities_type_municipality
     ON entities(entity_type, municipality_ref);
 CREATE INDEX IF NOT EXISTS entities_type_facility
     ON entities(entity_type, facility_ref);
+CREATE TABLE IF NOT EXISTS entity_templates (
+    template_key INTEGER PRIMARY KEY,
+    entity_type TEXT NOT NULL,
+    template_sha256 TEXT NOT NULL,
+    data_json BLOB NOT NULL,
+    UNIQUE (entity_type, template_sha256)
+);
 CREATE TABLE IF NOT EXISTS source_documents (
     source_key INTEGER PRIMARY KEY,
     source_sha256 TEXT NOT NULL UNIQUE,
@@ -323,10 +337,17 @@ def read_database_entities(connection: sqlite3.Connection) -> dict[tuple[str, st
         if evidence_wrapper["present"]:
             document["evidence"] = evidence_wrapper["value"]
         sources.setdefault((row["entity_type"], row["entity_id"]), []).append(document)
+    templates = {
+        row["template_key"]: _gunzip_json(row["data_json"])
+        for row in connection.execute("SELECT template_key, data_json FROM entity_templates")
+    }
     result = {}
     for row in connection.execute("SELECT * FROM entities ORDER BY entity_type, entity_id"):
         key = (row["entity_type"], row["entity_id"])
-        data = _gunzip_json(row["data_json"])
+        if row["template_key"] is None:
+            data = _gunzip_json(row["data_json"])
+        else:
+            data = _restore_territorial_entity(row, templates[row["template_key"]])
         if key in sources:
             data["sources"] = sources[key]
         result[key] = CanonicalEntity(
@@ -405,7 +426,7 @@ def _indexed_fields(data: dict[str, Any]) -> tuple[Any, ...]:
         if isinstance(value, str) and value.strip() and value.casefold() not in searchable:
             searchable.append(value.casefold())
     return (
-        payload.get("municipality_ref"), data.get("observed_at"), validity.get("valid_from"),
+        payload.get("municipality_ref"), payload.get("zone_ref"), data.get("observed_at"), validity.get("valid_from"),
         validity.get("valid_to"), data.get("confidence"), " | ".join(searchable) or None,
         payload.get("destination_raw"), payload.get("stream_name"), payload.get("facility_ref"),
     )
@@ -425,6 +446,40 @@ def _split_sources(data: dict[str, Any]) -> tuple[dict[str, Any], list[tuple[str
         evidence_id = _sha256_json(source)
         sources.append((source_id, evidence_id, _gzip_json(document), _gzip_json(evidence)))
     return body, sources
+
+
+def _split_territorial_entity(
+    entity_type: str, entity_id: str, data: dict[str, Any],
+) -> tuple[dict[str, Any] | None, int]:
+    natural_key = entity_id.split(":variant:", 1)[0]
+    if entity_type not in TERRITORIAL_TEMPLATE_TYPES or data.get("natural_key") != natural_key:
+        return None, 0
+    template = dict(data)
+    template.pop("natural_key")
+    payload = dict(template.get("payload") or {})
+    territory_fields = 1
+    if "municipality_ref" in payload:
+        territory_fields |= 2
+        payload.pop("municipality_ref")
+    if "zone_ref" in payload:
+        territory_fields |= 4
+        payload.pop("zone_ref")
+    template["payload"] = payload
+    return template, territory_fields
+
+
+def _restore_territorial_entity(row: sqlite3.Row, template: dict[str, Any]) -> dict[str, Any]:
+    data = dict(template)
+    payload = dict(data.get("payload") or {})
+    fields = row["territory_fields"]
+    if fields & 2:
+        payload["municipality_ref"] = row["municipality_ref"]
+    if fields & 4:
+        payload["zone_ref"] = row["zone_ref"]
+    data["payload"] = payload
+    if fields & 1:
+        data["natural_key"] = row["entity_id"].split(":variant:", 1)[0]
+    return data
 
 
 def apply_package(
@@ -449,10 +504,26 @@ def apply_package(
         raise ValueError(f"Delta starts at {package['from_revision']}, client is at {current_revision}")
     try:
         connection.execute("BEGIN IMMEDIATE")
+        if not package["operations"] and package["kind"] == "delta":
+            connection.execute(
+                "UPDATE metadata SET value = ? WHERE key = 'revision'", (str(package["to_revision"]),),
+            )
+            connection.execute(
+                "INSERT INTO package_applications VALUES (?, ?, ?, ?, ?)",
+                (
+                    package["package_id"], package["from_revision"], package["to_revision"],
+                    package_hash, package["generated_at"],
+                ),
+            )
+            connection.commit()
+            return True
         if package["kind"] == "snapshot":
             connection.execute("DELETE FROM entity_dependencies")
             connection.execute("DELETE FROM entities")
             connection.execute("DELETE FROM tombstones")
+            connection.execute("DELETE FROM source_evidence")
+            connection.execute("DELETE FROM source_documents")
+            connection.execute("DELETE FROM entity_templates")
         source_keys = {
             row["source_sha256"]: row["source_key"]
             for row in connection.execute("SELECT source_key, source_sha256 FROM source_documents")
@@ -461,11 +532,54 @@ def apply_package(
             row["evidence_sha256"]: row["evidence_key"]
             for row in connection.execute("SELECT evidence_key, evidence_sha256 FROM source_evidence")
         }
+        template_keys = {
+            (row["entity_type"], row["template_sha256"]): row["template_key"]
+            for row in connection.execute(
+                "SELECT template_key, entity_type, template_sha256 FROM entity_templates"
+            )
+        }
+        entity_keys: dict[tuple[str, str], int] = {}
+        stale_evidence_keys: set[int] = set()
+        stale_source_keys: set[int] = set()
+        stale_template_keys: set[int] = set()
         for operation in package["operations"]:
             public_key = (operation["entity_type"], operation["entity_id"])
+            existing = connection.execute(
+                """SELECT entity_key, template_key FROM entities
+                WHERE entity_type = ? AND entity_id = ?""", public_key,
+            ).fetchone()
+            if existing:
+                entity_keys[public_key] = existing["entity_key"]
+                if existing["template_key"] is not None:
+                    stale_template_keys.add(existing["template_key"])
+                for reference in connection.execute(
+                    """SELECT link.evidence_key, evidence.source_key
+                    FROM entity_sources link
+                    JOIN source_evidence evidence ON evidence.evidence_key = link.evidence_key
+                    WHERE link.entity_key = ?""", (existing["entity_key"],),
+                ):
+                    stale_evidence_keys.add(reference["evidence_key"])
+                    stale_source_keys.add(reference["source_key"])
             if operation["operation"] == "upsert":
                 data, sources = _split_sources(operation["data"])
-                data_json = _gzip_json(data)
+                template, territory_fields = _split_territorial_entity(*public_key, data)
+                template_key = None
+                data_json = None
+                if template is None:
+                    data_json = _gzip_json(data)
+                else:
+                    template_sha256 = _sha256_json(template)
+                    template_identity = (operation["entity_type"], template_sha256)
+                    template_key = template_keys.get(template_identity)
+                    if template_key is None:
+                        cursor = connection.execute(
+                            """INSERT INTO entity_templates(
+                                entity_type, template_sha256, data_json
+                            ) VALUES (?, ?, ?)""",
+                            (operation["entity_type"], template_sha256, _gzip_json(template)),
+                        )
+                        template_key = cursor.lastrowid
+                        template_keys[template_identity] = template_key
                 dependencies = tuple(
                     (item["entity_type"], item["entity_id"])
                     for item in operation["dependencies"]
@@ -473,23 +587,30 @@ def apply_package(
                 content_hash = _sha256_json({"data": operation["data"], "dependencies": dependencies})
                 connection.execute(
                     """INSERT INTO entities(
-                        entity_type, entity_id, entity_revision, content_sha256, data_json,
-                        municipality_ref, observed_at, valid_from, valid_to, confidence,
+                        entity_type, entity_id, entity_revision, content_sha256,
+                        data_json, template_key, territory_fields,
+                        municipality_ref, zone_ref, observed_at, valid_from, valid_to, confidence,
                         search_text, destination_raw, stream_name, facility_ref
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                     ON CONFLICT(entity_type, entity_id) DO UPDATE SET
                         entity_revision=excluded.entity_revision,
                         content_sha256=excluded.content_sha256, data_json=excluded.data_json,
-                        municipality_ref=excluded.municipality_ref, observed_at=excluded.observed_at,
+                        template_key=excluded.template_key, territory_fields=excluded.territory_fields,
+                        municipality_ref=excluded.municipality_ref, zone_ref=excluded.zone_ref,
+                        observed_at=excluded.observed_at,
                         valid_from=excluded.valid_from, valid_to=excluded.valid_to,
                         confidence=excluded.confidence, search_text=excluded.search_text,
                         destination_raw=excluded.destination_raw, stream_name=excluded.stream_name,
                         facility_ref=excluded.facility_ref""",
-                    (*public_key, operation["entity_revision"], content_hash, data_json, *_indexed_fields(operation["data"])),
+                    (
+                        *public_key, operation["entity_revision"], content_hash,
+                        data_json, template_key, territory_fields, *_indexed_fields(operation["data"]),
+                    ),
                 )
                 entity_key = connection.execute(
                     "SELECT entity_key FROM entities WHERE entity_type = ? AND entity_id = ?", public_key,
                 ).fetchone()[0]
+                entity_keys[public_key] = entity_key
                 connection.execute(
                     "DELETE FROM entity_sources WHERE entity_key = ?", (entity_key,),
                 )
@@ -522,10 +643,11 @@ def apply_package(
             elif operation["operation"] != "delete":
                 raise ValueError(f"Unknown operation {operation['operation']}")
 
-        entity_keys = {
-            (row["entity_type"], row["entity_id"]): row["entity_key"]
-            for row in connection.execute("SELECT entity_key, entity_type, entity_id FROM entities")
-        }
+        if package["kind"] == "snapshot":
+            entity_keys = {
+                (row["entity_type"], row["entity_id"]): row["entity_key"]
+                for row in connection.execute("SELECT entity_key, entity_type, entity_id FROM entities")
+            }
         for operation in package["operations"]:
             if operation["operation"] != "upsert":
                 continue
@@ -537,10 +659,20 @@ def apply_package(
                 for item in operation["dependencies"]
             ]
             try:
-                connection.executemany(
-                    "INSERT INTO entity_dependencies VALUES (?, ?)",
-                    ((entity_key, entity_keys[dependency]) for dependency in dependencies),
-                )
+                dependency_keys = []
+                for dependency in dependencies:
+                    dependency_key = entity_keys.get(dependency)
+                    if dependency_key is None:
+                        row = connection.execute(
+                            """SELECT entity_key FROM entities
+                            WHERE entity_type = ? AND entity_id = ?""", dependency,
+                        ).fetchone()
+                        if row is None:
+                            raise KeyError(dependency)
+                        dependency_key = row["entity_key"]
+                        entity_keys[dependency] = dependency_key
+                    dependency_keys.append((entity_key, dependency_key))
+                connection.executemany("INSERT INTO entity_dependencies VALUES (?, ?)", dependency_keys)
             except KeyError as error:
                 raise ValueError(f"Missing entity dependency {error.args[0]}") from error
 
@@ -576,17 +708,23 @@ def apply_package(
                         package["generated_at"],
                     ),
                 )
-        connection.execute(
-            """DELETE FROM source_evidence
-            WHERE NOT EXISTS (
+        connection.executemany(
+            """DELETE FROM source_evidence WHERE evidence_key = ? AND NOT EXISTS (
                 SELECT 1 FROM entity_sources WHERE entity_sources.evidence_key = source_evidence.evidence_key
-            )"""
+            )""",
+            ((key,) for key in stale_evidence_keys),
         )
-        connection.execute(
-            """DELETE FROM source_documents
-            WHERE NOT EXISTS (
+        connection.executemany(
+            """DELETE FROM source_documents WHERE source_key = ? AND NOT EXISTS (
                 SELECT 1 FROM source_evidence WHERE source_evidence.source_key = source_documents.source_key
-            )"""
+            )""",
+            ((key,) for key in stale_source_keys),
+        )
+        connection.executemany(
+            """DELETE FROM entity_templates WHERE template_key = ? AND NOT EXISTS (
+                SELECT 1 FROM entities WHERE entities.template_key = entity_templates.template_key
+            )""",
+            ((key,) for key in stale_template_keys),
         )
         violations = connection.execute("PRAGMA foreign_key_check").fetchall()
         if violations:

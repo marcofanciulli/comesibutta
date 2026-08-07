@@ -211,6 +211,7 @@ Il dataset puo essere pubblicato come snapshot e delta gzip firmati Ed25519.
 Il backend mantiene stato, changelog e tombstone in SQLite; il client verifica
 manifest e artefatti, sceglie automaticamente il percorso con meno byte e
 applica ogni pacchetto in una transazione. Documenti ed evidenze condivise sono
-deduplicati nel database locale, che occupa circa 129 MB per il dataset
-completo. Comandi, gestione delle chiavi e risultati del collaudo sono in
-`docs/sqlite-sync-operations.md`.
+deduplicati nel database locale insieme alle regole territoriali equivalenti,
+che vengono rappresentate come modelli con applicabilita a comune e zona. Il
+dataset completo occupa circa 97 MB. Comandi, gestione delle chiavi e risultati
+sono in `docs/sqlite-sync-operations.md`.

@@ -280,17 +280,21 @@ SQLite canonico e sincronizzazione remota:
   snapshot, che viene costruito separatamente e sostituito atomicamente;
 - la pubblicazione usa un manifest `.pending` e recupera un'interruzione tra
   aggiornamento del backend e pubblicazione del nuovo manifest;
-- collaudo completo: snapshot da 7,7 MB, delta di una singola modifica da 783
+- collaudo completo: snapshot da 7,7 MB, delta di una singola modifica da 711
   byte, 155.946 entita applicate e zero violazioni relazionali;
 - documenti ed evidenze di provenienza sono deduplicati: 152.485 collegamenti
   fanno riferimento a 524 documenti e 14.232 evidenze distinte;
 - i corpi JSON sono compressi e le relazioni SQLite usano chiavi numeriche,
   mantenendo invariati gli identificatori canonici pubblici;
-- il SQLite client occupa circa 129 MB, contro i 259 MB iniziali, senza
-  modificare il formato firmato di snapshot e delta;
+- 142.575 voci territoriali sono ricondotte a 5.360 modelli condivisi: 4.424
+  voci di rifiutario, 794 regole di raccolta e 142 zone;
+- il SQLite client occupa circa 97 MB, contro i 259 MB iniziali e i 129 MB
+  della sola deduplicazione delle fonti, senza modificare snapshot e delta;
+- una seconda pubblicazione dell'intero dataset invariato produce un delta di
+  zero operazioni, verificando la ricostruzione esatta dei record;
 - i database locali nel vecchio formato vengono rifiutati con una richiesta
   esplicita di ricostruzione dallo snapshot;
-- 89 test automatici superati.
+- 91 test automatici superati.
 
 ## Limiti e questioni aperte
 
@@ -310,8 +314,8 @@ SQLite canonico e sincronizzazione remota:
 2. Acquisire i dettagli dei centri ESA e cercare una guida AAMPS piu recente.
 3. Modellare l'accesso intergestore Montignoso-ERSU e approfondire i centri non
    pubblicati o non attribuiti esplicitamente dalle fonti.
-4. Normalizzare regole condivise e applicabilita territoriale per eliminare le
-   copie comunali equivalenti e ridurre ulteriormente il database client.
+4. Progettare le viste di lettura ottimizzate per la ricerca dell'app senza
+   esporre i dettagli della rappresentazione SQLite.
 5. Aggiungere consolidati settimanali, mensili e annuali con conservazione e
    compattazione automatica nella finestra incrementale di cinque anni.
 

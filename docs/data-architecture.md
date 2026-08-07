@@ -62,6 +62,11 @@ il corpo JSON delle entita e usa chiavi numeriche soltanto per le relazioni
 locali. Gli ID canonici presenti nei pacchetti restano l'unica identita esterna;
 il formato locale puo quindi evolvere ricostruendo il database da uno snapshot.
 
+Rifiutario, regole di raccolta e zone usano inoltre modelli condivisi con
+relazioni di applicabilita comunale o zonale. Questa normalizzazione e interna
+alla materializzazione: il backend distribuisce ancora record completi e il
+lettore SQLite li ricostruisce senza perdita, preservando il contratto pubblico.
+
 ## 3. Entita canoniche
 
 ### Territorio e organizzazione
