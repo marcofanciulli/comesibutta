@@ -8,6 +8,34 @@ from typing import Any
 from .catalog import normalize_term
 
 
+def matching_delivery_channels(
+    value: str,
+    channels: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    normalized = normalize_term(value)
+    matches = []
+    for channel in channels:
+        aliases = sorted(
+            {
+                alias for alias in channel.get("aliases", [])
+                if normalize_term(alias) and _contains_phrase(normalized, normalize_term(alias))
+            },
+            key=lambda item: (-len(normalize_term(item)), item.casefold()),
+        )
+        if aliases:
+            matches.append({
+                "channel_id": channel["channel_id"],
+                "preferred_label": channel["preferred_label"],
+                "destination_type": channel["destination_type"],
+                "matched_aliases": aliases,
+            })
+    return matches
+
+
+def _contains_phrase(value: str, phrase: str) -> bool:
+    return f" {phrase} " in f" {value} "
+
+
 def validate_waste_curation(
     register: dict[str, Any],
     catalog: dict[str, Any],
@@ -60,6 +88,28 @@ def validate_waste_curation(
                 )
             alias_owner[normalized] = stream_id
 
+    channel_ids = set()
+    channel_alias_owner: dict[str, str] = {}
+    channels = register.get("delivery_channels", [])
+    for channel in channels:
+        channel_id = channel["channel_id"]
+        if channel_id in channel_ids:
+            raise ValueError(f"Duplicate delivery channel {channel_id}")
+        channel_ids.add(channel_id)
+        for alias in channel.get("aliases", []):
+            normalized = normalize_term(alias)
+            if not normalized:
+                raise ValueError(f"Empty alias in {channel_id}")
+            if (
+                normalized in channel_alias_owner
+                and channel_alias_owner[normalized] != channel_id
+            ):
+                raise ValueError(
+                    f"Channel alias {alias!r} belongs to both "
+                    f"{channel_alias_owner[normalized]} and {channel_id}"
+                )
+            channel_alias_owner[normalized] = channel_id
+
     destination_counts = Counter(
         normalize_term(destination["label"])
         for concept in catalog.get("concepts", [])
@@ -91,6 +141,33 @@ def validate_waste_curation(
         for label, count in destination_counts.most_common()
         if label not in alias_owner
     ]
+    channel_label_counts = Counter()
+    channel_assertion_counts = Counter()
+    multi_channel_labels = 0
+    multi_channel_assertions = 0
+    unresolved = []
+    channel_matches_by_label = {
+        label: matching_delivery_channels(label, channels)
+        for label in destination_counts
+    }
+    for label, count in destination_counts.items():
+        matches = channel_matches_by_label[label]
+        if matches:
+            channel_ids_for_label = [match["channel_id"] for match in matches]
+            channel_label_counts.update(channel_ids_for_label)
+            channel_assertion_counts.update({
+                channel_id: count for channel_id in channel_ids_for_label
+            })
+            if len(matches) > 1:
+                multi_channel_labels += 1
+                multi_channel_assertions += count
+        if label not in alias_owner and not matches:
+            unresolved.append({"label": label, "assertions": count})
+    channel_mapped_labels = sum(map(bool, channel_matches_by_label.values()))
+    channel_mapped_assertions = sum(
+        count for label, count in destination_counts.items()
+        if channel_matches_by_label[label]
+    )
     return {
         "register_id": register["register_id"],
         "register_version": register["version"],
@@ -100,13 +177,24 @@ def validate_waste_curation(
         "approved_search_terms": len(search_owner),
         "collection_streams": len(stream_ids),
         "stream_aliases": len(alias_owner),
+        "delivery_channels": len(channel_ids),
+        "channel_aliases": len(channel_alias_owner),
         "destination_labels": len(destination_counts),
         "destination_assertions": sum(destination_counts.values()),
         "mapped_destination_labels": sum(label in alias_owner for label in destination_counts),
         "mapped_destination_assertions": mapped_assertions,
+        "channel_mapped_destination_labels": channel_mapped_labels,
+        "channel_mapped_destination_assertions": channel_mapped_assertions,
+        "multi_channel_destination_labels": multi_channel_labels,
+        "multi_channel_destination_assertions": multi_channel_assertions,
+        "channel_destination_labels": dict(sorted(channel_label_counts.items())),
+        "channel_destination_assertions": dict(sorted(channel_assertion_counts.items())),
         "alias_group_territorial_conflicts": sum(map(len, conflicts.values())),
         "conflicts_by_group": dict(conflicts),
         "top_unmapped_destinations": unmapped[:50],
+        "top_destinations_without_stream_or_channel": sorted(
+            unresolved, key=lambda item: (-item["assertions"], item["label"])
+        )[:50],
     }
 
 

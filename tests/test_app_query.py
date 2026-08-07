@@ -279,6 +279,79 @@ class DisposalQueryTests(unittest.TestCase):
         self.assertEqual("giallo", answer["result"]["container"]["color"])
         self.assertNotEqual("conflict", answer["status"])
 
+    def test_compound_destination_returns_all_delivery_channels(self) -> None:
+        self.connection.close()
+        writer = open_database(self.database, role="client")
+        current = read_database_entities(writer)
+        changed = dict(current)
+        armadio = _concept(
+            "waste:armadio", "Armadio", ["Ecocentro - ritiro ingombranti"],
+        )
+        changed[(armadio.entity_type, armadio.entity_id)] = armadio
+        changed[("collection_rule", "rule:ingombranti")] = _rule(
+            "rule:ingombranti", "Ritiro ingombranti",
+        )
+        channel_specs = [
+            (
+                "channel:collection-centre", "Centro di raccolta", "facility",
+                ["Centro di raccolta", "Ecocentro"],
+            ),
+            (
+                "channel:home-pickup", "Ritiro a domicilio", "pickup",
+                ["Ritiro ingombranti", "Ritiro a domicilio"],
+            ),
+        ]
+        for channel_id, label, destination_type, aliases in channel_specs:
+            changed[("delivery_channel", channel_id)] = CanonicalEntity(
+                "delivery_channel", channel_id, {
+                    "channel_id": channel_id,
+                    "preferred_label": label,
+                    "destination_type": destination_type,
+                    "aliases": aliases,
+                },
+            )
+        apply_package(writer, build_update_package(current, changed, 1, 2, GENERATED_AT))
+        writer.close()
+        self.connection = open_query_database(self.database)
+        self.service = DisposalQueryService(self.connection)
+        answer = self.service.answer("armadio", "053014")
+        self.assertEqual("resolved", answer["status"])
+        self.assertEqual("special_case", answer["result"]["destination_type"])
+        self.assertEqual("alternatives", answer["result"]["channel_relation"])
+        self.assertIsNone(answer["result"]["stream"])
+        self.assertEqual("Ecocentro - ritiro ingombranti", answer["result"]["source_destination"])
+        self.assertEqual(
+            ["channel:collection-centre", "channel:home-pickup"],
+            [item["channel_id"] for item in answer["result"]["delivery_channels"]],
+        )
+        self.assertIn("centro utilizzabile", " ".join(answer["result"]["warnings"]))
+
+    def test_equivalent_single_channel_aliases_do_not_create_a_conflict(self) -> None:
+        self.connection.close()
+        writer = open_database(self.database, role="client")
+        current = read_database_entities(writer)
+        changed = dict(current)
+        armadio = _concept(
+            "waste:armadio", "Armadio", ["Ecocentro", "Centro di raccolta"],
+        )
+        changed[(armadio.entity_type, armadio.entity_id)] = armadio
+        changed[("delivery_channel", "channel:collection-centre")] = CanonicalEntity(
+            "delivery_channel", "channel:collection-centre", {
+                "channel_id": "channel:collection-centre",
+                "preferred_label": "Centro di raccolta",
+                "destination_type": "facility",
+                "aliases": ["Centro di raccolta", "Ecocentro"],
+            },
+        )
+        apply_package(writer, build_update_package(current, changed, 1, 2, GENERATED_AT))
+        writer.close()
+        self.connection = open_query_database(self.database)
+        self.service = DisposalQueryService(self.connection)
+        answer = self.service.answer("armadio", "053014")
+        self.assertEqual("resolved", answer["status"])
+        self.assertEqual("single", answer["result"]["channel_relation"])
+        self.assertEqual("facility", answer["result"]["destination_type"])
+
 
 if __name__ == "__main__":
     unittest.main()

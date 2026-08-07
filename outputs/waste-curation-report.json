@@ -4,15 +4,241 @@
   "alias_members": 29,
   "approved_search_terms": 14,
   "catalog_generated_at": "2026-08-07T13:00:00+02:00",
+  "channel_aliases": 26,
+  "channel_destination_assertions": {
+    "channel:collection-centre": 1595,
+    "channel:collection-point": 189,
+    "channel:home-pickup": 414,
+    "channel:mobile-collection": 381,
+    "channel:retailer-return": 63,
+    "channel:reuse-service": 66,
+    "channel:specialist-operator": 123
+  },
+  "channel_destination_labels": {
+    "channel:collection-centre": 91,
+    "channel:collection-point": 2,
+    "channel:home-pickup": 24,
+    "channel:mobile-collection": 14,
+    "channel:retailer-return": 11,
+    "channel:reuse-service": 8,
+    "channel:specialist-operator": 7
+  },
+  "channel_mapped_destination_assertions": 1750,
+  "channel_mapped_destination_labels": 102,
   "collection_streams": 7,
   "conflicts_by_group": {},
+  "delivery_channels": 7,
   "destination_assertions": 4065,
   "destination_labels": 189,
   "mapped_destination_assertions": 1938,
   "mapped_destination_labels": 28,
+  "multi_channel_destination_assertions": 807,
+  "multi_channel_destination_labels": 41,
   "register_id": "waste-curation:toscana:v1",
   "register_version": 1,
   "stream_aliases": 34,
+  "top_destinations_without_stream_or_channel": [
+    {
+      "assertions": 71,
+      "label": "ingombranti"
+    },
+    {
+      "assertions": 64,
+      "label": "contenitore stradale grigio per indifferenziata dotato di cassetto apribile con carta smeraldo distribuzione materiali"
+    },
+    {
+      "assertions": 38,
+      "label": "non differenziabile contenitore grigio"
+    },
+    {
+      "assertions": 20,
+      "label": "contenitore giallo per abiti usati"
+    },
+    {
+      "assertions": 20,
+      "label": "contenitore stradale grigio indifferenziato compostiera in uso gratuito su richiesta"
+    },
+    {
+      "assertions": 20,
+      "label": "contenitore stradale grigio indifferenziato contenitore stradale marrone organico presente solo nel capoluogo compostiera in uso gratuito su richiesta"
+    },
+    {
+      "assertions": 20,
+      "label": "contenitore stradale marrone organico compostiera in uso gratuito su richiesta distribuzione materiali"
+    },
+    {
+      "assertions": 14,
+      "label": "farmaci scaduti"
+    },
+    {
+      "assertions": 8,
+      "label": "vetro e lattine"
+    },
+    {
+      "assertions": 7,
+      "label": "verde sfalci e potature"
+    },
+    {
+      "assertions": 6,
+      "label": "sacco verde composter"
+    },
+    {
+      "assertions": 5,
+      "label": "chiamare ascit"
+    },
+    {
+      "assertions": 5,
+      "label": "pile"
+    },
+    {
+      "assertions": 4,
+      "label": "contenitore bianco"
+    },
+    {
+      "assertions": 4,
+      "label": "contenitore raccolta abiti"
+    },
+    {
+      "assertions": 4,
+      "label": "sacco per rifiuto urbano residuo"
+    },
+    {
+      "assertions": 4,
+      "label": "vedi servizi commerciali"
+    },
+    {
+      "assertions": 3,
+      "label": "contenitore pile esauste"
+    },
+    {
+      "assertions": 3,
+      "label": "ditta specializzata"
+    },
+    {
+      "assertions": 3,
+      "label": "imballaggi e contenitori in plastica e metallo"
+    },
+    {
+      "assertions": 3,
+      "label": "ingombranti di grandi dimensioni"
+    },
+    {
+      "assertions": 3,
+      "label": "organico contenitore marrone"
+    },
+    {
+      "assertions": 3,
+      "label": "rivolgiti ad alia per un preventivo o al servizio veterinario asl"
+    },
+    {
+      "assertions": 3,
+      "label": "rur"
+    },
+    {
+      "assertions": 2,
+      "label": "contenitore farmaci scaduti"
+    },
+    {
+      "assertions": 2,
+      "label": "ingombrante"
+    },
+    {
+      "assertions": 2,
+      "label": "ingombranti di piccole dimensioni"
+    },
+    {
+      "assertions": 2,
+      "label": "pannolini e pannoloni"
+    },
+    {
+      "assertions": 2,
+      "label": "residuo non differenziabile oggettistica"
+    },
+    {
+      "assertions": 2,
+      "label": "sacchetto di mater b contenitore organico composter"
+    },
+    {
+      "assertions": 2,
+      "label": "sacco del verde"
+    },
+    {
+      "assertions": 1,
+      "label": "abiti"
+    },
+    {
+      "assertions": 1,
+      "label": "bidone apposito c o farmacie"
+    },
+    {
+      "assertions": 1,
+      "label": "carta e cartone punto bookcrossing"
+    },
+    {
+      "assertions": 1,
+      "label": "carta e cartone residuo non differenziabile"
+    },
+    {
+      "assertions": 1,
+      "label": "cassonetto contenitore bianco"
+    },
+    {
+      "assertions": 1,
+      "label": "centri raccolta"
+    },
+    {
+      "assertions": 1,
+      "label": "contenitore biancocentri di raccolta o servizio"
+    },
+    {
+      "assertions": 1,
+      "label": "contenitore per batterie sul territorio"
+    },
+    {
+      "assertions": 1,
+      "label": "contenitore verde"
+    },
+    {
+      "assertions": 1,
+      "label": "contenitori abiti usati"
+    },
+    {
+      "assertions": 1,
+      "label": "farmaci"
+    },
+    {
+      "assertions": 1,
+      "label": "grigio contenitore indifferenziato carta"
+    },
+    {
+      "assertions": 1,
+      "label": "imballaggi e contenitori bottiglie pet"
+    },
+    {
+      "assertions": 1,
+      "label": "impianti specifici"
+    },
+    {
+      "assertions": 1,
+      "label": "indumenti contenitore abiti usati o centro raccolta"
+    },
+    {
+      "assertions": 1,
+      "label": "ingombranti rur"
+    },
+    {
+      "assertions": 1,
+      "label": "organico verde sfalci e potature"
+    },
+    {
+      "assertions": 1,
+      "label": "pannolini rur"
+    },
+    {
+      "assertions": 1,
+      "label": "raccolta rifiuti urbani"
+    }
+  ],
   "top_unmapped_destinations": [
     {
       "assertions": 177,

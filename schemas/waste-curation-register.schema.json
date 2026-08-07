@@ -1,9 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://dovelobutto.example/schemas/waste-curation-register.schema.json",
-  "title": "Reviewed waste aliases and collection stream vocabulary",
+  "title": "Reviewed waste aliases, collection streams, and delivery channels",
   "type": "object",
-  "required": ["register_id", "version", "generated_at", "alias_groups", "collection_streams"],
+  "required": ["register_id", "version", "generated_at", "alias_groups", "collection_streams", "delivery_channels"],
   "properties": {
     "register_id": { "type": "string" },
     "version": { "type": "integer", "minimum": 1 },
@@ -42,6 +42,27 @@
         "properties": {
           "stream_id": { "type": "string", "pattern": "^stream:[a-z0-9-]+$" },
           "preferred_label": { "type": "string", "minLength": 1 },
+          "aliases": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": { "type": "string", "minLength": 1 }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "delivery_channels": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["channel_id", "preferred_label", "destination_type", "aliases"],
+        "properties": {
+          "channel_id": { "type": "string", "pattern": "^channel:[a-z0-9-]+$" },
+          "preferred_label": { "type": "string", "minLength": 1 },
+          "destination_type": {
+            "enum": ["facility", "collection_point", "pickup", "special_case"]
+          },
           "aliases": {
             "type": "array",
             "minItems": 1,

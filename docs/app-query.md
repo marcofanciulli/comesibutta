@@ -32,10 +32,12 @@ come gia previsto per le modifiche dello storage locale.
 6. Dopo la scelta del concetto legge la destinazione territoriale.
 7. Normalizza destinazione e regola tramite il vocabolario controllato dei
    flussi.
-8. Collega, quando possibile, la destinazione alla regola locale per ricavare
+8. Scompone gli eventuali canali di conferimento approvati e conserva il testo
+   originale con condizioni e alternative.
+9. Collega, quando possibile, la destinazione alla regola locale per ricavare
    contenitore, colore, modalita, sacchetto e istruzioni.
-9. Se regole di zone diverse producono risposte differenti chiede la zona.
-10. Restituisce fonti, data di verifica e revisione del dataset.
+10. Se regole di zone diverse producono risposte differenti chiede la zona.
+11. Restituisce fonti, data di verifica e revisione del dataset.
 
 Gli stati sono:
 
@@ -82,17 +84,23 @@ verificato ricerca esatta, errori di digitazione, scelta guidata, differenze di
 zona, conflitti, aggiornamento incrementale dell'indice e assenza di risposte
 inventate.
 
-Con il registro di curatela il dataset sale a 156.055 entita. Il risultato
+Con il registro di curatela il dataset sale a 156.062 entita. Il risultato
 espone anche `stream_id`, stabile tra gestori: per esempio `Sacco carta` e
 `Carta e cartone` diventano `stream:paper` pur conservando le etichette
 originali nelle fonti.
+
+Il risultato separa inoltre `source_destination` da `delivery_channels`. Nel
+caso reale di Firenze, `Armadio` conserva la destinazione pubblicata
+`Ecocentro, Ritiro ingombranti` ed espone sia il centro sia il ritiro come
+alternative. Finche non viene risolta la struttura o il servizio concreto, il
+campo `stream` resta vuoto: un canale non viene presentato come materiale.
 
 Il primo livello risolve destinazioni e preparazione quando i due fatti sono
 collegabili. Restano da completare:
 
 - estensione progressiva del registro oltre i primi gruppi approvati;
-- scomposizione delle destinazioni che contengono piu canali di conferimento;
 - risoluzione del centro accessibile e di eventuali alternative limitrofe;
+- collegamento dei canali ai servizi mobili, di ritiro, riuso e rivenditore;
 - vicinanza geografica, orari, stato del servizio e procedura di accesso;
 - arricchimento delle regole di preparazione non pubblicate in forma
   strutturata dai gestori.

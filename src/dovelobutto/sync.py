@@ -185,6 +185,10 @@ def load_canonical_entities(
             CanonicalEntity("collection_stream", stream["stream_id"], stream)
             for stream in curation.get("collection_streams", [])
         )
+        entities.extend(
+            CanonicalEntity("delivery_channel", channel["channel_id"], channel)
+            for channel in curation.get("delivery_channels", [])
+        )
     indexed = {(entity.entity_type, entity.entity_id): entity for entity in entities}
     if len(indexed) != len(entities):
         raise ValueError("Canonical auxiliary entities contain duplicate identifiers")

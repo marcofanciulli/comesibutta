@@ -32,8 +32,8 @@ verificati e un esploratore locale.
   scelta del percorso minimo e applicazione atomica degli aggiornamenti.
 - `docs/app-query.md`: ricerca tollerante e composizione della risposta
   territoriale letta da sito, app e backend.
-- `docs/waste-curation.md`: registro revisionato di sinonimi e flussi di
-  raccolta, controlli e distribuzione alle app.
+- `docs/waste-curation.md`: registro revisionato di sinonimi, flussi e canali
+  di conferimento, controlli e distribuzione alle app.
 - `docs/eer-register.md`: importazione normativa, validita e controllo dei
   codici EER pubblicati dai centri.
 - `docs/packaging-material-register.md`: registro europeo dei materiali di
@@ -60,8 +60,8 @@ verificati e un esploratore locale.
 - `schemas/eer-register.schema.json`: gerarchia e voci ufficiali EER.
 - `schemas/packaging-material-register.schema.json`: codici europei dei
   materiali di imballaggio, inclusi gli slot non assegnati.
-- `schemas/waste-curation-register.schema.json`: gruppi di sinonimi approvati
-  e vocabolario controllato dei flussi.
+- `schemas/waste-curation-register.schema.json`: gruppi di sinonimi approvati,
+  vocabolario dei flussi e canali di conferimento.
 - `schemas/vision-model-contract.schema.json` e
   `schemas/visual-recognition-observation.schema.json`: contratto del modello
   e risultato del riconoscimento fotografico.

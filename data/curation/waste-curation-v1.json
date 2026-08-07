@@ -1,7 +1,7 @@
 {
   "register_id": "waste-curation:toscana:v1",
   "version": 1,
-  "generated_at": "2026-08-07T23:00:00+02:00",
+  "generated_at": "2026-08-07T23:30:00+02:00",
   "alias_groups": [
     {
       "group_id": "waste-alias:beverage-carton",
@@ -146,6 +146,69 @@
       "stream_id": "stream:metals",
       "preferred_label": "Metalli",
       "aliases": ["Metalli", "Metallo", "Lattine"]
+    }
+  ],
+  "delivery_channels": [
+    {
+      "channel_id": "channel:collection-centre",
+      "preferred_label": "Centro di raccolta",
+      "destination_type": "facility",
+      "aliases": [
+        "Centro di raccolta",
+        "Centri di raccolta",
+        "CdR",
+        "Ecocentro",
+        "Stazione ecologica",
+        "Stazioni ecologiche"
+      ]
+    },
+    {
+      "channel_id": "channel:mobile-collection",
+      "preferred_label": "Servizio mobile",
+      "destination_type": "collection_point",
+      "aliases": ["Ecofurgone", "Ecomobile", "Servizio ecomobile"]
+    },
+    {
+      "channel_id": "channel:home-pickup",
+      "preferred_label": "Ritiro a domicilio",
+      "destination_type": "pickup",
+      "aliases": [
+        "Ritiro a domicilio",
+        "Ritiro domiciliare",
+        "Ritiro ingombranti",
+        "Servizio ingombranti",
+        "Ingombranti a domicilio",
+        "Ritiro su appuntamento"
+      ]
+    },
+    {
+      "channel_id": "channel:collection-point",
+      "preferred_label": "Punto di raccolta",
+      "destination_type": "collection_point",
+      "aliases": ["Ecotappa", "Punto di raccolta", "Punti di raccolta"]
+    },
+    {
+      "channel_id": "channel:retailer-return",
+      "preferred_label": "Consegna al rivenditore",
+      "destination_type": "special_case",
+      "aliases": ["Uno contro uno", "Negozianti", "Rivenditori autorizzati"]
+    },
+    {
+      "channel_id": "channel:specialist-operator",
+      "preferred_label": "Operatore specializzato",
+      "destination_type": "special_case",
+      "aliases": [
+        "Ditte specializzate",
+        "Operatori specializzati",
+        "Aziende autorizzate",
+        "Operatori autorizzati"
+      ]
+    },
+    {
+      "channel_id": "channel:reuse-service",
+      "preferred_label": "Servizio di riuso",
+      "destination_type": "special_case",
+      "aliases": ["Riuso cambia il finale"]
     }
   ]
 }

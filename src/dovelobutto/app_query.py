@@ -8,6 +8,7 @@ import sqlite3
 from typing import Any
 
 from .catalog import normalize_term
+from .curation import matching_delivery_channels
 from .sync import DATASET_ID, STORAGE_VERSION, read_entity_data
 
 
@@ -92,6 +93,7 @@ class DisposalQueryService:
         self.alias_membership: dict[str, str] = {}
         self.streams: dict[str, dict[str, Any]] = {}
         self.stream_aliases: dict[str, str] = {}
+        self.delivery_channels: list[dict[str, Any]] = []
         self._concept_cache: dict[str, dict[str, Any] | None] = {}
         for row in connection.execute(
             """SELECT entity_id FROM entities
@@ -115,6 +117,15 @@ class DisposalQueryService:
                 self.streams[stream["stream_id"]] = stream
                 for alias in stream["aliases"]:
                     self.stream_aliases[normalize_term(alias)] = stream["stream_id"]
+        for row in connection.execute(
+            """SELECT entity_id FROM entities
+            WHERE entity_type = 'delivery_channel' ORDER BY entity_id"""
+        ):
+            channel = read_entity_data(
+                connection, "delivery_channel", row["entity_id"], include_sources=False,
+            )
+            if channel:
+                self.delivery_channels.append(channel)
 
     def search(
         self,
@@ -300,11 +311,9 @@ class DisposalQueryService:
         destinations = []
         for destination in concept.get("local_destinations", []):
             if municipality_istat in destination["municipality_istats"]:
-                key = self._canonical_stream(destination["label"]) or normalize_term(
-                    destination["label"]
-                )
+                key = self._canonical_destination_key(destination["label"])
                 existing_keys = {
-                    self._canonical_stream(item["label"]) or normalize_term(item["label"])
+                    self._canonical_destination_key(item["label"])
                     for item in destinations
                 }
                 if key not in existing_keys:
@@ -327,9 +336,11 @@ class DisposalQueryService:
             }
             return base
         destination = destinations[0]["label"]
-        rules = self._matching_rules(
-            destination, municipality_istat, zone_id=zone_id, user_type=user_type,
-        )
+        rules = []
+        if self._canonical_stream(destination) or not self._channel_matches(destination):
+            rules = self._matching_rules(
+                destination, municipality_istat, zone_id=zone_id, user_type=user_type,
+            )
         if zone_id is None:
             zone_ids = sorted({item["payload"].get("zone_ref") for item in rules if item["payload"].get("zone_ref")})
             signatures = {self._rule_signature(item) for item in rules}
@@ -408,6 +419,21 @@ class DisposalQueryService:
 
     def _canonical_stream(self, value: str) -> str | None:
         return self.stream_aliases.get(normalize_term(value))
+
+    def _channel_matches(self, value: str) -> list[dict[str, Any]]:
+        return matching_delivery_channels(value, self.delivery_channels)
+
+    def _canonical_destination_key(self, value: str) -> str:
+        stream_id = self._canonical_stream(value)
+        if stream_id:
+            return stream_id
+        channels = self._channel_matches(value)
+        if len(channels) == 1 and any(
+            normalize_term(value) == normalize_term(alias)
+            for alias in channels[0]["matched_aliases"]
+        ):
+            return channels[0]["channel_id"]
+        return normalize_term(value)
 
     def _concept_for_choice(self, choice_id: str) -> dict[str, Any] | None:
         if choice_id in self._concept_cache:
@@ -499,15 +525,32 @@ class DisposalQueryService:
                 "facility_operational_label": candidate["source_labels"][0] if candidate.get("source_labels") else None,
             }
         warnings = []
-        if rule is None:
+        channels = self._channel_matches(destination)
+        if rule is None and not channels:
             warnings.append("La destinazione e pubblicata, ma non e collegata a una regola di preparazione locale.")
-        if _destination_type(destination) == "facility":
+        if any(channel["destination_type"] == "facility" for channel in channels):
             warnings.append("Il centro utilizzabile deve ancora essere risolto tra le strutture accessibili.")
         stream_id = self._canonical_stream(payload.get("stream_name") or destination)
+        if channels:
+            destination_type = (
+                channels[0]["destination_type"] if len(channels) == 1 else "special_case"
+            )
+        else:
+            destination_type = _destination_type(destination)
+        stream = payload.get("stream_name")
+        if stream is None and stream_id:
+            stream = self.streams[stream_id]["preferred_label"]
+        if stream is None and not channels:
+            stream = destination
         return {
-            "destination_type": _destination_type(destination),
+            "destination_type": destination_type,
             "stream_id": stream_id,
-            "stream": payload.get("stream_name") or destination,
+            "stream": stream,
+            "source_destination": destination,
+            "channel_relation": (
+                "alternatives" if len(channels) > 1 else "single" if channels else None
+            ),
+            "delivery_channels": channels,
             "container": (
                 {
                     "type": payload.get("container_type"),

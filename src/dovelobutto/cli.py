@@ -314,7 +314,7 @@ def build_parser() -> argparse.ArgumentParser:
     catalog.add_argument("--report", type=Path, required=True)
     curation = subparsers.add_parser(
         "validate-waste-curation",
-        help="Validate reviewed waste aliases and collection stream mappings",
+        help="Validate reviewed waste aliases, streams, and delivery channels",
     )
     curation.add_argument("--register", type=Path, required=True)
     curation.add_argument("--catalog", type=Path, required=True)

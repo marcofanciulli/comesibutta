@@ -6,7 +6,7 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
 
-from dovelobutto.curation import validate_waste_curation
+from dovelobutto.curation import matching_delivery_channels, validate_waste_curation
 from dovelobutto.sync import load_canonical_entities
 
 
@@ -28,8 +28,11 @@ class WasteCurationTests(unittest.TestCase):
         self.assertEqual(3, report["alias_groups"])
         self.assertEqual(29, report["alias_members"])
         self.assertEqual(7, report["collection_streams"])
+        self.assertEqual(7, report["delivery_channels"])
         self.assertEqual(0, report["alias_group_territorial_conflicts"])
         self.assertGreater(report["mapped_destination_assertions"], 1900)
+        self.assertGreater(report["channel_mapped_destination_assertions"], 1700)
+        self.assertGreater(report["multi_channel_destination_assertions"], 600)
 
     def test_unknown_alias_member_is_rejected(self) -> None:
         register = copy.deepcopy(self.register)
@@ -59,6 +62,24 @@ class WasteCurationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Search term.*belongs to both"):
             validate_waste_curation(register, self.catalog)
 
+    def test_channel_alias_cannot_have_two_meanings(self) -> None:
+        register = copy.deepcopy(self.register)
+        register["delivery_channels"][1]["aliases"].append("Centro di raccolta")
+        with self.assertRaisesRegex(ValueError, "Channel alias.*belongs to both"):
+            validate_waste_curation(register, self.catalog)
+
+    def test_compound_destination_preserves_all_controlled_channels(self) -> None:
+        matches = matching_delivery_channels(
+            "Ecocentro - ritiro ingombranti", self.register["delivery_channels"],
+        )
+        self.assertEqual(
+            ["channel:collection-centre", "channel:home-pickup"],
+            [match["channel_id"] for match in matches],
+        )
+        self.assertEqual([], matching_delivery_channels(
+            "Centro storico", self.register["delivery_channels"],
+        ))
+
     def test_register_enters_the_synchronized_dataset_with_dependencies(self) -> None:
         with TemporaryDirectory() as temporary:
             root = Path(temporary)
@@ -81,6 +102,7 @@ class WasteCurationTests(unittest.TestCase):
         group = entities[("waste_alias_group", "waste-alias:beverage-carton")]
         self.assertEqual(18, len(group.dependencies))
         self.assertIn(("collection_stream", "stream:organic"), entities)
+        self.assertIn(("delivery_channel", "channel:home-pickup"), entities)
 
     def test_schema_and_generated_report_are_machine_readable(self) -> None:
         schema = json.loads(

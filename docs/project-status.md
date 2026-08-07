@@ -68,6 +68,9 @@ La risposta deve poter indicare:
 20. Sinonimi e nomi dei flussi entrano nelle risposte soltanto tramite un
     registro revisionato e distribuibile; i concetti sorgente e le differenze
     territoriali non vengono eliminati dalla curatela.
+21. Flusso di materiale e canale di consegna sono dimensioni distinte. Le
+    destinazioni composte espongono tutte le alternative controllate e il testo
+    sorgente; non vengono ridotte per somiglianza a una regola di cassonetto.
 
 ## Artefatti persistenti
 
@@ -346,7 +349,7 @@ Registro UE dei materiali e riconoscimento visivo:
   sintetica la soglia 0,4 ottiene F1 0,500, precisione 0,571 e recall 0,444;
 - checkpoint locale da 15,4 MB, report riproducibili e anteprima delle
   predizioni prodotti; il modello e marcato esplicitamente non distribuibile;
-- 131 test automatici superati.
+- 135 test automatici superati.
 
 Ricerca e risposta applicativa:
 
@@ -381,8 +384,14 @@ Curatela di sinonimi e flussi:
   restano distinti;
 - il collegamento controllato ha unito, nel caso reale di Aulla, `Sacco carta`
   alla regola `Carta e cartone`, recuperando istruzioni e provenienza locale;
-- le destinazioni composte con ecocentro, ritiro, ecomobile o piu canali sono
-  lasciate fuori dai flussi e costituiscono il prossimo livello di lavoro.
+- aggiunti 7 canali e 26 alias controllati: 102 etichette e 1.750 delle 4.065
+  associazioni territoriali sono scomposte senza confonderle con i flussi;
+- 41 etichette, pari a 807 associazioni, espongono piu alternative; testo
+  sorgente e formulazioni non interpretate restano integralmente disponibili;
+- il caso reale `Armadio` a Firenze restituisce separatamente ecocentro e
+  ritiro ingombranti, con `stream` vuoto finche non e noto un vero flusso;
+- canali, flussi e gruppi formano 17 entita sincronizzate; il dataset di
+  collaudo raggiunge 156.062 entita.
 
 ## Limiti e questioni aperte
 
@@ -402,13 +411,15 @@ Curatela di sinonimi e flussi:
 2. Acquisire i dettagli dei centri ESA e cercare una guida AAMPS piu recente.
 3. Modellare l'accesso intergestore Montignoso-ERSU e approfondire i centri non
    pubblicati o non attribuiti esplicitamente dalle fonti.
-4. Estendere la curatela e scomporre le destinazioni composte in canali di
-   conferimento senza perdere condizioni e alternative.
-5. Risolvere centri accessibili, alternative limitrofe, distanza, orari e stato
+4. Risolvere centri accessibili, alternative limitrofe, distanza, orari e stato
    del servizio nella risposta applicativa.
-6. Aggiungere consolidati settimanali, mensili e annuali con conservazione e
+5. Collegare gli altri canali ai servizi mobili, di ritiro, riuso e rivenditore
+   pubblicati per il comune, mantenendo condizioni e procedure.
+6. Estendere il registro alle formule ancora prive di flusso o canale solo dopo
+   revisione delle relative evidenze territoriali.
+7. Aggiungere consolidati settimanali, mensili e annuali con conservazione e
    compattazione automatica nella finestra incrementale di cinque anni.
-7. Importare il primo lotto fotografico classificato col prontuario, annotarlo
+8. Importare il primo lotto fotografico classificato col prontuario, annotarlo
    in CVAT e fissare le soglie quantitative del primo dataset addestrabile.
 
 ## Regola di continuita
