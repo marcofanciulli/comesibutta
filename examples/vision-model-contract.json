@@ -2,7 +2,7 @@
   "version": 1,
   "model_id": "packaging-mark-detector",
   "model_version": "0.1.0",
-  "taxonomy_version": "eu-packaging-marks-1.0.0",
+  "taxonomy_version": "1.0.0",
   "source": "pytorch",
   "input": {
     "width": 640,

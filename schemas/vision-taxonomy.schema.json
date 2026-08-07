@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dovelobutto.example/schemas/vision-taxonomy.schema.json",
+  "title": "Packaging mark detector taxonomy",
+  "type": "object",
+  "required": ["version", "taxonomy_id", "taxonomy_version", "annotation_unit", "classes", "runtime_fallback"],
+  "properties": {
+    "version": { "const": 1 },
+    "taxonomy_id": { "const": "packaging-mark-detector" },
+    "taxonomy_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "annotation_unit": { "const": "complete_visible_mark" },
+    "classes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["category_id", "detector_index", "runtime_family", "label_it", "purpose", "trainable"],
+        "properties": {
+          "category_id": { "type": "string", "pattern": "^mark\\.[a-z_]+$" },
+          "detector_index": { "type": "integer", "minimum": 0 },
+          "runtime_family": {
+            "enum": [
+              "material_identification", "collection_instruction", "regulated_product",
+              "environmental_claim", "certification_or_scheme"
+            ]
+          },
+          "label_it": { "type": "string", "minLength": 1 },
+          "purpose": { "type": "string", "minLength": 1 },
+          "trainable": { "type": "boolean" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "runtime_fallback": { "const": "unknown_mark" }
+  },
+  "additionalProperties": false
+}

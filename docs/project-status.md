@@ -315,7 +315,15 @@ Registro UE dei materiali e riconoscimento visivo:
   transizione alle etichette armonizzate previste dal Regolamento 2025/40;
 - il registro aggiunge 99 entita `packaging_material_mark` alle pubblicazioni
   canoniche che lo includono;
-- 98 test automatici superati.
+- definita la tassonomia v1 del detector con cinque classi e fallback runtime,
+  mantenendo codici e destinazioni fuori dalle classi apprese;
+- aggiunti manifest del corpus, provenienza e diritti, revisione privacy,
+  annotazioni normalizzate e split deterministico per gruppo di cattura;
+- il test del modello accetta soltanto fotografie reali; immagini sintetiche e
+  ritagli documentali non possono sostenere una valutazione di rilascio;
+- il corpus iniziale contiene intenzionalmente zero immagini ed e dichiarato
+  non addestrabile, in attesa di fotografie con diritti verificati;
+- 105 test automatici superati.
 
 ## Limiti e questioni aperte
 
@@ -339,8 +347,8 @@ Registro UE dei materiali e riconoscimento visivo:
    esporre i dettagli della rappresentazione SQLite.
 5. Aggiungere consolidati settimanali, mensili e annuali con conservazione e
    compattazione automatica nella finestra incrementale di cinque anni.
-6. Costruire il corpus visivo licenziato, definire le linee guida di annotazione
-   e preparare il primo modello di rilevamento condiviso.
+6. Eseguire il pilot fotografico secondo le linee guida del corpus, annotarlo
+   in CVAT e fissare le soglie quantitative del primo dataset addestrabile.
 
 ## Regola di continuita
 

@@ -36,6 +36,8 @@ verificati e un esploratore locale.
   imballaggio e relativa provenienza normativa.
 - `docs/visual-recognition.md`: pipeline unificata PyTorch, Core ML e LiteRT
   per il riconoscimento sul dispositivo.
+- `docs/vision-corpus.md`: tassonomia, diritti, privacy, split e regole di
+  annotazione del corpus fotografico.
 - `schemas/acquisition-record.schema.json`: formato JSON Lines prodotto dagli
   estrattori.
 - `schemas/disposal-answer.schema.json`: contratto della risposta letta
@@ -49,6 +51,9 @@ verificati e un esploratore locale.
 - `schemas/vision-model-contract.schema.json` e
   `schemas/visual-recognition-observation.schema.json`: contratto del modello
   e risultato del riconoscimento fotografico.
+- `schemas/vision-taxonomy.schema.json` e
+  `schemas/vision-corpus-manifest.schema.json`: classi del detector e manifest
+  verificabile delle immagini annotate.
 - `examples/`: esempi illustrativi basati sulle pagine SEI Toscana di Manciano.
 - `explorer/`: interfaccia locale per controllare comuni, centri, codici EER,
   regole, punti di raccolta, fonti e anomalie.

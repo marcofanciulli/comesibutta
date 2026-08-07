@@ -75,6 +75,8 @@ stabile tra addestramento, validazione e test.
 
 Le annotazioni descrivono la regione e la famiglia del segno. Sigla e numero
 restano target OCR; il codice normativo risolto e un risultato del parser.
+Tassonomia, provenienza, licenze, privacy, split e istruzioni operative sono
+definiti in `docs/vision-corpus.md`.
 
 ## Privacy e aggiornamenti
 

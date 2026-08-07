@@ -1,0 +1,18 @@
+{
+  "annotations": 0,
+  "assets": 0,
+  "capture_groups": 0,
+  "category_counts": {},
+  "content_origin_counts": {},
+  "corpus_id": "comesibutta-packaging-marks",
+  "corpus_version": "0.1.0",
+  "release_evaluation_ready": false,
+  "sources": 0,
+  "split_counts": {
+    "test": 0,
+    "train": 0,
+    "validation": 0
+  },
+  "taxonomy_version": "1.0.0",
+  "trainable": false
+}

@@ -26,6 +26,7 @@ from .crawl import (
 from .catalog import build_catalog_from_paths, write_catalog
 from .eer import build_eer_register, validate_acquired_eer, write_json
 from .packaging_marks import build_packaging_material_register
+from .vision_corpus import validate_vision_corpus, write_json as write_vision_json
 from .ato_costa import (
     MunicipalityContext as CostaMunicipalityContext,
     extract_aamps_waste_lookup,
@@ -366,6 +367,14 @@ def build_parser() -> argparse.ArgumentParser:
     packaging_marks.add_argument("--generated-at", required=True)
     packaging_marks.add_argument("--output", type=Path, required=True)
     packaging_marks.add_argument("--report", type=Path, required=True)
+    vision_corpus = subparsers.add_parser(
+        "validate-vision-corpus",
+        help="Validate visual corpus rights, splits, annotations, and asset hashes",
+    )
+    vision_corpus.add_argument("--manifest", type=Path, required=True)
+    vision_corpus.add_argument("--taxonomy", type=Path, required=True)
+    vision_corpus.add_argument("--assets-root", type=Path)
+    vision_corpus.add_argument("--report", type=Path, required=True)
     sweep = subparsers.add_parser(
         "sweep-sei",
         help="Run a resumable and rate-limited sweep from the SEI municipality registry",
@@ -589,6 +598,12 @@ def main(argv: list[str] | None = None) -> int:
         )
         write_json(args.output, register)
         write_json(args.report, report)
+        return 0
+    if args.command == "validate-vision-corpus":
+        report = validate_vision_corpus(
+            args.manifest, args.taxonomy, args.assets_root,
+        )
+        write_vision_json(args.report, report)
         return 0
     if args.command == "build-waste-catalog":
         catalog, report = build_catalog_from_paths(

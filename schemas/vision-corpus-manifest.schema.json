@@ -1,0 +1,134 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dovelobutto.example/schemas/vision-corpus-manifest.schema.json",
+  "title": "Versioned visual corpus manifest",
+  "type": "object",
+  "required": [
+    "version", "corpus_id", "corpus_version", "created_at", "taxonomy",
+    "split_policy", "sources", "assets"
+  ],
+  "properties": {
+    "version": { "const": 1 },
+    "corpus_id": { "const": "comesibutta-packaging-marks" },
+    "corpus_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "taxonomy": {
+      "type": "object",
+      "required": ["taxonomy_id", "taxonomy_version", "sha256"],
+      "properties": {
+        "taxonomy_id": { "const": "packaging-mark-detector" },
+        "taxonomy_version": { "type": "string" },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      },
+      "additionalProperties": false
+    },
+    "split_policy": {
+      "type": "object",
+      "required": ["unit", "algorithm", "seed", "train", "validation", "test"],
+      "properties": {
+        "unit": { "const": "capture_group" },
+        "algorithm": { "const": "sha256_mod_100" },
+        "seed": { "type": "string", "minLength": 1 },
+        "train": { "$ref": "#/$defs/range" },
+        "validation": { "$ref": "#/$defs/range" },
+        "test": { "$ref": "#/$defs/range" }
+      },
+      "additionalProperties": false
+    },
+    "sources": { "type": "array", "items": { "$ref": "#/$defs/source" } },
+    "assets": { "type": "array", "items": { "$ref": "#/$defs/asset" } }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "range": {
+      "type": "array",
+      "prefixItems": [
+        { "type": "integer", "minimum": 0, "maximum": 99 },
+        { "type": "integer", "minimum": 0, "maximum": 99 }
+      ],
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "source_id", "rights_basis", "license_id", "license_url", "attribution",
+        "rights_review", "personal_data_allowed"
+      ],
+      "properties": {
+        "source_id": { "type": "string", "minLength": 1 },
+        "rights_basis": {
+          "enum": ["original_work", "explicit_consent", "open_license", "public_domain", "contractual_permission"]
+        },
+        "license_id": { "type": ["string", "null"] },
+        "license_url": { "type": ["string", "null"], "format": "uri" },
+        "attribution": { "type": ["string", "null"] },
+        "rights_review": { "enum": ["approved", "pending", "rejected"] },
+        "personal_data_allowed": { "const": false },
+        "notes": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "box": {
+      "type": "object",
+      "required": ["x_min", "y_min", "x_max", "y_max"],
+      "properties": {
+        "x_min": { "type": "number", "minimum": 0, "maximum": 1 },
+        "y_min": { "type": "number", "minimum": 0, "maximum": 1 },
+        "x_max": { "type": "number", "minimum": 0, "maximum": 1 },
+        "y_max": { "type": "number", "minimum": 0, "maximum": 1 }
+      },
+      "additionalProperties": false
+    },
+    "annotation": {
+      "type": "object",
+      "required": [
+        "annotation_id", "category_id", "bounding_box", "transcription",
+        "transcription_status", "resolved_mark_ref", "quality"
+      ],
+      "properties": {
+        "annotation_id": { "type": "string", "minLength": 1 },
+        "category_id": { "type": "string" },
+        "bounding_box": { "$ref": "#/$defs/box" },
+        "transcription": { "type": ["string", "null"] },
+        "transcription_status": { "enum": ["exact", "partial", "unreadable", "not_applicable"] },
+        "resolved_mark_ref": { "type": ["string", "null"] },
+        "quality": {
+          "type": "object",
+          "required": ["occlusion", "blur", "glare", "perspective"],
+          "properties": {
+            "occlusion": { "enum": ["none", "partial", "severe"] },
+            "blur": { "enum": ["none", "moderate", "severe"] },
+            "glare": { "enum": ["none", "moderate", "severe"] },
+            "perspective": { "enum": ["frontal", "moderate", "severe"] }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "asset": {
+      "type": "object",
+      "required": [
+        "asset_id", "path", "sha256", "mime_type", "width", "height", "content_origin",
+        "source_id", "capture_group_id", "split", "captured_at", "privacy_review", "annotations"
+      ],
+      "properties": {
+        "asset_id": { "type": "string", "minLength": 1 },
+        "path": { "type": "string", "minLength": 1 },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "mime_type": { "enum": ["image/jpeg", "image/png", "image/webp"] },
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 },
+        "content_origin": { "enum": ["real_photo", "document_crop", "synthetic"] },
+        "source_id": { "type": "string" },
+        "capture_group_id": { "type": "string", "minLength": 1 },
+        "split": { "enum": ["train", "validation", "test"] },
+        "captured_at": { "type": ["string", "null"], "format": "date-time" },
+        "privacy_review": { "enum": ["approved", "pending", "rejected"] },
+        "annotations": { "type": "array", "items": { "$ref": "#/$defs/annotation" } }
+      },
+      "additionalProperties": false
+    }
+  }
+}
