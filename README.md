@@ -32,6 +32,8 @@ verificati e un esploratore locale.
   scelta del percorso minimo e applicazione atomica degli aggiornamenti.
 - `docs/app-query.md`: ricerca tollerante e composizione della risposta
   territoriale letta da sito, app e backend.
+- `docs/facility-resolution.md`: accesso, accettazione, distanza, orari e
+  scelta prudente dei centri di raccolta.
 - `docs/waste-curation.md`: registro revisionato di sinonimi, flussi e canali
   di conferimento, controlli e distribuzione alle app.
 - `docs/eer-register.md`: importazione normativa, validita e controllo dei

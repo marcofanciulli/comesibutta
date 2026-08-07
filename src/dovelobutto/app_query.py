@@ -3,6 +3,7 @@ from __future__ import annotations
 from datetime import date
 from difflib import SequenceMatcher
 import json
+from math import asin, cos, radians, sin, sqrt
 from pathlib import Path
 import sqlite3
 from typing import Any
@@ -69,6 +70,26 @@ def _destination_type(destination: str) -> str:
     if "punto" in normalized:
         return "collection_point"
     return "collection_stream"
+
+
+def _distance_km(
+    latitude_a: float | None,
+    longitude_a: float | None,
+    latitude_b: float | None,
+    longitude_b: float | None,
+) -> float | None:
+    if None in {latitude_a, longitude_a, latitude_b, longitude_b}:
+        return None
+    lat_a, lon_a, lat_b, lon_b = map(
+        radians, (latitude_a, longitude_a, latitude_b, longitude_b),
+    )
+    latitude_delta = lat_b - lat_a
+    longitude_delta = lon_b - lon_a
+    haversine = (
+        sin(latitude_delta / 2) ** 2
+        + cos(lat_a) * cos(lat_b) * sin(longitude_delta / 2) ** 2
+    )
+    return 6371.0088 * 2 * asin(sqrt(haversine))
 
 
 def _source_summary(source: dict[str, Any]) -> dict[str, Any] | None:
@@ -215,11 +236,19 @@ class DisposalQueryService:
         zone_id: str | None = None,
         user_type: str = "domestic",
         as_of: date | None = None,
+        latitude: float | None = None,
+        longitude: float | None = None,
     ) -> dict[str, Any]:
         if len(municipality_istat) != 6 or not municipality_istat.isdigit():
             raise ValueError("Municipality ISTAT code must contain six digits")
         if user_type not in {"domestic", "non_domestic"}:
             raise ValueError("User type must be domestic or non_domestic")
+        if (latitude is None) != (longitude is None):
+            raise ValueError("Latitude and longitude must be provided together")
+        if latitude is not None and not -90 <= latitude <= 90:
+            raise ValueError("Latitude must be between -90 and 90")
+        if longitude is not None and not -180 <= longitude <= 180:
+            raise ValueError("Longitude must be between -180 and 180")
         as_of = as_of or date.today()
         suggestions = self.search(text, municipality_istat=municipality_istat, limit=6)
         if concept_id:
@@ -247,6 +276,10 @@ class DisposalQueryService:
                 "zone_id": zone_id,
                 "user_type": user_type,
                 "as_of": as_of.isoformat(),
+                "location": (
+                    {"latitude": latitude, "longitude": longitude}
+                    if latitude is not None else None
+                ),
             },
             "status": "not_found",
             "question": None,
@@ -354,10 +387,19 @@ class DisposalQueryService:
                 }
                 return base
         rule = rules[0] if rules else None
-        if rule:
-            self._set_provenance(base, [*evidence, *rule.get("sources", [])])
         base["status"] = "resolved"
-        base["result"] = self._result(concept, destination, rule)
+        base["result"], facility_sources = self._result(
+            concept, destination, rule,
+            municipality_istat=municipality_istat,
+            user_type=user_type,
+            latitude=latitude,
+            longitude=longitude,
+        )
+        self._set_provenance(base, [
+            *evidence,
+            *((rule or {}).get("sources", [])),
+            *facility_sources,
+        ])
         return base
 
     def _matching_rules(
@@ -508,7 +550,12 @@ class DisposalQueryService:
         concept: dict[str, Any],
         destination: str,
         rule: dict[str, Any] | None,
-    ) -> dict[str, Any]:
+        *,
+        municipality_istat: str,
+        user_type: str,
+        latitude: float | None,
+        longitude: float | None,
+    ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
         payload = (rule or {}).get("payload") or {}
         presentation = payload.get("presentation") or None
         instructions = []
@@ -528,8 +575,57 @@ class DisposalQueryService:
         channels = self._channel_matches(destination)
         if rule is None and not channels:
             warnings.append("La destinazione e pubblicata, ma non e collegata a una regola di preparazione locale.")
+        facilities = []
+        facility_sources: list[dict[str, Any]] = []
         if any(channel["destination_type"] == "facility" for channel in channels):
-            warnings.append("Il centro utilizzabile deve ancora essere risolto tra le strutture accessibili.")
+            facilities, facility_sources = self._resolve_facilities(
+                concept,
+                destination,
+                municipality_istat=municipality_istat,
+                user_type=user_type,
+                latitude=latitude,
+                longitude=longitude,
+            )
+        selectable = [
+            facility for facility in facilities
+            if facility["acceptance"]["status"].startswith("verified_")
+            and facility["operational_status"] not in {"closed", "temporarily_closed"}
+        ]
+        primary = None
+        if len(selectable) == 1 or (selectable and latitude is not None):
+            primary = selectable[0]
+        elif selectable:
+            acceptance_rank = {"verified_eer": 0, "verified_description": 1}
+            status_rank = {"open": 0, "unknown": 1}
+            best_quality = min(
+                (
+                    acceptance_rank[facility["acceptance"]["status"]],
+                    status_rank.get(facility["operational_status"], 1),
+                    not facility["_local"],
+                )
+                for facility in selectable
+            )
+            best = [
+                facility for facility in selectable
+                if (
+                    acceptance_rank[facility["acceptance"]["status"]],
+                    status_rank.get(facility["operational_status"], 1),
+                    not facility["_local"],
+                ) == best_quality
+            ]
+            if len(best) == 1:
+                primary = best[0]
+        for facility in facilities:
+            facility.pop("_local", None)
+        if channels and any(
+            channel["destination_type"] == "facility" for channel in channels
+        ):
+            if not facilities:
+                warnings.append("La fonte indica il centro di raccolta, ma non pubblica una struttura accessibile per questa utenza.")
+            elif not selectable:
+                warnings.append("Nessun centro accessibile ha una conferma pubblicata di accettazione per questo rifiuto.")
+            elif primary is None:
+                warnings.append("Sono disponibili piu centri compatibili: usa la posizione per ordinare quelli piu vicini.")
         stream_id = self._canonical_stream(payload.get("stream_name") or destination)
         if channels:
             destination_type = (
@@ -542,7 +638,7 @@ class DisposalQueryService:
             stream = self.streams[stream_id]["preferred_label"]
         if stream is None and not channels:
             stream = destination
-        return {
+        result = {
             "destination_type": destination_type,
             "stream_id": stream_id,
             "stream": stream,
@@ -564,10 +660,252 @@ class DisposalQueryService:
                 if presentation else None
             ),
             "eer": eer,
-            "facility": None,
+            "facility": primary,
+            "facility_alternatives": [
+                facility for facility in facilities if facility is not primary
+            ],
             "environmental_note": concept.get("general_details", {}).get("environmental_note"),
             "warnings": warnings,
         }
+        return result, facility_sources
+
+    def _resolve_facilities(
+        self,
+        concept: dict[str, Any],
+        source_destination: str,
+        *,
+        municipality_istat: str,
+        user_type: str,
+        latitude: float | None,
+        longitude: float | None,
+    ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+        access_by_facility: dict[str, list[dict[str, Any]]] = {}
+        for row in self.connection.execute(
+            """SELECT entity_id, facility_ref FROM entities
+            WHERE entity_type = 'facility_access' AND municipality_ref = ?
+            ORDER BY facility_ref, entity_id""",
+            (f"istat:{municipality_istat}",),
+        ):
+            access = read_entity_data(
+                self.connection, "facility_access", row["entity_id"],
+            )
+            payload = (access or {}).get("payload") or {}
+            if (
+                access
+                and payload.get("allowed") is True
+                and payload.get("user_type") in {"all", user_type}
+            ):
+                access_by_facility.setdefault(row["facility_ref"], []).append(access)
+
+        candidates = []
+        sources = []
+        for facility_id, accesses in access_by_facility.items():
+            facility = read_entity_data(self.connection, "facility", facility_id)
+            if facility is None:
+                continue
+            payload = facility.get("payload") or {}
+            acceptance, acceptance_sources = self._facility_acceptance(
+                facility_id, concept, source_destination, user_type,
+            )
+            periods, period_sources = self._facility_opening_periods(facility_id)
+            access_payloads = [access.get("payload") or {} for access in accesses]
+            raw_location = payload.get("location") or {}
+            location = (
+                {
+                    "latitude": raw_location["latitude"],
+                    "longitude": raw_location["longitude"],
+                    "method": raw_location.get("method") or "unknown",
+                    "accuracy_m": raw_location.get("accuracy_m"),
+                }
+                if raw_location.get("latitude") is not None
+                and raw_location.get("longitude") is not None
+                else None
+            )
+            distance = None
+            if latitude is not None and location:
+                distance = _distance_km(
+                    latitude, longitude,
+                    location.get("latitude"), location.get("longitude"),
+                )
+            booking_values = {
+                item.get("booking_required") for item in access_payloads
+                if item.get("booking_required") is not None
+            }
+            booking_required = (
+                True if True in booking_values else False if booking_values == {False} else None
+            )
+            information_urls = sorted({
+                url for item in access_payloads for url in item.get("information_urls", [])
+            })
+            access_summary = next((
+                item.get("requirements_raw") for item in access_payloads
+                if item.get("requirements_raw")
+            ), None)
+            raw_status = payload.get("operational_status") or "unknown"
+            operational_status = "open" if raw_status == "active" else raw_status
+            if operational_status not in {
+                "open", "closed", "temporarily_closed", "unknown",
+            }:
+                operational_status = "unknown"
+            candidate = {
+                "id": facility_id,
+                "name": payload.get("name") or facility_id,
+                "address": payload.get("address_raw"),
+                "location": location,
+                "distance_km": round(distance, 2) if distance is not None else None,
+                "operational_status": operational_status,
+                "status_raw": payload.get("status_raw") or (
+                    raw_status if raw_status != operational_status else None
+                ),
+                "access_summary": access_summary,
+                "booking_required": booking_required,
+                "phone": next((
+                    item.get("contact_phone") for item in access_payloads
+                    if item.get("contact_phone")
+                ), payload.get("phone")),
+                "email": next((
+                    item.get("contact_email") for item in access_payloads
+                    if item.get("contact_email")
+                ), payload.get("email")),
+                "information_urls": information_urls,
+                "opening_periods": periods,
+                "acceptance": acceptance,
+                "_local": payload.get("municipality_ref") == f"istat:{municipality_istat}",
+            }
+            candidates.append(candidate)
+            sources.extend(facility.get("sources", []))
+            sources.extend(source for access in accesses for source in access.get("sources", []))
+            sources.extend(acceptance_sources)
+            sources.extend(period_sources)
+
+        acceptance_rank = {
+            "verified_eer": 0,
+            "verified_description": 1,
+            "acceptance_not_published": 2,
+            "not_listed": 3,
+        }
+        status_rank = {"open": 0, "unknown": 1, "temporarily_closed": 2, "closed": 3}
+        candidates.sort(key=lambda item: (
+            acceptance_rank[item["acceptance"]["status"]],
+            status_rank.get(item["operational_status"], 1),
+            item["distance_km"] if item["distance_km"] is not None else float("inf"),
+            not item["_local"],
+            item["name"].casefold(),
+        ))
+        return candidates, sources
+
+    def _facility_acceptance(
+        self,
+        facility_id: str,
+        concept: dict[str, Any],
+        source_destination: str,
+        user_type: str,
+    ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+        accepted = []
+        sources = []
+        for row in self.connection.execute(
+            """SELECT entity_id FROM entities
+            WHERE entity_type = 'facility_acceptance' AND facility_ref = ?
+            ORDER BY entity_id""",
+            (facility_id,),
+        ):
+            item = read_entity_data(
+                self.connection, "facility_acceptance", row["entity_id"],
+            )
+            payload = (item or {}).get("payload") or {}
+            if item and payload.get("user_type") in {
+                None, "all", "unspecified", user_type,
+            }:
+                accepted.append(item)
+                sources.extend(item.get("sources", []))
+        if not accepted:
+            return {
+                "status": "acceptance_not_published",
+                "basis": None,
+                "eer_codes": [],
+                "labels": [],
+                "conditions": [],
+            }, sources
+
+        concept_codes = {
+            candidate["code"] for candidate in concept.get("eer", {}).get("candidates", [])
+        }
+        concept_terms = {
+            normalize_term(term) for term in [
+                concept.get("preferred_label", ""), *concept.get("terms", []),
+            ] if normalize_term(term)
+        }
+        normalized_destination = normalize_term(source_destination)
+        matches = []
+        basis = None
+        for item in accepted:
+            payload = item["payload"]
+            code = payload.get("eer_code_normalized")
+            description = normalize_term(payload.get("description_raw") or "")
+            item_basis = None
+            if code and code in concept_codes:
+                item_basis = "eer"
+            elif description and (
+                description in concept_terms
+                or any(
+                    min(len(description), len(term)) >= 5
+                    and (description in term or term in description)
+                    for term in concept_terms
+                )
+                or f" {description} " in f" {normalized_destination} "
+            ):
+                item_basis = "description"
+            if item_basis:
+                matches.append(item)
+                basis = "eer" if item_basis == "eer" else basis or "description"
+        if not matches:
+            return {
+                "status": "not_listed",
+                "basis": None,
+                "eer_codes": [],
+                "labels": [],
+                "conditions": [],
+            }, sources
+        return {
+            "status": "verified_eer" if basis == "eer" else "verified_description",
+            "basis": basis,
+            "eer_codes": sorted({
+                item["payload"].get("eer_code_normalized") for item in matches
+                if item["payload"].get("eer_code_normalized")
+            }),
+            "labels": sorted({item["payload"]["description_raw"] for item in matches}),
+            "conditions": sorted({
+                value for item in matches
+                for value in (
+                    item["payload"].get("quantity_limit_raw"),
+                    item["payload"].get("notes_raw"),
+                ) if value
+            }),
+        }, sources
+
+    def _facility_opening_periods(
+        self, facility_id: str,
+    ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+        periods = []
+        sources = []
+        for row in self.connection.execute(
+            """SELECT entity_id FROM entities
+            WHERE entity_type = 'opening_period' AND facility_ref = ?
+            ORDER BY entity_id""",
+            (facility_id,),
+        ):
+            item = read_entity_data(self.connection, "opening_period", row["entity_id"])
+            if item:
+                payload = item.get("payload") or {}
+                periods.append({
+                    "period_label": payload.get("period_label"),
+                    "start_month_day": payload.get("start_month_day"),
+                    "end_month_day": payload.get("end_month_day"),
+                    "weekly_intervals": payload.get("weekly_intervals", []),
+                    "exceptions": payload.get("exceptions_raw"),
+                })
+                sources.extend(item.get("sources", []))
+        return periods, sources
 
     def _set_provenance(self, answer: dict[str, Any], sources: list[dict[str, Any]]) -> None:
         summarized = []

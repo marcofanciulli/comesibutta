@@ -436,6 +436,8 @@ def build_parser() -> argparse.ArgumentParser:
         "--user-type", choices=("domestic", "non_domestic"), default="domestic",
     )
     disposal_query.add_argument("--as-of", required=True)
+    disposal_query.add_argument("--latitude", type=float)
+    disposal_query.add_argument("--longitude", type=float)
     disposal_query.add_argument("--output", type=Path)
     sweep = subparsers.add_parser(
         "sweep-sei",
@@ -729,6 +731,8 @@ def main(argv: list[str] | None = None) -> int:
                 zone_id=args.zone,
                 user_type=args.user_type,
                 as_of=datetime.fromisoformat(args.as_of).date(),
+                latitude=args.latitude,
+                longitude=args.longitude,
             )
         finally:
             connection.close()

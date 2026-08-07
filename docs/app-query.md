@@ -36,8 +36,10 @@ come gia previsto per le modifiche dello storage locale.
    originale con condizioni e alternative.
 9. Collega, quando possibile, la destinazione alla regola locale per ricavare
    contenitore, colore, modalita, sacchetto e istruzioni.
-10. Se regole di zone diverse producono risposte differenti chiede la zona.
-11. Restituisce fonti, data di verifica e revisione del dataset.
+10. Per il canale centro usa soltanto accessi pubblicati e verifica
+    l'accettazione tramite EER o descrizione.
+11. Se regole di zone diverse producono risposte differenti chiede la zona.
+12. Restituisce fonti, data di verifica e revisione del dataset.
 
 Gli stati sono:
 
@@ -58,6 +60,18 @@ PYTHONPATH=src python3 -m dovelobutto.cli query-disposal \
   --database data/canonical/client.sqlite \
   --text "confezzione del latte" \
   --municipality 048017 \
+  --as-of 2026-08-07
+```
+
+Il client puo aggiungere la posizione della singola richiesta:
+
+```sh
+PYTHONPATH=src python3 -m dovelobutto.cli query-disposal \
+  --database data/canonical/client.sqlite \
+  --text "armadio" \
+  --municipality 048017 \
+  --latitude 43.7954 \
+  --longitude 11.2281 \
   --as-of 2026-08-07
 ```
 
@@ -95,12 +109,18 @@ caso reale di Firenze, `Armadio` conserva la destinazione pubblicata
 alternative. Finche non viene risolta la struttura o il servizio concreto, il
 campo `stream` resta vuoto: un canale non viene presentato come materiale.
 
+Il canale centro e ora risolto tramite le relazioni di accesso esplicite. La
+risposta include accettazione, stato, distanza, indirizzo, accesso, contatti e
+orari. Senza GPS piu centri equivalenti restano in `facility_alternatives`;
+con il GPS il piu vicino tra quelli compatibili e non chiusi diventa
+`facility`. La politica completa e descritta in `docs/facility-resolution.md`.
+
 Il primo livello risolve destinazioni e preparazione quando i due fatti sono
 collegabili. Restano da completare:
 
 - estensione progressiva del registro oltre i primi gruppi approvati;
-- risoluzione del centro accessibile e di eventuali alternative limitrofe;
 - collegamento dei canali ai servizi mobili, di ritiro, riuso e rivenditore;
+- pulizia conservativa dei testi di accesso che includono parti redazionali;
 - vicinanza geografica, orari, stato del servizio e procedura di accesso;
 - arricchimento delle regole di preparazione non pubblicate in forma
   strutturata dai gestori.

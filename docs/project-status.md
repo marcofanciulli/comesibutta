@@ -71,6 +71,9 @@ La risposta deve poter indicare:
 21. Flusso di materiale e canale di consegna sono dimensioni distinte. Le
     destinazioni composte espongono tutte le alternative controllate e il testo
     sorgente; non vengono ridotte per somiglianza a una regola di cassonetto.
+22. Un centro viene proposto soltanto con accesso esplicito e accettazione
+    verificata per EER o descrizione. GPS e distanza ordinano candidati gia
+    validi, ma non possono colmare l'assenza di queste relazioni.
 
 ## Artefatti persistenti
 
@@ -79,6 +82,8 @@ La risposta deve poter indicare:
 - `docs/source-access-policy.md`: verifica legale-operativa delle fonti.
 - `docs/data-synchronization.md`: distribuzione remota e aggiornamenti atomici.
 - `docs/eer-register.md`: fonti, importazione e validazione del registro EER.
+- `docs/facility-resolution.md`: selezione, accesso, accettazione e distanza
+  dei centri di raccolta.
 - `schemas/`: schemi JSON dell'acquisizione e della risposta applicativa.
 - `src/dovelobutto/`: estrattore riproducibile e interfaccia a riga di comando.
 - `tests/fixtures/`: copie immutabili delle porzioni rilevanti delle fonti HTML.
@@ -349,7 +354,7 @@ Registro UE dei materiali e riconoscimento visivo:
   sintetica la soglia 0,4 ottiene F1 0,500, precisione 0,571 e recall 0,444;
 - checkpoint locale da 15,4 MB, report riproducibili e anteprima delle
   predizioni prodotti; il modello e marcato esplicitamente non distribuibile;
-- 135 test automatici superati.
+- 138 test automatici superati.
 
 Ricerca e risposta applicativa:
 
@@ -393,6 +398,22 @@ Curatela di sinonimi e flussi:
 - canali, flussi e gruppi formano 17 entita sincronizzate; il dataset di
   collaudo raggiunge 156.062 entita.
 
+Risoluzione dei centri:
+
+- il dataset espone 211 strutture, 384 accessi per 218 comuni, 195 periodi di
+  apertura, 6.716 conferimenti e 156 strutture geolocalizzate;
+- la risposta considera soltanto accessi consentiti per comune e utenza e
+  distingue accettazione EER, descrittiva, non pubblicata e non riconciliata;
+- stato `active` dei gestori viene normalizzato in `open`, conservando la forma
+  sorgente; chiusure e chiusure temporanee non diventano proposte primarie;
+- senza GPS piu centri equivalenti restano alternative; con entrambe le
+  coordinate viene proposto il piu vicino tra quelli compatibili e non chiusi;
+- verificato il caso reale di Firenze: `Armadio` collega ecocentro e ritiro,
+  propone San Donato presso viale Guidoni e mantiene Sesto Fiorentino come
+  alternativa; Isola del Giglio resta `temporarily_closed` per lavori;
+- struttura, accesso, accettazione e orari contribuiscono tutti alla
+  provenienza della risposta.
+
 ## Limiti e questioni aperte
 
 - Le pagine di ritiro ingombranti non sono collegate dall'indice generale e
@@ -400,6 +421,8 @@ Curatela di sinonimi e flussi:
 - L'acquisizione PDF e iniziata con AAMPS, ma guide e calendari delle altre SOL
   non sono ancora generalizzati nella pipeline.
 - Manca il livello canonico in PostgreSQL/PostGIS e la coda di revisione umana.
+- alcuni requisiti di accesso Alia includono parti redazionali della pagina e
+  richiedono una pulizia conservativa senza perdita dell'evidenza originale;
 - Il repository Git e inizializzato e collegato al remoto GitHub del progetto;
   snapshot e stato live restano esclusi per dimensione e variabilita.
 - La scansione live usa il contatto autorizzato `marcofanciulli@me.com` nello
@@ -411,12 +434,12 @@ Curatela di sinonimi e flussi:
 2. Acquisire i dettagli dei centri ESA e cercare una guida AAMPS piu recente.
 3. Modellare l'accesso intergestore Montignoso-ERSU e approfondire i centri non
    pubblicati o non attribuiti esplicitamente dalle fonti.
-4. Risolvere centri accessibili, alternative limitrofe, distanza, orari e stato
-   del servizio nella risposta applicativa.
-5. Collegare gli altri canali ai servizi mobili, di ritiro, riuso e rivenditore
+4. Collegare gli altri canali ai servizi mobili, di ritiro, riuso e rivenditore
    pubblicati per il comune, mantenendo condizioni e procedure.
-6. Estendere il registro alle formule ancora prive di flusso o canale solo dopo
+5. Estendere il registro alle formule ancora prive di flusso o canale solo dopo
    revisione delle relative evidenze territoriali.
+6. Ripulire i testi di accesso estratti da pagine con contenuto redazionale,
+   mantenendo il testo integrale nella provenienza.
 7. Aggiungere consolidati settimanali, mensili e annuali con conservazione e
    compattazione automatica nella finestra incrementale di cinque anni.
 8. Importare il primo lotto fotografico classificato col prontuario, annotarlo
