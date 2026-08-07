@@ -1,16 +1,18 @@
 from __future__ import annotations
 
 from collections import deque
-from datetime import datetime
+from datetime import date, datetime, timedelta
 import hashlib
 import json
 from pathlib import Path
 import re
+import subprocess
 import time
 from typing import Any, Iterable
 from urllib import robotparser
 from urllib.parse import parse_qsl, urlencode, urljoin, urlparse, urlunparse
 from urllib.request import Request, urlopen
+import xml.etree.ElementTree as ET
 
 from .ato_costa import MunicipalityContext, extract_rea_waste_lookup
 from .html import Element, clean_text, parse_html
@@ -33,6 +35,17 @@ _STREAMS = (
     ("vetro", "Vetro"),
     ("secco residuo", "Rifiuto residuo"),
     ("indifferenziato", "Rifiuto residuo"),
+)
+_MONTHS = {
+    "GENNAIO": 1, "FEBBRAIO": 2, "MARZO": 3, "APRILE": 4,
+    "MAGGIO": 5, "GIUGNO": 6, "LUGLIO": 7, "AGOSTO": 8,
+    "SETTEMBRE": 9, "OTTOBRE": 10, "NOVEMBRE": 11, "DICEMBRE": 12,
+}
+_RUR_CALENDAR_PATTERNS = (
+    (re.compile(r"calendario-casale-2026(?:-1)?\.pdf$"), "domestic"),
+    (re.compile(r"calendario-guardistallo-2026\.pdf$"), "domestic"),
+    (re.compile(r"calendario_casale_und_tarip_rur\.pdf$"), "non_domestic"),
+    (re.compile(r"calendario_guardistallo_und_tarip_rur\.pdf$"), "non_domestic"),
 )
 _CENTRE_ACCESS = {
     "casale-marittimo": {"guardistallo", "montescudaio"},
@@ -184,6 +197,236 @@ def _source(url: str, retrieved_at: datetime, html: str, parser: str) -> SourceD
     return SourceDocument(url, retrieved_at, html, publisher="REA S.p.A.", parser=parser, parser_version="0.2.0")
 
 
+def _pdf_bbox_words(path: Path) -> tuple[list[dict[str, Any]], str]:
+    result = subprocess.run(
+        ["pdftotext", "-bbox-layout", str(path), "-"],
+        check=True, capture_output=True,
+    )
+    bbox = result.stdout.decode("utf-8", errors="replace")
+    root = ET.fromstring(bbox)
+    pages = []
+    for page_number, page in enumerate(root.findall(".//{*}page"), 1):
+        words = []
+        for word in page.findall(".//{*}word"):
+            words.append({
+                "text": "".join(word.itertext()).strip(),
+                "x0": float(word.attrib["xMin"]),
+                "x1": float(word.attrib["xMax"]),
+                "top": float(word.attrib["yMin"]),
+                "bottom": float(word.attrib["yMax"]),
+            })
+        pages.append({"number": page_number, "words": words})
+    return pages, bbox
+
+
+def _cluster_month_rows(words: list[dict[str, Any]]) -> list[list[dict[str, Any]]]:
+    rows: list[list[dict[str, Any]]] = []
+    for word in sorted(
+        (item for item in words if item["text"].upper() in _MONTHS),
+        key=lambda item: (item["top"], item["x0"]),
+    ):
+        row = next((candidate for candidate in rows if abs(candidate[0]["top"] - word["top"]) <= 3), None)
+        if row is None:
+            rows.append([word])
+        else:
+            row.append(word)
+    return [
+        sorted(row, key=lambda item: item["x0"])
+        for row in rows if len({item["text"].upper() for item in row}) >= 6
+    ]
+
+
+def _reconcile_calendar_day(
+    year: int, month: int, raw_day: str, allowed_weekdays: set[int],
+) -> tuple[int | None, str | None]:
+    day = int(raw_day)
+    try:
+        if date(year, month, day).isoweekday() in allowed_weekdays:
+            return day, None
+    except ValueError:
+        pass
+    if len(raw_day) == 2 and raw_day[1] != "0":
+        candidate = int(raw_day[1])
+        try:
+            if date(year, month, candidate).isoweekday() in allowed_weekdays:
+                return candidate, f"{raw_day}->{candidate}"
+        except ValueError:
+            pass
+    return None, raw_day
+
+
+def _extract_calendar_dates(
+    pages: list[dict[str, Any]], year: int, weekday: int, user_type: str,
+) -> tuple[list[str], list[str], list[str]]:
+    dates = []
+    reconciled = []
+    rejected = []
+    for page in pages:
+        rows = _cluster_month_rows(page["words"])
+        for row in rows:
+            if [item["text"].upper() for item in row] not in (
+                list(_MONTHS)[:6], list(_MONTHS)[6:],
+            ):
+                continue
+            centers = [(item["x0"] + item["x1"]) / 2 for item in row]
+            boundaries = [float("-inf"), *[
+                (left + right) / 2 for left, right in zip(centers, centers[1:])
+            ], float("inf")]
+            lower = max(item["bottom"] for item in row)
+            later_rows = [
+                candidate for candidate in rows
+                if candidate[0]["top"] > row[0]["top"] + 3
+            ]
+            upper = min((candidate[0]["top"] for candidate in later_rows), default=lower + 40)
+            for word in page["words"]:
+                raw_day = word["text"]
+                if not raw_day.isdigit() or not lower < word["top"] < upper:
+                    continue
+                center = (word["x0"] + word["x1"]) / 2
+                column = next((index for index in range(6) if boundaries[index] <= center < boundaries[index + 1]), None)
+                if column is None:
+                    continue
+                month = _MONTHS[row[column]["text"].upper()]
+                allowed = {weekday}
+                if user_type == "non_domestic" and month in {7, 8}:
+                    allowed.add(7)
+                day, correction = _reconcile_calendar_day(year, month, raw_day, allowed)
+                if day is None:
+                    rejected.append(f"{month:02d}:{raw_day}")
+                    continue
+                value = date(year, month, day).isoformat()
+                if value not in dates:
+                    dates.append(value)
+                if correction:
+                    reconciled.append(f"{month:02d}:{correction}")
+    return sorted(dates), reconciled, rejected
+
+
+def extract_rea_rur_calendar(
+    context: MunicipalityContext, retrieved_at: datetime, url: str,
+    pdf_path: Path, user_type: str,
+) -> tuple[list[dict[str, Any]], list[dict[str, str]]]:
+    pages, bbox = _pdf_bbox_words(pdf_path)
+    text = " ".join(
+        word["text"] for page in pages for word in page["words"]
+    )
+    year_match = re.search(r"GENNAIO\s+(20\d{2})", text, re.IGNORECASE)
+    weekday_match = re.search(
+        r"(LUNED[IÌ]|MARTED[IÌ]|MERCOLED[IÌ]|GIOVED[IÌ]|VENERD[IÌ]|SABATO|DOMENICA)\s+ALTERNI"
+        r"|QUINDICINALE\)?,?\s+IL\s+(LUNED[IÌ]|MARTED[IÌ]|MERCOLED[IÌ]|GIOVED[IÌ]|VENERD[IÌ]|SABATO|DOMENICA)",
+        text, re.IGNORECASE,
+    )
+    if not year_match or not weekday_match:
+        return [], [{"code": "calendar_pdf_structure_unrecognized", "detail": "Anno o giorno alterno non riconosciuto nel calendario RUR", "url": url}]
+    weekday_key = _slug(weekday_match.group(1) or weekday_match.group(2))
+    weekdays = {
+        "lunedi": 1, "martedi": 2, "mercoledi": 3, "giovedi": 4,
+        "venerdi": 5, "sabato": 6, "domenica": 7,
+    }
+    year = int(year_match.group(1))
+    weekday = weekdays[weekday_key]
+    dates, reconciled, rejected = _extract_calendar_dates(
+        pages, year, weekday, user_type,
+    )
+    if user_type == "domestic" and dates:
+        first = date.fromisoformat(dates[0])
+        expected = []
+        current = first
+        while current.year == year:
+            expected.append(current.isoformat())
+            current += timedelta(days=14)
+        dates = [value for value in expected if value in dates]
+    minimum = 24 if user_type == "domestic" else 45
+    if len(dates) < minimum:
+        return [], [{
+            "code": "calendar_pdf_dates_incomplete",
+            "detail": f"Estratte soltanto {len(dates)} date RUR; calendario non materializzato",
+            "url": url,
+        }]
+    source = SourceDocument(
+        url, retrieved_at, bbox, publisher="REA S.p.A.",
+        parser="rea_rur_calendar_pdf_bbox", parser_version="0.1.0",
+    )
+    rule_ref = (
+        f"collection-rule:{context.istat_code}:default:door_to_door:"
+        f"{user_type}:rifiuto-residuo"
+    )
+    validity = {
+        "valid_from": f"{year}-01-01", "valid_to": f"{year}-12-31",
+        "inferred": False,
+    }
+    records = []
+    if user_type == "non_domestic":
+        exposure_instructions = (
+            "Esposizione entro le ore 06:00."
+            if "entro le 6:00" in text.casefold() else None
+        )
+        records.append(make_record(
+            record_type="collection_rule", natural_key=rule_ref,
+            payload={
+                "municipality_ref": context.municipality_ref,
+                "zone_ref": f"service-zone:{context.istat_code}:default",
+                "user_type": user_type, "collection_method": "door_to_door",
+                "stream_name": "Rifiuto residuo", "included_materials_raw": None,
+                "container_type": None, "container_color": None,
+                "access_credential": None,
+                "presentation": {
+                    "mode": "unspecified", "max_volume_l": None,
+                    "instructions_raw": exposure_instructions,
+                },
+                "schedule_raw": f"Date RUR {year} pubblicate nel calendario REA",
+            },
+            source=source, evidence_kind="pdf", evidence_selector="calendar-grid",
+            evidence_quote=f"Calendario RUR {year}: {len(dates)} date",
+            validity=validity,
+        ))
+    records.append(make_record(
+        record_type="collection_schedule",
+        natural_key=f"{rule_ref}:schedule:{year}",
+        payload={
+            "collection_rule_ref": rule_ref,
+            "expose_from": None,
+            "expose_by": "06:00" if "entro le 6:00" in text.casefold() else None,
+            "events": [{
+                "kind": "date_list", "weekday": None, "dates": dates,
+                "raw": f"Calendario RUR REA {year}; giorno ordinario {weekday}",
+            }],
+        },
+        source=source, evidence_kind="pdf", evidence_selector="calendar-grid",
+        evidence_quote=f"Calendario RUR {year}: " + ", ".join(dates),
+        validity=validity,
+    ))
+    warnings = []
+    if reconciled:
+        warnings.append({
+            "code": "calendar_pdf_text_layer_reconciled",
+            "detail": "Date riconciliate col giorno settimanale dichiarato: " + ", ".join(reconciled),
+            "url": url,
+        })
+    if rejected:
+        warnings.append({
+            "code": "calendar_pdf_dates_rejected",
+            "detail": "Valori del livello testuale incompatibili col calendario: " + ", ".join(rejected),
+            "url": url,
+        })
+    return records, warnings
+
+
+def _rur_calendar_type(page: dict[str, Any]) -> str | None:
+    filename = urlparse(page.get("final_url") or page["url"]).path.rsplit("/", 1)[-1].casefold()
+    for pattern, user_type in _RUR_CALENDAR_PATTERNS:
+        if pattern.fullmatch(filename):
+            return user_type
+    return None
+
+
+def _is_calendar_document(page: dict[str, Any]) -> bool:
+    filename = urlparse(page.get("final_url") or page["url"]).path.rsplit("/", 1)[-1].casefold()
+    return any(token in filename for token in (
+        "calendar", "ecomobile", "informativa_ud", "pap-", "raccolta-vetro",
+    ))
+
+
 def _main(root: Element) -> Element:
     return root.find_first(lambda item: "zui-content" in item.classes) or root.find_first(lambda item: item.tag == "main") or root
 
@@ -317,6 +560,10 @@ def materialize_rea_services(
         if page["status"] == "snapshot" and page["content_type"] != "application/pdf" and page["snapshot"].endswith(".html"):
             html_pages.append((page, (snapshot_root / page["snapshot"]).read_text(encoding="utf-8", errors="replace")))
     centre_pages = [(page, html) for page, html in html_pages if page["category"] == "centre_detail"]
+    pdf_pages = [
+        page for page in manifest["pages"]
+        if page["status"] == "snapshot" and page.get("snapshot", "").endswith(".pdf")
+    ]
     rifiutario = json.loads(rifiutario_json)
     unresolved = sum(not item.get("destination") for item in rifiutario["items"])
     results: dict[str, list[dict[str, Any]]] = {}
@@ -331,6 +578,40 @@ def materialize_rea_services(
         relevant = [(page["final_url"] or page["url"], html) for page, html in html_pages if municipality["istat_code"] in page.get("municipality_istats", [])]
         service_records, warnings = extract_rea_collection_pages(context, retrieved_at, relevant)
         records.extend(service_records)
+        relevant_pdfs = [
+            page for page in pdf_pages
+            if municipality["istat_code"] in page.get("municipality_istats", [])
+        ]
+        selected_calendars: dict[tuple[str, str], dict[str, Any]] = {}
+        for page in relevant_pdfs:
+            user_type = _rur_calendar_type(page)
+            if user_type:
+                key = (page["snapshot"], user_type)
+                current = selected_calendars.get(key)
+                candidate_url = page.get("final_url") or page["url"]
+                current_url = (current.get("final_url") or current["url"]) if current else ""
+                if current is None or (
+                    current_url.startswith("http://") and candidate_url.startswith("https://")
+                ):
+                    selected_calendars[key] = page
+        materialized_pdf_snapshots = set()
+        for (snapshot, user_type), page in selected_calendars.items():
+            url = page.get("final_url") or page["url"]
+            try:
+                calendar_records, calendar_warnings = extract_rea_rur_calendar(
+                    context, retrieved_at, url, snapshot_root / snapshot, user_type,
+                )
+            except (OSError, subprocess.CalledProcessError, ET.ParseError) as error:
+                calendar_records = []
+                calendar_warnings = [{
+                    "code": "calendar_pdf_extraction_failed",
+                    "detail": f"Impossibile leggere il calendario PDF: {error}",
+                    "url": url,
+                }]
+            if calendar_records:
+                records.extend(calendar_records)
+                materialized_pdf_snapshots.add(snapshot)
+            warnings.extend(calendar_warnings)
         linked_centres = {_canonical_url(link) for page_url, html in relevant for link, _ in _links(html, page_url) if urlparse(link).path.startswith("/centri-di-raccolta/") and not re.fullmatch(r"/centri-di-raccolta/(?:page/\d+/)?", urlparse(link).path)}
         municipal_slug = municipality["source_slug"]
         permitted_centres = _CENTRE_ACCESS.get(municipal_slug, {municipal_slug})
@@ -340,9 +621,20 @@ def materialize_rea_services(
             if centre_url in linked_centres or centre_slug in permitted_centres:
                 owner_slug = _CENTRE_OWNER.get(centre_slug, centre_slug)
                 records.extend(extract_rea_centre(context, retrieved_at, centre_url, html, contexts.get(owner_slug, context)))
-        pdf_count = sum(page["category"] == "municipality_document" and municipality["istat_code"] in page.get("municipality_istats", []) and page["status"] == "snapshot" for page in manifest["pages"])
+        pdf_count = len({page["snapshot"] for page in relevant_pdfs})
+        calendar_pdf_count = len({
+            page["snapshot"] for page in relevant_pdfs if _is_calendar_document(page)
+        })
         if pdf_count:
-            warnings.append({"code": "calendar_pdfs_inventoried", "detail": f"{pdf_count} PDF comunali acquisiti e conservati; estrazione strutturata dei calendari ancora da completare", "url": municipality["homepage_url"]})
+            warnings.append({
+                "code": "calendar_pdf_coverage",
+                "detail": (
+                    f"{pdf_count} PDF comunali unici acquisiti; {calendar_pdf_count} "
+                    f"classificati come calendari o guide operative; "
+                    f"{len(materialized_pdf_snapshots)} calendari RUR 2026 materializzati"
+                ),
+                "url": municipality["homepage_url"],
+            })
         if unresolved:
             warnings.append({"code": "waste_lookup_destinations_missing", "detail": f"{unresolved} voci REA non hanno una destinazione pubblicata", "url": rifiutario["source_url"]})
         results[municipality["source_slug"]] = records
@@ -350,5 +642,5 @@ def materialize_rea_services(
         for record in records:
             counts[record["record_type"]] = counts.get(record["record_type"], 0) + 1
         available = sum(municipality["istat_code"] in page.get("municipality_istats", []) and page["status"] == "snapshot" for page in manifest["pages"])
-        reports.append({"municipality": municipality["name"], "istat_code": municipality["istat_code"], "pages_available": available, "pages_materialized": available - pdf_count, "equivalent_pages": [], "records": len(records), "records_by_type": counts, "warnings": warnings})
+        reports.append({"municipality": municipality["name"], "istat_code": municipality["istat_code"], "pages_available": available, "pages_materialized": available - pdf_count + len(materialized_pdf_snapshots), "equivalent_pages": [], "records": len(records), "records_by_type": counts, "warnings": warnings})
     return results, reports

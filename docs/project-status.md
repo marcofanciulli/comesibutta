@@ -175,7 +175,7 @@ Completamento ATO Toscana Sud:
 
 Esploratore dati:
 
-- pacchetto statico generato in modo riproducibile da 152.698 record logici;
+- pacchetto statico generato in modo riproducibile da 152.704 record logici;
 - filtri gerarchici per ATO e provincia, seguiti dall'elenco dei comuni;
 - 273 comuni censiti e 273 con almeno una fonte materializzata;
 - navigazione per comune e viste dedicate a centri, EER, regole, punti e ritiro;
@@ -214,17 +214,19 @@ Completamento ATO Toscana Costa:
 - riconciliati tutti i comuni con ISTAT: 13 LI, 33 LU, 17 MS e 37 PI;
 - conservati separatamente RetiAmbiente, SOL e stato del subentro; Porto
   Azzurro e Peccioli risultano da completare, Lucca in transizione entro 2029;
-- acquisiti tutti i 100 comuni e 31.853 record attraverso le 12 SOL;
+- acquisiti tutti i 100 comuni e 31.859 record attraverso le 12 SOL;
 - ESA: 292 voci del rifiutario per comune, cinque regole generali porta a porta
   e dieci centri complessivi associati ai comuni, 2.106 record senza avvisi;
-- REA: 425 URL di servizi, centri e allegati controllate; 423 snapshot, 73 PDF,
-  11 centri, nessun blocco robots e due vecchi PDF oggi `404` documentati;
-- REA: 3.828 record complessivi, con 110 regole, 46 ritiri, 19 relazioni
+- REA: 425 URL di servizi, centri e allegati controllate; 423 snapshot, 73
+  riferimenti ad allegati comunali, 70 PDF unici, 11 centri, nessun blocco
+  robots e due vecchi PDF oggi `404` documentati;
+- REA: 3.834 record complessivi, con 112 regole, 46 ritiri, 19 relazioni
   comune-centro complete di orario e accesso e 368 materiali ammessi; le
   descrizioni prive di EER restano marcate come codice non pubblicato;
-- REA: sette voci del rifiutario prive di destinazione restano visibili; i 73
-  PDF sono inventariati ma i calendari non sono ancora estratti in forma
-  strutturata;
+- REA: sette voci del rifiutario prive di destinazione restano visibili;
+  quattro calendari RUR 2026 di Casale Marittimo e Guardistallo sono stati
+  convertiti in 149 date strutturate, mentre i calendari grafici ed Ecomobile
+  restano inventariati e dichiarati come copertura residua;
 - AAMPS: 125 coppie estratte dal PDF 2017; cinque probabili continuazioni di
   colonna restano a confidenza media e sono elencate nel rapporto;
 - GEOFOR: 178 URL controllati, 176 snapshot e due `404`; 13.631 record per 25
@@ -292,7 +294,7 @@ Completamento dei comuni toscani in ATO extra-regionali:
   quattro lacune esplicite, non assenze silenziose;
 - l'esploratore espone cinque ATO, limitando quelli extra-regionali alle sole
   province e ai soli comuni toscani interessati;
-- il dataset conta 152.698 record logici e il catalogo 3.124 concetti, con
+- il dataset conta 152.704 record logici e il catalogo 3.124 concetti, con
   331 concetti associati a un EER concordante;
 - 80 test automatici superati.
 
@@ -441,14 +443,15 @@ Risoluzione degli altri canali:
 - riuso per `Assi da stiro`, uno-contro-uno per `Asciugacapelli` e operatore
   specializzato per `Bitumi` restano indicazioni `source_only` citabili;
 - tutti i fatti di servizio utilizzati entrano nella provenienza della risposta.
-- 142 test automatici superati.
+- 144 test automatici superati.
 
 ## Limiti e questioni aperte
 
 - Le pagine di ritiro ingombranti non sono collegate dall'indice generale e
   devono essere scoperte dalle pagine comunali o durante la scansione.
-- L'acquisizione PDF e iniziata con AAMPS, ma guide e calendari delle altre SOL
-  non sono ancora generalizzati nella pipeline.
+- L'acquisizione PDF comprende AAMPS e i calendari RUR REA; guide, calendari
+  grafici ed Ecomobile delle altre SOL non sono ancora generalizzati nella
+  pipeline.
 - Manca il livello canonico in PostgreSQL/PostGIS e la coda di revisione umana.
 - Alcuni requisiti di accesso Alia includono parti redazionali della pagina e
   richiedono una pulizia conservativa senza perdita dell'evidenza originale;
@@ -461,7 +464,8 @@ Risoluzione degli altri canali:
 
 ## Prossimi passi
 
-1. Estrarre e normalizzare i calendari contenuti nei 73 PDF REA acquisiti.
+1. Estrarre e normalizzare i calendari REA settimanali basati su icone e i
+   calendari Ecomobile, mantenendo una verifica visiva dei casi ambigui.
 2. Acquisire i dettagli dei centri ESA e cercare una guida AAMPS piu recente.
 3. Modellare l'accesso intergestore Montignoso-ERSU e approfondire i centri non
    pubblicati o non attribuiti esplicitamente dalle fonti.

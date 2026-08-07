@@ -282,6 +282,41 @@ class SyncTests(unittest.TestCase):
         self.assertEqual(2, len(entities))
         self.assertTrue(all(":variant:" in entity_id for _, entity_id in entities))
 
+    def test_loader_links_collection_schedule_to_its_rule(self) -> None:
+        with TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            inputs = root / "input"
+            inputs.mkdir()
+            common = {
+                "observed_at": GENERATED_AT.isoformat(),
+                "validity": {"valid_from": None, "valid_to": None, "inferred": False},
+                "confidence": "high",
+                "source": {
+                    "url": "https://example.test/calendar.pdf",
+                    "evidence": {"selector": "calendar-grid", "page": None, "quote": "2026"},
+                },
+            }
+            records = [
+                {
+                    **common, "record_type": "collection_rule", "natural_key": "rule:test",
+                    "payload": {"stream_name": "Rifiuto residuo"},
+                },
+                {
+                    **common, "record_type": "collection_schedule", "natural_key": "schedule:test",
+                    "payload": {"collection_rule_ref": "rule:test", "events": []},
+                },
+            ]
+            (inputs / "test-acquisition.jsonl").write_text(
+                "\n".join(json.dumps(record) for record in records) + "\n", encoding="utf-8",
+            )
+            registry = root / "registry.jsonl"
+            registry.write_text("", encoding="utf-8")
+            entities = load_canonical_entities([inputs], [registry])
+        self.assertEqual(
+            (("collection_rule", "rule:test"),),
+            entities[("collection_schedule", "schedule:test")].dependencies,
+        )
+
     def test_planner_chooses_smallest_valid_path(self) -> None:
         def artifact(package_id: str, kind: str, start: int | None, end: int, size: int) -> dict:
             return {

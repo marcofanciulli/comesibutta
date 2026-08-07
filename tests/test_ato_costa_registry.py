@@ -1,8 +1,9 @@
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import date, datetime, timedelta
 from pathlib import Path
 import unittest
+from unittest.mock import patch
 
 from dovelobutto.registry import (
     extract_ato_costa_municipality_registry,
@@ -14,7 +15,11 @@ from dovelobutto.ato_costa import (
     extract_esa_bundle,
     extract_rea_waste_lookup,
 )
-from dovelobutto.rea import extract_rea_centre, extract_rea_collection_pages
+from dovelobutto.rea import (
+    extract_rea_centre,
+    extract_rea_collection_pages,
+    extract_rea_rur_calendar,
+)
 from dovelobutto.geofor import _facilities, _waste_and_rules, parse_rifiutario
 
 
@@ -121,6 +126,59 @@ class EsaExtractorTest(unittest.TestCase):
 
 
 class ReaExtractorTest(unittest.TestCase):
+    @staticmethod
+    def _calendar_page(year: int, weekday: int) -> dict:
+        words = [
+            {"text": "GENNAIO", "x0": 10, "x1": 20, "top": 10, "bottom": 12},
+            {"text": str(year), "x0": 22, "x1": 30, "top": 10, "bottom": 12},
+            {"text": "MERCOLEDÌ", "x0": 32, "x1": 42, "top": 10, "bottom": 12},
+            {"text": "ALTERNI", "x0": 44, "x1": 52, "top": 10, "bottom": 12},
+        ]
+        months = (
+            "GENNAIO", "FEBBRAIO", "MARZO", "APRILE", "MAGGIO", "GIUGNO",
+            "LUGLIO", "AGOSTO", "SETTEMBRE", "OTTOBRE", "NOVEMBRE", "DICEMBRE",
+        )
+        for index, month in enumerate(months):
+            row = 100 if index < 6 else 200
+            column = index % 6
+            words.append({
+                "text": month, "x0": column * 100 + 20, "x1": column * 100 + 80,
+                "top": row, "bottom": row + 10,
+            })
+        current = date(year, 1, 1)
+        while current.isoweekday() != weekday:
+            current += timedelta(days=1)
+        while current.year == year:
+            index = current.month - 1
+            row = 115 if index < 6 else 215
+            column = index % 6
+            words.append({
+                "text": str(current.day), "x0": column * 100 + 45,
+                "x1": column * 100 + 55, "top": row, "bottom": row + 8,
+            })
+            current += timedelta(days=14)
+        return {"number": 1, "words": words}
+
+    def test_extracts_complete_biweekly_rur_calendar(self) -> None:
+        page = self._calendar_page(2026, 3)
+        with patch("dovelobutto.rea._pdf_bbox_words", return_value=([page], "<bbox/>")):
+            records, warnings = extract_rea_rur_calendar(
+                MunicipalityContext("Casale Marittimo", "050006", "casale-marittimo"),
+                datetime.fromisoformat("2026-08-06T19:00:00+02:00"),
+                "https://example.test/CALENDARIO-CASALE-2026.pdf",
+                Path("calendar.pdf"),
+                "domestic",
+            )
+        self.assertEqual([], warnings)
+        self.assertEqual(1, len(records))
+        schedule = records[0]
+        self.assertEqual("collection_schedule", schedule["record_type"])
+        dates = schedule["payload"]["events"][0]["dates"]
+        self.assertEqual(26, len(dates))
+        self.assertTrue(all(date.fromisoformat(value).isoweekday() == 3 for value in dates))
+        self.assertEqual("2026-01-01", schedule["validity"]["valid_from"])
+        self.assertEqual("2026-12-31", schedule["validity"]["valid_to"])
+
     def test_preserves_entries_without_a_published_destination(self) -> None:
         source = """{
           "source_url": "https://www.reaspa.it/wp-admin/admin-ajax.php",

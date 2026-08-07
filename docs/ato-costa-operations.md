@@ -47,8 +47,9 @@ segue soltanto servizi e allegati pubblicati da REA, rispetta `robots.txt` e
 salva un manifesto completo. Se il manifesto esiste, la ripresa riusa gli
 snapshot riusciti e visita soltanto le nuove URL. La passata verificata ha
 controllato 425 URL: 423 snapshot, nessun blocco robots e due PDF del 2023
-rimossi dal server (`404`). Ha censito 317 pagine di servizio, 73 PDF comunali,
-11 centri e le due pagine dell'indice.
+rimossi dal server (`404`). Ha censito 317 pagine di servizio, 73 riferimenti
+ad allegati comunali, 11 centri e le due pagine dell'indice. Gli snapshot
+comprendono 70 PDF unici: non tutti gli allegati sono calendari.
 
 ```sh
 PYTHONPATH=src python3 -m dovelobutto.cli fetch-rea-services \
@@ -61,16 +62,22 @@ PYTHONPATH=src python3 -m dovelobutto.cli fetch-rea-services \
 ```
 
 `materialize-rea-services` combina queste pagine con il rifiutario. Produce
-3.828 record per i 17 comuni: 3.230 termini, 110 regole, 46 servizi di ritiro,
+3.834 record per i 17 comuni: 3.230 termini, 112 regole, 46 servizi di ritiro,
 17 zone, 19 relazioni comune-centro con orari e accesso e 368 descrizioni di
 materiali accettati. Quando REA non pubblica il codice EER, la descrizione
 resta acquisita con `eer_code_status: unmapped_description`; il codice non
 viene dedotto. I centri intercomunali restano associati a tutti i comuni
 esplicitamente serviti.
 
-I 73 PDF sono conservati e collegati ai comuni, ma i calendari al loro interno
-non sono ancora convertiti in eventi strutturati. Questa lacuna e esposta come
-avviso per comune, non nascosta.
+La prima estrazione dei calendari struttura quattro documenti RUR 2026 di
+Casale Marittimo e Guardistallo: due per utenze domestiche e due per utenze non
+domestiche, per un totale di 149 date. Anno, giorno settimanale e completezza
+minima vengono verificati prima di creare il calendario; la validita resta
+limitata all'anno dichiarato. Tra i 70 PDF unici, 31 sono classificati come
+possibili calendari o guide operative. Le tabelle settimanali basate su icone e
+i calendari Ecomobile restano inventariati ma non vengono interpretati senza
+un estrattore verificato. La copertura residua e esposta come avviso per
+comune, non nascosta.
 
 ## AAMPS
 
@@ -148,12 +155,12 @@ resta da modellare senza duplicare la fonte.
 
 - 100 comuni censiti;
 - 100 comuni con almeno una fonte acquisita;
-- 31.853 record ATO Costa;
+- 31.859 record ATO Costa;
 - tutti i 13 comuni livornesi hanno almeno un rifiutario acquisito;
 - tutti i comuni REA hanno pagine di servizio; 14 hanno accesso ad almeno un
   centro pubblicato, mentre Capraia Isola, Orciano Pisano e Santa Luce non
   risultano collegati a un centro nella fonte acquisita.
 
-Restano l'estrazione dei calendari PDF, il collegamento intergestore di
-Montignoso e l'approfondimento dei centri o rifiutari non pubblicati nelle
-schede disponibili.
+Restano l'estrazione verificata dei calendari PDF grafici ed Ecomobile, il
+collegamento intergestore di Montignoso e l'approfondimento dei centri o
+rifiutari non pubblicati nelle schede disponibili.

@@ -295,7 +295,18 @@
   function scheduleText(rule, schedules) {
     const schedule = schedules.find(item => item.payload.collection_rule_ref === rule.natural_key);
     if (!schedule) return rule.payload.schedule_raw || "Non specificato";
-    const events = schedule.payload.events.map(event => event.weekday ? weekdayLabels[event.weekday] : event.raw).filter(Boolean);
+    const events = schedule.payload.events.map(event => {
+      if (event.weekday) return weekdayLabels[event.weekday];
+      if (event.dates?.length) {
+        const weekdays = [...new Set(event.dates.map(value => {
+          const day = new Date(`${value}T00:00:00`).getDay();
+          return weekdayLabels[day || 7];
+        }))];
+        const format = value => new Date(`${value}T00:00:00`).toLocaleDateString("it-IT", { day: "numeric", month: "short" });
+        return `${event.dates.length} date pubblicate · ${weekdays.join(" e ")} · ${format(event.dates[0])}-${format(event.dates.at(-1))}`;
+      }
+      return event.raw;
+    }).filter(Boolean);
     return [events.join(", "), schedule.payload.expose_by ? `entro le ${schedule.payload.expose_by}` : ""].filter(Boolean).join(" · ");
   }
 

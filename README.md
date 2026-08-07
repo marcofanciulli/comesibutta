@@ -238,9 +238,9 @@ L'interfaccia permette di filtrare per ATO e provincia, distinguere comuni
 censiti da comuni acquisiti, esplorare centri e regole, consultare il
 rifiutario, cercare materiali e codici EER e risalire alla fonte di ogni fatto.
 Il pacchetto corrente contiene tutti i 273 comuni toscani censiti, ciascuno con
-almeno una fonte materializzata, e 152.698 record logici. Per i 17 comuni REA
+almeno una fonte materializzata, e 152.704 record logici. Per i 17 comuni REA
 comprende anche pagine di servizio, centri intercomunali, orari, accesso,
-ritiri e materiali accettati;
+ritiri, materiali accettati e i primi quattro calendari RUR 2026 strutturati;
 gli EER non pubblicati dalla fonte sono indicati esplicitamente come tali. Per
 i 25 comuni GEOFOR comprende 388 voci del rifiutario e cinque regole
 generali per comune, oltre a centri, orari e ritiri quando pubblicati. La vista

@@ -3,10 +3,11 @@
   "istat_code": "050015",
   "municipality": "Guardistallo",
   "pages_available": 30,
-  "pages_materialized": 23,
-  "records": 242,
+  "pages_materialized": 25,
+  "records": 245,
   "records_by_type": {
-    "collection_rule": 5,
+    "collection_rule": 6,
+    "collection_schedule": 2,
     "facility": 2,
     "facility_acceptance": 37,
     "facility_access": 2,
@@ -17,8 +18,8 @@
   },
   "warnings": [
     {
-      "code": "calendar_pdfs_inventoried",
-      "detail": "7 PDF comunali acquisiti e conservati; estrazione strutturata dei calendari ancora da completare",
+      "code": "calendar_pdf_coverage",
+      "detail": "7 PDF comunali unici acquisiti; 3 classificati come calendari o guide operative; 2 calendari RUR 2026 materializzati",
       "url": "https://www.reaspa.it/comuni/comune-guardistallo/"
     },
     {
