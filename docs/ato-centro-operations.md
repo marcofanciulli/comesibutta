@@ -1,7 +1,7 @@
 # Operazioni ATO Toscana Centro
 
-Versione: 0.1.0
-Ultimo aggiornamento: 6 agosto 2026
+Versione: 0.1.1
+Ultimo aggiornamento: 7 agosto 2026
 
 ## Perimetro
 
@@ -28,7 +28,9 @@ Il portale pubblico AliaEstra espone tre insiemi complementari:
 - il rifiutario Junker, interrogato con il codice ISTAT del comune;
 - la mappa pubblica di ecocentri ed ecofurgoni, con coordinate e indirizzi;
 - le schede Sitecore collegate alla mappa, con orari, materiali conferibili e
-  collegamento alle regole di accesso.
+  collegamento alle regole di accesso;
+- la pagina informativa generale degli Ecofurgoni, che pubblica l'elenco dei
+  materiali ammessi alle postazioni mobili.
 
 La pipeline non accede all'area cliente. Usa soltanto le richieste di lettura
 effettuate dall'interfaccia pubblica e rimuove le icone codificate in base64,
@@ -51,7 +53,10 @@ PYTHONPATH=src python3 -B -m dovelobutto.cli fetch-alia \
 ```
 
 Il bundle e un checkpoint atomico: una nuova esecuzione salta prefissi e
-dettagli gia acquisiti e riprende quelli mancanti.
+dettagli gia acquisiti e riprende quelli mancanti. Ogni pagina pubblica
+conserva la propria data di recupero: l'integrazione del 7 agosto ha quindi
+aggiunto soltanto la pagina Ecofurgoni senza modificare la data delle fonti
+acquisite il giorno precedente.
 
 ## Normalizzazione
 
@@ -70,6 +75,13 @@ quando AliaEstra non pubblica il codice EER. In quel caso lo stato e
 rifiutario diventano regole territoriali; sacchetto, calendario e sistema di
 raccolta restano non specificati quando dipendono dall'indirizzo.
 
+Per gli Ecofurgoni, un elenco specifico della postazione ha la precedenza.
+Quando la scheda non lo pubblica, la postazione eredita le 11 categorie della
+pagina generale ufficiale, che dichiara il servizio riservato alle utenze
+domestiche per rifiuti di piccole dimensioni e in quantita limitata. Fonte
+della posizione e fonte dei materiali restano entrambe raggiungibili dalla
+risposta applicativa.
+
 Un comune senza ecocentro nel proprio territorio riceve un avviso esplicito,
 ma mantiene rifiutario, regole e servizio di ritiro. Gli ecocentri dei comuni
 vicini restano disponibili nel dataset geolocalizzato per la futura ricerca di
@@ -82,8 +94,10 @@ La passata verificata del 6 agosto 2026 ha prodotto:
 - 65 comuni acquisiti su 65;
 - 502 prefissi interrogati e 1.722 dettagli del rifiutario, senza errori;
 - 34 ecocentri in 30 comuni e 135 ecofurgoni in 34 comuni;
-- 169 schede Sitecore; la mappa contiene un ecocentro e un ecofurgone privi di
-  scheda di dettaglio, entrambi dichiarati nei rapporti;
+- 167 schede Sitecore per i 169 elementi della mappa; un ecocentro e un
+  ecofurgone privi di scheda di dettaglio sono dichiarati nei rapporti;
+- 11 categorie generali Ecofurgone acquisite dalla pagina ufficiale: 134
+  postazioni le ereditano, mentre una mantiene il proprio elenco specifico;
 - 114.352 record normalizzati e 37 avvisi: 35 comuni senza centro nel proprio
   territorio e i due dettagli appena indicati.
 

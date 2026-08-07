@@ -77,6 +77,9 @@ La risposta deve poter indicare:
 23. Esistenza e compatibilita di un servizio sono fatti distinti. Ritiri e
     punti non verificati restano visibili con avviso; riuso, rivenditore e
     operatore specializzato restano canali sorgente senza entita inventate.
+24. Una regola generale del gestore puo essere applicata ai suoi punti soltanto
+    quando la fonte dichiara esplicitamente quell'ambito. Un elenco specifico
+    del punto ha sempre la precedenza e ogni fonte conserva la propria data.
 
 ## Artefatti persistenti
 
@@ -255,8 +258,11 @@ Completamento ATO Toscana Centro:
   questa assenza resta dichiarata nel rapporto;
 - acquisiti 502 prefissi derivati dal catalogo toscano e 1.722 dettagli
   Junker/AliaEstra, con checkpoint riprendibile e zero errori finali;
-- acquisiti 34 ecocentri, 135 ecofurgoni e 169 schede Sitecore con orari,
-  materiali e collegamenti alle regole di accesso;
+- acquisiti 34 ecocentri, 135 ecofurgoni e 167 schede Sitecore con orari,
+  materiali e collegamenti alle regole di accesso; due elementi della mappa
+  non hanno una scheda pubblicata;
+- acquisita la pagina generale Ecofurgoni con 11 categorie: 134 postazioni
+  usano la regola condivisa e una conserva il proprio elenco specifico;
 - materializzati 114.352 record: 111.930 voci del rifiutario, 1.300 regole,
   755 materiali accettati, 34 centri, 135 punti mobili e 65 servizi di ritiro;
 - i materiali degli ecocentri privi di EER restano
@@ -427,11 +433,15 @@ Risoluzione degli altri canali:
   distanza quando disponibili;
 - compatibilita verificata, elenco non pubblicato e servizio non verificato
   sono stati distinti e producono avvisi diversi;
-- `Armadio` a Firenze collega il ritiro OnDemand; `Accessori cellulari`
-  restituisce 18 ecofurgoni ordinati per distanza, senza inventarne i materiali;
+- `Armadio` a Firenze collega il ritiro OnDemand; `Radio` restituisce 18
+  ecofurgoni ordinati per distanza e verificati tramite la categoria ufficiale
+  dei piccoli RAEE;
+- `Accessori cellulari` vede gli stessi servizi ma resta `not_verified`, perche
+  il collegamento semantico ai piccoli RAEE non viene inventato;
 - riuso per `Assi da stiro`, uno-contro-uno per `Asciugacapelli` e operatore
   specializzato per `Bitumi` restano indicazioni `source_only` citabili;
 - tutti i fatti di servizio utilizzati entrano nella provenienza della risposta.
+- 142 test automatici superati.
 
 ## Limiti e questioni aperte
 
@@ -442,8 +452,8 @@ Risoluzione degli altri canali:
 - Manca il livello canonico in PostgreSQL/PostGIS e la coda di revisione umana.
 - Alcuni requisiti di accesso Alia includono parti redazionali della pagina e
   richiedono una pulizia conservativa senza perdita dell'evidenza originale;
-- I punti mobili Alia rinviano alle schede dei materiali, non ancora acquisite,
-  e non possono quindi confermare i singoli rifiuti;
+- Le categorie Ecofurgone sono generali: le equivalenze tra nomi quotidiani e
+  categorie tecniche richiedono ancora curatela quando non sono testuali;
 - Il repository Git e inizializzato e collegato al remoto GitHub del progetto;
   snapshot e stato live restano esclusi per dimensione e variabilita.
 - La scansione live usa il contatto autorizzato `marcofanciulli@me.com` nello
@@ -455,15 +465,13 @@ Risoluzione degli altri canali:
 2. Acquisire i dettagli dei centri ESA e cercare una guida AAMPS piu recente.
 3. Modellare l'accesso intergestore Montignoso-ERSU e approfondire i centri non
    pubblicati o non attribuiti esplicitamente dalle fonti.
-4. Acquisire le schede dei materiali dei punti mobili AliaEstra e riconciliare
-   i servizi oggi marcati `acceptance_not_published`.
-5. Estendere il registro alle formule ancora prive di flusso o canale solo dopo
+4. Estendere il registro alle formule ancora prive di flusso o canale solo dopo
    revisione delle relative evidenze territoriali.
-6. Ripulire i testi di accesso estratti da pagine con contenuto redazionale,
+5. Ripulire i testi di accesso estratti da pagine con contenuto redazionale,
    mantenendo il testo integrale nella provenienza.
-7. Aggiungere consolidati settimanali, mensili e annuali con conservazione e
+6. Aggiungere consolidati settimanali, mensili e annuali con conservazione e
    compattazione automatica nella finestra incrementale di cinque anni.
-8. Importare il primo lotto fotografico classificato col prontuario, annotarlo
+7. Importare il primo lotto fotografico classificato col prontuario, annotarlo
    in CVAT e fissare le soglie quantitative del primo dataset addestrabile.
 
 ## Regola di continuita

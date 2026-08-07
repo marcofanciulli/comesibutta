@@ -58,10 +58,15 @@ Il dataset del 7 agosto 2026 contiene:
 ## Casi verificati
 
 Per `Armadio` a Firenze il servizio OnDemand viene collegato come ritiro
-compatibile, con prenotazione web e istruzioni pubblicate. Per `Accessori
-cellulari` vengono restituiti 18 ecofurgoni ordinabili per distanza; il campo
-materiali rinvia pero alla scheda AliaEstra, quindi la compatibilita resta
-`acceptance_not_published`.
+compatibile, con prenotazione web e istruzioni pubblicate. Per `Radio` vengono
+restituiti 18 ecofurgoni ordinabili per distanza: la categoria ufficiale delle
+piccole apparecchiature elettriche ed elettroniche rende la compatibilita
+`verified_description`. Ogni servizio espone sia la mappa sia la pagina
+informativa dei materiali.
+
+`Accessori cellulari` mantiene gli stessi 18 servizi, ma resta `not_verified`:
+la presenza del canale Ecofurgone nel rifiutario non basta da sola a dimostrare
+che l'oggetto rientri nella categoria generale dei piccoli RAEE.
 
 `Assi da stiro` a Marradi conserva il riuso come `source_only` e segnala
 l'assenza di un ritiro strutturato. `Asciugacapelli` a Bientina mantiene il canale
@@ -73,5 +78,8 @@ operatori specializzati senza trasformarla in un'azienda specifica.
 
 Le descrizioni di alcuni servizi Alia includono porzioni redazionali della
 pagina. Sono conservate per non perdere istruzioni e provenienza, ma dovranno
-essere ripulite con un estrattore specifico. Le schede dei materiali degli
-ecofurgoni devono essere acquisite prima di poter confermare i singoli rifiuti.
+essere ripulite con un estrattore specifico. Le categorie generali degli
+Ecofurgoni permettono una conferma descrittiva solo quando il rifiuto coincide
+con il testo pubblicato. I collegamenti semantici piu specifici, per esempio
+tra accessori cellulari e piccoli RAEE, richiedono curatela e non vengono
+dedotti automaticamente.

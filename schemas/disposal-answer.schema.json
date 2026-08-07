@@ -174,7 +174,7 @@
         "location", "distance_km", "point_type", "accepted_waste",
         "compatibility", "schedule_raw", "access_summary", "access_credential",
         "booking_required", "booking_methods", "max_items", "quantity_limit",
-        "instructions"
+        "instructions", "information_urls"
       ],
       "properties": {
         "id": { "type": "string" },
@@ -203,6 +203,10 @@
         "schedule_raw": { "type": ["string", "null"] },
         "access_summary": { "type": ["string", "null"] },
         "access_credential": { "type": ["string", "null"] },
+        "information_urls": {
+          "type": "array",
+          "items": { "type": "string", "format": "uri" }
+        },
         "booking_required": { "type": ["boolean", "null"] },
         "booking_methods": {
           "type": "array",

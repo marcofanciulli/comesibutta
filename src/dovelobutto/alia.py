@@ -28,6 +28,7 @@ WASTE_PAGE = f"{ALIA_ROOT}/ambiente/raccolta-e-pulizia-strade/dove-lo-butto"
 PICKUP_PAGE = f"{ALIA_ROOT}/ambiente/ritiri-ondemand"
 KIT_PAGE = f"{ALIA_ROOT}/ambiente/raccolta-e-pulizia-strade/kit-raccolta"
 ACCESS_PAGE = f"{ALIA_ROOT}/aiuto-e-guide/Waste/raccolta-differenziata/ecocentri-ecofurgoni/Ci-sono-delle-regole"
+ECO_TRUCK_INFO_PAGE = f"{ALIA_ROOT}/aiuto-e-guide/Waste/raccolta-differenziata/ecocentri-ecofurgoni/Cosa-sono-gli-Ecofurgoni"
 
 CENTRE_QUERY = """
 query EcoSearchQuery($where: ItemSearchPredicateInput!, $after: String!) {
@@ -167,7 +168,10 @@ def fetch_alia_bundle(
         "access": {}, "centres": [], "eco_trucks": [], "centre_details": [],
         "public_pages": {}, "junker": {"queries": {}, "details": {}}, "errors": [],
     }
-    bundle["source_pages"] = [CENTRE_PAGE, WASTE_PAGE, PICKUP_PAGE, KIT_PAGE, ACCESS_PAGE]
+    bundle["source_pages"] = [
+        CENTRE_PAGE, WASTE_PAGE, PICKUP_PAGE, KIT_PAGE, ACCESS_PAGE,
+        ECO_TRUCK_INFO_PAGE,
+    ]
     robots_url = f"{ALIA_ROOT}/robots.txt"
     try:
         limiter.wait()
@@ -196,12 +200,19 @@ def fetch_alia_bundle(
     _save_checkpoint(output, bundle)
 
     bundle.setdefault("public_pages", {})
-    for key, url in (("pickup", PICKUP_PAGE), ("kit", KIT_PAGE), ("access", ACCESS_PAGE)):
+    for key, url in (
+        ("pickup", PICKUP_PAGE), ("kit", KIT_PAGE), ("access", ACCESS_PAGE),
+        ("eco_truck_info", ECO_TRUCK_INFO_PAGE),
+    ):
         if key in bundle["public_pages"]:
             continue
         try:
             limiter.wait()
-            bundle["public_pages"][key] = {"url": url, "html": _get_text(url, user_agent)}
+            bundle["public_pages"][key] = {
+                "url": url,
+                "retrieved_at": observed_at.isoformat(),
+                "html": _get_text(url, user_agent),
+            }
         except Exception as error:
             bundle["errors"].append({"stage": f"public_page_{key}", "url": url, "error": f"{type(error).__name__}: {error}"})
         _save_checkpoint(output, bundle)
@@ -337,6 +348,41 @@ def _decode_sitecore_value(value: Any) -> str:
     return unquote(str(value or "")).strip()
 
 
+def _extract_ecotruck_materials(html: str) -> tuple[list[str], str | None]:
+    match = re.search(
+        r'<script[^>]+id=["\']my-app-state["\'][^>]*>(.*?)</script>',
+        html,
+        flags=re.DOTALL | re.IGNORECASE,
+    )
+    if not match:
+        return [], None
+    try:
+        state = json.loads(match.group(1))
+    except json.JSONDecodeError:
+        return [], None
+
+    rich_text = None
+    pending = [state]
+    while pending:
+        value = pending.pop()
+        if isinstance(value, dict):
+            if value.get("name") == "ecocentroBottomSheetBody":
+                rich_text = ((value.get("jsonValue") or {}).get("value"))
+                break
+            pending.extend(value.values())
+        elif isinstance(value, list):
+            pending.extend(value)
+    if not rich_text:
+        return [], None
+    root = parse_html(rich_text)
+    materials = [
+        clean_text(item.text).rstrip(".")
+        for item in root.find_all(lambda element: element.tag == "li")
+        if clean_text(item.text)
+    ]
+    return materials, clean_text(root.text) or None
+
+
 def _opening_hours(item: dict[str, Any]) -> list[dict[str, Any]]:
     weekdays = {"lun": 1, "mar": 2, "mer": 3, "gio": 4, "ven": 5, "sab": 6, "dom": 7}
     intervals = []
@@ -394,6 +440,22 @@ def materialize_alia(
     access_source = SourceDocument(
         ACCESS_PAGE, retrieved_at, access_html or json.dumps({"url": ACCESS_PAGE}),
         publisher="Plures S.p.A. - AliaEstra", parser="aliaestra_access_page", parser_version="0.1.0",
+    )
+    eco_truck_info_page = bundle.get("public_pages", {}).get("eco_truck_info", {})
+    eco_truck_info_html = eco_truck_info_page.get("html") or ""
+    eco_truck_materials, eco_truck_info_text = _extract_ecotruck_materials(
+        eco_truck_info_html
+    )
+    eco_truck_info_retrieved_at = datetime.fromisoformat(
+        eco_truck_info_page.get("retrieved_at") or retrieved_at.isoformat()
+    )
+    eco_truck_source = SourceDocument(
+        ECO_TRUCK_INFO_PAGE,
+        eco_truck_info_retrieved_at,
+        eco_truck_info_html or json.dumps({"url": ECO_TRUCK_INFO_PAGE}),
+        publisher="Plures S.p.A. - AliaEstra",
+        parser="aliaestra_ecotruck_info_page",
+        parser_version="0.1.0",
     )
     records_by_istat: dict[str, list[dict[str, Any]]] = {item["istat_code"]: [] for item in municipalities}
 
@@ -523,11 +585,14 @@ def materialize_alia(
         address = ", ".join(part for part in (
             truck.get("streetName"), truck.get("locationDetails")
         ) if part)
-        accepted_streams = [
+        specific_streams = [
             _decode_sitecore_value(item.get("value"))
             for item in (detail.get("cosaPuoiConferire") or {}).get("values") or []
             if _decode_sitecore_value(item.get("value"))
         ]
+        accepted_streams = specific_streams or eco_truck_materials
+        uses_shared_materials = not specific_streams and bool(eco_truck_materials)
+        point_source = eco_truck_source if uses_shared_materials else centre_source
         records_by_istat[istat].append(make_record(
             record_type="collection_point", natural_key=f"alia:eco-truck:{point_id}",
             payload={
@@ -537,15 +602,28 @@ def materialize_alia(
                 "location": {"latitude": truck["geometry"]["y"], "longitude": truck["geometry"]["x"], "method": "publisher_gis", "accuracy_m": None} if truck.get("geometry") else None,
                 "accepted_streams": accepted_streams or ["Materiali indicati nella scheda AliaEstra"],
                 "access_credential": None,
-                "access_notes_raw": "Postazione mobile pubblicata da AliaEstra.",
+                "access_notes_raw": (
+                    "Postazione mobile pubblicata da AliaEstra. Materiali ammessi "
+                    "dalla pagina generale Ecofurgoni; il servizio e riservato alle "
+                    "utenze domestiche per rifiuti di piccole dimensioni e in quantita limitata."
+                    if uses_shared_materials else
+                    "Postazione mobile pubblicata da AliaEstra."
+                ),
+                "information_urls": [CENTRE_PAGE, ECO_TRUCK_INFO_PAGE],
                 "opening_hours_raw": "; ".join(
                     f"giorno {interval['weekday']} {interval['opens']}-{interval['closes']}"
                     for interval in _opening_hours(detail)
                 ) or None,
             },
-            source=centre_source, evidence_kind="json",
-            evidence_selector=f"eco_trucks[idGis='{point_id}']",
-            evidence_quote=f"{truck.get('municipality')}: {address}",
+            source=point_source, evidence_kind="html" if uses_shared_materials else "json",
+            evidence_selector=(
+                "#my-app-state ecocentroBottomSheetBody"
+                if uses_shared_materials else f"eco_trucks[idGis='{point_id}']"
+            ),
+            evidence_quote=(
+                "; ".join(accepted_streams)
+                if uses_shared_materials else f"{truck.get('municipality')}: {address}"
+            ),
         ))
 
     reports = []
@@ -576,17 +654,28 @@ def materialize_alia(
             })
         reports.append({
             "municipality": municipality["name"], "istat_code": municipality["istat_code"],
-            "pages_available": 3, "pages_materialized": 3, "equivalent_pages": [],
+            "pages_available": 5, "pages_materialized": 5, "equivalent_pages": [],
             "records": len(records), "records_by_type": counts, "warnings": warnings,
         })
         total += len(records)
     return {
-        "observed_at": retrieved_at.isoformat(), "pages_checked": 3,
+        "observed_at": retrieved_at.isoformat(), "pages_checked": 5,
         "pages_remaining": 0, "municipalities_touched": len(municipalities),
-        "pages_by_status": {"snapshot": 3},
-        "pages_by_category": {"waste_lookup": 1, "facilities": 1, "pickup": 1},
+        "pages_by_status": {"snapshot": 5},
+        "pages_by_category": {
+            "waste_lookup": 1, "facilities": 2, "mobile_collection": 1,
+            "pickup": 1,
+        },
         "access_preflight": bundle.get("access"), "errors": bundle.get("errors", []),
-        "extraction": {"municipalities": len(municipalities), "records": total, "warnings": sum(len(item["warnings"]) for item in reports), "municipality_reports": reports},
+        "extraction": {
+            "municipalities": len(municipalities), "records": total,
+            "warnings": sum(len(item["warnings"]) for item in reports),
+            "eco_truck_shared_materials": len(eco_truck_materials),
+            "eco_truck_shared_materials_source": ECO_TRUCK_INFO_PAGE,
+            "eco_truck_shared_materials_retrieved_at": eco_truck_info_retrieved_at.isoformat(),
+            "eco_truck_shared_materials_text": eco_truck_info_text,
+            "municipality_reports": reports,
+        },
         "coverage": {
             "autocomplete_queries": len(bundle.get("junker", {}).get("queries", {})),
             "waste_terms": len(waste_details), "centres": len(bundle.get("centres", [])),

@@ -1068,6 +1068,10 @@ class DisposalQueryService:
                 "schedule_raw": None,
                 "access_summary": None,
                 "access_credential": None,
+                "information_urls": [
+                    method["value"] for method in payload.get("booking_methods", [])
+                    if method.get("method") == "web"
+                ],
                 "booking_required": payload.get("booking_required"),
                 "booking_methods": payload.get("booking_methods", []),
                 "max_items": payload.get("max_items"),
@@ -1142,6 +1146,7 @@ class DisposalQueryService:
                 "schedule_raw": payload.get("opening_hours_raw"),
                 "access_summary": payload.get("access_notes_raw"),
                 "access_credential": payload.get("access_credential"),
+                "information_urls": payload.get("information_urls", []),
                 "booking_required": None,
                 "booking_methods": [],
                 "max_items": None,
