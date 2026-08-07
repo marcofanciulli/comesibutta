@@ -62,10 +62,42 @@ class SyncTests(unittest.TestCase):
             self.assertEqual(["upsert", "delete"], [item["operation"] for item in delta["operations"]])
             self.assertTrue(apply_package(connection, delta))
             self.assertEqual("202608070002", connection.execute("SELECT value FROM metadata WHERE key='revision'").fetchone()[0])
-            self.assertEqual("09:00-13:00", json.loads(connection.execute(
-                "SELECT data_json FROM entities WHERE entity_type='opening_period'"
-            ).fetchone()[0])["payload"]["hours"])
+            self.assertEqual(
+                "09:00-13:00",
+                read_database_entities(connection)[("opening_period", "opening:test:manciano")].data["payload"]["hours"],
+            )
             self.assertEqual(1, connection.execute("SELECT COUNT(*) FROM tombstones WHERE entity_type='collection_point'").fetchone()[0])
+            connection.close()
+
+    def test_storage_deduplicates_sources_and_reconstructs_entities(self) -> None:
+        with TemporaryDirectory() as temporary:
+            connection = open_database(Path(temporary) / "client.sqlite", role="client")
+            common_source = {"url": "https://example.test/page", "title": "Guida"}
+            entities = {}
+            for number, quote in enumerate(("Carta", "Vetro"), 1):
+                entity = CanonicalEntity(
+                    "collection_rule", f"rule:{number}",
+                    {"payload": {"municipality_ref": "istat:053014", "term": quote}, "sources": [
+                        {**common_source, "evidence": {"selector": "table", "quote": quote}},
+                    ]},
+                )
+                entities[(entity.entity_type, entity.entity_id)] = entity
+            empty_sources = CanonicalEntity(
+                "collection_rule", "rule:empty-sources", {"payload": {"term": "Altro"}, "sources": []},
+            )
+            entities[(empty_sources.entity_type, empty_sources.entity_id)] = empty_sources
+            apply_package(connection, build_update_package({}, entities, None, 1, GENERATED_AT))
+            reconstructed = read_database_entities(connection)
+            self.assertEqual(entities, {
+                key: CanonicalEntity(value.entity_type, value.entity_id, value.data, value.dependencies)
+                for key, value in reconstructed.items()
+            })
+            self.assertEqual(1, connection.execute("SELECT COUNT(*) FROM source_documents").fetchone()[0])
+            self.assertEqual(2, connection.execute("SELECT COUNT(*) FROM source_evidence").fetchone()[0])
+            self.assertEqual("blob", connection.execute("SELECT typeof(data_json) FROM entities LIMIT 1").fetchone()[0])
+            self.assertEqual("carta", connection.execute(
+                "SELECT search_text FROM entities WHERE entity_id='rule:1'"
+            ).fetchone()[0])
             connection.close()
 
     def test_invalid_dependency_rolls_back_every_operation(self) -> None:
@@ -97,6 +129,17 @@ class SyncTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "client is at 0"):
                 apply_package(connection, delta)
             connection.close()
+
+    def test_old_storage_requires_snapshot_rebuild(self) -> None:
+        with TemporaryDirectory() as temporary:
+            database = Path(temporary) / "old.sqlite"
+            connection = sqlite3.connect(database)
+            connection.execute("CREATE TABLE metadata (key TEXT PRIMARY KEY, value TEXT NOT NULL)")
+            connection.execute("INSERT INTO metadata VALUES ('schema_version', '1')")
+            connection.commit()
+            connection.close()
+            with self.assertRaisesRegex(ValueError, "rebuild the database from a snapshot"):
+                open_database(database)
 
     def test_cannot_delete_an_entity_that_remains_referenced(self) -> None:
         with TemporaryDirectory() as temporary:

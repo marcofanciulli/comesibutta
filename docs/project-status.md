@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Ultimo aggiornamento: 6 agosto 2026
+Ultimo aggiornamento: 7 agosto 2026
 Fase: ATO Toscana Sud, Costa e Centro acquisite
 
 Questo documento e il punto di ripartenza del progetto. Va aggiornato al termine
@@ -280,11 +280,17 @@ SQLite canonico e sincronizzazione remota:
   snapshot, che viene costruito separatamente e sostituito atomicamente;
 - la pubblicazione usa un manifest `.pending` e recupera un'interruzione tra
   aggiornamento del backend e pubblicazione del nuovo manifest;
-- collaudo completo: snapshot da 7,7 MB, delta di una singola modifica da 785
+- collaudo completo: snapshot da 7,7 MB, delta di una singola modifica da 783
   byte, 155.946 entita applicate e zero violazioni relazionali;
-- il SQLite client generico occupa circa 259 MB: la deduplicazione strutturale
-  di fonti e regole condivise resta il prossimo intervento di ottimizzazione;
-- 87 test automatici superati.
+- documenti ed evidenze di provenienza sono deduplicati: 152.485 collegamenti
+  fanno riferimento a 524 documenti e 14.232 evidenze distinte;
+- i corpi JSON sono compressi e le relazioni SQLite usano chiavi numeriche,
+  mantenendo invariati gli identificatori canonici pubblici;
+- il SQLite client occupa circa 129 MB, contro i 259 MB iniziali, senza
+  modificare il formato firmato di snapshot e delta;
+- i database locali nel vecchio formato vengono rifiutati con una richiesta
+  esplicita di ricostruzione dallo snapshot;
+- 89 test automatici superati.
 
 ## Limiti e questioni aperte
 
@@ -304,8 +310,8 @@ SQLite canonico e sincronizzazione remota:
 2. Acquisire i dettagli dei centri ESA e cercare una guida AAMPS piu recente.
 3. Modellare l'accesso intergestore Montignoso-ERSU e approfondire i centri non
    pubblicati o non attribuiti esplicitamente dalle fonti.
-4. Normalizzare in tabelle dedicate provenienza, regole condivise e
-   applicabilita territoriale per ridurre il database client.
+4. Normalizzare regole condivise e applicabilita territoriale per eliminare le
+   copie comunali equivalenti e ridurre ulteriormente il database client.
 5. Aggiungere consolidati settimanali, mensili e annuali con conservazione e
    compattazione automatica nella finestra incrementale di cinque anni.
 

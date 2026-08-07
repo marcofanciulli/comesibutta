@@ -57,6 +57,11 @@ distribuzione remota usa revisioni globali, snapshot e pacchetti atomici
 descritti in `docs/data-synchronization.md`. Gli identificatori canonici devono
 quindi essere stabili anche tra revisioni e aggiornamenti parziali.
 
+La materializzazione SQLite per l'app deduplica documenti ed evidenze, comprime
+il corpo JSON delle entita e usa chiavi numeriche soltanto per le relazioni
+locali. Gli ID canonici presenti nei pacchetti restano l'unica identita esterna;
+il formato locale puo quindi evolvere ricostruendo il database da uno snapshot.
+
 ## 3. Entita canoniche
 
 ### Territorio e organizzazione

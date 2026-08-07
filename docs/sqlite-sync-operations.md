@@ -11,16 +11,20 @@ canoniche, mantiene lo stato editoriale del backend in SQLite e distribuisce
 snapshot e delta applicabili atomicamente a un database client.
 
 Il livello e intenzionalmente generico: conserva senza perdita tutti i tipi di
-record correnti mentre il modello di dominio definitivo viene affinato. Non
-sostituisce ancora la futura normalizzazione di concetti, regole e provenienza
-in tabelle dedicate.
+record correnti mentre il modello di dominio definitivo viene affinato. La
+provenienza e gia normalizzata; concetti, regole condivise e applicabilita
+territoriale restano entita generiche da specializzare.
 
 ## Struttura SQLite
 
 Entrambi i ruoli usano lo stesso schema e attivano le chiavi esterne:
 
 - `metadata`: dataset, versione dello schema, revisione e ruolo;
-- `entities`: stato canonico corrente, hash e campi territoriali indicizzati;
+- `entities`: stato canonico corrente, corpo JSON compresso, hash e campi di
+  ricerca, territorio, destinazione, flusso e centro immediatamente leggibili;
+- `source_documents`: documenti sorgente deduplicati tramite SHA-256;
+- `source_evidence`: evidenze deduplicate e collegate al documento;
+- `entity_sources`: collegamenti ordinati tra entita ed evidenze;
 - `entity_dependencies`: riferimenti differiti tra entita;
 - `tombstones`: cancellazioni da propagare ai client rimasti indietro;
 - `package_applications`: pacchetti gia applicati e relativo hash;
@@ -31,6 +35,13 @@ transazione `BEGIN IMMEDIATE`; sequenza, revisione, dipendenze e chiavi esterne
 sono controllate prima del commit. Un errore ripristina integralmente la
 revisione precedente. Riapplicare lo stesso pacchetto e un'operazione nulla;
 riutilizzare lo stesso ID con contenuto diverso e un errore.
+
+Le relazioni interne usano chiavi numeriche compatte. Gli identificatori
+canonici pubblici restano invariati e vengono ricostruiti quando si legge il
+database o si genera un nuovo pacchetto. La versione del formato SQLite e
+distinta dalla versione del contratto distribuito: un database locale creato
+con un formato precedente deve essere ricostruito da uno snapshot firmato,
+senza richiedere modifiche al pacchetto.
 
 ## Identita e collisioni
 
@@ -126,12 +137,14 @@ Sul dataset del 7 agosto 2026:
 
 - snapshot: 155.946 operazioni, 7,7 MB compressi;
 - database client: 155.946 entita e 159.719 dipendenze valide;
-- delta simulato per la modifica di un solo orario: una operazione, 785 byte;
+- provenienza: 152.485 collegamenti, 524 documenti e 14.232 evidenze distinte;
+- delta simulato per la modifica di una sola entita: una operazione, 783 byte;
 - applicazione snapshot e delta con firma verificata e nessuna violazione di
   chiave esterna.
 
-Il database client generico occupa attualmente circa 259 MB. E un limite noto
-del prototipo: provenienza e copie territoriali condivise sono ancora incluse
-nel JSON di ogni entita. La successiva normalizzazione dovra separare documenti
-ed evidenze e rappresentare una regola condivisa con relazioni di applicabilita,
-riducendo lo spazio senza modificare il protocollo di aggiornamento.
+Il database client generico occupa circa 129 MB, contro i 259 MB della prima
+materializzazione: la normalizzazione della provenienza, la compressione dei
+corpi JSON e le chiavi relazionali numeriche dimezzano lo spazio senza
+modificare il protocollo di aggiornamento. Il margine successivo consiste nel
+rappresentare le copie territoriali di una stessa regola tramite una regola
+condivisa e relazioni di applicabilita.

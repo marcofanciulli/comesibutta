@@ -210,5 +210,7 @@ di acquisizione comunali restano completi e indipendenti.
 Il dataset puo essere pubblicato come snapshot e delta gzip firmati Ed25519.
 Il backend mantiene stato, changelog e tombstone in SQLite; il client verifica
 manifest e artefatti, sceglie automaticamente il percorso con meno byte e
-applica ogni pacchetto in una transazione. Comandi, gestione delle chiavi e
-risultati del collaudo completo sono in `docs/sqlite-sync-operations.md`.
+applica ogni pacchetto in una transazione. Documenti ed evidenze condivise sono
+deduplicati nel database locale, che occupa circa 129 MB per il dataset
+completo. Comandi, gestione delle chiavi e risultati del collaudo sono in
+`docs/sqlite-sync-operations.md`.
