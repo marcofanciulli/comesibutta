@@ -25,14 +25,17 @@ come gia previsto per le modifiche dello storage locale.
 
 1. Normalizza accenti, maiuscole e punteggiatura.
 2. Confronta sequenza e parole, tollerando piccoli errori di digitazione.
-3. Mantiene distinti punteggio semantico e disponibilita nel comune.
-4. Per una corrispondenza incerta propone soltanto le interpretazioni che hanno
+3. Applica i gruppi di sinonimi approvati dal registro di curatela.
+4. Mantiene distinti punteggio semantico e disponibilita nel comune.
+5. Per una corrispondenza incerta propone soltanto le interpretazioni che hanno
    una destinazione pubblicata nel territorio, se disponibili.
-5. Dopo la scelta del concetto legge la destinazione territoriale.
-6. Collega, quando possibile, la destinazione alla regola locale per ricavare
+6. Dopo la scelta del concetto legge la destinazione territoriale.
+7. Normalizza destinazione e regola tramite il vocabolario controllato dei
+   flussi.
+8. Collega, quando possibile, la destinazione alla regola locale per ricavare
    contenitore, colore, modalita, sacchetto e istruzioni.
-7. Se regole di zone diverse producono risposte differenti chiede la zona.
-8. Restituisce fonti, data di verifica e revisione del dataset.
+9. Se regole di zone diverse producono risposte differenti chiede la zona.
+10. Restituisce fonti, data di verifica e revisione del dataset.
 
 Gli stati sono:
 
@@ -63,7 +66,7 @@ l'identificatore scelto:
 PYTHONPATH=src python3 -m dovelobutto.cli query-disposal \
   --database data/canonical/client.sqlite \
   --text "confezzione del latte" \
-  --concept waste:cartone-del-latte-tetra-pak \
+  --concept waste-alias:beverage-carton \
   --municipality 048017 \
   --as-of 2026-08-07
 ```
@@ -79,11 +82,16 @@ verificato ricerca esatta, errori di digitazione, scelta guidata, differenze di
 zona, conflitti, aggiornamento incrementale dell'indice e assenza di risposte
 inventate.
 
+Con il registro di curatela il dataset sale a 156.055 entita. Il risultato
+espone anche `stream_id`, stabile tra gestori: per esempio `Sacco carta` e
+`Carta e cartone` diventano `stream:paper` pur conservando le etichette
+originali nelle fonti.
+
 Il primo livello risolve destinazioni e preparazione quando i due fatti sono
 collegabili. Restano da completare:
 
-- consolidamento editoriale dei sinonimi che oggi formano concetti distinti;
-- mappatura controllata tra nomi di destinazione e flussi di raccolta;
+- estensione progressiva del registro oltre i primi gruppi approvati;
+- scomposizione delle destinazioni che contengono piu canali di conferimento;
 - risoluzione del centro accessibile e di eventuali alternative limitrofe;
 - vicinanza geografica, orari, stato del servizio e procedura di accesso;
 - arricchimento delle regole di preparazione non pubblicate in forma

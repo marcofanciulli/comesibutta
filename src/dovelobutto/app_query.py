@@ -40,10 +40,18 @@ def _similarity(query: str, candidate: str) -> float:
     containment = 0.0
     if query in candidate or candidate in query:
         containment = 0.9 * min(len(query), len(candidate)) / max(len(query), len(candidate)) + 0.1
-    token_fuzzy = sum(
+    query_coverage = sum(
         max(SequenceMatcher(None, token, other).ratio() for other in candidate_tokens)
         for token in query_tokens
     ) / len(query_tokens)
+    candidate_coverage = sum(
+        max(SequenceMatcher(None, token, other).ratio() for other in query_tokens)
+        for token in candidate_tokens
+    ) / len(candidate_tokens)
+    token_fuzzy = (
+        2 * query_coverage * candidate_coverage / (query_coverage + candidate_coverage)
+        if query_coverage + candidate_coverage else 0.0
+    )
     exact_coverage = len(set(query_tokens) & set(candidate_tokens)) / len(set(query_tokens))
     token_score = 0.45 * sequence + 0.35 * token_fuzzy + 0.2 * exact_coverage
     if token_fuzzy >= 0.88:
@@ -80,6 +88,33 @@ class DisposalQueryService:
         self.revision = int(dict(
             connection.execute("SELECT key, value FROM metadata")
         ).get("revision", 0))
+        self.alias_groups: dict[str, dict[str, Any]] = {}
+        self.alias_membership: dict[str, str] = {}
+        self.streams: dict[str, dict[str, Any]] = {}
+        self.stream_aliases: dict[str, str] = {}
+        self._concept_cache: dict[str, dict[str, Any] | None] = {}
+        for row in connection.execute(
+            """SELECT entity_id FROM entities
+            WHERE entity_type = 'waste_alias_group' ORDER BY entity_id"""
+        ):
+            group = read_entity_data(
+                connection, "waste_alias_group", row["entity_id"], include_sources=False,
+            )
+            if group:
+                self.alias_groups[group["group_id"]] = group
+                for concept_id in group["member_concept_ids"]:
+                    self.alias_membership[concept_id] = group["group_id"]
+        for row in connection.execute(
+            """SELECT entity_id FROM entities
+            WHERE entity_type = 'collection_stream' ORDER BY entity_id"""
+        ):
+            stream = read_entity_data(
+                connection, "collection_stream", row["entity_id"], include_sources=False,
+            )
+            if stream:
+                self.streams[stream["stream_id"]] = stream
+                for alias in stream["aliases"]:
+                    self.stream_aliases[normalize_term(alias)] = stream["stream_id"]
 
     def search(
         self,
@@ -107,16 +142,48 @@ class DisposalQueryService:
                     "normalized_term": row["normalized_term"],
                     "score": score,
                 }
+        grouped: dict[str, dict[str, Any]] = {}
+        for candidate in best.values():
+            choice_id = self.alias_membership.get(
+                candidate["concept_id"], candidate["concept_id"],
+            )
+            current = grouped.get(choice_id)
+            if current is None or candidate["score"] > current["score"]:
+                group = self.alias_groups.get(choice_id)
+                grouped[choice_id] = {
+                    **candidate,
+                    "concept_id": choice_id,
+                    "label": group["preferred_label"] if group else candidate["label"],
+                    "matched_member_concept_id": candidate["concept_id"],
+                    "member_concept_ids": (
+                        group["member_concept_ids"] if group else [candidate["concept_id"]]
+                    ),
+                }
+        for group_id, group in self.alias_groups.items():
+            score, matched_term = max(
+                (
+                    (_similarity(normalized_query, normalize_term(term)), term)
+                    for term in group["search_terms"]
+                ),
+                default=(0.0, group["preferred_label"]),
+            )
+            current = grouped.get(group_id)
+            if current is None or score > current["score"]:
+                grouped[group_id] = {
+                    "concept_id": group_id,
+                    "label": group["preferred_label"],
+                    "normalized_term": normalize_term(matched_term),
+                    "score": score,
+                    "matched_member_concept_id": None,
+                    "member_concept_ids": group["member_concept_ids"],
+                }
         ranked = sorted(
-            best.values(),
+            grouped.values(),
             key=lambda item: (-item["score"], len(item["normalized_term"]), item["label"].casefold()),
         )
         if municipality_istat:
             for candidate in ranked[: max(limit * 4, 20)]:
-                concept = read_entity_data(
-                    self.connection, "waste_concept", candidate["concept_id"],
-                    include_sources=False,
-                )
+                concept = self._concept_for_choice(candidate["concept_id"])
                 candidate["available_in_municipality"] = any(
                     municipality_istat in destination["municipality_istats"]
                     for destination in (concept or {}).get("local_destinations", [])
@@ -145,9 +212,7 @@ class DisposalQueryService:
         as_of = as_of or date.today()
         suggestions = self.search(text, municipality_istat=municipality_istat, limit=6)
         if concept_id:
-            selected_concept = read_entity_data(
-                self.connection, "waste_concept", concept_id, include_sources=False,
-            )
+            selected_concept = self._concept_for_choice(concept_id)
             if selected_concept:
                 suggestions = [{
                     "concept_id": concept_id,
@@ -157,6 +222,9 @@ class DisposalQueryService:
                     "available_in_municipality": any(
                         municipality_istat in destination["municipality_istats"]
                         for destination in selected_concept.get("local_destinations", [])
+                    ),
+                    "member_concept_ids": selected_concept.get(
+                        "member_concept_ids", [selected_concept["concept_id"]],
                     ),
                 }]
             else:
@@ -222,10 +290,7 @@ class DisposalQueryService:
                 ],
             }
             return base
-        concept = read_entity_data(
-            self.connection, "waste_concept", selected["concept_id"],
-            include_sources=False,
-        )
+        concept = self._concept_for_choice(selected["concept_id"])
         if concept is None:
             return base
         base["query"].update({
@@ -235,8 +300,14 @@ class DisposalQueryService:
         destinations = []
         for destination in concept.get("local_destinations", []):
             if municipality_istat in destination["municipality_istats"]:
-                key = normalize_term(destination["label"])
-                if key not in {normalize_term(item["label"]) for item in destinations}:
+                key = self._canonical_stream(destination["label"]) or normalize_term(
+                    destination["label"]
+                )
+                existing_keys = {
+                    self._canonical_stream(item["label"]) or normalize_term(item["label"])
+                    for item in destinations
+                }
+                if key not in existing_keys:
                     destinations.append(destination)
         evidence = [
             item for item in concept.get("evidence", [])
@@ -292,14 +363,22 @@ class DisposalQueryService:
             WHERE entity_type = 'collection_rule' AND municipality_ref = ?""",
             (f"istat:{municipality_istat}",),
         ):
-            score = _similarity(normalize_term(destination), normalize_term(row["stream_name"] or ""))
+            destination_stream = self._canonical_stream(destination)
+            rule_stream = self._canonical_stream(row["stream_name"] or "")
+            score = (
+                1.0
+                if destination_stream and destination_stream == rule_stream
+                else _similarity(
+                    normalize_term(destination), normalize_term(row["stream_name"] or ""),
+                )
+            )
             if score < 0.45:
                 continue
             data = read_entity_data(self.connection, "collection_rule", row["entity_id"])
             if data is None:
                 continue
             payload = data.get("payload") or {}
-            if payload.get("user_type") not in {None, "unspecified", user_type}:
+            if payload.get("user_type") not in {None, "all", "unspecified", user_type}:
                 continue
             if zone_id and payload.get("zone_ref") not in {None, zone_id}:
                 continue
@@ -327,8 +406,79 @@ class DisposalQueryService:
         )
         return (zone or {}).get("payload", {}).get("name") or zone_id
 
-    @staticmethod
+    def _canonical_stream(self, value: str) -> str | None:
+        return self.stream_aliases.get(normalize_term(value))
+
+    def _concept_for_choice(self, choice_id: str) -> dict[str, Any] | None:
+        if choice_id in self._concept_cache:
+            return self._concept_cache[choice_id]
+        group = self.alias_groups.get(choice_id)
+        if group is None:
+            concept = read_entity_data(
+                self.connection, "waste_concept", choice_id, include_sources=False,
+            )
+            self._concept_cache[choice_id] = concept
+            return concept
+        members = [
+            concept for concept_id in group["member_concept_ids"]
+            if (concept := read_entity_data(
+                self.connection, "waste_concept", concept_id, include_sources=False,
+            )) is not None
+        ]
+        destinations: dict[str, dict[str, Any]] = {}
+        evidence = []
+        terms = set()
+        eer_candidates: dict[str, dict[str, Any]] = {}
+        for member in members:
+            terms.update(member.get("terms", []))
+            for destination in member.get("local_destinations", []):
+                key = normalize_term(destination["label"])
+                aggregate = destinations.setdefault(key, {
+                    "label": destination["label"],
+                    "municipality_istats": set(),
+                    "source_urls": set(),
+                })
+                aggregate["municipality_istats"].update(destination["municipality_istats"])
+                aggregate["source_urls"].update(destination["source_urls"])
+            evidence.extend(member.get("evidence", []))
+            for candidate in member.get("eer", {}).get("candidates", []):
+                eer_candidates.setdefault(candidate["code"], candidate)
+        candidates = [eer_candidates[code] for code in sorted(eer_candidates)]
+        concept = {
+            "concept_id": group["group_id"],
+            "member_concept_ids": group["member_concept_ids"],
+            "preferred_label": group["preferred_label"],
+            "normalized_term": normalize_term(group["preferred_label"]),
+            "terms": sorted(terms, key=lambda item: (item.casefold(), item)),
+            "local_destinations": [
+                {
+                    "label": item["label"],
+                    "municipality_istats": sorted(item["municipality_istats"]),
+                    "source_urls": sorted(item["source_urls"]),
+                }
+                for _, item in sorted(destinations.items())
+            ],
+            "evidence": evidence,
+            "eer": {
+                "status": (
+                    "source_consensus" if len(candidates) == 1
+                    else "conflict" if candidates else "not_available"
+                ),
+                "candidates": candidates,
+            },
+            "general_details": {
+                "environmental_note": next((
+                    member.get("general_details", {}).get("environmental_note")
+                    for member in members
+                    if member.get("general_details", {}).get("environmental_note")
+                ), None),
+            },
+        }
+        self._concept_cache[choice_id] = concept
+        return concept
+
     def _result(
+        self,
         concept: dict[str, Any],
         destination: str,
         rule: dict[str, Any] | None,
@@ -353,8 +503,10 @@ class DisposalQueryService:
             warnings.append("La destinazione e pubblicata, ma non e collegata a una regola di preparazione locale.")
         if _destination_type(destination) == "facility":
             warnings.append("Il centro utilizzabile deve ancora essere risolto tra le strutture accessibili.")
+        stream_id = self._canonical_stream(payload.get("stream_name") or destination)
         return {
             "destination_type": _destination_type(destination),
+            "stream_id": stream_id,
             "stream": payload.get("stream_name") or destination,
             "container": (
                 {

@@ -127,6 +127,11 @@ def _reference_candidates(entity: CanonicalEntity) -> set[tuple[str, str]]:
         for candidate in (entity.data.get("eer") or {}).get("candidates", []):
             if candidate.get("code"):
                 references.add(("eer_entry", f"eer:{candidate['code']}"))
+    if entity.entity_type == "waste_alias_group":
+        references.update(
+            ("waste_concept", concept_id)
+            for concept_id in entity.data.get("member_concept_ids", [])
+        )
     return references
 
 
@@ -134,6 +139,7 @@ def load_canonical_entities(
     input_dirs: list[Path], registry_paths: list[Path],
     catalog_path: Path | None = None, eer_register_path: Path | None = None,
     packaging_material_register_path: Path | None = None,
+    waste_curation_register_path: Path | None = None,
 ) -> dict[tuple[str, str], CanonicalEntity]:
     acquisition_paths = [
         path for directory in input_dirs
@@ -147,6 +153,7 @@ def load_canonical_entities(
             CanonicalEntity("eer_entry", entry["entry_id"], entry)
             for entry in register.get("entries", [])
         )
+    catalog = None
     if catalog_path:
         catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
         entities.extend(
@@ -160,6 +167,23 @@ def load_canonical_entities(
         entities.extend(
             CanonicalEntity("packaging_material_mark", entry["mark_id"], entry)
             for entry in packaging_register.get("entries", [])
+        )
+    if waste_curation_register_path:
+        if catalog is None:
+            raise ValueError("Waste curation requires the canonical waste catalog")
+        from .curation import validate_waste_curation
+
+        curation = json.loads(
+            waste_curation_register_path.read_text(encoding="utf-8")
+        )
+        validate_waste_curation(curation, catalog)
+        entities.extend(
+            CanonicalEntity("waste_alias_group", group["group_id"], group)
+            for group in curation.get("alias_groups", [])
+        )
+        entities.extend(
+            CanonicalEntity("collection_stream", stream["stream_id"], stream)
+            for stream in curation.get("collection_streams", [])
         )
     indexed = {(entity.entity_type, entity.entity_id): entity for entity in entities}
     if len(indexed) != len(entities):

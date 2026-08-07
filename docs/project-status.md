@@ -65,6 +65,9 @@ La risposta deve poter indicare:
 19. La ricerca lessicale propone concetti, ma la risposta deriva soltanto da
     destinazioni e regole territoriali citabili; una somiglianza incerta
     richiede conferma dell'utente.
+20. Sinonimi e nomi dei flussi entrano nelle risposte soltanto tramite un
+    registro revisionato e distribuibile; i concetti sorgente e le differenze
+    territoriali non vengono eliminati dalla curatela.
 
 ## Artefatti persistenti
 
@@ -343,7 +346,7 @@ Registro UE dei materiali e riconoscimento visivo:
   sintetica la soglia 0,4 ottiene F1 0,500, precisione 0,571 e recall 0,444;
 - checkpoint locale da 15,4 MB, report riproducibili e anteprima delle
   predizioni prodotti; il modello e marcato esplicitamente non distribuibile;
-- 123 test automatici superati.
+- 131 test automatici superati.
 
 Ricerca e risposta applicativa:
 
@@ -360,6 +363,26 @@ Ricerca e risposta applicativa:
   latte con errore di digitazione;
 - documentate le lacune su sinonimi, collegamento destinazione-flusso e scelta
   dei centri accessibili.
+
+Curatela di sinonimi e flussi:
+
+- creato il registro v1 con 3 gruppi approvati, 29 concetti membri e 14 termini
+  di ricerca per cartoni da bevande, tappi di vero sughero e bottiglie di vetro
+  generiche;
+- aggiunti 7 flussi canonici e 34 alias controllati; lo stesso alias non puo
+  assumere due significati e un concetto non puo appartenere a due gruppi;
+- 1.938 delle 4.065 associazioni di destinazione, pari al 47,7%, sono ora
+  riconducibili a un flusso stabile; nessun gruppo approvato crea conflitti
+  territoriali;
+- gruppi e flussi sono 10 entita sincronizzate con dipendenze verificabili; il
+  dataset di collaudo raggiunge 156.055 entita;
+- la ricerca aggrega termini, fonti ed EER dei membri, ma risolve soltanto le
+  destinazioni presenti nel comune; finto sughero e qualificatori specifici
+  restano distinti;
+- il collegamento controllato ha unito, nel caso reale di Aulla, `Sacco carta`
+  alla regola `Carta e cartone`, recuperando istruzioni e provenienza locale;
+- le destinazioni composte con ecocentro, ritiro, ecomobile o piu canali sono
+  lasciate fuori dai flussi e costituiscono il prossimo livello di lavoro.
 
 ## Limiti e questioni aperte
 
@@ -379,8 +402,8 @@ Ricerca e risposta applicativa:
 2. Acquisire i dettagli dei centri ESA e cercare una guida AAMPS piu recente.
 3. Modellare l'accesso intergestore Montignoso-ERSU e approfondire i centri non
    pubblicati o non attribuiti esplicitamente dalle fonti.
-4. Consolidare i sinonimi del catalogo e la mappatura controllata tra
-   destinazioni dei rifiutari e flussi delle regole locali.
+4. Estendere la curatela e scomporre le destinazioni composte in canali di
+   conferimento senza perdere condizioni e alternative.
 5. Risolvere centri accessibili, alternative limitrofe, distanza, orari e stato
    del servizio nella risposta applicativa.
 6. Aggiungere consolidati settimanali, mensili e annuali con conservazione e

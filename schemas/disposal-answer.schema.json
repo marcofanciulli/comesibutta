@@ -54,6 +54,7 @@
         "destination_type": {
           "enum": ["collection_stream", "facility", "collection_point", "pickup", "special_case"]
         },
+        "stream_id": { "type": ["string", "null"], "pattern": "^stream:[a-z0-9-]+$" },
         "stream": { "type": ["string", "null"] },
         "container": {
           "type": ["object", "null"],

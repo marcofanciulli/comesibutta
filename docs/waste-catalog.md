@@ -1,7 +1,7 @@
 # Catalogo canonico dei rifiuti
 
-Versione: 0.2.0
-Ultimo aggiornamento: 6 agosto 2026
+Versione: 0.3.0
+Ultimo aggiornamento: 7 agosto 2026
 
 ## Obiettivo
 
@@ -41,13 +41,13 @@ locali, non trattate come contraddizioni globali.
 
 ## Stato corrente
 
-- 14.711 record locali di rifiutario analizzati;
-- 995 indicazioni sorgente distinte dopo la deduplicazione;
-- 818 concetti canonici iniziali;
+- 138.342 record locali di rifiutario analizzati;
+- 3.880 indicazioni sorgente distinte dopo la deduplicazione;
+- 3.124 concetti canonici iniziali;
 - 331 concetti con un EER concordante pubblicato dalla fonte;
 - nessun conflitto EER per i termini coincidenti;
-- 487 concetti ancora senza EER;
-- 135 concetti con piu destinazioni locali osservate.
+- 2.553 concetti ancora senza EER;
+- 411 concetti con piu destinazioni locali osservate.
 
 `source_consensus` significa che tutte le fonti che pubblicano un EER per quel
 termine indicano lo stesso codice. Ogni candidato e ora controllato anche
@@ -69,3 +69,7 @@ sono sostenuti da una fonte o da una revisione. Il prossimo ciclo deve:
    materiale, dimensione o presenza di componenti pericolosi;
 3. aggiungere spiegazioni ed effetti ambientali da fonti istituzionali;
 4. introdurre una coda di revisione con autore, motivazione e data.
+
+Il primo registro separato di curatela e descritto in
+`docs/waste-curation.md`. Consolida soltanto gruppi approvati e mantiene
+immutati concetti, destinazioni ed evidenze sorgente.

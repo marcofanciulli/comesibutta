@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dovelobutto.example/schemas/waste-curation-register.schema.json",
+  "title": "Reviewed waste aliases and collection stream vocabulary",
+  "type": "object",
+  "required": ["register_id", "version", "generated_at", "alias_groups", "collection_streams"],
+  "properties": {
+    "register_id": { "type": "string" },
+    "version": { "type": "integer", "minimum": 1 },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "alias_groups": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["group_id", "preferred_label", "search_terms", "member_concept_ids", "review_status", "rationale"],
+        "properties": {
+          "group_id": { "type": "string", "pattern": "^waste-alias:[a-z0-9-]+$" },
+          "preferred_label": { "type": "string", "minLength": 1 },
+          "search_terms": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "member_concept_ids": {
+            "type": "array",
+            "minItems": 2,
+            "uniqueItems": true,
+            "items": { "type": "string", "pattern": "^waste:[a-z0-9-]+$" }
+          },
+          "review_status": { "const": "approved" },
+          "rationale": { "type": "string", "minLength": 1 }
+        },
+        "additionalProperties": false
+      }
+    },
+    "collection_streams": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["stream_id", "preferred_label", "aliases"],
+        "properties": {
+          "stream_id": { "type": "string", "pattern": "^stream:[a-z0-9-]+$" },
+          "preferred_label": { "type": "string", "minLength": 1 },
+          "aliases": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": { "type": "string", "minLength": 1 }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

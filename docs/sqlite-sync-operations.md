@@ -108,6 +108,7 @@ PYTHONPATH=src python3 -m dovelobutto.cli publish-data-release \
   --catalog outputs/waste-catalog.json \
   --eer-register outputs/eer-register.json \
   --packaging-material-register outputs/packaging-material-register.json \
+  --waste-curation-register data/curation/waste-curation-v1.json \
   --database data/canonical/publisher.sqlite \
   --artifact-dir outputs/distribution \
   --manifest outputs/distribution/manifest.json \

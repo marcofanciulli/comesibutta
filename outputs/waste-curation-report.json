@@ -1,0 +1,218 @@
+{
+  "alias_group_territorial_conflicts": 0,
+  "alias_groups": 3,
+  "alias_members": 29,
+  "approved_search_terms": 14,
+  "catalog_generated_at": "2026-08-07T13:00:00+02:00",
+  "collection_streams": 7,
+  "conflicts_by_group": {},
+  "destination_assertions": 4065,
+  "destination_labels": 189,
+  "mapped_destination_assertions": 1938,
+  "mapped_destination_labels": 28,
+  "register_id": "waste-curation:toscana:v1",
+  "register_version": 1,
+  "stream_aliases": 34,
+  "top_unmapped_destinations": [
+    {
+      "assertions": 177,
+      "label": "ecocentro ecofurgone ecotappa"
+    },
+    {
+      "assertions": 173,
+      "label": "centro di raccolta"
+    },
+    {
+      "assertions": 145,
+      "label": "ecocentro ritiro ingombranti"
+    },
+    {
+      "assertions": 117,
+      "label": "ecocentro"
+    },
+    {
+      "assertions": 86,
+      "label": "cdr"
+    },
+    {
+      "assertions": 71,
+      "label": "ingombranti"
+    },
+    {
+      "assertions": 69,
+      "label": "ecocentro ecofurgone"
+    },
+    {
+      "assertions": 66,
+      "label": "conferimento stazione ecologica"
+    },
+    {
+      "assertions": 66,
+      "label": "rivolgiti ad alia per un preventivo o ad altre aziende autorizzate"
+    },
+    {
+      "assertions": 64,
+      "label": "contenitore stradale grigio per indifferenziata dotato di cassetto apribile con carta smeraldo distribuzione materiali"
+    },
+    {
+      "assertions": 60,
+      "label": "conferimento stazione ecologica servizio ecomobile"
+    },
+    {
+      "assertions": 53,
+      "label": "ecocentro ingombranti plus ritiro a domicilio solo con altri ingombranti"
+    },
+    {
+      "assertions": 42,
+      "label": "centri di raccolta"
+    },
+    {
+      "assertions": 38,
+      "label": "non differenziabile contenitore grigio"
+    },
+    {
+      "assertions": 34,
+      "label": "ecocentro contenitore raccolta abiti"
+    },
+    {
+      "assertions": 33,
+      "label": "ecocentro residuo non differenziabile"
+    },
+    {
+      "assertions": 32,
+      "label": "contenitore stradale giallo plastica lattine stazioni ecologiche"
+    },
+    {
+      "assertions": 32,
+      "label": "indumenti usati centro di raccolta"
+    },
+    {
+      "assertions": 31,
+      "label": "ingombranti cdr"
+    },
+    {
+      "assertions": 30,
+      "label": "stazioni ecologiche ritiro a domicilio su appuntamento servizio ecomobile"
+    },
+    {
+      "assertions": 29,
+      "label": "stazioni ecologiche ritiro a domicilio su appuntamento"
+    },
+    {
+      "assertions": 26,
+      "label": "ritiro a domicilio solo per carta catramata cartongesso guaina bituminosa lana di vetro lana di roccia vetroresina per il resto rivolgersi a operatori specializzati"
+    },
+    {
+      "assertions": 24,
+      "label": "ingombranti centro di raccolta"
+    },
+    {
+      "assertions": 23,
+      "label": "riuso cambia il finale conferimento stazione ecologica"
+    },
+    {
+      "assertions": 23,
+      "label": "cdr ritiro a domicilio"
+    },
+    {
+      "assertions": 20,
+      "label": "contenitore giallo per abiti usati"
+    },
+    {
+      "assertions": 20,
+      "label": "riuso cambia il finale stazioni ecologiche ritiro a domicilio su appuntamento"
+    },
+    {
+      "assertions": 20,
+      "label": "ritiro a domicilio centro di raccolta"
+    },
+    {
+      "assertions": 20,
+      "label": "contenitore stradale grigio indifferenziato compostiera in uso gratuito su richiesta"
+    },
+    {
+      "assertions": 20,
+      "label": "contenitore stradale grigio indifferenziato contenitore stradale marrone organico presente solo nel capoluogo compostiera in uso gratuito su richiesta"
+    },
+    {
+      "assertions": 20,
+      "label": "contenitore stradale marrone organico compostiera in uso gratuito su richiesta distribuzione materiali"
+    },
+    {
+      "assertions": 19,
+      "label": "raee centro di raccolta"
+    },
+    {
+      "assertions": 18,
+      "label": "rifiuto non riciclabile centro di raccolta"
+    },
+    {
+      "assertions": 17,
+      "label": "ecomobile rur"
+    },
+    {
+      "assertions": 16,
+      "label": "cdr uno contro uno"
+    },
+    {
+      "assertions": 15,
+      "label": "ditte specializzate"
+    },
+    {
+      "assertions": 14,
+      "label": "farmaci scaduti"
+    },
+    {
+      "assertions": 14,
+      "label": "centri di raccolta o servizio ingombranti"
+    },
+    {
+      "assertions": 12,
+      "label": "contenitore stradale azzurro carta cartone stazioni ecologiche"
+    },
+    {
+      "assertions": 12,
+      "label": "raccolta a calendario stazioni ecologiche porta a porta sacco azzurro carta cartone in punti di raccolta distribuzione materiali"
+    },
+    {
+      "assertions": 12,
+      "label": "cdr ingombranti a domicilio"
+    },
+    {
+      "assertions": 11,
+      "label": "porta a porta sacco azzurro carta cartone stazioni ecologiche raccolte differenziate particolari distribuzione materiali"
+    },
+    {
+      "assertions": 11,
+      "label": "rifiuti organici ecocentro"
+    },
+    {
+      "assertions": 10,
+      "label": "rifiuto non gestibile all interno del servizio di rifiuti urbani rivolgersi ad operatori specializzati"
+    },
+    {
+      "assertions": 9,
+      "label": "stazioni ecologiche servizio ecomobile ritiro da parte dei negozianti al momento dell acquisto di un nuovo prodotto"
+    },
+    {
+      "assertions": 9,
+      "label": "legno centro di raccolta"
+    },
+    {
+      "assertions": 9,
+      "label": "riuso cambia il finale contenitore stradale grigio per indifferenziata dotato di cassetto apribile con carta smeraldo distribuzione materiali"
+    },
+    {
+      "assertions": 8,
+      "label": "vetro e lattine"
+    },
+    {
+      "assertions": 7,
+      "label": "rivenditori autorizzati"
+    },
+    {
+      "assertions": 7,
+      "label": "riuso cambia il finale contenitore stradale giallo plastica lattine stazioni ecologiche"
+    }
+  ]
+}

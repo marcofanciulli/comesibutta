@@ -68,12 +68,13 @@ def _rule(
     *,
     zone: str | None = None,
     color: str = "verde",
+    user_type: str = "domestic",
 ) -> CanonicalEntity:
     payload = {
         "municipality_ref": "istat:053014",
         "zone_ref": zone,
         "stream_name": stream,
-        "user_type": "domestic",
+        "user_type": user_type,
         "collection_method": "street",
         "container_type": "contenitore",
         "container_color": color,
@@ -229,6 +230,54 @@ class DisposalQueryTests(unittest.TestCase):
         ).fetchone()[0])
         writer.close()
         self.connection = open_query_database(self.database)
+
+    def test_reviewed_aliases_and_streams_compose_one_local_answer(self) -> None:
+        self.connection.close()
+        writer = open_database(self.database, role="client")
+        current = read_database_entities(writer)
+        changed = dict(current)
+        first = _concept(
+            "waste:tetrapak-latte", "Tetrapak confezione latte",
+            ["Imballaggi e contenitori"],
+        )
+        second = _concept(
+            "waste:cartone-latte", "Cartone del latte (Tetra Pak)", ["Multimateriale"],
+        )
+        changed[(first.entity_type, first.entity_id)] = first
+        changed[(second.entity_type, second.entity_id)] = second
+        changed[("waste_alias_group", "waste-alias:beverage-carton")] = CanonicalEntity(
+            "waste_alias_group", "waste-alias:beverage-carton", {
+                "group_id": "waste-alias:beverage-carton",
+                "preferred_label": "Cartone per bevande (Tetra Pak)",
+                "search_terms": ["Confezione del latte", "Cartone del latte"],
+                "member_concept_ids": [first.entity_id, second.entity_id],
+                "review_status": "approved",
+                "rationale": "Varianti controllate",
+            }, (
+                ("waste_concept", first.entity_id),
+                ("waste_concept", second.entity_id),
+            ),
+        )
+        changed[("collection_stream", "stream:mixed-packaging")] = CanonicalEntity(
+            "collection_stream", "stream:mixed-packaging", {
+                "stream_id": "stream:mixed-packaging",
+                "preferred_label": "Multimateriale",
+                "aliases": ["Imballaggi e contenitori", "Multimateriale"],
+            },
+        )
+        changed[("collection_rule", "rule:multimateriale")] = _rule(
+            "rule:multimateriale", "Multimateriale", color="giallo", user_type="all",
+        )
+        apply_package(writer, build_update_package(current, changed, 1, 2, GENERATED_AT))
+        writer.close()
+        self.connection = open_query_database(self.database)
+        self.service = DisposalQueryService(self.connection)
+        answer = self.service.answer("confezzione del latte", "053014")
+        self.assertEqual("resolved", answer["status"])
+        self.assertEqual("waste-alias:beverage-carton", answer["query"]["matched_concept_id"])
+        self.assertEqual("stream:mixed-packaging", answer["result"]["stream_id"])
+        self.assertEqual("giallo", answer["result"]["container"]["color"])
+        self.assertNotEqual("conflict", answer["status"])
 
 
 if __name__ == "__main__":

@@ -24,6 +24,7 @@ from .crawl import (
     read_registry_jobs,
 )
 from .catalog import build_catalog_from_paths, write_catalog
+from .curation import validate_waste_curation_paths
 from .eer import build_eer_register, validate_acquired_eer, write_json
 from .packaging_marks import build_packaging_material_register
 from .vision_corpus import validate_vision_corpus, write_json as write_vision_json
@@ -311,6 +312,13 @@ def build_parser() -> argparse.ArgumentParser:
     catalog.add_argument("--eer-register", type=Path)
     catalog.add_argument("--output", type=Path, required=True)
     catalog.add_argument("--report", type=Path, required=True)
+    curation = subparsers.add_parser(
+        "validate-waste-curation",
+        help="Validate reviewed waste aliases and collection stream mappings",
+    )
+    curation.add_argument("--register", type=Path, required=True)
+    curation.add_argument("--catalog", type=Path, required=True)
+    curation.add_argument("--report", type=Path, required=True)
     publish = subparsers.add_parser(
         "publish-data-release",
         help="Build the canonical SQLite state and signed snapshot/delta artifacts",
@@ -320,6 +328,7 @@ def build_parser() -> argparse.ArgumentParser:
     publish.add_argument("--catalog", type=Path)
     publish.add_argument("--eer-register", type=Path)
     publish.add_argument("--packaging-material-register", type=Path)
+    publish.add_argument("--waste-curation-register", type=Path)
     publish.add_argument("--database", type=Path, required=True)
     publish.add_argument("--artifact-dir", type=Path, required=True)
     publish.add_argument("--manifest", type=Path, required=True)
@@ -455,13 +464,21 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "publish-data-release":
         entities = load_canonical_entities(
             args.input_dir, args.registry, args.catalog, args.eer_register,
-            args.packaging_material_register,
+            args.packaging_material_register, args.waste_curation_register,
         )
         report = publish_release(
             entities, args.database, args.artifact_dir, args.manifest,
             args.revision, datetime.fromisoformat(args.generated_at),
             args.private_key, args.key_id, args.base_url,
         )
+        args.report.parent.mkdir(parents=True, exist_ok=True)
+        args.report.write_text(
+            json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+        return 0
+    if args.command == "validate-waste-curation":
+        report = validate_waste_curation_paths(args.register, args.catalog)
         args.report.parent.mkdir(parents=True, exist_ok=True)
         args.report.write_text(
             json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n",

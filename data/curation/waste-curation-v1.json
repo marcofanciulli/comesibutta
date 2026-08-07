@@ -1,0 +1,151 @@
+{
+  "register_id": "waste-curation:toscana:v1",
+  "version": 1,
+  "generated_at": "2026-08-07T23:00:00+02:00",
+  "alias_groups": [
+    {
+      "group_id": "waste-alias:beverage-carton",
+      "preferred_label": "Cartone per bevande (Tetra Pak)",
+      "search_terms": [
+        "Cartone del latte",
+        "Confezione del latte",
+        "Brick latte",
+        "Brik latte",
+        "Tetra Pak",
+        "Tetrapack"
+      ],
+      "member_concept_ids": [
+        "waste:brick-c-pap-84-tetra-pak",
+        "waste:brick-latte",
+        "waste:brik-es-contenitori-del-latte",
+        "waste:brik-tipo-tetra-pak",
+        "waste:cartone-del-latte-tetra-pak",
+        "waste:cartone-latte",
+        "waste:cartone-tetra-pak",
+        "waste:cartoni-per-alimenti-bevande-tetrapak",
+        "waste:confezione-c-pap-84-tipo-tetra-pak",
+        "waste:contenitore-latte-tetrapack",
+        "waste:contenitore-per-liquidi-in-tetra-pak",
+        "waste:pure-pak-cartone-del-latte-del-succo-delle-bevande",
+        "waste:tetra-pack",
+        "waste:tetra-pak",
+        "waste:tetra-pak-per-bevande",
+        "waste:tetrapack",
+        "waste:tetrapak",
+        "waste:tetrapak-confezione-latte-panna-brik-succo-di-frutta"
+      ],
+      "review_status": "approved",
+      "rationale": "Varianti ortografiche e descrizioni dello stesso imballaggio composito per bevande; condizioni e destinazioni territoriali restano separate."
+    },
+    {
+      "group_id": "waste-alias:cork-stopper",
+      "preferred_label": "Tappo di sughero",
+      "search_terms": [
+        "Tappo di sughero",
+        "Tappi di sughero",
+        "Tappi sughero",
+        "Turacciolo di sughero"
+      ],
+      "member_concept_ids": [
+        "waste:sughero-tappi-bottiglie",
+        "waste:tappi-di-sughero",
+        "waste:tappi-in-sughero-se-fatti-in-sughero",
+        "waste:tappi-sughero",
+        "waste:tappo-di-sughero",
+        "waste:tappo-in-sughero",
+        "waste:turacciolo-di-sughero"
+      ],
+      "review_status": "approved",
+      "rationale": "Singolare, plurale e sinonimo turacciolo riferiti a tappi realmente in sughero; sono esclusi finto sughero, pannelli e rotoli."
+    },
+    {
+      "group_id": "waste-alias:generic-glass-bottle",
+      "preferred_label": "Bottiglia di vetro vuota",
+      "search_terms": [
+        "Bottiglia di vetro",
+        "Bottiglia di vetro vuota",
+        "Bottiglie di vetro",
+        "Bottiglie in vetro"
+      ],
+      "member_concept_ids": [
+        "waste:bottiglia-di-vetro",
+        "waste:bottiglie-in-vetro",
+        "waste:bottiglie-in-vetro-vuote",
+        "waste:bottiglie-vuote-di-vetro"
+      ],
+      "review_status": "approved",
+      "rationale": "Varianti generiche singolari, plurali e con condizione vuota; sono escluse bottiglie di medicinali, profumo e oggetti con residui specifici."
+    }
+  ],
+  "collection_streams": [
+    {
+      "stream_id": "stream:organic",
+      "preferred_label": "Organico",
+      "aliases": [
+        "Organico",
+        "Rifiuti organici",
+        "Marrone-Contenitore Organico",
+        "Sacchetto in mater-b/contenitore organico/composter"
+      ]
+    },
+    {
+      "stream_id": "stream:paper",
+      "preferred_label": "Carta e cartone",
+      "aliases": [
+        "Carta e cartone",
+        "Carta",
+        "Sacco carta",
+        "Sacco di carta",
+        "Sacco-Contenitore Carta"
+      ]
+    },
+    {
+      "stream_id": "stream:glass",
+      "preferred_label": "Vetro",
+      "aliases": [
+        "Vetro",
+        "Imballaggi in vetro",
+        "Contenitore blu per il vetro",
+        "Contenitore Per Vetro-Campana Verde"
+      ]
+    },
+    {
+      "stream_id": "stream:mixed-packaging",
+      "preferred_label": "Multimateriale",
+      "aliases": [
+        "Multimateriale",
+        "Imballaggi e contenitori",
+        "Imballaggi in multimateriale",
+        "Plastica e metallo",
+        "Sacco multimateriale",
+        "Sacco giallo",
+        "Azzurro-Contenitore Multimateriale"
+      ]
+    },
+    {
+      "stream_id": "stream:residual",
+      "preferred_label": "Residuo non differenziabile",
+      "aliases": [
+        "Indifferenziato",
+        "Residuo non differenziabile",
+        "Rifiuto non riciclabile",
+        "Non riciclabile",
+        "Rifiuto residuo",
+        "Rifiuto urbano residuo",
+        "Grigio-Contenitore Indifferenziato",
+        "Sacco per rifiuto urbano residuo (RUR)",
+        "Sacco per rifiuto residuo urbano (RUR)"
+      ]
+    },
+    {
+      "stream_id": "stream:plastic-packaging",
+      "preferred_label": "Imballaggi in plastica",
+      "aliases": ["Imballaggi in plastica", "Plastica"]
+    },
+    {
+      "stream_id": "stream:metals",
+      "preferred_label": "Metalli",
+      "aliases": ["Metalli", "Metallo", "Lattine"]
+    }
+  ]
+}
