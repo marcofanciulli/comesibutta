@@ -333,7 +333,14 @@ Registro UE dei materiali e riconoscimento visivo:
   categorie rapide, nomi stabili e controlli di privacy;
 - attivato il controllo quotidiano degli atti PPWR agli articoli 12(6), 12(7)
   e 13(2), con importazione solo da fonti primarie;
-- 110 test automatici superati.
+- addestrato su CPU il primo SSDLite320 MobileNetV3 di bootstrap: 150 immagini
+  sintetiche di training, 36 di validazione e 20 pagine MASE escluse perche
+  prive di annotazioni;
+- la loss media e scesa da 6,891 a 2,650 in tre epoche; sulla validazione
+  sintetica la soglia 0,4 ottiene F1 0,500, precisione 0,571 e recall 0,444;
+- checkpoint locale da 15,4 MB, report riproducibili e anteprima delle
+  predizioni prodotti; il modello e marcato esplicitamente non distribuibile;
+- 115 test automatici superati.
 
 ## Limiti e questioni aperte
 

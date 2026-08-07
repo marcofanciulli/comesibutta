@@ -1,0 +1,113 @@
+{
+  "architecture": "torchvision-ssdlite320-mobilenet-v3-large",
+  "baseline_validation": {
+    "f1_iou_50": 0.0,
+    "false_positives": 0,
+    "ground_truth": 36,
+    "mean_best_iou": 0.0,
+    "mean_best_score": 0.0,
+    "precision_iou_50": 0.0,
+    "recall_iou_50": 0.0,
+    "score_threshold": 0.3,
+    "true_positives_iou_50": 0
+  },
+  "best_epoch": 3,
+  "checkpoint": {
+    "bytes": 15410947,
+    "path": "outputs/models/packaging-mark-bootstrap-v0.1.0/model.pt",
+    "sha256": "9998b9c14d436ac1c99ea20e8dc92a670a41bc45050ed658e8a61034a96a38e7"
+  },
+  "configuration": {
+    "batch_size": 4,
+    "epochs": 3,
+    "frozen_backbone": true,
+    "learning_rate": 0.001,
+    "pretrained_backbone": "MobileNet_V3_Large_Weights.IMAGENET1K_V2",
+    "seed": 20260807
+  },
+  "dataset": {
+    "annotated_train_assets": 150,
+    "annotated_validation_assets": 36,
+    "excluded_unannotated_assets": 20,
+    "observed_categories": [
+      "mark.material_identification"
+    ]
+  },
+  "elapsed_seconds": 173.378,
+  "environment": {
+    "device": "cpu",
+    "platform": "macOS-26.3.2-arm64-arm-64bit",
+    "python": "3.12.9",
+    "torch": "2.13.0",
+    "torchvision": "0.28.0"
+  },
+  "epochs": [
+    {
+      "epoch": 1,
+      "mean_loss_components": {
+        "bbox_regression": 2.288388,
+        "classification": 4.602687
+      },
+      "mean_train_loss": 6.891075,
+      "validation": {
+        "f1_iou_50": 0.179641,
+        "false_positives": 116,
+        "ground_truth": 36,
+        "mean_best_iou": 0.421514,
+        "mean_best_score": 0.267229,
+        "precision_iou_50": 0.114504,
+        "recall_iou_50": 0.416667,
+        "score_threshold": 0.3,
+        "true_positives_iou_50": 15
+      }
+    },
+    {
+      "epoch": 2,
+      "mean_loss_components": {
+        "bbox_regression": 1.311329,
+        "classification": 1.97403
+      },
+      "mean_train_loss": 3.285359,
+      "validation": {
+        "f1_iou_50": 0.242188,
+        "false_positives": 189,
+        "ground_truth": 36,
+        "mean_best_iou": 0.594965,
+        "mean_best_score": 0.414328,
+        "precision_iou_50": 0.140909,
+        "recall_iou_50": 0.861111,
+        "score_threshold": 0.3,
+        "true_positives_iou_50": 31
+      }
+    },
+    {
+      "epoch": 3,
+      "mean_loss_components": {
+        "bbox_regression": 1.022568,
+        "classification": 1.62718
+      },
+      "mean_train_loss": 2.649749,
+      "validation": {
+        "f1_iou_50": 0.426471,
+        "false_positives": 71,
+        "ground_truth": 36,
+        "mean_best_iou": 0.565031,
+        "mean_best_score": 0.340372,
+        "precision_iou_50": 0.29,
+        "recall_iou_50": 0.805556,
+        "score_threshold": 0.3,
+        "true_positives_iou_50": 29
+      }
+    }
+  ],
+  "generated_at": "2026-08-07T21:00:00+02:00",
+  "limitations": [
+    "Only synthetic material-identification marks are annotated.",
+    "No real photographs are present in validation or test.",
+    "The checkpoint must not be distributed as a release model."
+  ],
+  "manifest_sha256": "d3de558a45816c050ef14bb078910a3671135792bb8c19f9f02fcbc367f2e8a7",
+  "model_version": "0.1.0-bootstrap",
+  "status": "bootstrap_not_for_release",
+  "taxonomy_version": "1.0.0"
+}

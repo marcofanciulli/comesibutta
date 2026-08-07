@@ -1,0 +1,84 @@
+{
+  "checkpoint_sha256": "9998b9c14d436ac1c99ea20e8dc92a670a41bc45050ed658e8a61034a96a38e7",
+  "generated_at": "2026-08-07T21:10:00+02:00",
+  "model_version": "0.1.0-bootstrap",
+  "preview": {
+    "path": "outputs/models/packaging-mark-bootstrap-v0.1.0/validation-preview.png",
+    "samples": 12,
+    "sha256": "6f1abe9e1b261a0105bb4c70e71e1b542c9e891ca6b40c5a17977e7b09823bfb"
+  },
+  "release_eligible": false,
+  "selected_threshold": 0.4,
+  "selection_rule": "highest F1 at IoU 0.5, then highest precision",
+  "status": "synthetic_validation_only",
+  "taxonomy_version": "1.0.0",
+  "threshold_sweep": {
+    "0.2": {
+      "f1_iou_50": 0.084112,
+      "false_positives": 784,
+      "ground_truth": 36,
+      "mean_best_iou": 0.702404,
+      "mean_best_score": 0.341754,
+      "precision_iou_50": 0.043902,
+      "recall_iou_50": 1.0,
+      "score_threshold": 0.2,
+      "true_positives_iou_50": 36
+    },
+    "0.3": {
+      "f1_iou_50": 0.426471,
+      "false_positives": 71,
+      "ground_truth": 36,
+      "mean_best_iou": 0.565031,
+      "mean_best_score": 0.340372,
+      "precision_iou_50": 0.29,
+      "recall_iou_50": 0.805556,
+      "score_threshold": 0.3,
+      "true_positives_iou_50": 29
+    },
+    "0.4": {
+      "f1_iou_50": 0.5,
+      "false_positives": 12,
+      "ground_truth": 36,
+      "mean_best_iou": 0.298261,
+      "mean_best_score": 0.240727,
+      "precision_iou_50": 0.571429,
+      "recall_iou_50": 0.444444,
+      "score_threshold": 0.4,
+      "true_positives_iou_50": 16
+    },
+    "0.5": {
+      "f1_iou_50": 0.4,
+      "false_positives": 4,
+      "ground_truth": 36,
+      "mean_best_iou": 0.194749,
+      "mean_best_score": 0.193603,
+      "precision_iou_50": 0.714286,
+      "recall_iou_50": 0.277778,
+      "score_threshold": 0.5,
+      "true_positives_iou_50": 10
+    },
+    "0.6": {
+      "f1_iou_50": 0.318182,
+      "false_positives": 1,
+      "ground_truth": 36,
+      "mean_best_iou": 0.129454,
+      "mean_best_score": 0.13265,
+      "precision_iou_50": 0.875,
+      "recall_iou_50": 0.194444,
+      "score_threshold": 0.6,
+      "true_positives_iou_50": 7
+    },
+    "0.7": {
+      "f1_iou_50": 0.105263,
+      "false_positives": 0,
+      "ground_truth": 36,
+      "mean_best_iou": 0.03892,
+      "mean_best_score": 0.043244,
+      "precision_iou_50": 1.0,
+      "recall_iou_50": 0.055556,
+      "score_threshold": 0.7,
+      "true_positives_iou_50": 2
+    }
+  },
+  "validation_assets": 36
+}

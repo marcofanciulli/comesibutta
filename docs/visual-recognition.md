@@ -78,6 +78,10 @@ restano target OCR; il codice normativo risolto e un risultato del parser.
 Tassonomia, provenienza, licenze, privacy, split e istruzioni operative sono
 definiti in `docs/vision-corpus.md`.
 
+Il primo addestramento tecnico e i suoi limiti sono documentati in
+`docs/vision-training.md`. Le metriche sintetiche verificano la pipeline, ma
+non valgono come misura delle prestazioni su fotografie reali.
+
 ## Privacy e aggiornamenti
 
 L'immagine non viene conservata per impostazione predefinita e il contratto

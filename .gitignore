@@ -16,6 +16,7 @@ htmlcov/
 build/
 dist/
 .venv/
+.vision-venv/
 venv/
 
 # Local configuration and secrets
@@ -30,5 +31,6 @@ data/canonical/
 data/keys/
 outputs/distribution/
 outputs/sweep-pilot/
+outputs/models/**/*.pt
 data/vision/assets/
 tmp/

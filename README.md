@@ -40,6 +40,8 @@ verificati e un esploratore locale.
   annotazione del corpus fotografico.
 - `docs/vision-bootstrap.md`: tavole MASE, varianti sintetiche e riproduzione
   del primo corpus tecnico.
+- `docs/vision-training.md`: addestramento sperimentale, metriche, artefatti e
+  limiti del primo detector.
 - `docs/photo-capture-guide.md`: prontuario per fotografare e classificare gli
   imballaggi prima dell'annotazione.
 - `docs/ppwr-monitoring.md`: fonti e regole del controllo quotidiano sui nuovi

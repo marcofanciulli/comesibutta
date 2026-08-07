@@ -390,6 +390,30 @@ def build_parser() -> argparse.ArgumentParser:
     vision_bootstrap.add_argument("--generated-at", required=True)
     vision_bootstrap.add_argument("--manifest", type=Path, required=True)
     vision_bootstrap.add_argument("--report", type=Path, required=True)
+    vision_training = subparsers.add_parser(
+        "train-vision-bootstrap",
+        help="Train an experimental SSDLite detector on the synthetic bootstrap corpus",
+    )
+    vision_training.add_argument("--manifest", type=Path, required=True)
+    vision_training.add_argument("--taxonomy", type=Path, required=True)
+    vision_training.add_argument("--assets-root", type=Path, required=True)
+    vision_training.add_argument("--output-dir", type=Path, required=True)
+    vision_training.add_argument("--generated-at", required=True)
+    vision_training.add_argument("--epochs", type=int, default=3)
+    vision_training.add_argument("--batch-size", type=int, default=4)
+    vision_training.add_argument("--learning-rate", type=float, default=0.001)
+    vision_training.add_argument("--seed", type=int, default=20260807)
+    vision_training.add_argument("--device", default="cpu")
+    vision_evaluation = subparsers.add_parser(
+        "evaluate-vision-checkpoint",
+        help="Evaluate a bootstrap checkpoint across score thresholds",
+    )
+    vision_evaluation.add_argument("--checkpoint", type=Path, required=True)
+    vision_evaluation.add_argument("--manifest", type=Path, required=True)
+    vision_evaluation.add_argument("--taxonomy", type=Path, required=True)
+    vision_evaluation.add_argument("--assets-root", type=Path, required=True)
+    vision_evaluation.add_argument("--output-dir", type=Path, required=True)
+    vision_evaluation.add_argument("--generated-at", required=True)
     sweep = subparsers.add_parser(
         "sweep-sei",
         help="Run a resumable and rate-limited sweep from the SEI municipality registry",
@@ -633,6 +657,34 @@ def main(argv: list[str] | None = None) -> int:
         )
         write_vision_json(args.manifest, manifest)
         write_vision_json(args.report, report)
+        return 0
+    if args.command == "train-vision-bootstrap":
+        from .vision_training import train_vision_bootstrap
+
+        train_vision_bootstrap(
+            args.manifest,
+            args.taxonomy,
+            args.assets_root,
+            args.output_dir,
+            datetime.fromisoformat(args.generated_at),
+            epochs=args.epochs,
+            batch_size=args.batch_size,
+            learning_rate=args.learning_rate,
+            seed=args.seed,
+            device_name=args.device,
+        )
+        return 0
+    if args.command == "evaluate-vision-checkpoint":
+        from .vision_training import evaluate_vision_checkpoint
+
+        evaluate_vision_checkpoint(
+            args.checkpoint,
+            args.manifest,
+            args.taxonomy,
+            args.assets_root,
+            args.output_dir,
+            datetime.fromisoformat(args.generated_at),
+        )
         return 0
     if args.command == "build-waste-catalog":
         catalog, report = build_catalog_from_paths(
