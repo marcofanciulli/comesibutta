@@ -3,10 +3,12 @@
   "istat_code": "050011",
   "municipality": "Castelnuovo di Val di Cecina",
   "pages_available": 11,
-  "pages_materialized": 9,
-  "records": 234,
+  "pages_materialized": 10,
+  "records": 240,
   "records_by_type": {
+    "collection_point": 3,
     "collection_rule": 5,
+    "collection_schedule": 3,
     "facility": 1,
     "facility_acceptance": 33,
     "facility_access": 1,
@@ -18,7 +20,7 @@
   "warnings": [
     {
       "code": "calendar_pdf_coverage",
-      "detail": "2 PDF comunali unici acquisiti; 1 classificati come calendari o guide operative; 0 calendari RUR 2026 materializzati",
+      "detail": "2 PDF comunali unici acquisiti; 1 classificati come calendari o guide operative; 1 calendari 2026 materializzati",
       "url": "https://www.reaspa.it/comuni/comune-di-castelnuovo-val-di-cecina/servizi/"
     },
     {

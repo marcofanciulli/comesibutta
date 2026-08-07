@@ -328,9 +328,14 @@
     },
     "collectionSchedule": {
       "type": "object",
-      "required": ["collection_rule_ref", "events"],
+      "required": ["events"],
+      "oneOf": [
+        { "required": ["collection_rule_ref"] },
+        { "required": ["collection_point_ref"] }
+      ],
       "properties": {
         "collection_rule_ref": { "type": "string" },
+        "collection_point_ref": { "type": "string" },
         "expose_from": { "type": ["string", "null"], "pattern": "^[0-2][0-9]:[0-5][0-9]$" },
         "expose_by": { "type": ["string", "null"], "pattern": "^[0-2][0-9]:[0-5][0-9]$" },
         "events": {

@@ -18,6 +18,7 @@ from dovelobutto.ato_costa import (
 from dovelobutto.rea import (
     extract_rea_centre,
     extract_rea_collection_pages,
+    extract_rea_ecomobile_calendar,
     extract_rea_rur_calendar,
 )
 from dovelobutto.geofor import _facilities, _waste_and_rules, parse_rifiutario
@@ -178,6 +179,47 @@ class ReaExtractorTest(unittest.TestCase):
         self.assertTrue(all(date.fromisoformat(value).isoweekday() == 3 for value in dates))
         self.assertEqual("2026-01-01", schedule["validity"]["valid_from"])
         self.assertEqual("2026-12-31", schedule["validity"]["valid_to"])
+
+    def test_links_ecomobile_dates_to_the_collection_point(self) -> None:
+        words = []
+        for line_number, line in enumerate((
+            "8 GENNAIO 2026",
+            "13:00 - 15:30 • ORCIANO PISANO",
+            "Piazza dei Bersaglieri",
+            "29 GENNAIO 2026",
+            "13:00 - 15:30 • ORCIANO PISANO",
+            "Piazza dei Bersaglieri",
+        )):
+            x = 20
+            for token in line.split():
+                words.append({
+                    "text": token, "x0": x, "x1": x + len(token) * 6,
+                    "top": 20 + line_number * 15, "bottom": 30 + line_number * 15,
+                })
+                x += len(token) * 6 + 5
+        page = {"number": 1, "width": 600, "height": 800, "words": words}
+        config = {
+            "weekday": 4, "strict_year": True,
+            "stops": ((
+                "Orciano Pisano", r"ORCIANO PISANO", "Piazza dei Bersaglieri",
+                "13:00-15:30", 2,
+            ),),
+        }
+        with patch("dovelobutto.rea._pdf_bbox_words", return_value=([page], "<bbox/>")):
+            records, warnings = extract_rea_ecomobile_calendar(
+                MunicipalityContext("Orciano Pisano", "050023", "orciano-pisano"),
+                datetime.fromisoformat("2026-08-06T19:00:00+02:00"),
+                "https://example.test/Ecomobile-Orciano-Pisano2026.pdf.pdf",
+                Path("calendar.pdf"), config,
+            )
+        self.assertEqual([], warnings)
+        self.assertEqual(["collection_point", "collection_schedule"], [item["record_type"] for item in records])
+        self.assertEqual(
+            records[0]["natural_key"], records[1]["payload"]["collection_point_ref"],
+        )
+        self.assertEqual(
+            ["2026-01-08", "2026-01-29"], records[1]["payload"]["events"][0]["dates"],
+        )
 
     def test_preserves_entries_without_a_published_destination(self) -> None:
         source = """{

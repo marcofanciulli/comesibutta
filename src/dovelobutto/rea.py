@@ -47,6 +47,61 @@ _RUR_CALENDAR_PATTERNS = (
     (re.compile(r"calendario_casale_und_tarip_rur\.pdf$"), "non_domestic"),
     (re.compile(r"calendario_guardistallo_und_tarip_rur\.pdf$"), "non_domestic"),
 )
+_ECOMOBILE_MATERIALS = (
+    "Piccoli elettrodomestici",
+    "Lampadine e tubi al neon",
+    "Pile e batterie",
+    "Toner e cartucce",
+    "Farmaci scaduti",
+    "Olio vegetale in contenitori",
+)
+_ECOMOBILE_CONFIGS = (
+    {
+        "pattern": re.compile(r"ecomobile-rosignano-frazioni-collinari_2026\.pdf\.pdf$"),
+        "weekday": 4, "strict_year": True,
+        "stops": (
+            ("Castelnuovo della Misericordia", r"CASTELNUOVO M\.DIA", "Piazza Gramsci", "13:00-14:00", 12),
+            ("Gabbro", r"GABBRO", "Piazza della Chiesa", "14:30-15:30", 12),
+            ("Nibbiaia", r"NIBBIAIA", "Piazza Mazzini", "16:00-17:00", 12),
+        ),
+    },
+    {
+        "pattern": re.compile(r"ecomobile-orciano-pisano2026\.pdf\.pdf$"),
+        "weekday": 4, "strict_year": True,
+        "stops": (
+            ("Orciano Pisano", r"ORCIANO PISANO", "Piazza dei Bersaglieri", "13:00-15:30", 20),
+        ),
+    },
+    {
+        "pattern": re.compile(r"ecomobile-santa-luce-2026pdf\.pdf$"),
+        "weekday": 4, "strict_year": True,
+        "stops": (
+            ("Santa Luce", r"[•·]\s*SANTA LUCE(?:\s|$)", "Area pedonale presso il Palazzo Civico", "16:00-17:30", 18),
+            ("Pieve di Santa Luce", r"PIEVE DI SANTA LUCE", "Via Europa angolo Via delle Colline", "13:00-14:00", 18),
+            ("Pastina", r"PASTINA", "Parcheggio di Via Querciagrossa", "14:30-15:45", 18),
+            ("Pomaia", r"POMAIA", "Piazza Giovanni Paolo II", "16:15-17:30", 18),
+        ),
+    },
+    {
+        "pattern": re.compile(r"calendario-ecomobile-2025_2026\.pdf$"),
+        "weekday": 3, "strict_year": False,
+        "stops": (
+            ("Montecatini Val di Cecina", r"MONTECATINI VC", "Piazza Schneider (Piazza del mercato)", "13:45-15:00", 13),
+            ("Ponteginori", r"PONTEGINORI", "Piazza S. Pertini, vicino alla farmacia comunale", "15:30-16:45", 13),
+            ("Querceto", r"QUERCETO", "Piazza San Giovanni Battista", "13:45-15:00", 13),
+            ("La Sassa", r"LA SASSA", "Piazza 2 Giugno", "15:30-16:45", 13),
+        ),
+    },
+    {
+        "pattern": re.compile(r"castelnuovo-val-di-cecina_ecomobile\.pdf$"),
+        "weekday": 3, "strict_year": False,
+        "stops": (
+            ("Sasso Pisano", r"SASSO PISANO", "Piazza Martiri Strage di Bologna", "14:00-15:00", 13),
+            ("Montecastelli Pisano", r"MONTECASTELLI PISANO", "Piazza del Muro Nuovo", "14:00-15:00", 13),
+            ("Castelnuovo Val di Cecina", r"CASTELNUOVO VC", "Parcheggio sotto Piazza Matteotti", "15:30-16:30", 26),
+        ),
+    },
+)
 _CENTRE_ACCESS = {
     "casale-marittimo": {"guardistallo", "montescudaio"},
     "castellina-marittima": {"rosignano-solvay"},
@@ -215,7 +270,12 @@ def _pdf_bbox_words(path: Path) -> tuple[list[dict[str, Any]], str]:
                 "top": float(word.attrib["yMin"]),
                 "bottom": float(word.attrib["yMax"]),
             })
-        pages.append({"number": page_number, "words": words})
+        pages.append({
+            "number": page_number,
+            "width": float(page.attrib.get("width", 0)),
+            "height": float(page.attrib.get("height", 0)),
+            "words": words,
+        })
     return pages, bbox
 
 
@@ -420,6 +480,143 @@ def _rur_calendar_type(page: dict[str, Any]) -> str | None:
     return None
 
 
+def _ecomobile_config(page: dict[str, Any]) -> dict[str, Any] | None:
+    filename = urlparse(page.get("final_url") or page["url"]).path.rsplit("/", 1)[-1].casefold()
+    return next((config for config in _ECOMOBILE_CONFIGS if config["pattern"].fullmatch(filename)), None)
+
+
+def _column_lines(page: dict[str, Any]) -> list[list[str]]:
+    midpoint = page.get("width") or max((word["x1"] for word in page["words"]), default=0)
+    midpoint /= 2
+    columns: list[list[dict[str, Any]]] = [[], []]
+    for word in page["words"]:
+        center = (word["x0"] + word["x1"]) / 2
+        columns[0 if center < midpoint else 1].append(word)
+    result = []
+    for words in columns:
+        rows: list[list[dict[str, Any]]] = []
+        for word in sorted(words, key=lambda item: (item["top"], item["x0"])):
+            row = next((candidate for candidate in rows if abs(candidate[0]["top"] - word["top"]) <= 2.5), None)
+            if row is None:
+                rows.append([word])
+            else:
+                row.append(word)
+        result.append([
+            clean_text(" ".join(item["text"] for item in sorted(row, key=lambda item: item["x0"])))
+            for row in rows
+        ])
+    return result
+
+
+def _ecomobile_date_blocks(pages: list[dict[str, Any]]) -> list[tuple[date, str]]:
+    month_pattern = "|".join(_MONTHS)
+    date_pattern = re.compile(rf"\b(\d{{1,2}})\s+({month_pattern})\s+(20\d{{2}})\b", re.IGNORECASE)
+    blocks: list[tuple[date, str]] = []
+    for page in pages:
+        for lines in _column_lines(page):
+            current_date = None
+            current_lines: list[str] = []
+            for line in lines:
+                match = date_pattern.search(line)
+                if match:
+                    if current_date is not None:
+                        blocks.append((current_date, " ".join(current_lines)))
+                    try:
+                        current_date = date(
+                            int(match.group(3)), _MONTHS[match.group(2).upper()], int(match.group(1)),
+                        )
+                    except ValueError:
+                        current_date = None
+                    current_lines = [line]
+                elif current_date is not None:
+                    current_lines.append(line)
+            if current_date is not None:
+                blocks.append((current_date, " ".join(current_lines)))
+    return blocks
+
+
+def extract_rea_ecomobile_calendar(
+    context: MunicipalityContext, retrieved_at: datetime, url: str,
+    pdf_path: Path, config: dict[str, Any], year: int = 2026,
+) -> tuple[list[dict[str, Any]], list[dict[str, str]]]:
+    pages, bbox = _pdf_bbox_words(pdf_path)
+    blocks = _ecomobile_date_blocks(pages)
+    warnings: list[dict[str, str]] = []
+    outside = sorted({value.isoformat() for value, _ in blocks if value.year != year})
+    if config["strict_year"] and outside:
+        warnings.append({
+            "code": "ecomobile_date_outside_calendar_year",
+            "detail": f"Date fuori dal 2026 conservate come anomalia della fonte: {', '.join(outside)}",
+            "url": url,
+        })
+    invalid_weekdays = sorted({
+        value.isoformat() for value, _ in blocks
+        if value.year == year and value.isoweekday() != config["weekday"]
+    })
+    if invalid_weekdays:
+        warnings.append({
+            "code": "ecomobile_weekday_mismatch",
+            "detail": "Date incompatibili col giorno settimanale dichiarato: " + ", ".join(invalid_weekdays),
+            "url": url,
+        })
+    source = SourceDocument(
+        url, retrieved_at, bbox, publisher="REA S.p.A.",
+        parser="rea_ecomobile_pdf_bbox", parser_version="0.1.0",
+    )
+    validity = {
+        "valid_from": f"{year}-01-01", "valid_to": f"{year}-12-31", "inferred": False,
+    }
+    records = []
+    for name, stop_pattern, address, hours, minimum in config["stops"]:
+        dates = sorted({
+            value.isoformat() for value, block in blocks
+            if value.year == year
+            and value.isoweekday() == config["weekday"]
+            and re.search(stop_pattern, block, re.IGNORECASE)
+        })
+        if len(dates) < minimum:
+            warnings.append({
+                "code": "ecomobile_stop_dates_incomplete",
+                "detail": f"{name}: estratte {len(dates)} date su almeno {minimum} attese; fermata non materializzata",
+                "url": url,
+            })
+            continue
+        point_ref = f"rea:ecomobile:{context.istat_code}:{_slug(name)}"
+        records.append(make_record(
+            record_type="collection_point", natural_key=point_ref,
+            payload={
+                "municipality_ref": context.municipality_ref,
+                "zone_ref": f"service-zone:{context.istat_code}:default",
+                "name": f"Ecomobile REA - {name}", "point_type": "mobile",
+                "accepted_streams": list(_ECOMOBILE_MATERIALS),
+                "address_raw": address, "location": None,
+                "access_notes_raw": (
+                    "Servizio rivolto alle utenze domestiche; tessera sanitaria necessaria. "
+                    "Lampadine, tubi al neon, pile, batterie, toner e cartucce sono "
+                    "ammessi anche per le utenze non domestiche."
+                ),
+                "access_credential": "health_card", "information_urls": [url],
+                "opening_hours_raw": hours,
+            },
+            source=source, evidence_kind="pdf", evidence_selector="calendar-stop",
+            evidence_quote=f"{name}, {address}, {hours}; {len(dates)} date nel {year}",
+            validity=validity,
+        ))
+        records.append(make_record(
+            record_type="collection_schedule", natural_key=f"{point_ref}:schedule:{year}",
+            payload={
+                "collection_point_ref": point_ref, "expose_from": None, "expose_by": None,
+                "events": [{
+                    "kind": "date_list", "weekday": config["weekday"], "dates": dates,
+                    "raw": f"Calendario Ecomobile REA {year}: {len(dates)} date",
+                }],
+            },
+            source=source, evidence_kind="pdf", evidence_selector="calendar-stop",
+            evidence_quote=f"{name}: " + ", ".join(dates), validity=validity,
+        ))
+    return records, warnings
+
+
 def _is_calendar_document(page: dict[str, Any]) -> bool:
     filename = urlparse(page.get("final_url") or page["url"]).path.rsplit("/", 1)[-1].casefold()
     return any(token in filename for token in (
@@ -612,6 +809,27 @@ def materialize_rea_services(
                 records.extend(calendar_records)
                 materialized_pdf_snapshots.add(snapshot)
             warnings.extend(calendar_warnings)
+        selected_ecomobile = {
+            page["snapshot"]: page for page in relevant_pdfs if _ecomobile_config(page)
+        }
+        for snapshot, page in selected_ecomobile.items():
+            url = page.get("final_url") or page["url"]
+            try:
+                calendar_records, calendar_warnings = extract_rea_ecomobile_calendar(
+                    context, retrieved_at, url, snapshot_root / snapshot,
+                    _ecomobile_config(page),
+                )
+            except (OSError, subprocess.CalledProcessError, ET.ParseError) as error:
+                calendar_records = []
+                calendar_warnings = [{
+                    "code": "calendar_pdf_extraction_failed",
+                    "detail": f"Impossibile leggere il calendario PDF: {error}",
+                    "url": url,
+                }]
+            if calendar_records:
+                records.extend(calendar_records)
+                materialized_pdf_snapshots.add(snapshot)
+            warnings.extend(calendar_warnings)
         linked_centres = {_canonical_url(link) for page_url, html in relevant for link, _ in _links(html, page_url) if urlparse(link).path.startswith("/centri-di-raccolta/") and not re.fullmatch(r"/centri-di-raccolta/(?:page/\d+/)?", urlparse(link).path)}
         municipal_slug = municipality["source_slug"]
         permitted_centres = _CENTRE_ACCESS.get(municipal_slug, {municipal_slug})
@@ -631,7 +849,7 @@ def materialize_rea_services(
                 "detail": (
                     f"{pdf_count} PDF comunali unici acquisiti; {calendar_pdf_count} "
                     f"classificati come calendari o guide operative; "
-                    f"{len(materialized_pdf_snapshots)} calendari RUR 2026 materializzati"
+                    f"{len(materialized_pdf_snapshots)} calendari 2026 materializzati"
                 ),
                 "url": municipality["homepage_url"],
             })

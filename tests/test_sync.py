@@ -317,6 +317,41 @@ class SyncTests(unittest.TestCase):
             entities[("collection_schedule", "schedule:test")].dependencies,
         )
 
+    def test_loader_links_collection_schedule_to_its_point(self) -> None:
+        with TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            inputs = root / "input"
+            inputs.mkdir()
+            common = {
+                "observed_at": GENERATED_AT.isoformat(),
+                "validity": {"valid_from": None, "valid_to": None, "inferred": False},
+                "confidence": "high",
+                "source": {
+                    "url": "https://example.test/calendar.pdf",
+                    "evidence": {"selector": "calendar-stop", "page": None, "quote": "2026"},
+                },
+            }
+            records = [
+                {
+                    **common, "record_type": "collection_point", "natural_key": "point:test",
+                    "payload": {"name": "Ecomobile"},
+                },
+                {
+                    **common, "record_type": "collection_schedule", "natural_key": "schedule:test",
+                    "payload": {"collection_point_ref": "point:test", "events": []},
+                },
+            ]
+            (inputs / "test-acquisition.jsonl").write_text(
+                "\n".join(json.dumps(record) for record in records) + "\n", encoding="utf-8",
+            )
+            registry = root / "registry.jsonl"
+            registry.write_text("", encoding="utf-8")
+            entities = load_canonical_entities([inputs], [registry])
+        self.assertEqual(
+            (("collection_point", "point:test"),),
+            entities[("collection_schedule", "schedule:test")].dependencies,
+        )
+
     def test_planner_chooses_smallest_valid_path(self) -> None:
         def artifact(package_id: str, kind: str, start: int | None, end: int, size: int) -> dict:
             return {

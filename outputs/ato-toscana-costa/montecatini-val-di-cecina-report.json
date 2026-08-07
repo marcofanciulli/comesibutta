@@ -3,10 +3,12 @@
   "istat_code": "050019",
   "municipality": "Montecatini Val di Cecina",
   "pages_available": 13,
-  "pages_materialized": 9,
-  "records": 238,
+  "pages_materialized": 10,
+  "records": 246,
   "records_by_type": {
+    "collection_point": 4,
     "collection_rule": 1,
+    "collection_schedule": 4,
     "facility": 2,
     "facility_acceptance": 37,
     "facility_access": 2,
@@ -18,7 +20,7 @@
   "warnings": [
     {
       "code": "calendar_pdf_coverage",
-      "detail": "4 PDF comunali unici acquisiti; 2 classificati come calendari o guide operative; 0 calendari RUR 2026 materializzati",
+      "detail": "4 PDF comunali unici acquisiti; 2 classificati come calendari o guide operative; 1 calendari 2026 materializzati",
       "url": "https://www.reaspa.it/comuni/comune-di-montecatini-val-di-cecina/"
     },
     {

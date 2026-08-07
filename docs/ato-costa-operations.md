@@ -62,7 +62,7 @@ PYTHONPATH=src python3 -m dovelobutto.cli fetch-rea-services \
 ```
 
 `materialize-rea-services` combina queste pagine con il rifiutario. Produce
-3.834 record per i 17 comuni: 3.230 termini, 112 regole, 46 servizi di ritiro,
+3.864 record per i 17 comuni: 3.230 termini, 112 regole, 46 servizi di ritiro,
 17 zone, 19 relazioni comune-centro con orari e accesso e 368 descrizioni di
 materiali accettati. Quando REA non pubblica il codice EER, la descrizione
 resta acquisita con `eer_code_status: unmapped_description`; il codice non
@@ -74,10 +74,17 @@ Casale Marittimo e Guardistallo: due per utenze domestiche e due per utenze non
 domestiche, per un totale di 149 date. Anno, giorno settimanale e completezza
 minima vengono verificati prima di creare il calendario; la validita resta
 limitata all'anno dichiarato. Tra i 70 PDF unici, 31 sono classificati come
-possibili calendari o guide operative. Le tabelle settimanali basate su icone e
-i calendari Ecomobile restano inventariati ma non vengono interpretati senza
-un estrattore verificato. La copertura residua e esposta come avviso per
-comune, non nascosta.
+possibili calendari o guide operative. Le tabelle settimanali basate su icone
+restano inventariate ma non vengono interpretate senza un estrattore
+verificato. La copertura residua e esposta come avviso per comune, non nascosta.
+
+La seconda estrazione struttura cinque calendari Ecomobile 2026: Rosignano
+Marittimo, Orciano Pisano, Santa Luce, Montecatini Val di Cecina e Castelnuovo
+Val di Cecina. Produce 15 fermate mobili con indirizzo, orario, materiali,
+requisiti di accesso e 189 associazioni fermata-data. Il calendario e collegato
+al punto mobile, non forzato dentro una regola porta a porta. Nel documento di
+Orciano la riga `27 febbraio 2025` resta esclusa dalle date 2026 e segnalata
+come anomalia testuale della fonte, senza correzione congetturale.
 
 ## AAMPS
 
@@ -155,12 +162,12 @@ resta da modellare senza duplicare la fonte.
 
 - 100 comuni censiti;
 - 100 comuni con almeno una fonte acquisita;
-- 31.859 record ATO Costa;
+- 31.889 record ATO Costa;
 - tutti i 13 comuni livornesi hanno almeno un rifiutario acquisito;
 - tutti i comuni REA hanno pagine di servizio; 14 hanno accesso ad almeno un
   centro pubblicato, mentre Capraia Isola, Orciano Pisano e Santa Luce non
   risultano collegati a un centro nella fonte acquisita.
 
-Restano l'estrazione verificata dei calendari PDF grafici ed Ecomobile, il
+Restano l'estrazione verificata dei calendari PDF settimanali grafici, il
 collegamento intergestore di Montignoso e l'approfondimento dei centri o
 rifiutari non pubblicati nelle schede disponibili.

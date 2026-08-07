@@ -123,7 +123,7 @@ sempre da una `collection_rule` valida per il territorio e il periodo.
 | `facility_access` | Comuni e tipi di utenza autorizzati, tessere e documenti |
 | `facility_acceptance` | Voce EER o raggruppamento operativo accettato |
 | `opening_period` | Intervallo stagionale e ricorrenza settimanale |
-| `collection_schedule` | Calendario ordinario, quindicinale o per date esplicite |
+| `collection_schedule` | Calendario ordinario, quindicinale o per date esplicite, collegato a una regola o a un punto mobile |
 | `collection_point` | Punto stradale speciale o batteria di cassonetti |
 | `pickup_service` | Ritiro domiciliare, limiti e prenotazione |
 

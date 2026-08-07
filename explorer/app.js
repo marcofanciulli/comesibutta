@@ -292,11 +292,8 @@
       }).join("")}</tbody></table></div>` : `<div class="empty">Nessuna voce EER corrisponde alla ricerca.</div>`}`;
   }
 
-  function scheduleText(rule, schedules) {
-    const schedule = schedules.find(item => item.payload.collection_rule_ref === rule.natural_key);
-    if (!schedule) return rule.payload.schedule_raw || "Non specificato";
+  function scheduleSummary(schedule) {
     const events = schedule.payload.events.map(event => {
-      if (event.weekday) return weekdayLabels[event.weekday];
       if (event.dates?.length) {
         const weekdays = [...new Set(event.dates.map(value => {
           const day = new Date(`${value}T00:00:00`).getDay();
@@ -305,9 +302,15 @@
         const format = value => new Date(`${value}T00:00:00`).toLocaleDateString("it-IT", { day: "numeric", month: "short" });
         return `${event.dates.length} date pubblicate · ${weekdays.join(" e ")} · ${format(event.dates[0])}-${format(event.dates.at(-1))}`;
       }
+      if (event.weekday) return weekdayLabels[event.weekday];
       return event.raw;
     }).filter(Boolean);
     return [events.join(", "), schedule.payload.expose_by ? `entro le ${schedule.payload.expose_by}` : ""].filter(Boolean).join(" · ");
+  }
+
+  function scheduleText(rule, schedules) {
+    const schedule = schedules.find(item => item.payload.collection_rule_ref === rule.natural_key);
+    return schedule ? scheduleSummary(schedule) : rule.payload.schedule_raw || "Non specificato";
   }
 
   function renderRules() {
@@ -319,7 +322,11 @@
 
   function renderPoints() {
     const points = filtered("collection_point");
-    return `${sectionHeading("Punti di raccolta", "Postazioni speciali, ecositi e aree temporanee descritte nelle pagine comunali.")}${points.length ? `<div class="point-grid">${points.map(point => `<article class="point-row"><h3>${escapeHtml(point.payload.name || point.payload.accepted_streams.join(", "))}</h3><p>${escapeHtml(point.payload.address_raw || "Ubicazione non specificata")}</p><div class="facility-meta">${point.payload.accepted_streams.map(stream => `<span class="chip">${escapeHtml(stream)}</span>`).join("")}${point.payload.opening_hours_raw ? `<span>${escapeHtml(point.payload.opening_hours_raw)}</span>` : ""}</div><p><button class="detail-button" data-record="${point.record_id}" type="button">Fonte e dettagli</button></p></article>`).join("")}</div>` : `<div class="empty">Nessun punto corrisponde alla ricerca.</div>`}`;
+    const schedules = records("collection_schedule");
+    return `${sectionHeading("Punti di raccolta", "Postazioni speciali, ecositi e aree temporanee descritte nelle pagine comunali.")}${points.length ? `<div class="point-grid">${points.map(point => {
+      const schedule = schedules.find(item => item.payload.collection_point_ref === point.natural_key);
+      return `<article class="point-row"><h3>${escapeHtml(point.payload.name || point.payload.accepted_streams.join(", "))}</h3><p>${escapeHtml(point.payload.address_raw || "Ubicazione non specificata")}</p><div class="facility-meta">${point.payload.accepted_streams.map(stream => `<span class="chip">${escapeHtml(stream)}</span>`).join("")}${point.payload.opening_hours_raw ? `<span>${escapeHtml(point.payload.opening_hours_raw)}</span>` : ""}${schedule ? `<span>${escapeHtml(scheduleSummary(schedule))}</span>` : ""}</div><p><button class="detail-button" data-record="${point.record_id}" type="button">Fonte e dettagli</button></p></article>`;
+    }).join("")}</div>` : `<div class="empty">Nessun punto corrisponde alla ricerca.</div>`}`;
   }
 
   function renderPickup() {

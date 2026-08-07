@@ -35,7 +35,7 @@
         "warnings": [
           {
             "code": "calendar_pdf_coverage",
-            "detail": "7 PDF comunali unici acquisiti; 3 classificati come calendari o guide operative; 2 calendari RUR 2026 materializzati",
+            "detail": "7 PDF comunali unici acquisiti; 3 classificati come calendari o guide operative; 2 calendari 2026 materializzati",
             "url": "https://www.reaspa.it/comuni/comune-di-casale-marittimo/"
           },
           {
@@ -65,7 +65,7 @@
         "warnings": [
           {
             "code": "calendar_pdf_coverage",
-            "detail": "8 PDF comunali unici acquisiti; 1 classificati come calendari o guide operative; 0 calendari RUR 2026 materializzati",
+            "detail": "8 PDF comunali unici acquisiti; 1 classificati come calendari o guide operative; 0 calendari 2026 materializzati",
             "url": "https://www.reaspa.it/comuni/comune-di-castellina-marittima/"
           },
           {
@@ -80,10 +80,12 @@
         "istat_code": "050011",
         "municipality": "Castelnuovo di Val di Cecina",
         "pages_available": 11,
-        "pages_materialized": 9,
-        "records": 234,
+        "pages_materialized": 10,
+        "records": 240,
         "records_by_type": {
+          "collection_point": 3,
           "collection_rule": 5,
+          "collection_schedule": 3,
           "facility": 1,
           "facility_acceptance": 33,
           "facility_access": 1,
@@ -95,7 +97,7 @@
         "warnings": [
           {
             "code": "calendar_pdf_coverage",
-            "detail": "2 PDF comunali unici acquisiti; 1 classificati come calendari o guide operative; 0 calendari RUR 2026 materializzati",
+            "detail": "2 PDF comunali unici acquisiti; 1 classificati come calendari o guide operative; 1 calendari 2026 materializzati",
             "url": "https://www.reaspa.it/comuni/comune-di-castelnuovo-val-di-cecina/servizi/"
           },
           {
@@ -126,7 +128,7 @@
         "warnings": [
           {
             "code": "calendar_pdf_coverage",
-            "detail": "7 PDF comunali unici acquisiti; 3 classificati come calendari o guide operative; 2 calendari RUR 2026 materializzati",
+            "detail": "7 PDF comunali unici acquisiti; 3 classificati come calendari o guide operative; 2 calendari 2026 materializzati",
             "url": "https://www.reaspa.it/comuni/comune-guardistallo/"
           },
           {
@@ -141,10 +143,12 @@
         "istat_code": "050019",
         "municipality": "Montecatini Val di Cecina",
         "pages_available": 13,
-        "pages_materialized": 9,
-        "records": 238,
+        "pages_materialized": 10,
+        "records": 246,
         "records_by_type": {
+          "collection_point": 4,
           "collection_rule": 1,
+          "collection_schedule": 4,
           "facility": 2,
           "facility_acceptance": 37,
           "facility_access": 2,
@@ -156,7 +160,7 @@
         "warnings": [
           {
             "code": "calendar_pdf_coverage",
-            "detail": "4 PDF comunali unici acquisiti; 2 classificati come calendari o guide operative; 0 calendari RUR 2026 materializzati",
+            "detail": "4 PDF comunali unici acquisiti; 2 classificati come calendari o guide operative; 1 calendari 2026 materializzati",
             "url": "https://www.reaspa.it/comuni/comune-di-montecatini-val-di-cecina/"
           },
           {
@@ -186,7 +190,7 @@
         "warnings": [
           {
             "code": "calendar_pdf_coverage",
-            "detail": "9 PDF comunali unici acquisiti; 4 classificati come calendari o guide operative; 0 calendari RUR 2026 materializzati",
+            "detail": "9 PDF comunali unici acquisiti; 4 classificati come calendari o guide operative; 0 calendari 2026 materializzati",
             "url": "https://www.reaspa.it/comuni/comune-di-montescudaio/"
           },
           {
@@ -216,7 +220,7 @@
         "warnings": [
           {
             "code": "calendar_pdf_coverage",
-            "detail": "2 PDF comunali unici acquisiti; 1 classificati come calendari o guide operative; 0 calendari RUR 2026 materializzati",
+            "detail": "2 PDF comunali unici acquisiti; 1 classificati come calendari o guide operative; 0 calendari 2026 materializzati",
             "url": "https://www.reaspa.it/comuni/comune-di-monteverdi/"
           },
           {
@@ -231,18 +235,25 @@
         "istat_code": "050023",
         "municipality": "Orciano Pisano",
         "pages_available": 26,
-        "pages_materialized": 22,
-        "records": 199,
+        "pages_materialized": 23,
+        "records": 201,
         "records_by_type": {
+          "collection_point": 1,
           "collection_rule": 5,
+          "collection_schedule": 1,
           "pickup_service": 3,
           "service_zone": 1,
           "waste_lookup": 190
         },
         "warnings": [
           {
+            "code": "ecomobile_date_outside_calendar_year",
+            "detail": "Date fuori dal 2026 conservate come anomalia della fonte: 2025-02-27",
+            "url": "https://www.reaspa.it/wp-content/uploads/2020/12/Ecomobile-Orciano-Pisano2026.pdf.pdf"
+          },
+          {
             "code": "calendar_pdf_coverage",
-            "detail": "4 PDF comunali unici acquisiti; 2 classificati come calendari o guide operative; 0 calendari RUR 2026 materializzati",
+            "detail": "4 PDF comunali unici acquisiti; 2 classificati come calendari o guide operative; 1 calendari 2026 materializzati",
             "url": "https://www.reaspa.it/comuni/comune-di-orciano-pisano/"
           },
           {
@@ -272,7 +283,7 @@
         "warnings": [
           {
             "code": "calendar_pdf_coverage",
-            "detail": "6 PDF comunali unici acquisiti; 1 classificati come calendari o guide operative; 0 calendari RUR 2026 materializzati",
+            "detail": "6 PDF comunali unici acquisiti; 1 classificati come calendari o guide operative; 0 calendari 2026 materializzati",
             "url": "https://www.reaspa.it/comuni/comune-di-pomarance/"
           },
           {
@@ -302,7 +313,7 @@
         "warnings": [
           {
             "code": "calendar_pdf_coverage",
-            "detail": "5 PDF comunali unici acquisiti; 2 classificati come calendari o guide operative; 0 calendari RUR 2026 materializzati",
+            "detail": "5 PDF comunali unici acquisiti; 2 classificati come calendari o guide operative; 0 calendari 2026 materializzati",
             "url": "https://www.reaspa.it/comuni/comune-di-riparbella/"
           },
           {
@@ -317,10 +328,12 @@
         "istat_code": "050034",
         "municipality": "Santa Luce",
         "pages_available": 28,
-        "pages_materialized": 24,
-        "records": 204,
+        "pages_materialized": 25,
+        "records": 212,
         "records_by_type": {
+          "collection_point": 4,
           "collection_rule": 10,
+          "collection_schedule": 4,
           "pickup_service": 3,
           "service_zone": 1,
           "waste_lookup": 190
@@ -328,7 +341,7 @@
         "warnings": [
           {
             "code": "calendar_pdf_coverage",
-            "detail": "4 PDF comunali unici acquisiti; 2 classificati come calendari o guide operative; 0 calendari RUR 2026 materializzati",
+            "detail": "4 PDF comunali unici acquisiti; 2 classificati come calendari o guide operative; 1 calendari 2026 materializzati",
             "url": "https://www.reaspa.it/comuni/comune-di-santa-luce/"
           },
           {
@@ -358,7 +371,7 @@
         "warnings": [
           {
             "code": "calendar_pdf_coverage",
-            "detail": "4 PDF comunali unici acquisiti; 2 classificati come calendari o guide operative; 0 calendari RUR 2026 materializzati",
+            "detail": "4 PDF comunali unici acquisiti; 2 classificati come calendari o guide operative; 0 calendari 2026 materializzati",
             "url": "https://www.reaspa.it/comuni/comune-di-volterra/"
           },
           {
@@ -388,7 +401,7 @@
         "warnings": [
           {
             "code": "calendar_pdf_coverage",
-            "detail": "10 PDF comunali unici acquisiti; 5 classificati come calendari o guide operative; 0 calendari RUR 2026 materializzati",
+            "detail": "10 PDF comunali unici acquisiti; 5 classificati come calendari o guide operative; 0 calendari 2026 materializzati",
             "url": "https://www.reaspa.it/comuni/comune-di-bibbona/"
           },
           {
@@ -413,7 +426,7 @@
         "warnings": [
           {
             "code": "calendar_pdf_coverage",
-            "detail": "1 PDF comunali unici acquisiti; 0 classificati come calendari o guide operative; 0 calendari RUR 2026 materializzati",
+            "detail": "1 PDF comunali unici acquisiti; 0 classificati come calendari o guide operative; 0 calendari 2026 materializzati",
             "url": "https://www.reaspa.it/comuni/comune-di-capraia-isola/"
           },
           {
@@ -443,7 +456,7 @@
         "warnings": [
           {
             "code": "calendar_pdf_coverage",
-            "detail": "9 PDF comunali unici acquisiti; 0 classificati come calendari o guide operative; 0 calendari RUR 2026 materializzati",
+            "detail": "9 PDF comunali unici acquisiti; 0 classificati come calendari o guide operative; 0 calendari 2026 materializzati",
             "url": "https://www.reaspa.it/comuni/comune-di-cecina/"
           },
           {
@@ -473,7 +486,7 @@
         "warnings": [
           {
             "code": "calendar_pdf_coverage",
-            "detail": "8 PDF comunali unici acquisiti; 3 classificati come calendari o guide operative; 0 calendari RUR 2026 materializzati",
+            "detail": "8 PDF comunali unici acquisiti; 3 classificati come calendari o guide operative; 0 calendari 2026 materializzati",
             "url": "https://www.reaspa.it/comuni/comune-di-collesalvetti/"
           },
           {
@@ -488,10 +501,12 @@
         "istat_code": "049017",
         "municipality": "Rosignano Marittimo",
         "pages_available": 34,
-        "pages_materialized": 24,
-        "records": 224,
+        "pages_materialized": 25,
+        "records": 230,
         "records_by_type": {
+          "collection_point": 3,
           "collection_rule": 7,
+          "collection_schedule": 3,
           "facility": 1,
           "facility_acceptance": 20,
           "facility_access": 1,
@@ -503,7 +518,7 @@
         "warnings": [
           {
             "code": "calendar_pdf_coverage",
-            "detail": "10 PDF comunali unici acquisiti; 1 classificati come calendari o guide operative; 0 calendari RUR 2026 materializzati",
+            "detail": "10 PDF comunali unici acquisiti; 1 classificati come calendari o guide operative; 1 calendari 2026 materializzati",
             "url": "https://www.reaspa.it/comuni/comune-di-rosignano-marittimo/"
           },
           {
@@ -514,8 +529,8 @@
         ]
       }
     ],
-    "records": 3834,
-    "warnings": 34
+    "records": 3864,
+    "warnings": 35
   },
   "municipalities_touched": 17,
   "observed_at": "2026-08-06T19:00:00+02:00",

@@ -116,6 +116,7 @@ def _reference_candidates(entity: CanonicalEntity) -> set[tuple[str, str]]:
         "zone_ref": "service_zone",
         "facility_ref": "facility",
         "collection_rule_ref": "collection_rule",
+        "collection_point_ref": "collection_point",
     }
     for field, entity_type in mapping.items():
         value = payload.get(field)

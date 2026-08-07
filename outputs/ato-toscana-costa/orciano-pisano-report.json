@@ -3,18 +3,25 @@
   "istat_code": "050023",
   "municipality": "Orciano Pisano",
   "pages_available": 26,
-  "pages_materialized": 22,
-  "records": 199,
+  "pages_materialized": 23,
+  "records": 201,
   "records_by_type": {
+    "collection_point": 1,
     "collection_rule": 5,
+    "collection_schedule": 1,
     "pickup_service": 3,
     "service_zone": 1,
     "waste_lookup": 190
   },
   "warnings": [
     {
+      "code": "ecomobile_date_outside_calendar_year",
+      "detail": "Date fuori dal 2026 conservate come anomalia della fonte: 2025-02-27",
+      "url": "https://www.reaspa.it/wp-content/uploads/2020/12/Ecomobile-Orciano-Pisano2026.pdf.pdf"
+    },
+    {
       "code": "calendar_pdf_coverage",
-      "detail": "4 PDF comunali unici acquisiti; 2 classificati come calendari o guide operative; 0 calendari RUR 2026 materializzati",
+      "detail": "4 PDF comunali unici acquisiti; 2 classificati come calendari o guide operative; 1 calendari 2026 materializzati",
       "url": "https://www.reaspa.it/comuni/comune-di-orciano-pisano/"
     },
     {

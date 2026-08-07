@@ -3,10 +3,12 @@
   "istat_code": "050034",
   "municipality": "Santa Luce",
   "pages_available": 28,
-  "pages_materialized": 24,
-  "records": 204,
+  "pages_materialized": 25,
+  "records": 212,
   "records_by_type": {
+    "collection_point": 4,
     "collection_rule": 10,
+    "collection_schedule": 4,
     "pickup_service": 3,
     "service_zone": 1,
     "waste_lookup": 190
@@ -14,7 +16,7 @@
   "warnings": [
     {
       "code": "calendar_pdf_coverage",
-      "detail": "4 PDF comunali unici acquisiti; 2 classificati come calendari o guide operative; 0 calendari RUR 2026 materializzati",
+      "detail": "4 PDF comunali unici acquisiti; 2 classificati come calendari o guide operative; 1 calendari 2026 materializzati",
       "url": "https://www.reaspa.it/comuni/comune-di-santa-luce/"
     },
     {
