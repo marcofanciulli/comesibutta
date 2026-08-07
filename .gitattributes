@@ -1,0 +1,3 @@
+*.pdf binary
+*.ttf binary
+data/sources/packaging-labeling/NotoSans-OFL.txt -diff

@@ -38,6 +38,12 @@ verificati e un esploratore locale.
   per il riconoscimento sul dispositivo.
 - `docs/vision-corpus.md`: tassonomia, diritti, privacy, split e regole di
   annotazione del corpus fotografico.
+- `docs/vision-bootstrap.md`: tavole MASE, varianti sintetiche e riproduzione
+  del primo corpus tecnico.
+- `docs/photo-capture-guide.md`: prontuario per fotografare e classificare gli
+  imballaggi prima dell'annotazione.
+- `docs/ppwr-monitoring.md`: fonti e regole del controllo quotidiano sui nuovi
+  pittogrammi armonizzati europei.
 - `schemas/acquisition-record.schema.json`: formato JSON Lines prodotto dagli
   estrattori.
 - `schemas/disposal-answer.schema.json`: contratto della risposta letta
@@ -54,6 +60,8 @@ verificati e un esploratore locale.
 - `schemas/vision-taxonomy.schema.json` e
   `schemas/vision-corpus-manifest.schema.json`: classi del detector e manifest
   verificabile delle immagini annotate.
+- `schemas/photo-capture-record.schema.json`: registro privato degli scatti
+  fotografici e delle loro condizioni.
 - `examples/`: esempi illustrativi basati sulle pagine SEI Toscana di Manciano.
 - `explorer/`: interfaccia locale per controllare comuni, centri, codici EER,
   regole, punti di raccolta, fonti e anomalie.

@@ -14,6 +14,10 @@ Il manifest iniziale contiene zero immagini e il rapporto lo dichiara
 `trainable: false`. Questo stato intenzionale permette di versionare contratti,
 controlli e provenienza prima di acquisire fotografie.
 
+Un corpus separato di bootstrap, descritto in `docs/vision-bootstrap.md`,
+contiene riferimenti documentali e varianti sintetiche riproducibili. Non viene
+confuso con il corpus fotografico reale e non rende possibile un rilascio.
+
 ## Tassonomia
 
 Il detector usa cinque classi stabili:

@@ -1,0 +1,1547 @@
+        Ministero della transizione ecologica
+Linee Guida
+sull’etichettatura degli
+imballaggi ai sensi dell’art.
+219 comma 5 del D.Lgs.
+152/2006 e ss.mm
+
+
+
+
+27/7/2022
+                                                                                                           1
+               Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                       152/2006 e ss.mm
+
+
+
+
+Introduzione
+
+
+Approccio all’etichettatura
+
+
+Contenuti dell’etichettatura: le casistiche
+
+
+Come costruire l’etichettatura?
+
+
+Entrata in vigore dell’obbligo ed esaurimento scorte
+
+
+Etichettatura in sintesi
+
+
+Glossario
+
+
+
+
+                Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                                                                   2
+                       Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                               152/2006 e ss.mm
+
+Introduzione
+
+
+L’11 settembre 2020 è stato pubblicato in Gazzetta Ufficiale il decreto legislativo 3 settembre 2020, n. 116,
+che recepisce la direttiva UE 2018/851 sui rifiuti, e la direttiva (UE) 2018/852 relativa agli imballaggi e ai
+rifiuti di imballaggio.
+
+In particolare, l’art. 3 comma 3, lettera c) del decreto ha apportato modifiche al comma 5 dell’art. 219 del
+decreto legislativo 3 aprile 2006 n.152 (e successivi aggiornamenti e modifiche), “Norme in materia
+ambientale”, in tema di “Criteri informatori dell'attività di gestione dei rifiuti di imballaggio”, che recepisce
+e ora rafforza quanto previsto dall’art. 8 comma 2 della Direttiva 94/62/CE1.
+
+Il presente testo relativo alle “Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5
+del D.Lgs. 152/2006 e ss.mm”, è stato elaborato tenuto conto delle linee Guida proposte dal Consorzio
+nazionale Imballaggi (CONAI), il tutto con l’obiettivo di supportare le imprese mettendo a disposizione linee
+guida operative e gestionali per rispondere all’obbligo di legge. Infatti, la proposta elaborata dal CONAI è
+stata formulata a seguito di una serie di tavoli di confronto, in particolare con UNI, Confindustria e
+Federdistribuzione, per analizzare e gestire gli aspetti più tecnici e le segnalazioni più frequenti pervenute
+da singole aziende e associazioni dei produttori, degli utilizzatori industriali e commerciali. Inoltre, questo
+documento è stato sottoposto a una consultazione pubblica, a seguito della quale è stato più volte
+aggiornato sia alla luce del dialogo costante e dei confronti con aziende e associazioni, sia a seguito delle
+evoluzioni normative sul tema.
+
+La presente versione potrà essere aggiornata o modificata periodicamente, alla luce di nuove disposizioni di
+legge (Nazionali e/o Comunitarie), nonché di nuove specifiche indicazioni, semplificazioni tecniche e
+modalità applicative dell’etichettatura, derivanti da successive consultazioni e confronti con le Associazioni
+di imprese.
+
+
+
+
+1
+  (…) Per facilitarne la raccolta, il reimpiego e il recupero incluso il riciclaggio, l'imballaggio deve indicare, ai fini della
+sua identificazione e classificazione da parte dell'industria interessata, la natura del materiale/dei materiali di
+imballaggio utilizzato/i. (…)
+
+
+                         Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                                                    3
+                     Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                             152/2006 e ss.mm
+
+
+Approccio all’etichettatura
+
+Il decreto legislativo 3 settembre 2020, n. 116 dispone che tutti gli imballaggi siano “opportunamente
+etichettati secondo le modalità stabilite dalle norme tecniche UNI applicabili e in conformità alle
+determinazioni adottate dalla Commissione dell’Unione europea, per facilitare la raccolta, il riutilizzo, il
+recupero ed il riciclaggio degli imballaggi, nonché per dare una corretta informazione ai consumatori sulle
+destinazioni finali degli imballaggi. I produttori hanno, altresì, l’obbligo di indicare, ai fini della
+identificazione e classificazione dell’imballaggio, la natura dei materiali di imballaggio utilizzati, sulla base
+della decisione 97/129/CE della Commissione.”
+
+Oggetto dell’articolo 219 comma 5 è l’etichettatura per la gestione dei rifiuti di imballaggio, ai sensi
+dell’articolo 8 della Direttiva 94/62/CE, e prescinde da ogni altro obbligo di etichettatura relativo al
+prodotto contenuto da esporre sull’imballaggio.
+
+Di seguito la lettura dei diversi passaggi dell’articolo, dalla cui interpretazione discendono poi i chiarimenti
+e gli approfondimenti riportati e declinati con esempi concreti. Vediamoli insieme.
+
+    Tutti gli imballaggi devono essere opportunamente etichettati secondo le modalità stabilite dalle norme
+    tecniche UNI applicabili.
+
+•     Tutti gli imballaggi devono essere etichettati “opportunamente”, quindi nella forma e nei modi che
+      l’azienda ritiene più idonei ed efficaci per il raggiungimento dell’obiettivo.
+•     Il richiamo alle norme UNI è generico, considerando inoltre la loro caratteristica di volontarietà.
+      Pertanto, la norma sottintende che, qualora si voglia comunicare determinati contenuti in etichettatura
+      ambientale, si debbano adottare le norme UNI di riferimento. Ma quali informazioni possono essere
+      comunicate attraverso le norme UNI a cui la norma si riferisce?
+
+      o   Le identificazioni dei materiali di imballaggio per gli imballaggi in plastica. Quando la Decisione
+          129/1997 non prevede una specifica identificazione per un determinato polimero, è applicabile la
+          UNI EN ISO 1043-1 per l’identificazione di materie plastiche non incluse nella Decisione 129/1997,
+          e la UNI 10667-1 per identificare e riconoscere i polimeri provenienti da riciclo.
+      o   Le identificazioni dei materiali di imballaggio per gli imballaggi multistrato in plastica. Anche in
+          questi casi la Decisione 129/97/CE non prevede codici identificativi specifici: la norma UNI EN ISO
+          11469 offre un interessante supporto per la comunicazione della composizione di strutture
+          costituite da più polimeri.
+      o   Autodichiarazioni ambientali. Qualora si voglia comunicare informazioni aggiuntive di carattere
+          volontario relative alle qualità ambientali dell’imballaggio (diciture, simboli/pittogrammi o altri
+          messaggi analoghi, claim ambientali), si deve fare riferimento alla norma UNI EN ISO 14021.
+
+    e in conformità alle determinazioni adottate dalla Commissione dell'Unione europea, per facilitare la
+    raccolta, il riutilizzo, il recupero ed il riciclaggio degli imballaggi
+
+
+
+
+                       Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                                                     4
+                      Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                              152/2006 e ss.mm
+
+Al momento, tra le “determinazioni” adottate dalla Commissione dell'Unione europea che possiamo
+annoverare in tema di etichettatura per facilitare la raccolta, il riutilizzo, il recupero e il riciclaggio degli
+imballaggi, nonché per dare corretta informazione ai consumatori sulle loro destinazioni finali, troviamo
+solo la Decisione 129/1997/CE, che è citata specificatamente in seguito.
+
+    nonché per dare una corretta informazione ai consumatori sulle destinazioni finali degli imballaggi.
+
+
+
+Chi sono i consumatori?
+Nel Codice del Consumo (art. 3 comma 1) il consumatore o utente è “la persona fisica che agisce per scopi
+estranei all'attività imprenditoriale, commerciale, artigianale o professionale eventualmente svolta…”
+
+Allo stesso modo, sostanzialmente, dispone il decreto legislativo 152/2006 all’art. 218, comma 1) lettera v)
+che considera consumatore il soggetto che fuori dall’esercizio di un’attività professionale acquista o
+importa per proprio uso imballaggi, articoli o merci imballate.
+
+Quali sono le informazioni sulle destinazioni finali degli imballaggi?
+Le informazioni relative alle destinazioni finali degli imballaggi, sono quelle che comunicano il corretto
+conferimento dell’imballaggio a fine vita (es. Raccolta differenziata. Verifica le disposizioni del tuo Comune).
+
+Quali imballaggi riguardano quindi?
+Queste informazioni riguardano:
+   o gli imballaggi che tal quali sono offerti al consumatore finale in vendita o anche a titolo gratuito;
+   o gli imballaggi che sotto forma di prodotto preconfezionato sono offerti al consumatore finale in
+        vendita o anche a titolo gratuito,
+
+mentre risultano esclusi gli imballaggi destinati al canale commerciale/industriale, cosiddetto B2B
+(imballaggi che, tal quali o sotto forma di prodotti preconfezionati, sono ceduti al “professionista”, vale a
+dire “persona fisica o giuridica che agisce nell’esercizio della propria attività imprenditoriale, commerciale,
+artigianale o professionale, ovvero un suo intermediario” (art. 3 comma 1 del Codice del Consumo).
+
+    I produttori hanno, altresì, l'obbligo di indicare, ai fini della identificazione e classificazione
+    dell’imballaggio, la natura dei materiali di imballaggio utilizzati, sulla base della decisione 97/129/CE
+    della Commissione.
+
+
+•     Nella identificazione per materiale il legislatore non ha previsto la discriminante della destinazione al
+      “consumatore”, pertanto non ci sono elementi per escludere gli imballaggi destinati anche a canali
+      professionali dalla identificazione e classificazione in base alla decisione 129/97/CE. Tutti gli imballaggi
+      sono quindi sottoposti all’identificazione e classificazione.
+•     Solo relativamente all’apposizione dei codici di identificazione del materiale sulla base della decisione
+      97/129/CE, l’obbligo è espressamente in capo ai produttori.
+•     Qualora la decisione 129/97/CE non preveda specifiche identificazioni di polimeri plastici nella
+      composizione dell’imballaggio, si può volontariamente ricorrere alle norme UNI EN ISO descritte sopra.
+
+
+
+
+                       Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                                                               5
+                    Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                            152/2006 e ss.mm
+
+Come rispondere all’obbligo: le opzioni possibili
+Fatta la disamina della norma e individuate le informazioni necessarie per l’etichettatura ambientale degli
+imballaggi, è opportuno considerare che in alternativa alla apposizione fisica di tali informazioni
+sull’imballaggio, è possibile renderle disponibili tramite canali digitali a scelta (es. App, QR code, siti web),
+al fine di semplificare i processi produttivi, operativi ed economici delle imprese che immettono tali
+imballaggi in più Paesi dell’Unione Europea e assicurare quindi il rispetto dei principi della libera
+circolazione delle merci garantiti dal Trattato sul Funzionamento dell’Unione Europea. Qualora si utilizzino
+canali digitali, devono essere rese facilmente note e accessibili all’utente le istruzioni per intercettare le
+informazioni obbligatorie sopra descritte. Ulteriori approfondimenti in merito sono riportati nel box
+dedicato a pagina 19.
+
+Sono state poi individuate alcune specifiche casistiche, per le quali risultano particolari limiti fisici e/o
+tecnologici, come nel caso degli imballaggi neutri, per i quali si forniscono, in queste linee guida, alcune
+alternative all’apposizione fisica dell’etichettatura sul pack, che prevedono l’utilizzo di supporti esterni.
+Approfondimenti in merito sono riportati nel box dedicato a pagina 18.
+
+
+                                                                                                   IMBALLAGGI
+
+                                                                                          Circuito
+                            LE MODALITÀ                                                                         Circuito C&I
+                                                                                         domestico
+
+Apposizione fisica dell’etichettatura sul pack                                                 x
+                                     Devono essere garantite idonee
+Canali digitali (es. App, QR         istruzioni all’utente su come
+code, siti web)                      reperire le informazioni tramite i                        x
+                                     canali digitali scelti
+
+
+Libretti istruzioni/Manuali
+d’uso                                                                                          x
+
+                                     Questi documenti possono
+Documenti di trasporto o
+                                     rimandare a canali digitali per la
+altra documentazione che
+                                     messa a disposizione delle                                                      x
+accompagni la merce
+                                     informazioni
+
+
+Pannelli informativi nel
+punto vendita                                                                                  x
+
+
+
+
+                      Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                                          6
+              Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                      152/2006 e ss.mm
+
+In sintesi
+
+Dalla lettura del testo di legge, discendono quindi importanti considerazioni:
+- Su tutti gli imballaggi (primari, secondari e terziari) i produttori devono indicare la codifica alfa-
+    numerica prevista dalla Decisione 97/129/CE;
+- Tutti gli imballaggi devono essere etichettati nella forma e nei modi che l’azienda ritiene più idonei
+    ed efficaci per il raggiungimento dell’obiettivo, per il quale è sempre consentito il ricorso ai canali
+    digitali (es. App, QR code, siti web), che possono sostituire completamente o integrare le
+    informazioni riportate direttamente sull’imballaggio;
+- Sugli imballaggi destinati al consumatore devono essere presenti anche le diciture opportune per
+    supportarlo nella raccolta differenziata;
+- Per gli imballaggi in plastica realizzati con polimeri o loro combinazione non previsti espressamente
+    nella Decisione 97/129/CE, si può far riferimento alle norme UNI EN ISO 1043-1 per l’identificazione
+    di materie plastiche non contemplate, e alla UNI EN ISO 10667-1 per identificare e riconoscere i
+    polimeri provenienti da riciclo.
+
+
+
+
+               Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                                                                    7
+                      Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                              152/2006 e ss.mm
+
+I riferimenti normativi e le linee guida di riferimento
+
+Di seguito sono riportati i risultati della rassegna effettuata con riferimento alla normativa tecnica esistente
+da prendere a riferimento.
+
+               ETICHETTATURA AMBIENTALE DEL PACKAGING
+INDICAZIONI SU MATERIALE DI COMPOSIZIONE E DESTINAZIONE FINALE DELL’IMBALLAGGIO
+                      Informazioni        Campo di
+    Informazioni        cogenti e        applicazione                                       Riferimenti
+                       facoltative
+    Codifica del        Cogente           Per tutti gli
+                                                                                 La Decisione istituisce un sistema di
+    materiale di                          imballaggi           Decisione         identificazione dei materiali di imballaggio
+1   composizione
+                                                               97/129/CE         attraverso codici alfanumerici, riportati negli
+    degli
+                                                                                 allegati specifici.
+    imballaggi
+    Materie           Facoltativa           Per gli
+    plastiche -        (ad eventuale     imballaggi in
+    Simboli ed         integrazione
+                      della Decisione
+                                           plastica                              La norma conferma il sistema di identificazione
+    abbreviazioni                                              UNI EN ISO
+2                       97/129/CE)                                               degli imballaggi in plastica istituito dalla
+    - Polimeri di                                               1043-1
+                                                                                 Decisione 129/97/CE.
+    base e loro
+    caratteristiche
+    speciali
+    Materie           Facoltativa           Per gli
+    plastiche          (ad eventuale     imballaggi in                           La norma indica che per i polimeri riciclati si
+3   prime-             integrazione                           UNI 10667-1        inserisca la “R” prima della codifica del
+                      della Decisione
+                                           plastica
+    secondarie –                                                                 polimero.
+                        97/129/CE)
+    Parte 1
+    Materie           Facoltativa           Per gli
+                                                                                 I prodotti in plastica possono essere marcati in
+    Plastiche –        (ad eventuale      imballaggi
+                       integrazione                                              conformità a questa norma, che prevede che
+    Identificazione                      multistrato in
+                      della Decisione                                            la codifica del materiale inglobata tra i due
+    generica e                                                 UNI EN ISO
+4                       97/129/CE)         plastica                              simboli “>” e “<”. Qualora ci sia più di un
+    marcatura di                                                 11469
+                                                                                 polimero, si interpone il carattere “+”, o il
+    prodotti di
+                                                                                 carattere “–“ in presenza di additivi e
+    materie
+                                                                                 coadiuvanti.
+    plastiche
+                        Cogente              Per le              Il Vademecum suggerisce, al fine di veicolare
+                                         componenti              una informazione chiara e completa, di
+                                           separabili            apporre sull’imballaggio – o di veicolare
+    Indicazioni per
+                                        manualmente Vademecum tramite canali digitali - le seguenti
+    la raccolta                                                  informazioni:
+                                             degli     Etichetta
+5   differenziata
+                                          imballaggi     per il
+    al                                                            - FAMIGLIA DI MATERIALE
+                                          destinati al cittadino
+    consumatore                                                   - INDICAZIONI SULLA RACCOLTA
+                                        consumatore                  Oppure
+                                             finale              - INDICAZIONI SULLA RACCOLTA PER
+                                                                                   FAMIGLIA DI MATERIALE
+
+                       Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                                                                        8
+                      Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                              152/2006 e ss.mm
+
+
+                                                                                 Con l’indicazione di verificare le disposizioni
+                                                                                 del proprio Comune
+    Etichette e       Facoltativa       Per tutti gli                            Tra le asserzioni autodichiarate applicabili agli
+    dichiarazioni                       imballaggi                               imballaggi, rientra il Ciclo di Mobius, utilizzato
+    ambientali -                                                                 per comunicare la riciclabilità dell’imballaggio
+    Asserzioni                                                                   o il contenuto di materia prima seconda nella
+    ambientali                                                                   sua composizione. Anche la conformità ai
+    auto-                                                     UNI EN ISO         requisiti di biodegradabilità e compostabilità
+6
+    dichiarate                                                14021              deve essere dichiarata in conformità a questa
+    (etichettatura                                                               norma.
+    ambientale di
+    Tipo II)                                                                     In particolare, ai sensi del D.Lgs. 152/2006 e
+                                                                                 ss.mm per gli imballaggi, rilevano l’asserzione
+                                                                                 di riciclabilità, compostabilità e riutilizzabilità.
+    Elementi di       Facoltativa       Per tutti gli
+    identificazione                     imballaggi            UNI 11686
+    visiva per i                        che finiscono         - Gestione
+                                                                                 Definisce un format di informazioni e codici
+                                        in raccolta           dei rifiuti -
+7   contenitori                                                                  colore per identificare la corretta raccolta
+                                        differenziata         Waste              differenziata del materiale di imballaggio
+    per la raccolta
+                                        (B2C)                 visual
+    dei rifiuti
+                                                              elements
+    urbani
+
+
+
+
+                       Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                                               9
+                   Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                           152/2006 e ss.mm
+
+
+? Facciamo chiarezza
+Quando un imballaggio è considerato riciclabile?
+Gli imballaggi considerati riciclabili ai sensi della norma tecnica UNI EN ISO 13430, soddisfano i
+criteri di idoneità alle tecnologie di riciclo esistenti, vale a dire:
+     - esistenza di un’efficiente tecnologia per il riciclo dell’imballaggio;
+     - esistenza di una massa critica affinché sia gestibile un processo efficiente di riciclo;
+     - esistenza di un mercato per i materiali ottenuti a valle del processo di riciclo.
+Tali criteri devono essere valutati mediante indagini e studi specifici.
+(Per maggiori informazioni sul design for recycling sono disponibili le Linee Guida di Progettare
+Riciclo).
+
+Quando un imballaggio è considerato compostabile?
+Un imballaggio è considerato biodegradabile e compostabile quando è conforme alla norma tecnica
+UNI EN ISO 13432. Si tratta dello standard europeo armonizzato che, nell’ambito della direttiva
+packaging 94/62, attesta i “Requisiti per imballaggi recuperabili mediante compostaggio (…)”. La
+certificazione di biodegradabilità e compostabilità è rilasciata da organismi di parte terza accreditati.
+L’accreditamento di tali organismi si sostanzia in una procedura di attestazione circa la loro
+indipendenza, imparzialità, da parte dell’Ente Unico Nazionale di accreditamento, che in Italia è
+Accredia. Sul sito web di Accredia è possibile consultare una banca dati nella quale sono elencati gli
+organismi e i laboratori accreditati a rilasciare tali certificazioni di conformità
+(https://www.accredia.it/banche-dati/).
+
+Quali imballaggi possono essere conferiti in raccolta differenziata?
+Gli imballaggi possono essere conferiti in raccolta differenziata, siano essi riciclabili o non allo stato
+delle tecnologie attuali, ferme restando le buone regole per una raccolta differenziata di qualità (in
+primis la possibilità di svuotare sempre l’imballaggio del suo contenuto). Infatti, grazie al sistema dei
+Consorzi di Filiera, gli imballaggi che possono essere avviati e valorizzati a riciclo, seguiranno quello
+specifico flusso; gli altri saranno valorizzati comunque a recupero energetico.
+La valutazione della riciclabilità dell’imballaggio rientra tra le informazioni aggiuntive che l’azienda
+può scegliere di apporre sul pack, ma prescinde dalle informazioni in merito al conferimento
+dell’imballaggio.
+
+Unica eccezione a questa regola riguarda gli imballaggi composti (e/o con componenti di diverso
+materiale non separabili manualmente) a prevalenza carta, con percentuale di materiale cellulosico
+inferiore al 60% del peso totale, una percentuale che compromette la riciclabilità dell’imballaggio,
+annullandola, con ovvie conseguenze di impatto ambientale. Nel processo di riciclo, infatti, 100 kg di
+questi imballaggi producono più di 85 kg di scarto secco e quasi 150 kg di scarto bagnato da smaltire
+in discarica, dopo aver consumato acqua ed energia elettrica. Poiché si tratta quindi di imballaggi
+non riciclabili con carta e cartone, l’invito alle aziende che li producono e utilizzano è quello di
+suggerire in etichetta il conferimento in raccolta indifferenziata, al fine di minimizzare l’impatto
+ambientale legato alla gestione del loro fine vita.
+
+
+
+                    Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                                                     10
+                     Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                             152/2006 e ss.mm
+
+Contenuti dell’etichettatura: le casistiche
+Dalla lettura del testo di legge, quindi, si evincono 2 situazioni differenti per la strutturazione dei
+contenuti minimi dell’etichetta a seconda del circuito di destinazione finale degli imballaggi: B2B
+(commerciale/industriale) o B2C (consumatore). Partendo da questo assunto, oltre a presentare gli schemi
+distinti per destinazione B2B o B2C, la linea guida affronta anche le situazioni configurabili in ragione delle
+strutture di imballaggio: imballaggi/sistemi di imballaggio monocomponente e multicomponente.
+
+Gli schemi che seguono presentano 3 livelli di informazioni:
+
+-       Cogente per rispondere alla norma
+
+-       Altamente consigliate, per rendere la comunicazione più efficace
+
+-       Consigliate, per arricchire di contenuti utili per una raccolta di qualità
+
+L’etichettatura ambientale degli imballaggi monocomponente destinati al canale domestico (B2C)
+
+Per gli imballaggi monocomponente destinati al consumatore finale, devono essere riportate le seguenti
+informazioni:
+
+    a) La codifica identificativa del materiale di imballaggio secondo la Decisione 129/97/CE
+    b) Le indicazioni sulla raccolta. Si suggerisce:
+
+            •    di indicare la formula “Raccolta (famiglia di materiale prevalente in peso)”
+
+            oppure
+
+            •   di indicare la famiglia di materiale prevalente in peso, accompagnata dalla formula
+                “Raccolta differenziata”,
+
+e di invitare il consumatore a verificare le disposizioni del proprio Comune.
+
+        La norma non dispone formule precise ma raccomanda che gli imballaggi siano opportunamente
+        etichettati, con una visione volta al raggiungimento dell’obiettivo. In particolare, si segnala che la
+        seconda opzione proposta risulta già in linea con l’articolo 11 della Direttiva rifiuti, per cui gli Stati
+        Membri devono istituire la raccolta differenziata dei rifiuti almeno per carta, metalli, plastica e
+        vetro e, entro il 1° gennaio 2025, per i tessili.
+
+Le altre informazioni che possono essere volontariamente apposte in etichetta riguardano la tipologia di
+imballaggio e le indicazioni al consumatore per supportarlo in una raccolta differenziata di qualità.
+
+
+
+
+                      Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                            11
+Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                        152/2006 e ss.mm
+
+
+
+
+ Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                                                      12
+                     Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                             152/2006 e ss.mm
+
+L’etichettatura degli imballaggi multicomponente destinati al canale domestico (B2C)
+
+Per gli imballaggi costituiti da più componenti, è necessario distinguere le componenti non separabili
+manualmente (ad esempio una etichetta in carta adesa a una bottiglia in vetro), dalle componenti che
+invece possono essere separate manualmente dal consumatore finale (ad esempio, una confezione
+multipack di merendine). Questo perché l’identificazione e la classificazione ai sensi della decisione
+129/97/CE va prevista per tutte le componenti separabili manualmente del sistema di imballo.
+
+Questo vuol dire che per ciascuna componente separabile manualmente del sistema di imballo si deve
+riportare almeno:
+
+a) La codifica identificativa del materiale di imballaggio secondo la Decisione 129/97/CE
+b) Le indicazioni sulla raccolta quando non indicate sull’imballaggio di presentazione esterno. Si
+   suggerisce:
+           • di indicare la formula “Raccolta (famiglia di materiale prevalente in peso)”
+
+            oppure
+
+            •    di indicare la famiglia di materiale prevalente in peso, accompagnata dalla formula
+                 “Raccolta differenziata”,
+
+e di invitare il consumatore a verificare le disposizioni del proprio Comune.
+
+        La norma non dispone formule precise ma raccomanda che gli imballaggi siano opportunamente
+        etichettati, con una visione volta al raggiungimento dell’obiettivo. In particolare, si segnala che la
+        seconda opzione proposta risulta già in linea con l’articolo 11 della Direttiva rifiuti, per cui gli Stati
+        Membri devono istituire la raccolta differenziata dei rifiuti almeno per carta, metalli, plastica e
+        vetro e, entro il 1° gennaio 2025, per i tessili.
+
+Quando non è possibile indicare le informazioni obbligatorie su ogni singola componente, ad esempio per
+motivi di spazio, o per altri limiti tecnologicamente significativi, è possibile riportarle sul corpo principale, o
+sull’imballaggio di presentazione.
+
+In questo caso, il format consigliato è il seguente:
+
+    a) Tipologia di imballaggio (descrizione scritta per esteso o rappresentazione grafica) delle diverse
+       componenti separabili manualmente;
+    b) Riferita a ciascuna tipologia di imballaggio, indicare la codifica identificativa del materiale di
+       imballaggio di ciascuna componente separabile manualmente secondo la Decisione 129/97/CE;
+    c) Riferita a ciascuna tipologia di imballaggio, riportare le indicazioni sulla raccolta, specificando in
+       modo chiaro la famiglia di materiale/i di ciascuna componente.
+
+Anche in questo caso, si può supportare volontariamente, con specifiche indicazioni, il consumatore a fare
+una raccolta differenziata di qualità.
+
+
+
+
+                      Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                                                  13
+                    Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                            152/2006 e ss.mm
+
+
+
+
+In entrambi i casi di imballaggi destinati al consumatore finale, le informazioni possono essere rese
+disponibili o apponendole fisicamente sull’imballaggio in maniera chiara e leggibile, o tramite canali digitali
+a scelta (vedi box dedicato a pagina 19).
+In alcuni casi specifici, come quello dei preincarti neutri, le informazioni possono essere trasmesse altresì
+tramite pannelli informativi sul punto di vendita (per approfondimenti vedi box dedicato a pagina 18).
+
+
+
+
+                     Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                                                 14
+                   Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                           152/2006 e ss.mm
+
+
+ ? Facciamo chiarezza
+Imballaggi monomateriali, composti, multicomponenti?
+
+Per comprendere in maniera efficace come prevedere l’etichettatura ambientale soprattutto sui
+sistemi di imballaggio più complessi, vale la pena fare un approfondimento sulle diverse definizioni.
+
+    -   Imballaggio monomateriale → è un imballaggio costituito da un solo materiale (ad esempio
+        una scatola di cartone, un tappo in plastica, un foglio di alluminio). Tra questi imballaggi ci sono
+        anche gli imballaggi multistrato, vale a dire quelli la cui struttura è costituita da diversi polimeri
+        plastici non separabili tra di loro (tipicamente accoppiati o miscelati).
+    -   Imballaggio composto → è un imballaggio strutturalmente costituito da diversi materiali non
+        separabili manualmente (sono principalmente i poliaccoppiati o sistemi complessi come le
+        chiusure, costituite da diversi pezzi di materiali differenti).
+    -   Imballaggio multicomponente → è un sistema costituito da un imballaggio detto corpo
+        principale (ad esempio una bottiglia), e altri imballaggi, detti componenti (come il tappo o
+        l’etichetta), che possono essere separabili o non separabili manualmente dal corpo principale.
+
+
+Cosa si intende per componenti separabili manualmente?
+
+Si considera separabile manualmente una componente che l’utente può separare completamente
+(salvo eventuali residui irrisori di materiale che possono restare adesi dopo la separazione), e senza
+rischi per la sua salute e incolumità, dal corpo principale con il solo utilizzo delle mani e senza dover
+ricorrere a ulteriori strumenti e utensili.
+
+
+Cosa fare con componenti non separabili manualmente?
+
+I sistemi di imballaggio che prevedono un corpo principale e altre componenti accessorie non separabili
+manualmente (ad esempio etichette adese, tappi e chiusure non separabili, finestre), devono riportare
+obbligatoriamente la codifica identificativa del materiale del corpo principale, e le indicazioni sulla
+raccolta (che seguono il materiale del corpo principale).
+
+Ove possibile, si può apporre la sola codifica identificativa del materiale come da Decisione 129/97/CE
+anche sulle componenti non separabili manualmente, ma, su queste, non va riportata l’indicazione
+sulla raccolta.
+
+Se il sistema di imballaggio prevede invece delle componenti separabili manualmente dal corpo
+principale, ciascuna di queste deve necessariamente riportare la codifica alfanumerica come da
+Decisione 129/97/CE e le indicazioni sulla raccolta.
+
+
+
+
+                    Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                                                 15
+                    Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                            152/2006 e ss.mm
+
+L’etichettatura degli imballaggi destinati al commerciale e/o industriale (B2B)
+
+Gli imballaggi destinati al B2B, ad esempio gli imballaggi destinati ai professionisti, o gli imballaggi da
+trasporto o legati alle attività logistiche o di esposizione, possono non presentare le informazioni relative
+alla destinazione finale degli imballaggi, ma devono obbligatoriamente riportare la codifica dei materiali di
+composizione in conformità alla Decisione 129/97/CE.
+
+Tutte le altre informazioni restano, tuttavia, volontariamente applicabili.
+
+
+
+
+Anche in questo caso, in alternativa all’apposizione fisica dell’etichettatura sul packaging, le informazioni
+necessarie e facoltative possono essere rese disponibili tramite canali digitali a scelta (vedi box dedicato a
+pagina 19) o tramite i documenti di trasporto o altra documentazione che accompagna la merce (per
+approfondimenti vedi box dedicato a pagina 18).
+
+
+
+                     Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                                                 16
+                    Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                            152/2006 e ss.mm
+
+Come costruire l’etichettatura?
+
+In questa sezione, sulla base di quanto esposto in precedenza, la linea guida presenta le informazioni che
+possono concorrere ai contenuti dell’etichetta:
+
+    -   Codifica alfanumerica da Decisione 129/97/CE
+    -   Famiglia di materiale
+    -   Informazioni sulla raccolta
+
+Si riportano gli Allegati della Decisione 129/97/CE, per ciascun materiale e per i poliaccoppiati, che
+contengono i codici da utilizzare ai fini dell’identificazione del materiale di composizione dell’imballaggio,
+corredate da alcuni esempi di etichettatura completa, che riportano sia le informazioni ritenute minime per
+il legislatore, sia quelle facoltative.
+
+Gli esempi non rappresentano l’unica struttura possibile di etichettatura, ma una delle diverse soluzioni
+che l’azienda può impiegare, e non contemplano, altresì, tutte le informazioni volontarie possibili. Infatti
+ciascuna azienda ha la facoltà di comunicare con modalità grafiche e di presentazione, liberamente scelte,
+purché efficaci e coerenti con gli obiettivi previsti dall’art. 219 comma, 5.
+
+Per la resa grafica di diciture e simboli, si suggerisce, sugli imballaggi destinati al mercato italiano, il
+ricorso ai colori codificati dalla norma UNI 11686 - Gestione dei rifiuti - Waste visual elements - Elementi
+di identificazione visiva per i contenitori per la raccolta dei rifiuti urbani.
+
+Negli esempi che seguono, infatti, è stato adottato il codice colore previsto dalla norma tecnica.
+
+
+
+   NORMA UNI 11686
+
+   La norma definisce i colori dei rifiuti nei diversi materiali e gli elementi di
+   identificazione visiva da riportare sui cassonetti al fine di rendere più semplice
+   ed automatico il riconoscimento da parte del consumatore finale dei cassonetti
+   nei quali conferire i rifiuti.
+   I cittadini si trovano sempre più spesso a fare la raccolta differenziata in città e
+   in Comuni diversi: per questo motivo di codici colore possono aiutare a
+   identificare i cassonetti rendendo la raccolta differenziata un compito più
+   semplice, anche quando non ci si trova nel proprio Comune abituale.
+   La norma permette la riconoscibilità visiva per i consumatori, adottando i
+   seguenti codici colore specifici:
+
+
+
+
+                     Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                                               17
+                   Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                           152/2006 e ss.mm
+
+
+? Facciamo chiarezza
+Accoppiamento o trattamento: la regola del > 5%
+
+Ai sensi della Decisione 129/97/CE, un imballaggio si definisce “composto” quando è costituito da
+materiali diversi che non è possibile separare manualmente.
+
+Tali imballaggi possono essere realizzati sia tramite un trattamento (es. coating, metallizzazione,
+laminazione, laccatura), sia attraverso un vero e proprio accoppiamento.
+
+Per tali imballaggi la codifica alfanumerica della Decisione 129/97/CE di riferimento è quella prevista
+all’Allegato VII che prevede l’esplicitazione di codifiche differenti a seconda della famiglia di materiale
+prevalente in peso e di quello/i secondari.
+
+La soglia del 5%
+
+Ai fini della corretta identificazione dei materiali di imballaggi composti o multistrato, si ritiene che,
+laddove il peso del/i materiale/i secondario/i sia inferiore al 5% del peso totale del pack, l’imballaggio
+sia considerato alla stregua di un imballaggio monomateriale ed etichettato in funzione del materiale
+prevalente in peso. Diversamente le codifiche saranno quelle previste all’Allegato VII della Decisione
+129/97/CE se trattasi di un imballaggio composto, o la codifica “7” come da Allegato I se l’imballaggio è
+un multistrato in plastica. Tale soglia è applicata anche nei casi di imballaggi in cui siano presenti più
+materiali secondari e uno di questi ha peso < 5%: tale materiale non è considerato ai fini
+dell’identificazione.
+
+Tale soglia vale quindi anche nel caso in cui siano presenti due o più materiali secondari: pertanto se la
+somma dei pesi di questi materiali è < 5%, l’imballaggio è considerato alla stregua di un monomateriale.
+Al contrario, se la somma dei pesi dei materiali secondari è > 5%, l’imballaggio è etichettato con le
+codifiche previste dall’Allegato VII della Decisione 129/97/CE dedicato ai composti, in funzione dei
+materiali costituenti l’imballaggio.
+
+Questa semplificazione prende spunto dall'approccio adottato nella DECISIONE DI ESECUZIONE (UE)
+2019/665, secondo la quale gli Stati membri sono tenuti a rendicontare - ai fini dell'immesso al
+consumo e degli obiettivi di riciclo - i singoli materiali di composizione degli imballaggi composti da più
+di un materiale, ma possono "derogare a tale obbligo se un determinato materiale costituisce una parte
+insignificante dell'unità di imballaggio, in nessun caso superiore al 5 % della massa totale dell'unità di
+imballaggio".
+
+Come trattare materiali diversi da quelli di imballaggio (ad esempio, colle, adesivi e inchiostri, ceramica,
+gomma)?
+
+Qualora l’imballaggio sia realizzato con uno dei materiali di imballaggio (acciaio, alluminio, carta, legno,
+plastica, vetro), accoppiato o trattato con un altro materiale, diverso da quelli di imballaggio (es. colle,
+adesivi, inchiostri, ceramica, gomma), è da considerarsi alla stregua di un imballaggio monomateriale.
+
+Ad esempio, un imballaggio in HDPE con uno strato di inchiostro e l’uso di colle che hanno peso
+superiore al 5% del peso totale dell’imballaggio, riporterà la sola codifica prevista per gli imballaggi
+monomateriali in HDPE.
+                  Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                                                 18
+                   Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                           152/2006 e ss.mm
+
+Casi particolari – Nota di chiarimenti del Ministero della Transizione Ecologica del 17 maggio 2021
+
+
+A fronte delle oggettive difficoltà operative nel prevedere l’apposizione diretta dell’etichettatura
+ambientale sul packaging per talune situazioni, con una nota del 17 maggio 2021, il Ministero della
+Transizione Ecologica ha chiarito come comportarsi:
+
+    •   Imballaggi neutri in generale, con particolare riferimento a quelli destinati ai canali
+        commerciali/industriali e/o possibili semilavorati.
+
+Trattandosi di imballaggi B2B, l’identificazione del materiale di composizione dell’imballaggio può
+essere veicolata e comunicata dal produttore sui documenti di trasporto che accompagnano la merce, o
+su altri supporti esterni, anche digitali.
+
+    •   Preincarti e imballi a peso variabile della distribuzione
+
+I preincarti sono definiti dalla circolare 31 marzo 2000, n. 165 dell’allora Ministero dell’Industria, del
+Commercio e dell’Artigianato pubblicata in Gazzetta Ufficiale n. 92 Serie Generale del 19 aprile 2000, si
+intendono gli imballaggi a peso variabile, spesso utilizzati al banco del fresco o al libero servizio e che
+sono finalizzati una volta contenuto il prodotto alimentare. Anche per questa casistica di imballaggio si
+rilevano difficoltà oggettive per l’apposizione fisica dell’etichettatura: si potrebbe trattare infatti di
+imballaggi destinati ai prodotti alimentari freschi (es. prodotti di pescheria) che non possono essere
+stampati, in altri casi si tratta di imballaggi di cui, al momento della produzione e vendita, non si
+conosce con certezza la destinazione d’uso (vale a dire se saranno imballaggi o prodotti destinati all’uso
+domestico), in altri ancora si tratta di imballaggi preparati/tagliati a misura nel punto vendita (es. film di
+alluminio o in plastica), e quindi non suscettibili di stampa immediata.
+
+Per queste casistiche l’obbligo di etichettatura si considera adempiuto qualora le informazioni in merito
+alla composizione dell’imballaggio ai sensi della decisione 129/97/CE e le informazioni per supportare il
+consumatore nella corretta raccolta differenziata, siano desumibili da schede informative rese
+disponibili ai consumatori finali nel punto vendita (es. accanto alle informazioni sugli allergeni, o con
+apposite schede informative poste accanto al banco), o attraverso la messa a disposizione di tali
+informazioni sui siti internet con schede standard predefinite.
+
+Tale soluzione può essere adottata anche per l’etichettatura di altri imballaggi neutri destinati al
+consumatore finale.
+
+
+
+
+                    Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                                                              19
+                     Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                             152/2006 e ss.mm
+
+     •   Imballaggi di piccole dimensioni, multilingua, di importazione
+
+Per imballaggi di piccole dimensioni si intendono:
+1. Imballaggi in cui la superficie maggiore sia inferiore ai 25 cm 2 – definizione tratta dal Regolamento
+    (UE) N. 1169/2011, che indica l’obbligo di riportare sui pack alimentari le dichiarazioni nutrizionali
+    dei prodotti contenuti e che prevede la possibilità di esentare dall’obbligo proprio gli imballaggi di
+    piccole dimensioni così identificati;
+2. Imballaggi con capacità non superiore a 125 ml – definizione tratta dal Regolamento CLP
+    (Regolamento (CE) n. 1272/2008, Art.29 paragrafo 2 e il Punto 1.5.2 della Parte I dell’Allegato I), che
+    prevede che le sostanze classificate come pericolose, e contenute in un imballaggio, siano provviste
+    di un’etichetta in cui figurano specifici elementi, e considera alcune deroghe a tale obbligo proprio
+    per gli imballaggi di piccole dimensioni così identificati.
+
+In tutte queste casistiche, il Ministero della Transizione Ecologica ha chiarito che laddove siano
+constatabili effettivi limiti fisici e/o tecnologici per l’apposizione fisica dell’etichettatura sul packaging,
+tali informazioni possono essere veicolate tramite canali digitali, o laddove non sia percorribile
+nemmeno questa strada, devono essere rese disponibili mediante siti internet dell’azienda e/o del
+rivenditore.
+
+Per rendere più facilmente disponibili e consultabili al consumatore finale, le informazioni ambientali
+obbligatorie circa la composizione e la corretta gestione a fine vita del packaging, l’indicazione è di
+prevedere chiare indicazioni sul packaging o sul punto vendita, riguardo alle modalità mediante le quali
+il consumatore può ricercarle tramite gli strumenti digitali o i siti web.
+
+Tali soluzioni sono favorite anche per superare le problematiche correlate agli imballaggi multilingua
+e/o di importazione.
+
+     • Ricorso al digitale
+Al fine di adempiere all’obbligo di etichettatura ambientale degli imballaggi, il ricorso a canali digitali è
+sempre consentito (es. App, QR code, siti web), in coerenza con il processo di innovazione tecnologica e
+semplificazione, aspetto oltretutto fondamentale previsto all’interno del Piano Nazionale di Ripresa e
+Resilienza (PNRR). Tali canali digitali possono sostituire completamente o integrare le informazioni
+riportate direttamente sull’imballaggio.
+
+Questi strumenti possono essere utilizzati sia per facilitare la trasmissione delle informazioni
+obbligatorie lungo la filiera nei circuiti commerciali e industriali, sia per veicolare al consumatore finale
+la natura dei materiali di imballaggio e le indicazioni sul corretto conferimento. Qualora l’imballaggio sia
+destinato al consumatore finale, il soggetto obbligato è tenuto a riportare sull’imballaggio o sul punto di
+vendita, sia esso fisico o virtuale a cui il consumatore abbia accesso, le istruzioni per consentirgli di
+intercettare le informazioni ambientali obbligatorie tramite i canali digitali previsti (App, QR code, siti
+web, ecc). In alternativa, tali istruzioni possono essere diffuse e rese accessibili per il mezzo di canali di
+comunicazione tradizionali e digitali, attraverso campagne e/o iniziative promosse direttamente dalle
+aziende o con il contributo e la collaborazione delle associazioni maggiormente rappresentative del
+settore.
+
+Per rendere disponibili le informazioni di etichettatura ambientale è quindi possibile utilizzare uno
+strumento digitale che rimanda ad una pagina appositamente dedicata a veicolare i contenuti
+sull’etichettatura ambientale che riguardano lo specifico imballaggio, a patto che l’accesso
+all’informazione specifica per l’imballaggio in questione risulti facile e diretta, e che detta informazione
+sia puntuale e non di difficile interpretazione. Si consiglia quindi di segnalare su tali canali, in modo
+evidente, l’imballaggio in questione,
+                    Ministero della transizioneper  rendere
+                                                ecologica      più facilmente
+                                                          - Dipartimento             reperibili
+                                                                         per lo Sviluppo         e consultabili
+                                                                                         Sostenibile (DiSS) le informazioni
+al consumatore finale.
+                                                                                                                  20
+                   Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                           152/2006 e ss.mm
+
+Imballaggi in Acciaio
+
+
+
+
+Esempi
+
+
+
+
+                        Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                                               21
+                   Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                           152/2006 e ss.mm
+
+
+
+Imballaggi in Alluminio
+
+
+
+
+Esempi
+
+
+
+
+                    Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                                                  22
+                      Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                              152/2006 e ss.mm
+
+
+    Codice 42: se il metallo non è acciaio o alluminio
+
+    Qualora un imballaggio sia composto da una tipologia di metallo, diverso da acciaio o alluminio, a cui
+    non è associato una specifica codifica nell’Allegato III della Decisione 129/97/CE, si suggerisce di
+    adottare la numerazione “42”, vale a dire la prima codifica della tabella a cui non è associato nessun
+    materiale, e quindi “disponibile” per essere adottata per altre tipologie di metalli non previsti.
+
+
+Imballaggi in carta
+
+Tipologia di          Scatola
+imballaggio           Vassoio
+                      Sacchetto
+                      Astuccio
+                      ….
+Decisione
+97/129/CE
+
+
+
+
+Famiglia di           Carta
+materiale
+Indicazioni sulla     Raccolta differenziata
+raccolta              Verifica le disposizioni del tuo Comune
+
+
+
+
+                       Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                                             23
+                 Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                         152/2006 e ss.mm
+
+
+
+   Carta, cartoncino o cartone ondulato?
+   La carta vera e propria ha una grammatura fino a 150 g/m2, mentre il cartone è caratterizzato da
+   una grammatura superiore a 600 g/m2, che può raggiungere anche i 1100 g/m2. Il cartoncino,
+   invece, è un manufatto cartario di grammatura intermedia fra quella della carta e quella del
+   cartone, definito da una grammatura compresa fra 250 e 450 g/m2. È possibile notare come dai
+   precedenti intervalli risultino due zone apparentemente non definite, quali le grammature tra i 150
+   e i 250 g/m2 e quelle tra i 450 e i 600 g/m2: in questi range il prodotto può essere
+   ambivalentemente carta o cartoncino per il primo intervallo e cartoncino o cartone per il secondo.
+
+
+
+
+   https://www.comieco.org/glossario/
+
+
+
+
+Esempi
+
+
+
+
+                   Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                            24
+Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                        152/2006 e ss.mm
+
+
+
+
+ Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                            25
+Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                        152/2006 e ss.mm
+
+
+
+
+ Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                                                  26
+                      Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                              152/2006 e ss.mm
+
+Imballaggi in legno
+
+Tipologia di          Tappo
+imballaggio           Scatola
+                      ….
+Decisione
+97/129/CE
+
+
+
+
+Famiglia di           Legno
+materiale
+Indicazioni sulla     Raccolta differenziata
+raccolta              Verifica le disposizioni del tuo Comune
+
+
+Esempi
+
+
+
+
+                       Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                            27
+Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                        152/2006 e ss.mm
+
+
+
+
+ Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                                                28
+                    Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                            152/2006 e ss.mm
+
+Imballaggi in plastica
+
+
+
+
+                     Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                                         29
+             Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                     152/2006 e ss.mm
+
+
+
+
+Come si può identificare il tipo di polimero dell’imballaggio in plastica se non è previsto nella
+Decisione 129/97/CE?
+
+•   Polimeri per cui non è prevista una specifica codifica nella Decisione 129/97/CE
+La Decisione 129/97/CE prevede codici alfanumerici per l’identificazione del materiale specifico
+solo per 6 diversi polimeri. In realtà i polimeri utilizzati per la produzione di imballaggi in
+plastica sono tantissimi, e questo numero è destinato a crescere, proprio perché si tratta di un
+settore caratterizzato da una forte evoluzione tecnologica che mira a soddisfare molteplici
+esigenze.
+Fino a questo momento, i polimeri diversi da quelli esplicitati dalla Decisione 129/97/CE, sono
+stati identificati tutti con il codice “7”. Al fine di fornire informazioni più puntuali rispetto alla
+composizione degli imballaggi in plastica, e visto il numero importante di diversi polimeri
+esistenti che vanno sotto la stessa codifica “7”, si suggerisce di accompagnare al “7”:
+-   L’abbreviazione del nome del polimero, come prevista dalla norma tecnica UNI EN ISO
+    1043-1, ove disponibile.
+    Ad esempio, un imballaggio in poliammide, può essere identificato con: PA 7
+-   Nome esteso del materiale plastico o sigla, comunemente utilizzata nelle prassi di mercato,
+    nei casi in cui non esista una abbreviazione.
+    Ad esempio, un imballaggio in PET modificato come il PETG, può essere identificato con:
+    PETG 7
+-   Un caso particolare è quello degli imballaggi realizzati con polimeri biodegradabili e
+    compostabili, ai sensi della UNI EN ISO 13432, per i quali non è prevista al momento alcuna
+    codifica specifica neppure nelle norme tecniche UNI. In questi casi, è altamente consigliato
+    usare la dicitura “Plastica compostabile” proprio per evitare di confonderli con gli
+    imballaggi in plastica tradizionale e per una loro corretta gestione a fine vita.
+    Ad esempio, un imballaggio in acido polilattico può essere identificato con: Plastica
+    compostabile 7.
+
+•   Multistrato composto da diversi polimeri
+Gli imballaggi composti strutturalmente da due o più polimeri, sono identificati con la codifica
+“7” poiché la Decisione 129/97/CE anche in questo caso non prevede codifiche specifiche per
+questi materiali.
+Qualora si volessero fornire informazioni più puntuali rispetto alla composizione degli
+imballaggi multistrato in plastica, si consiglia di seguire quanto previsto dalla norma tecnica UNI
+EN 11469, secondo la quale le abbreviazioni dei polimeri di composizione dell’imballaggio
+vengono scritti tra i simboli “>” e “<”, e interposti dal segno “+”.
+Ad esempio, un multistrato composto da PET e HDPE può essere identificato in questo modo:
+>PET+HDPE< 7.
+
+
+
+              Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                                     30
+         Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                 152/2006 e ss.mm
+
+Esempi
+
+
+
+
+          Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                            31
+Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                        152/2006 e ss.mm
+
+
+
+
+ Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                                                     32
+                     Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                             152/2006 e ss.mm
+
+Il D.Lgs. 116/2020 ha modificato l’art. 182-ter del D.Lgs. 152/2006 in materia di Rifiuti organici, stabilendo
+che i rifiuti, anche di imballaggio, aventi analoghe proprietà di biodegradabilità e compostabilità rispetto ai
+rifiuti organici devono essere raccolti e riciclati insieme a questi ultimi qualora:
+
+a) siano certificati conformi, da organismi accreditati, allo standard europeo UNI EN 13432 per gli
+imballaggi recuperabili mediante compostaggio o biodegradazione;
+
+b) siano opportunamente etichettati e riportino, oltre alla menzione della conformità ai predetti
+standard europei, elementi identificativi del produttore e del certificatore, nonché idonee istruzioni per i
+consumatori di conferimento di tali rifiuti nel circuito di raccolta differenziata e riciclo dei rifiuti organici.
+
+
+
+
+                      Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                                              33
+                  Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                          152/2006 e ss.mm
+
+L’etichettatura ambientale per gli shopper in plastica
+
+La normativa (d.lgs. 152/2006, art. 219, comma 3-bis) ha introdotto già nel 2017 requisiti specifici
+per la commercializzazione e l’etichettatura per gli shopper per asporto merci biodegradabili e
+compostabili, per le borse ultraleggere in plastica biodegradabile e compostabile a fini di igiene
+e/o per alimenti sfusi (es. sacchetto per ortofrutta), ai quali si aggiungono gli obblighi di
+etichettatura previsti dal decreto 116 sia in relazione alle modifiche all’art. 219 comma 5 in
+materia di etichettatura ambientale degli imballaggi, sia per quanto disposto in materia di rifiuti
+organici con le modifiche all’art. 182-ter del D.Lgs. 152/2006.
+
+Infatti, possono essere commercializzate borse di plastica con i seguenti requisiti:
+
+    -   borse di plastica riutilizzabili con specifiche caratteristiche riguardo allo spessore e al
+        contenuto di materiale riciclato, a seconda della merce commercializzata, e che non possono
+        essere distribuite a titolo gratuito.
+    -   borse di plastica biodegradabili e compostabili certificate EN 13432 per trasporto merci.
+    -   borse di plastica in materiale ultraleggero certificate biodegradabili e compostabili e con un
+        contenuto minimo di materia prima rinnovabile (dal 1° gennaio 2021 non inferiore al 60 per
+        cento). I produttori delle borse biodegradabili e compostabili in materiale ultraleggero
+        devono inoltre certificare la percentuale di materia prima rinnovabile contenuta nei loro
+        prodotti secondo lo standard EN 16640:2017.
+
+Tutte le borse di plastica di cui sopra non possono essere fornite/distribuite a titolo gratuito con la
+finalità di evitare sprechi (c.d. pricing) e devono riportare gli elementi identificativi del produttore
+('art. 219, comma 3 bis, D.Lgs. n. 152/2006).
+
+Gli obblighi di etichettatura già previsti per questi imballaggi relativamente alla comunicazione delle
+loro caratteristiche ambientali) devono essere integrati con quelli previsti dal nuovo decreto, sia con
+riferimento alla modifica del comma 5 dell’art 219 in materia di etichettatura ambientale degli
+imballaggi, sia – per quanto concerne gli shopper compostabili – le modifiche apportate all’art 182-
+ter del D.Lgs. 152/2006 in materia di Rifiuti organici.
+
+
+
+
+                   Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                                                  34
+                      Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                              152/2006 e ss.mm
+
+Imballaggi in vetro
+
+Tipologia di   Bottiglia
+imballaggio    Vasetto
+               Fiala
+               ….
+Decisione
+97/129/CE
+
+
+
+
+Famiglia di    Vetro
+materiale
+Indicazioni    Raccolta differenziata
+sulla          Verifica le disposizioni del tuo Comune
+raccolta
+
+
+
+
+   E se il colore dell’ imballaggio in vetro è diverso dal trasparente, verde o marrone?
+
+   L’Allegato VI relativo alle codifiche identificative degli imballaggi in vetro prevedono identificazioni per
+   gli imballaggi di vetro di colore trasparente, verde e marrone.
+
+   Per gli imballaggi in vetro di colore diverso rispetto a quelli considerati nell’Allegato VI, si ritiene
+   opportuno utilizzare il codice GL 73, che è la prima numerazione disponibile e che non identifica alcun
+   colore specifico e che quindi si può adottare in questi casi.
+
+
+
+
+                       Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                            35
+Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                        152/2006 e ss.mm
+
+
+
+
+ Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                                               36
+                   Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                           152/2006 e ss.mm
+
+Imballaggi poliaccoppiati o compositi
+
+Tipologia di   Sacchetto
+imballaggio    Involucro
+               Contenitore
+               ….
+Decisione
+97/129/CE
+
+
+
+
+Famiglia di    Acciaio, alluminio, carta, legno, plastica o vetro – in funzione del materiale prevalente in
+materiale      peso
+Indicazioni    Raccolta differenziata
+sulla          Verifica le disposizioni del tuo Comune
+raccolta
+
+
+
+
+                    Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                            37
+Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                        152/2006 e ss.mm
+
+
+
+
+ Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                            38
+Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                        152/2006 e ss.mm
+
+
+
+
+ Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                                                    39
+                    Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                            152/2006 e ss.mm
+
+
+
+
+Imballaggi in materiale tessile
+
+
+
+
+Per gli imballaggi in materiale tessile, si fa riferimento all’Allegato V della Decisione 129/97/CE.
+
+Per i materiali tessili non previsti in questa tabella, quindi diversi da “cotone” e “juta”, si ritiene opportuno
+utilizzare il codice TEX 62, vale a dire la prima numerazione disponibile e che non identifica alcun materiale.
+
+Questi imballaggi non rientrano nel circuito della raccolta differenziata domestica, ma fanno riferimento a
+circuiti di raccolta dedicata. Pertanto, è bene indicare con la codifica, il materiale per esteso “tessuto” e
+l’invito al consumatore a verificare le disposizioni del proprio Comune.
+
+
+
+
+                      Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                                                     40
+                     Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                             152/2006 e ss.mm
+
+Entrata in vigore dell’obbligo e esaurimento scorte
+
+Il 28 febbraio 2022 è stata pubblicata in Gazzetta Ufficiale la legge del 25 febbraio 2022 n. 15 di conversione
+del decreto legge 30 dicembre 2021 n. 228 (cd. Milleproroghe).
+
+Il provvedimento prevede, all’art. 11, la sospensione dell’obbligo di etichettatura ambientale degli
+imballaggi fino al 31 dicembre 2022, nonché la possibilità per gli operatori del settore di commercializzare i
+prodotti privi dei nuovi requisiti di etichettatura ambientale già immessi in commercio o già provvisti di
+etichetta al 1° gennaio 2023, fino a esaurimento scorte.
+
+Cosa si intende per “prodotti”?
+Essendo i requisiti citati dal dettato normativo riferiti agli imballaggi, il termine “prodotti” è da intendersi
+riferibile agli imballaggi, e non ai prodotti imballati. Ne deriva che le aziende potranno utilizzare, fino a loro
+esaurimento, le scorte di imballaggi finiti anche se vuoti, che non siano conformi all’obbligo di etichettatura
+alla data del 31/12/2022.
+
+Quali imballaggi possono essere commercializzati dopo il 30/06/2022?
+Possono essere commercializzati gli imballaggi – anche se vuoti – che siano stati etichettati (che quindi già
+siano stampati, o per i quali sia già stata prodotta/apposta l’etichetta) prima del 31/12/2022; oppure gli
+imballaggi che siano stati acquistati da parte degli utilizzatori di imballaggio dai propri fornitori prima del
+31/12/2022.
+
+Con quali documenti è possibile provare che si tratti di scorte che è consentito commercializzare?
+Considerando che la data di “immissione in commercio” dell’imballaggio può essere tracciata mediante i
+documenti di acquisto della merce, qualora un utilizzatore (In base all’art. 218, comma 1, lettera s) del
+D.Lgs. 152/06, gli utilizzatori sono “i commercianti, i distributori, gli addetti al riempimento, gli utenti di
+imballaggi e gli importatori di imballaggi pieni”) acquisti gli imballaggi già etichettati (che quindi già siano
+stampati, o per i quali sia già stata prodotta/apposta l’etichetta) da un fornitore, fa fede la data di tali
+documenti (l’effettivo trasferimento fisico della merce presso l’acquirente potrebbe avvenire anche in data
+successiva; l’importante è riuscire a provare che la merce sia stata acquistata prima del 31/12/2022).
+
+Qualora un autoproduttore di imballaggi (sono definiti “autoproduttori” i soggetti che acquistano materie
+prime e materiali di imballaggio al fine di fabbricare/riparare gli imballaggi per confezionare i propri
+prodotti (diversi dall’imballaggio). L’autoproduttore è considerato a tutti gli effetti utilizzatore anche con
+riferimento alla materia prima impiegata per la riparazione dei propri imballaggi) abbia in giacenza scorte
+di imballaggi già etichettati (che quindi già siano stampati, o per i quali sia già stata prodotta/apposta
+l’etichetta) prima del 31/12/2022, può fare riferimento alla data del lotto di produzione (in tal caso si
+dovrebbe fare riferimento al lotto di produzione dell’imballaggio o dell’etichetta, qualora si preveda di
+inserire sull’etichetta le informazioni obbligatorie).
+
+Con riferimento ai produttori di imballaggi (in base all’art. 218, comma 1, lettera r), del D.Lgs. 152/06, i
+produttori di imballaggi sono “i fornitori di materiali di imballaggio, i fabbricanti, i trasformatori e gli
+importatori di imballaggi vuoti e di materiali di imballaggio”) che abbiano scorte di imballaggi privi dei
+requisiti, si suppone che possano:
+
+    -   commercializzare gli imballaggi acquistati dal cliente in data antecedente al 31/12/2022. In questo
+        caso fa fede la data del documento di acquisto della merce da parte del suo cliente.
+                      Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                                                 41
+                   Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                           152/2006 e ss.mm
+
+   -   commercializzare le scorte di imballaggi neutri e privi di etichettatura – così come già previsto dalla
+       nota di chiarimenti del Ministero per la Transizione Ecologica del 17 maggio 2021 – accompagnati
+       da documentazione che contenga le informazioni obbligatorie da veicolare ai clienti (composizione
+       dell’imballaggio ai sensi della decisione 129/97/CE).
+
+Qualora si tratti di imballaggi che subiranno un processo di stampa o l’apposizione di una etichetta
+(attraverso le diverse modalità previste negli specifici casi), sarà necessario stipulare un accordo con il
+cliente all’interno del quale si definisca in quale punto della filiera avverranno tali operazioni.
+
+Possono essere commercializzate le scorte di imballaggi in giacenza in altri Paesi?
+Se gli imballaggi sono stati acquistati prima del 31/12/2022, possono essere commercializzati anche se le
+scorte sono in giacenza in un altro Paese. Fa in tal caso fede la data del documento di acquisto della
+fornitura di imballaggi.
+
+
+
+
+                    Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                                                                    42
+                    Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                            152/2006 e ss.mm
+
+Etichettatura in sintesi
+
+La tabella di seguito identifica in maniera sintetica i contenuti delle Linee Guida, rappresentando in maniera
+schematica i temi di maggiore interesse: i contenuti, suddivisi in obbligatori e consigliati; le modalità, quindi
+la posizione e il formato, per le quali si propongono delle scelte preferibili ma non cogenti, e le tempistiche.
+
+Il perimetro a cui si riferiscono queste indicazioni comprende tutti gli imballaggi.
+
+
+
+
+                                                       L'obbligo è stato prorogato al 1° gennaio 2023. Gli operatori del settore,
+                                                       inoltre, avranno modo di commercializzare i prodotti privi dei nuovi
+                                                       requisiti di etichettatura già immessi in commercio o già provvisti di
+                                                       etichetta fino a esaurimento scorte.
+
+
+
+
+                      Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                                           43
+               Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                       152/2006 e ss.mm
+
+Con quali modalità?
+
+
+
+
+                Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                                                    44
+                    Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                            152/2006 e ss.mm
+
+Glossario
+AUTOPRODUTTORE
+
+Sono definiti “autoproduttori” i soggetti che acquistano materie prime e materiali di imballaggio al fine di
+fabbricare/riparare gli imballaggi per confezionare i propri prodotti (diversi dall’imballaggio).
+L’autoproduttore è considerato a tutti gli effetti utilizzatore anche con riferimento alla materia prima
+impiegata per la riparazione dei propri imballaggi.
+
+BIODEGRADAZIONE (Greene, J.P. (2014). Sustainable Plastics: Environmental Assessments of Biobased,
+Biodegradable, and Recycled Plastics. (1st Ed). John Wiley & Sons.)
+
+La biodegradazione è un processo termochimico che avviene entro un determinato lasso temporale e in
+presenza di specifiche condizioni ambientali. Durante la biodegradazione, i materiali/prodotti sono
+convertiti in biomassa, acqua e anidride carbonica
+
+COMPOSTABILITÀ (Greene, J.P. (2014). Sustainable Plastics: Environmental Assessments of Biobased,
+Biodegradable, and Recycled Plastics. (1st Ed). John Wiley & Sons.)
+
+La compostabilità è la proprietà di un materiale di generare compost (biomassa) attraverso il processo di
+compostaggio, ovvero un processo biologico aerobico che avviene in condizioni ambientali imposte
+dall’esterno. Solitamente, in impianti di compostaggio industriali si utilizzano temperature tra i 50 °C e i 60
+°C e un contenuto di umidità compreso tra il 45 % e il 55 %.
+
+ La norma tecnica UNI EN 13432 indica i requisiti che un imballaggio deve avere per essere recuperabile
+ sotto forma di compost:
+
+      -   gli imballaggi sono concepiti, prodotti e commercializzati in modo da permetterne il reimpiego
+          o il recupero, compreso il riciclaggio, e da ridurne al minimo l’impatto sull’ambiente se i rifiuti di
+          imballaggio o i residui delle operazioni di gestione dei rifiuti di imballaggio sono smaltiti;
+      -   i rifiuti di imballaggio trattati per produrre compost devono essere sufficientemente
+          biodegradabili in modo da non ostacolare la raccolta separata e il processo o l’attività di
+          compostaggio in cui sono introdotti;
+      -   i rifiuti di imballaggio biodegradabili devono essere di natura tale da poter subire una
+          decomposizione fisica, chimica, termica o biologica grazie alla quale la maggior parte del
+          compost risultante finisca per decomporsi in biossido di carbonio, biomassa e acqua.
+
+
+CONSORZI DI FILIERA
+
+L’art. 223 del D.Lgs. 152/06 prevede che i produttori di imballaggi costituiscano un Consorzio per ciascun
+materiale di imballaggio (acciaio, alluminio, carta, legno, plastica e vetro). I sette Consorzi di Filiera sono i
+seguenti:
+Ricrea – Consorzio nazionale riciclo e recupero imballaggi acciaio;
+Cial – Consorzio nazionale imballaggi alluminio;
+Comieco – Consorzio nazionale recupero e riciclo degli imballaggi a base cellulosica;
+Rilegno – Consorzio nazionale per la raccolta, il recupero e il riciclaggio degli imballaggi di legno;
+Corepla – Consorzio nazionale per la raccolta, il riciclo e il recupero degli imballaggi in plastica;
+                      Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                                                      45
+                     Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                             152/2006 e ss.mm
+
+Biorepak – Consorzio Nazionale che garantisce la raccolta, il recupero e il riciclo organico dei rifiuti di
+imballaggio in plastica biodegradabile e compostabile;
+Coreve – Consorzio recupero vetro.
+In alternativa all’iscrizione ai Consorzi di Filiera, i produttori possono, ai sensi dell’art. 221, comma 3, del
+medesimo Decreto: “a) organizzare autonomamente, anche in forma collettiva, la gestione dei propri rifiuti
+di imballaggio sull’intero territorio nazionale; [...] c) attestare sotto la propria responsabilità che è stato
+messo in atto un sistema di restituzione dei propri imballaggi, mediante idonea documentazione che
+dimostri l’autosufficienza del sistema [...]”.
+
+CONSUMATORE
+
+Il consumatore di imballaggi è il soggetto che fuori dall’esercizio di una attività professionale acquista o
+importa per proprio uso imballaggi, articoli o merci imballate.
+
+GESTIONE DEI RIFIUTI
+
+Secondo quanto disposto dall’art. 183, comma 1, lettera n) del D.Lgs. 152/06, per gestione dei rifiuti si
+intende: “la raccolta, il trasporto, il recupero e lo smaltimento dei rifiuti, compresi il controllo di tali
+operazioni e gli interventi successivi alla chiusura dei siti di smaltimento, nonché le operazioni effettuate in
+qualità di commerciante o intermediario”.
+
+IMBALLAGGIO (Decreto Legislativo 152/06, Articolo 218 (3 aprile 2006).
+
+Secondo quanto riportato dal D.Lgs. 152/06, Art. 218 si definisce imballaggio “il prodotto, composto di
+materiali di qualsiasi natura, adibito a contenere determinate merci, dalle materie prime ai prodotti finiti, a
+proteggerle, a consentire la loro manipolazione e la loro consegna dal produttore al consumatore o
+all'utilizzatore, ad assicurare la loro presentazione, nonché gli articoli a perdere usati allo stesso scopo”.
+
+IMBALLAGGIO COMPOSTO (Decisione 129/97/CE EUR-Lex)
+
+Un imballaggio si definisce “composto” quando è costituito da materiali diversi che non è possibile separare
+manualmente.
+
+IMBALLAGGIO MULTIMATERIALE
+
+Si intende l'imballaggio costituito da più componenti autonome in materiali diversi. A differenza
+dell’imballaggio composito, in questo caso i diversi materiali che costituiscono l’imballaggio possono essere
+separati. Ad esempio, sono considerati imballaggi multimateriali: scatola di cioccolatini (carta per la scatola,
+plastica per il contenitore sagomato all’interno), sacchetto di caramelle (plastica per il sacchetto, carta per
+le singole caramelle), barattolo di caffè (alluminio per il barattolo, plastica per il coperchio), etc…
+
+IMBALLAGGI PIENI
+
+Ci si riferisce alle merci imballate e, in particolare, ai soli imballaggi delle merci stesse. Per esempio, nel
+caso di un importatore di birre in lattina, per “imballaggi pieni” ci si riferisce all’alluminio che costituisce le
+lattine ed eventualmente agli altri imballaggi secondari e terziari della confezione.
+
+IMBALLAGGIO PRIMARIO (O PER LA VENDITA)
+
+
+                      Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                                                    46
+                    Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                            152/2006 e ss.mm
+
+Nel D.Lgs. 152/06 – art. 218, lettera b) – l’imballaggio primario è definito come “imballaggio concepito in
+modo da costituire, nel punto di vendita, un’unità di vendita per l’utente finale o per il consumatore”. In
+generale l’imballaggio primario è quello che confeziona il singolo prodotto pronto al consumo.
+
+IMBALLAGGIO SECONDARIO (O MULTIPLO)
+
+Nel D.Lgs. 152/06 – art. 218, lettera c) – l’imballaggio secondario è definito come “imballaggio concepito in
+modo da costituire, nel punto di vendita, il raggruppamento di un certo numero di unità di vendita,
+indipendentemente dal fatto che sia venduto come tale all’utente finale o al consumatore, o che serva
+soltanto a facilitare il rifornimento degli scaffali nel punto di vendita. Esso può essere rimosso dal prodotto
+senza alterarne le caratteristiche”. In generale l’imballaggio secondario è quello che raggruppa un certo
+numero di singoli prodotti pronti al consumo. Il prodotto, una volta tolto dall’imballaggio secondario, si
+presenta nel suo imballaggio primario, inalterato e pronto all’uso.
+
+IMBALLAGGIO TERZIARIO (O PER IL TRASPORTO)
+
+Nel D.Lgs. 152/06 – art. 218, lettera d) – l’imballaggio terziario è definito come “imballaggio concepito in
+modo da facilitare la manipolazione ed il trasporto di merci, dalle materie prime ai prodotti finiti, di un
+certo numero di unità di vendita oppure di imballaggi multipli per evitare la loro manipolazione ed i danni
+connessi al trasporto, esclusi i container per i trasporti stradali, ferroviari, marittimi ed aerei”. In generale
+l’imballaggio terziario è destinato a proteggere e a facilitare la movimentazione delle merci durante il
+trasporto.
+
+MATERIA PRIMA SECONDA (MPS)
+
+Insieme dei rifiuti che cessano di essere tali qualora siano sottoposti a un’operazione di recupero, incluso il
+riciclaggio, e soddisfino criteri specifici.
+
+NORMATIVA UNI
+
+La sigla UNI contraddistingue “i documenti normativi volontari (norme UNI, specifiche tecniche, rapporti
+tecnici e prassi di riferimento) in tutti i settori industriali, commerciali e del terziario”.
+
+ Le norme tecniche sono tecniche approvate e pubblicate da un organismo internazionale, europeo o
+ nazionale di normalizzazione, la cui osservanza si basa sulla volontarietà; sono infatti identificate come
+ “regole della buona tecnica”.
+ Pertanto, il rispetto delle stesse non è obbligatorio, e soluzioni alternative e equivalenti sono possibili,
+ posto che siano efficacemente dimostrate.
+
+
+PRODUTTORE DI IMBALLAGGI
+
+In base all’art. 218, comma 1, lettera r), del D.Lgs. 152/06, i produttori di imballaggi sono “i fornitori di
+materiali di imballaggio, i fabbricanti, i trasformatori e gli importatori di imballaggi vuoti e di materiali di
+imballaggio”.
+
+RACCOLTA DIFFERENZIATA (Decreto Legislativo 152/06, Articolo 183, Comma 1 Lettera f (3 aprile 2006).
+
+
+
+                      Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+                                                                                                                      47
+                     Linee Guida sull’etichettatura degli imballaggi ai sensi dell’art. 219 comma 5 del D.Lgs.
+                                                                                             152/2006 e ss.mm
+
+È la raccolta idonea, secondo criteri di economicità, efficacia, trasparenza ed efficienza, a raggruppare i
+rifiuti urbani in frazioni merceologiche omogenee, al momento della raccolta o, per la frazione organica
+umida, anche al momento del trattamento, nonché a raggruppare i rifiuti di imballaggio separatamente
+dagli altri rifiuti urbani, a condizione che tutti i rifiuti sopra indicati siano effettivamente destinati al
+recupero.
+
+RECUPERO DEI RIFIUTI GENERATI DA IMBALLAGGIO (Direttiva 2008/98/CE, Articolo 3, comma 15 (19
+novembre 2008).
+
+Con il recupero dei rifiuti generati si intende qualsiasi operazione il cui principale risultato sia di permettere
+ai rifiuti di svolgere un ruolo utile sostituendo altri materiali che sarebbero stati altrimenti utilizzati per
+assolvere una particolare funzione o di prepararli ad assolvere tale funzione, all’interno dell’impianto o
+nell’economia in generale.
+
+RECUPERO ENERGETICO (TERMOVALORIZZAZIONE)
+
+Secondo quanto disposto dall’art. 218, comma 1, lettera n) del D.Lgs. 152/06, il recupero energetico dei
+rifiuti di imballaggio si ha quando tali rifiuti di imballaggio combustibili vengono utilizzati per produrre
+energia mediante termovalorizzazione (con o senza altre tipologie di rifiuto) con recupero di calore.
+
+RICICLO/RICICLAGGIO DEGLI IMBALLAGGI Direttiva 2008/98/CE, Articolo 3, comma 17 (19 novembre
+2008).
+
+Qualsiasi operazione di recupero attraverso cui i materiali di rifiuto sono ritrattati per ottenere prodotti,
+materiali o sostanze da utilizzare per la loro funzione originaria o per altri fini. Include il ritrattamento di
+materiale organico ma non il recupero di energia né il ritrattamento per ottenere materiali da utilizzare
+quali combustibili o in operazioni di riempimento.
+
+RIFIUTO DI IMBALLAGGIO Direttiva 2008/98/CE, Articolo 3, comma 1 (19 novembre 2008).
+
+Qualsiasi sostanza od oggetto di cui il detentore si disfi o abbia l’intenzione o l’obbligo di disfarsi.
+
+UTILIZZATORE DI IMBALLAGGI
+
+In base all’art. 218, comma 1, lettera s) del D.Lgs. 152/06, gli utilizzatori sono “i commercianti, i distributori,
+gli addetti al riempimento, gli utenti di imballaggi e gli importatori di imballaggi pieni”.
+
+
+
+
+                      Ministero della transizione ecologica - Dipartimento per lo Sviluppo Sostenibile (DiSS)
+

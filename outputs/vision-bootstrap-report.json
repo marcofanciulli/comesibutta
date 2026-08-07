@@ -1,0 +1,31 @@
+{
+  "annotations": 186,
+  "assets": 206,
+  "capture_groups": 51,
+  "category_counts": {
+    "mark.material_identification": 186
+  },
+  "content_origin_counts": {
+    "document_crop": 20,
+    "synthetic": 186
+  },
+  "corpus_id": "comesibutta-packaging-marks",
+  "corpus_version": "0.2.0-bootstrap",
+  "font_sha256": "bfb7bb691513f12e734dc346c03a03f784912432d7e3fa8e56efcf906fe86b3d",
+  "reference_pages": 20,
+  "release_evaluation_ready": false,
+  "source_sha256": {
+    "decree_pdf": "78780c9fb0066ef6bd059afa8dba6b2ea779d2248276b6872427553620a2bc2a",
+    "guidelines_pdf": "b1c9461c88da54eacf48abfddff174fac7052abdc993e93b741728866faac0f0",
+    "legal_notice_pdf": "5c381b13e61dae6805e38d9dd45ff1d9ecae5d343e7e9269f71c8353a9fef788"
+  },
+  "sources": 2,
+  "split_counts": {
+    "test": 0,
+    "train": 170,
+    "validation": 36
+  },
+  "synthetic_variants": 186,
+  "taxonomy_version": "1.0.0",
+  "trainable": true
+}

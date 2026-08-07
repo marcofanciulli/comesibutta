@@ -10,7 +10,7 @@
   "properties": {
     "version": { "const": 1 },
     "corpus_id": { "const": "comesibutta-packaging-marks" },
-    "corpus_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "corpus_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[a-z0-9.-]+)?$" },
     "created_at": { "type": "string", "format": "date-time" },
     "taxonomy": {
       "type": "object",

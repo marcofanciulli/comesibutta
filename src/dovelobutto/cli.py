@@ -27,6 +27,7 @@ from .catalog import build_catalog_from_paths, write_catalog
 from .eer import build_eer_register, validate_acquired_eer, write_json
 from .packaging_marks import build_packaging_material_register
 from .vision_corpus import validate_vision_corpus, write_json as write_vision_json
+from .vision_bootstrap import build_vision_bootstrap
 from .ato_costa import (
     MunicipalityContext as CostaMunicipalityContext,
     extract_aamps_waste_lookup,
@@ -375,6 +376,20 @@ def build_parser() -> argparse.ArgumentParser:
     vision_corpus.add_argument("--taxonomy", type=Path, required=True)
     vision_corpus.add_argument("--assets-root", type=Path)
     vision_corpus.add_argument("--report", type=Path, required=True)
+    vision_bootstrap = subparsers.add_parser(
+        "build-vision-bootstrap",
+        help="Render official reference pages and deterministic synthetic packaging marks",
+    )
+    vision_bootstrap.add_argument("--register", type=Path, required=True)
+    vision_bootstrap.add_argument("--taxonomy", type=Path, required=True)
+    vision_bootstrap.add_argument("--guidelines-pdf", type=Path, required=True)
+    vision_bootstrap.add_argument("--decree-pdf", type=Path, required=True)
+    vision_bootstrap.add_argument("--legal-notice-pdf", type=Path, required=True)
+    vision_bootstrap.add_argument("--font", type=Path, required=True)
+    vision_bootstrap.add_argument("--assets-root", type=Path, required=True)
+    vision_bootstrap.add_argument("--generated-at", required=True)
+    vision_bootstrap.add_argument("--manifest", type=Path, required=True)
+    vision_bootstrap.add_argument("--report", type=Path, required=True)
     sweep = subparsers.add_parser(
         "sweep-sei",
         help="Run a resumable and rate-limited sweep from the SEI municipality registry",
@@ -603,6 +618,20 @@ def main(argv: list[str] | None = None) -> int:
         report = validate_vision_corpus(
             args.manifest, args.taxonomy, args.assets_root,
         )
+        write_vision_json(args.report, report)
+        return 0
+    if args.command == "build-vision-bootstrap":
+        manifest, report = build_vision_bootstrap(
+            args.register,
+            args.taxonomy,
+            args.guidelines_pdf,
+            args.decree_pdf,
+            args.legal_notice_pdf,
+            args.font,
+            args.assets_root,
+            datetime.fromisoformat(args.generated_at),
+        )
+        write_vision_json(args.manifest, manifest)
         write_vision_json(args.report, report)
         return 0
     if args.command == "build-waste-catalog":

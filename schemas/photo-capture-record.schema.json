@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dovelobutto.example/schemas/photo-capture-record.schema.json",
+  "title": "Private packaging photo capture record",
+  "type": "object",
+  "required": [
+    "version", "capture_group_id", "file_name", "captured_at", "photographer_ref",
+    "rights_basis", "primary_category", "shot_type", "package_form", "component",
+    "visible_text", "suspected_mark_ref", "conditions", "privacy_review", "notes"
+  ],
+  "properties": {
+    "version": { "const": 1 },
+    "capture_group_id": { "type": "string", "pattern": "^PKG-[0-9]{8}-[0-9]{3,}$" },
+    "file_name": { "type": "string", "pattern": "^PKG-[0-9]{8}-[0-9]{3,}__(MI|RI|PR|DA|CS|NEG)__[0-9]{2,}\\.(jpg|jpeg|png|webp)$" },
+    "captured_at": { "type": "string", "format": "date-time" },
+    "photographer_ref": { "type": "string", "minLength": 1 },
+    "rights_basis": { "enum": ["original_work", "explicit_consent"] },
+    "primary_category": { "enum": ["MI", "RI", "PR", "DA", "CS", "NEG"] },
+    "shot_type": { "enum": ["overview", "mark_closeup", "component", "difficult"] },
+    "package_form": { "type": "string", "minLength": 1 },
+    "component": { "type": ["string", "null"] },
+    "visible_text": { "type": ["string", "null"] },
+    "suspected_mark_ref": { "type": ["string", "null"], "pattern": "^packaging-material:eu-97-129:[1-9][0-9]?$" },
+    "conditions": {
+      "type": "object",
+      "required": ["lighting", "view_angle", "focus", "glare", "occlusion"],
+      "properties": {
+        "lighting": { "enum": ["daylight", "indoor", "low_light", "mixed"] },
+        "view_angle": { "enum": ["frontal", "moderate", "severe"] },
+        "focus": { "enum": ["sharp", "moderate", "blurred"] },
+        "glare": { "enum": ["none", "moderate", "severe"] },
+        "occlusion": { "enum": ["none", "partial", "severe"] }
+      },
+      "additionalProperties": false
+    },
+    "privacy_review": { "enum": ["approved", "pending", "rejected"] },
+    "notes": { "type": ["string", "null"] }
+  },
+  "additionalProperties": false
+}

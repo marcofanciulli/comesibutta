@@ -323,7 +323,17 @@ Registro UE dei materiali e riconoscimento visivo:
   ritagli documentali non possono sostenere una valutazione di rilascio;
 - il corpus iniziale contiene intenzionalmente zero immagini ed e dichiarato
   non addestrabile, in attesa di fotografie con diritti verificati;
-- 105 test automatici superati.
+- costruito un bootstrap separato con 20 pagine delle Linee guida adottate col
+  DM 360/2022 e 186 varianti sintetiche dei 31 codici assegnati;
+- 170 immagini di bootstrap appartengono al training e 36 alla validazione;
+  nessuna immagine non fotografica entra nel test di rilascio;
+- conservati decreto, allegato tecnico integrale, note legali MASE, font Noto
+  Sans e relative impronte; immagini e manifest sono rigenerabili;
+- prodotto il prontuario A5 e il contratto del registro fotografico con sei
+  categorie rapide, nomi stabili e controlli di privacy;
+- attivato il controllo quotidiano degli atti PPWR agli articoli 12(6), 12(7)
+  e 13(2), con importazione solo da fonti primarie;
+- 110 test automatici superati.
 
 ## Limiti e questioni aperte
 
@@ -347,7 +357,7 @@ Registro UE dei materiali e riconoscimento visivo:
    esporre i dettagli della rappresentazione SQLite.
 5. Aggiungere consolidati settimanali, mensili e annuali con conservazione e
    compattazione automatica nella finestra incrementale di cinque anni.
-6. Eseguire il pilot fotografico secondo le linee guida del corpus, annotarlo
+6. Importare il primo lotto fotografico classificato col prontuario, annotarlo
    in CVAT e fissare le soglie quantitative del primo dataset addestrabile.
 
 ## Regola di continuita
