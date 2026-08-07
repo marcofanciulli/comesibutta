@@ -34,6 +34,8 @@ verificati e un esploratore locale.
   territoriale letta da sito, app e backend.
 - `docs/facility-resolution.md`: accesso, accettazione, distanza, orari e
   scelta prudente dei centri di raccolta.
+- `docs/channel-services.md`: ritiri, punti mobili, compatibilita e canali
+  conservati soltanto come indicazioni sorgente.
 - `docs/waste-curation.md`: registro revisionato di sinonimi, flussi e canali
   di conferimento, controlli e distribuzione alle app.
 - `docs/eer-register.md`: importazione normativa, validita e controllo dei

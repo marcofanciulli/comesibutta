@@ -200,6 +200,60 @@ def _opening_period(facility_id: str) -> CanonicalEntity:
     }, (("facility", facility_id),))
 
 
+def _pickup_service() -> CanonicalEntity:
+    return CanonicalEntity("pickup_service", "pickup:ingombranti", {
+        "natural_key": "pickup:ingombranti",
+        "payload": {
+            "municipality_ref": "istat:053014",
+            "zone_ref": None,
+            "user_type": "domestic",
+            "accepted_waste_raw": "Rifiuti ingombranti",
+            "booking_methods": [{
+                "method": "phone", "value": "800000000", "hours_raw": "8:00-18:00",
+            }],
+            "max_items": 3,
+            "quantity_limit_raw": "Tre pezzi per ritiro",
+            "placement_instructions_raw": "Esporre nel giorno concordato",
+            "booking_required": True,
+        },
+        "sources": [{
+            "url": "https://example.test/ritiro",
+            "publisher": "Gestore di prova",
+            "retrieved_at": "2026-08-07T20:00:00+02:00",
+        }],
+    })
+
+
+def _collection_point(
+    point_id: str, name: str, latitude: float, longitude: float,
+) -> CanonicalEntity:
+    return CanonicalEntity("collection_point", point_id, {
+        "natural_key": point_id,
+        "payload": {
+            "municipality_ref": "istat:053014",
+            "zone_ref": None,
+            "name": name,
+            "point_type": "mobile",
+            "accepted_streams": ["Materiali indicati nella scheda del gestore"],
+            "address_raw": f"Piazza {name}",
+            "location": {
+                "latitude": latitude,
+                "longitude": longitude,
+                "method": "publisher_gis",
+                "accuracy_m": None,
+            },
+            "access_notes_raw": "Postazione mobile",
+            "access_credential": None,
+            "opening_hours_raw": "Lunedi 08:00-12:00",
+        },
+        "sources": [{
+            "url": f"https://example.test/{point_id}",
+            "publisher": "Gestore di prova",
+            "retrieved_at": "2026-08-07T20:00:00+02:00",
+        }],
+    })
+
+
 def _entities() -> dict[tuple[str, str], CanonicalEntity]:
     values = [
         CanonicalEntity(
@@ -567,6 +621,105 @@ class DisposalQueryTests(unittest.TestCase):
         self.assertEqual("facility:fridge", answer["result"]["facility"]["id"])
         self.assertEqual("verified_eer", answer["result"]["facility"]["acceptance"]["status"])
         self.assertEqual(["200123"], answer["result"]["facility"]["acceptance"]["eer_codes"])
+
+    def test_pickup_channel_exposes_booking_and_limits(self) -> None:
+        self.connection.close()
+        writer = open_database(self.database, role="client")
+        current = read_database_entities(writer)
+        changed = dict(current)
+        armadio = _concept("waste:armadio", "Armadio", ["Ritiro ingombranti"])
+        changed[(armadio.entity_type, armadio.entity_id)] = armadio
+        changed[("delivery_channel", "channel:home-pickup")] = CanonicalEntity(
+            "delivery_channel", "channel:home-pickup", {
+                "channel_id": "channel:home-pickup",
+                "preferred_label": "Ritiro a domicilio",
+                "destination_type": "pickup",
+                "aliases": ["Ritiro ingombranti"],
+            },
+        )
+        pickup = _pickup_service()
+        changed[(pickup.entity_type, pickup.entity_id)] = pickup
+        apply_package(writer, build_update_package(current, changed, 1, 2, GENERATED_AT))
+        writer.close()
+        self.connection = open_query_database(self.database)
+        self.service = DisposalQueryService(self.connection)
+        answer = self.service.answer("armadio", "053014")
+        service = answer["result"]["channel_services"][0]
+        self.assertEqual("pickup", service["service_type"])
+        self.assertEqual("verified_description", service["compatibility"])
+        self.assertTrue(service["booking_required"])
+        self.assertEqual("phone", service["booking_methods"][0]["method"])
+        self.assertEqual(3, service["max_items"])
+        self.assertEqual("Tre pezzi per ritiro", service["quantity_limit"])
+        self.assertEqual([], answer["result"]["unresolved_channels"])
+
+    def test_mobile_points_are_sorted_by_gps_without_inventing_acceptance(self) -> None:
+        self.connection.close()
+        writer = open_database(self.database, role="client")
+        current = read_database_entities(writer)
+        changed = dict(current)
+        accessory = _concept(
+            "waste:accessori-cellulari", "Accessori cellulari", ["Ecofurgone"],
+        )
+        changed[(accessory.entity_type, accessory.entity_id)] = accessory
+        changed[("delivery_channel", "channel:mobile-collection")] = CanonicalEntity(
+            "delivery_channel", "channel:mobile-collection", {
+                "channel_id": "channel:mobile-collection",
+                "preferred_label": "Servizio mobile",
+                "destination_type": "collection_point",
+                "aliases": ["Ecofurgone"],
+            },
+        )
+        for point in (
+            _collection_point("point:far", "Lontana", 43.2, 11.2),
+            _collection_point("point:near", "Vicina", 43.0, 11.0),
+        ):
+            changed[(point.entity_type, point.entity_id)] = point
+        apply_package(writer, build_update_package(current, changed, 1, 2, GENERATED_AT))
+        writer.close()
+        self.connection = open_query_database(self.database)
+        self.service = DisposalQueryService(self.connection)
+        answer = self.service.answer(
+            "accessori cellulari", "053014", latitude=43.0, longitude=11.0,
+        )
+        services = answer["result"]["channel_services"]
+        self.assertEqual(["point:near", "point:far"], [item["id"] for item in services])
+        self.assertEqual(0.0, services[0]["distance_km"])
+        self.assertEqual("acceptance_not_published", services[0]["compatibility"])
+        self.assertEqual("Lunedi 08:00-12:00", services[0]["schedule_raw"])
+        self.assertEqual(
+            "acceptance_not_published",
+            answer["result"]["unresolved_channels"][0]["status"],
+        )
+        self.assertIn("elenco dei rifiuti accettati", " ".join(answer["result"]["warnings"]))
+
+    def test_source_only_channel_remains_explicitly_unresolved(self) -> None:
+        self.connection.close()
+        writer = open_database(self.database, role="client")
+        current = read_database_entities(writer)
+        changed = dict(current)
+        phone = _concept(
+            "waste:telefono-usato", "Telefono usato", ["Riuso cambia il finale"],
+        )
+        changed[(phone.entity_type, phone.entity_id)] = phone
+        changed[("delivery_channel", "channel:reuse-service")] = CanonicalEntity(
+            "delivery_channel", "channel:reuse-service", {
+                "channel_id": "channel:reuse-service",
+                "preferred_label": "Servizio di riuso",
+                "destination_type": "special_case",
+                "aliases": ["Riuso cambia il finale"],
+            },
+        )
+        apply_package(writer, build_update_package(current, changed, 1, 2, GENERATED_AT))
+        writer.close()
+        self.connection = open_query_database(self.database)
+        self.service = DisposalQueryService(self.connection)
+        answer = self.service.answer("telefono usato", "053014")
+        self.assertEqual([], answer["result"]["channel_services"])
+        unresolved = answer["result"]["unresolved_channels"][0]
+        self.assertEqual("channel:reuse-service", unresolved["channel_id"])
+        self.assertEqual("source_only", unresolved["status"])
+        self.assertEqual("Riuso cambia il finale", unresolved["source_destination"])
 
     def test_location_coordinates_must_be_complete_and_valid(self) -> None:
         with self.assertRaisesRegex(ValueError, "provided together"):

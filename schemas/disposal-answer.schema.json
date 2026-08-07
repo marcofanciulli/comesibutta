@@ -124,6 +124,14 @@
           "type": "array",
           "items": { "$ref": "#/$defs/facilityResult" }
         },
+        "channel_services": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/channelService" }
+        },
+        "unresolved_channels": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/unresolvedChannel" }
+        },
         "environmental_note": { "type": ["string", "null"] },
         "warnings": { "type": "array", "items": { "type": "string" } }
       },
@@ -159,6 +167,81 @@
     }
   },
   "$defs": {
+    "channelService": {
+      "type": "object",
+      "required": [
+        "id", "channel_id", "service_type", "zone_id", "name", "address",
+        "location", "distance_km", "point_type", "accepted_waste",
+        "compatibility", "schedule_raw", "access_summary", "access_credential",
+        "booking_required", "booking_methods", "max_items", "quantity_limit",
+        "instructions"
+      ],
+      "properties": {
+        "id": { "type": "string" },
+        "channel_id": { "type": "string", "pattern": "^channel:[a-z0-9-]+$" },
+        "service_type": { "enum": ["pickup", "collection_point"] },
+        "zone_id": { "type": ["string", "null"] },
+        "name": { "type": ["string", "null"] },
+        "address": { "type": ["string", "null"] },
+        "location": {
+          "type": ["object", "null"],
+          "properties": {
+            "latitude": { "type": "number", "minimum": -90, "maximum": 90 },
+            "longitude": { "type": "number", "minimum": -180, "maximum": 180 },
+            "method": { "type": "string" },
+            "accuracy_m": { "type": ["number", "null"], "minimum": 0 }
+          },
+          "required": ["latitude", "longitude", "method", "accuracy_m"],
+          "additionalProperties": false
+        },
+        "distance_km": { "type": ["number", "null"], "minimum": 0 },
+        "point_type": { "type": ["string", "null"] },
+        "accepted_waste": { "type": "array", "items": { "type": "string" } },
+        "compatibility": {
+          "enum": ["verified_description", "acceptance_not_published", "not_verified"]
+        },
+        "schedule_raw": { "type": ["string", "null"] },
+        "access_summary": { "type": ["string", "null"] },
+        "access_credential": { "type": ["string", "null"] },
+        "booking_required": { "type": ["boolean", "null"] },
+        "booking_methods": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["method", "value"],
+            "properties": {
+              "method": { "enum": ["web", "phone", "email", "app", "desk"] },
+              "value": { "type": "string" },
+              "hours_raw": { "type": ["string", "null"] }
+            },
+            "additionalProperties": false
+          }
+        },
+        "max_items": { "type": ["integer", "null"], "minimum": 1 },
+        "quantity_limit": { "type": ["string", "null"] },
+        "instructions": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "unresolvedChannel": {
+      "type": "object",
+      "required": [
+        "channel_id", "preferred_label", "status", "reason", "source_destination"
+      ],
+      "properties": {
+        "channel_id": { "type": "string", "pattern": "^channel:[a-z0-9-]+$" },
+        "preferred_label": { "type": "string" },
+        "status": {
+          "enum": [
+            "source_only", "not_published", "acceptance_not_published",
+            "compatibility_not_verified"
+          ]
+        },
+        "reason": { "type": "string" },
+        "source_destination": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
     "facilityResult": {
       "type": "object",
       "required": [

@@ -391,6 +391,7 @@ class DisposalQueryService:
         base["result"], facility_sources = self._result(
             concept, destination, rule,
             municipality_istat=municipality_istat,
+            zone_id=zone_id,
             user_type=user_type,
             latitude=latitude,
             longitude=longitude,
@@ -552,6 +553,7 @@ class DisposalQueryService:
         rule: dict[str, Any] | None,
         *,
         municipality_istat: str,
+        zone_id: str | None,
         user_type: str,
         latitude: float | None,
         longitude: float | None,
@@ -626,6 +628,32 @@ class DisposalQueryService:
                 warnings.append("Nessun centro accessibile ha una conferma pubblicata di accettazione per questo rifiuto.")
             elif primary is None:
                 warnings.append("Sono disponibili piu centri compatibili: usa la posizione per ordinare quelli piu vicini.")
+        channel_services, unresolved_channels, service_sources = self._resolve_channel_services(
+            channels,
+            concept,
+            destination,
+            municipality_istat=municipality_istat,
+            zone_id=zone_id,
+            user_type=user_type,
+            latitude=latitude,
+            longitude=longitude,
+        )
+        for channel in unresolved_channels:
+            if channel["status"] == "not_published":
+                warnings.append(
+                    f"La fonte indica {channel['preferred_label'].casefold()}, "
+                    "ma non pubblica un servizio operativo collegabile per questo comune."
+                )
+            elif channel["status"] == "acceptance_not_published":
+                warnings.append(
+                    f"Il servizio {channel['preferred_label'].casefold()} e pubblicato, "
+                    "ma il suo elenco dei rifiuti accettati non e disponibile."
+                )
+            elif channel["status"] == "compatibility_not_verified":
+                warnings.append(
+                    f"Il servizio {channel['preferred_label'].casefold()} e pubblicato, "
+                    "ma i dati non confermano che accetti questo rifiuto."
+                )
         stream_id = self._canonical_stream(payload.get("stream_name") or destination)
         if channels:
             destination_type = (
@@ -664,10 +692,12 @@ class DisposalQueryService:
             "facility_alternatives": [
                 facility for facility in facilities if facility is not primary
             ],
+            "channel_services": channel_services,
+            "unresolved_channels": unresolved_channels,
             "environmental_note": concept.get("general_details", {}).get("environmental_note"),
             "warnings": warnings,
         }
-        return result, facility_sources
+        return result, [*facility_sources, *service_sources]
 
     def _resolve_facilities(
         self,
@@ -906,6 +936,254 @@ class DisposalQueryService:
                 })
                 sources.extend(item.get("sources", []))
         return periods, sources
+
+    def _resolve_channel_services(
+        self,
+        channels: list[dict[str, Any]],
+        concept: dict[str, Any],
+        source_destination: str,
+        *,
+        municipality_istat: str,
+        zone_id: str | None,
+        user_type: str,
+        latitude: float | None,
+        longitude: float | None,
+    ) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]]]:
+        services = []
+        unresolved = []
+        sources = []
+        for channel in channels:
+            channel_id = channel["channel_id"]
+            if channel_id == "channel:collection-centre":
+                continue
+            if channel_id == "channel:home-pickup":
+                found, found_sources = self._pickup_services(
+                    channel, concept, source_destination,
+                    municipality_istat=municipality_istat,
+                    zone_id=zone_id,
+                    user_type=user_type,
+                )
+            elif channel_id in {
+                "channel:mobile-collection", "channel:collection-point",
+            }:
+                found, found_sources = self._collection_point_services(
+                    channel, concept, source_destination,
+                    municipality_istat=municipality_istat,
+                    zone_id=zone_id,
+                    latitude=latitude,
+                    longitude=longitude,
+                )
+            else:
+                unresolved.append({
+                    "channel_id": channel_id,
+                    "preferred_label": channel["preferred_label"],
+                    "status": "source_only",
+                    "reason": "La fonte indica il canale ma non pubblica un'entita operativa strutturata.",
+                    "source_destination": source_destination,
+                })
+                continue
+            services.extend(found)
+            sources.extend(found_sources)
+            if not found:
+                unresolved.append({
+                    "channel_id": channel_id,
+                    "preferred_label": channel["preferred_label"],
+                    "status": "not_published",
+                    "reason": "Nessun servizio territoriale compatibile con il canale e pubblicato nei dati correnti.",
+                    "source_destination": source_destination,
+                })
+            elif not any(
+                service["compatibility"] == "verified_description" for service in found
+            ):
+                only_unpublished = all(
+                    service["compatibility"] == "acceptance_not_published"
+                    for service in found
+                )
+                unresolved.append({
+                    "channel_id": channel_id,
+                    "preferred_label": channel["preferred_label"],
+                    "status": (
+                        "acceptance_not_published" if only_unpublished
+                        else "compatibility_not_verified"
+                    ),
+                    "reason": (
+                        "Il servizio e pubblicato senza un elenco dei rifiuti accettati."
+                        if only_unpublished
+                        else "Il servizio e pubblicato ma non e collegabile al rifiuto con i dati correnti."
+                    ),
+                    "source_destination": source_destination,
+                })
+        services.sort(key=lambda item: (
+            {"verified_description": 0, "acceptance_not_published": 1, "not_verified": 2}[
+                item["compatibility"]
+            ],
+            item["distance_km"] if item["distance_km"] is not None else float("inf"),
+            (item["name"] or item["address"] or item["id"]).casefold(),
+        ))
+        return services, unresolved, sources
+
+    def _pickup_services(
+        self,
+        channel: dict[str, Any],
+        concept: dict[str, Any],
+        source_destination: str,
+        *,
+        municipality_istat: str,
+        zone_id: str | None,
+        user_type: str,
+    ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+        services = []
+        sources = []
+        for row in self.connection.execute(
+            """SELECT entity_id FROM entities
+            WHERE entity_type = 'pickup_service' AND municipality_ref = ?
+            ORDER BY entity_id""",
+            (f"istat:{municipality_istat}",),
+        ):
+            item = read_entity_data(self.connection, "pickup_service", row["entity_id"])
+            payload = (item or {}).get("payload") or {}
+            if not item or payload.get("user_type") not in {"all", user_type}:
+                continue
+            if zone_id and payload.get("zone_ref") not in {None, zone_id}:
+                continue
+            accepted = [payload.get("accepted_waste_raw")] if payload.get("accepted_waste_raw") else []
+            compatibility = self._service_compatibility(
+                concept,
+                source_destination,
+                accepted,
+                payload.get("placement_instructions_raw"),
+            )
+            services.append({
+                "id": row["entity_id"],
+                "channel_id": channel["channel_id"],
+                "service_type": "pickup",
+                "zone_id": payload.get("zone_ref"),
+                "name": channel["preferred_label"],
+                "address": None,
+                "location": None,
+                "distance_km": None,
+                "point_type": None,
+                "accepted_waste": accepted,
+                "compatibility": compatibility,
+                "schedule_raw": None,
+                "access_summary": None,
+                "access_credential": None,
+                "booking_required": payload.get("booking_required"),
+                "booking_methods": payload.get("booking_methods", []),
+                "max_items": payload.get("max_items"),
+                "quantity_limit": payload.get("quantity_limit_raw"),
+                "instructions": payload.get("placement_instructions_raw"),
+            })
+            sources.extend(item.get("sources", []))
+        return services, sources
+
+    def _collection_point_services(
+        self,
+        channel: dict[str, Any],
+        concept: dict[str, Any],
+        source_destination: str,
+        *,
+        municipality_istat: str,
+        zone_id: str | None,
+        latitude: float | None,
+        longitude: float | None,
+    ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+        services = []
+        sources = []
+        wants_mobile = channel["channel_id"] == "channel:mobile-collection"
+        for row in self.connection.execute(
+            """SELECT entity_id FROM entities
+            WHERE entity_type = 'collection_point' AND municipality_ref = ?
+            ORDER BY entity_id""",
+            (f"istat:{municipality_istat}",),
+        ):
+            item = read_entity_data(self.connection, "collection_point", row["entity_id"])
+            payload = (item or {}).get("payload") or {}
+            if not item or (payload.get("point_type") == "mobile") != wants_mobile:
+                continue
+            if zone_id and payload.get("zone_ref") not in {None, zone_id}:
+                continue
+            raw_location = payload.get("location") or {}
+            location = (
+                {
+                    "latitude": raw_location["latitude"],
+                    "longitude": raw_location["longitude"],
+                    "method": raw_location.get("method") or "unknown",
+                    "accuracy_m": raw_location.get("accuracy_m"),
+                }
+                if raw_location.get("latitude") is not None
+                and raw_location.get("longitude") is not None
+                else None
+            )
+            distance = None
+            if latitude is not None and location:
+                distance = _distance_km(
+                    latitude, longitude,
+                    location["latitude"], location["longitude"],
+                )
+            accepted = payload.get("accepted_streams", [])
+            compatibility = self._service_compatibility(
+                concept, source_destination, accepted, payload.get("access_notes_raw"),
+            )
+            if any("materiali indicati nella scheda" in normalize_term(value) for value in accepted):
+                compatibility = "acceptance_not_published"
+            services.append({
+                "id": row["entity_id"],
+                "channel_id": channel["channel_id"],
+                "service_type": "collection_point",
+                "zone_id": payload.get("zone_ref"),
+                "name": payload.get("name"),
+                "address": payload.get("address_raw"),
+                "location": location,
+                "distance_km": round(distance, 2) if distance is not None else None,
+                "point_type": payload.get("point_type"),
+                "accepted_waste": accepted,
+                "compatibility": compatibility,
+                "schedule_raw": payload.get("opening_hours_raw"),
+                "access_summary": payload.get("access_notes_raw"),
+                "access_credential": payload.get("access_credential"),
+                "booking_required": None,
+                "booking_methods": [],
+                "max_items": None,
+                "quantity_limit": None,
+                "instructions": None,
+            })
+            sources.extend(item.get("sources", []))
+        return services, sources
+
+    @staticmethod
+    def _service_compatibility(
+        concept: dict[str, Any],
+        source_destination: str,
+        accepted_values: list[str],
+        details: str | None,
+    ) -> str:
+        if not accepted_values:
+            return "acceptance_not_published"
+        accepted_text = normalize_term(" ".join(accepted_values))
+        detail_text = normalize_term(details or "")
+        terms = {
+            normalize_term(term) for term in [
+                concept.get("preferred_label", ""), *concept.get("terms", []),
+            ] if len(normalize_term(term)) >= 5
+        }
+        if any(
+            f" {term} " in f" {accepted_text} {detail_text} " for term in terms
+        ):
+            return "verified_description"
+        generic_words = {
+            "centro", "conferimento", "domicilio", "domiciliare", "ecocentro",
+            "ecofurgone", "ecomobile", "ecologica", "raccolta", "ritiro",
+            "servizio", "stazione", "appuntamento",
+        }
+        destination_words = {
+            word for word in normalize_term(source_destination).split()
+            if len(word) >= 5 and word not in generic_words
+        }
+        accepted_words = set(accepted_text.split())
+        if destination_words & accepted_words:
+            return "verified_description"
+        return "not_verified"
 
     def _set_provenance(self, answer: dict[str, Any], sources: list[dict[str, Any]]) -> None:
         summarized = []

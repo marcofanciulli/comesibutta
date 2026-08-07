@@ -38,8 +38,12 @@ come gia previsto per le modifiche dello storage locale.
    contenitore, colore, modalita, sacchetto e istruzioni.
 10. Per il canale centro usa soltanto accessi pubblicati e verifica
     l'accettazione tramite EER o descrizione.
-11. Se regole di zone diverse producono risposte differenti chiede la zona.
-12. Restituisce fonti, data di verifica e revisione del dataset.
+11. Collega ritiri e punti territoriali, mantenendo distinta l'esistenza del
+    servizio dalla compatibilita col rifiuto.
+12. Conserva riuso, rivenditore e operatore specializzato come indicazioni
+    sorgente finche non esiste un servizio acquisito.
+13. Se regole di zone diverse producono risposte differenti chiede la zona.
+14. Restituisce fonti, data di verifica e revisione del dataset.
 
 Gli stati sono:
 
@@ -115,12 +119,18 @@ orari. Senza GPS piu centri equivalenti restano in `facility_alternatives`;
 con il GPS il piu vicino tra quelli compatibili e non chiusi diventa
 `facility`. La politica completa e descritta in `docs/facility-resolution.md`.
 
+Ritiri e punti vengono restituiti in `channel_services`, con prenotazione,
+limiti, istruzioni, posizione e stato di compatibilita. I canali privi di un
+servizio dimostrabile entrano in `unresolved_channels`; la loro formulazione
+originale non viene persa. La politica e descritta in
+`docs/channel-services.md`.
+
 Il primo livello risolve destinazioni e preparazione quando i due fatti sono
 collegabili. Restano da completare:
 
 - estensione progressiva del registro oltre i primi gruppi approvati;
-- collegamento dei canali ai servizi mobili, di ritiro, riuso e rivenditore;
 - pulizia conservativa dei testi di accesso che includono parti redazionali;
+- acquisizione delle schede materiali richiamate dai punti mobili AliaEstra;
 - vicinanza geografica, orari, stato del servizio e procedura di accesso;
 - arricchimento delle regole di preparazione non pubblicate in forma
   strutturata dai gestori.

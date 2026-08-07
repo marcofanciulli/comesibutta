@@ -74,6 +74,9 @@ La risposta deve poter indicare:
 22. Un centro viene proposto soltanto con accesso esplicito e accettazione
     verificata per EER o descrizione. GPS e distanza ordinano candidati gia
     validi, ma non possono colmare l'assenza di queste relazioni.
+23. Esistenza e compatibilita di un servizio sono fatti distinti. Ritiri e
+    punti non verificati restano visibili con avviso; riuso, rivenditore e
+    operatore specializzato restano canali sorgente senza entita inventate.
 
 ## Artefatti persistenti
 
@@ -84,6 +87,8 @@ La risposta deve poter indicare:
 - `docs/eer-register.md`: fonti, importazione e validazione del registro EER.
 - `docs/facility-resolution.md`: selezione, accesso, accettazione e distanza
   dei centri di raccolta.
+- `docs/channel-services.md`: risoluzione di ritiri e punti, compatibilita e
+  canali disponibili soltanto come testo sorgente.
 - `schemas/`: schemi JSON dell'acquisizione e della risposta applicativa.
 - `src/dovelobutto/`: estrattore riproducibile e interfaccia a riga di comando.
 - `tests/fixtures/`: copie immutabili delle porzioni rilevanti delle fonti HTML.
@@ -354,7 +359,7 @@ Registro UE dei materiali e riconoscimento visivo:
   sintetica la soglia 0,4 ottiene F1 0,500, precisione 0,571 e recall 0,444;
 - checkpoint locale da 15,4 MB, report riproducibili e anteprima delle
   predizioni prodotti; il modello e marcato esplicitamente non distribuibile;
-- 138 test automatici superati.
+- 141 test automatici superati.
 
 Ricerca e risposta applicativa:
 
@@ -414,6 +419,20 @@ Risoluzione dei centri:
 - struttura, accesso, accettazione e orari contribuiscono tutti alla
   provenienza della risposta.
 
+Risoluzione degli altri canali:
+
+- collegati 294 servizi di ritiro in 247 comuni e 758 punti in 123 comuni, dei
+  quali 137 mobili;
+- ritiri e punti espongono prenotazione, limiti, istruzioni, orari, posizione e
+  distanza quando disponibili;
+- compatibilita verificata, elenco non pubblicato e servizio non verificato
+  sono stati distinti e producono avvisi diversi;
+- `Armadio` a Firenze collega il ritiro OnDemand; `Accessori cellulari`
+  restituisce 18 ecofurgoni ordinati per distanza, senza inventarne i materiali;
+- riuso per `Assi da stiro`, uno-contro-uno per `Asciugacapelli` e operatore
+  specializzato per `Bitumi` restano indicazioni `source_only` citabili;
+- tutti i fatti di servizio utilizzati entrano nella provenienza della risposta.
+
 ## Limiti e questioni aperte
 
 - Le pagine di ritiro ingombranti non sono collegate dall'indice generale e
@@ -421,8 +440,10 @@ Risoluzione dei centri:
 - L'acquisizione PDF e iniziata con AAMPS, ma guide e calendari delle altre SOL
   non sono ancora generalizzati nella pipeline.
 - Manca il livello canonico in PostgreSQL/PostGIS e la coda di revisione umana.
-- alcuni requisiti di accesso Alia includono parti redazionali della pagina e
+- Alcuni requisiti di accesso Alia includono parti redazionali della pagina e
   richiedono una pulizia conservativa senza perdita dell'evidenza originale;
+- I punti mobili Alia rinviano alle schede dei materiali, non ancora acquisite,
+  e non possono quindi confermare i singoli rifiuti;
 - Il repository Git e inizializzato e collegato al remoto GitHub del progetto;
   snapshot e stato live restano esclusi per dimensione e variabilita.
 - La scansione live usa il contatto autorizzato `marcofanciulli@me.com` nello
@@ -434,8 +455,8 @@ Risoluzione dei centri:
 2. Acquisire i dettagli dei centri ESA e cercare una guida AAMPS piu recente.
 3. Modellare l'accesso intergestore Montignoso-ERSU e approfondire i centri non
    pubblicati o non attribuiti esplicitamente dalle fonti.
-4. Collegare gli altri canali ai servizi mobili, di ritiro, riuso e rivenditore
-   pubblicati per il comune, mantenendo condizioni e procedure.
+4. Acquisire le schede dei materiali dei punti mobili AliaEstra e riconciliare
+   i servizi oggi marcati `acceptance_not_published`.
 5. Estendere il registro alle formule ancora prive di flusso o canale solo dopo
    revisione delle relative evidenze territoriali.
 6. Ripulire i testi di accesso estratti da pagine con contenuto redazionale,
