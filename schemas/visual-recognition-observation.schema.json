@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dovelobutto.example/schemas/visual-recognition-observation.schema.json",
+  "title": "On-device packaging mark recognition observation",
+  "type": "object",
+  "required": ["version", "observation_id", "observed_at", "model", "input", "detections", "image_retention"],
+  "properties": {
+    "version": { "const": 1 },
+    "observation_id": { "type": "string", "minLength": 1 },
+    "observed_at": { "type": "string", "format": "date-time" },
+    "model": { "$ref": "#/$defs/model" },
+    "input": { "$ref": "#/$defs/input" },
+    "detections": { "type": "array", "items": { "$ref": "#/$defs/detection" } },
+    "image_retention": { "const": "not_retained" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "model": {
+      "type": "object",
+      "required": ["model_id", "model_version", "taxonomy_version", "runtime", "artifact_sha256"],
+      "properties": {
+        "model_id": { "type": "string" },
+        "model_version": { "type": "string" },
+        "taxonomy_version": { "type": "string" },
+        "runtime": { "enum": ["coreml", "litert"] },
+        "artifact_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      },
+      "additionalProperties": false
+    },
+    "input": {
+      "type": "object",
+      "required": ["width", "height", "rotation_degrees"],
+      "properties": {
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 },
+        "rotation_degrees": { "enum": [0, 90, 180, 270] }
+      },
+      "additionalProperties": false
+    },
+    "box": {
+      "type": "object",
+      "required": ["x_min", "y_min", "x_max", "y_max"],
+      "properties": {
+        "x_min": { "type": "number", "minimum": 0, "maximum": 1 },
+        "y_min": { "type": "number", "minimum": 0, "maximum": 1 },
+        "x_max": { "type": "number", "minimum": 0, "maximum": 1 },
+        "y_max": { "type": "number", "minimum": 0, "maximum": 1 }
+      },
+      "additionalProperties": false
+    },
+    "ocrCandidate": {
+      "type": "object",
+      "required": ["text", "confidence"],
+      "properties": {
+        "text": { "type": "string" },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+      },
+      "additionalProperties": false
+    },
+    "detection": {
+      "type": "object",
+      "required": [
+        "detection_id", "mark_family", "bounding_box", "detector_confidence",
+        "ocr_candidates", "resolved_mark_ref", "resolution_status", "confirmation_required"
+      ],
+      "properties": {
+        "detection_id": { "type": "string" },
+        "mark_family": {
+          "enum": [
+            "material_identification", "collection_instruction", "regulated_product",
+            "environmental_claim", "certification_or_scheme", "unknown_mark"
+          ]
+        },
+        "bounding_box": { "$ref": "#/$defs/box" },
+        "detector_confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "ocr_candidates": { "type": "array", "items": { "$ref": "#/$defs/ocrCandidate" } },
+        "resolved_mark_ref": { "type": ["string", "null"] },
+        "resolution_status": { "enum": ["resolved", "ambiguous", "unresolved"] },
+        "confirmation_required": { "type": "boolean" },
+        "component_hint": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    }
+  }
+}

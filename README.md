@@ -32,6 +32,10 @@ verificati e un esploratore locale.
   scelta del percorso minimo e applicazione atomica degli aggiornamenti.
 - `docs/eer-register.md`: importazione normativa, validita e controllo dei
   codici EER pubblicati dai centri.
+- `docs/packaging-material-register.md`: registro europeo dei materiali di
+  imballaggio e relativa provenienza normativa.
+- `docs/visual-recognition.md`: pipeline unificata PyTorch, Core ML e LiteRT
+  per il riconoscimento sul dispositivo.
 - `schemas/acquisition-record.schema.json`: formato JSON Lines prodotto dagli
   estrattori.
 - `schemas/disposal-answer.schema.json`: contratto della risposta letta
@@ -40,6 +44,11 @@ verificati e un esploratore locale.
   `schemas/data-update-package.schema.json`: protocollo di distribuzione dei
   dati indipendente dalle versioni dell'app.
 - `schemas/eer-register.schema.json`: gerarchia e voci ufficiali EER.
+- `schemas/packaging-material-register.schema.json`: codici europei dei
+  materiali di imballaggio, inclusi gli slot non assegnati.
+- `schemas/vision-model-contract.schema.json` e
+  `schemas/visual-recognition-observation.schema.json`: contratto del modello
+  e risultato del riconoscimento fotografico.
 - `examples/`: esempi illustrativi basati sulle pagine SEI Toscana di Manciano.
 - `explorer/`: interfaccia locale per controllare comuni, centri, codici EER,
   regole, punti di raccolta, fonti e anomalie.
@@ -129,6 +138,20 @@ Il collaudo locale sui quattro comuni completi ha visitato 12 pagine e prodotto
 come invariate senza creare nuovi snapshot.
 
 ## Esploratore dati
+
+Il registro dei materiali di imballaggio viene costruito separatamente dalle
+regole locali, conservando anche i numeri che la norma non ha assegnato:
+
+```sh
+PYTHONPATH=src python3 -m dovelobutto.cli build-packaging-material-register \
+  --transcription-csv data/sources/packaging-marks/31997D0129-it.csv \
+  --source-pdf data/sources/packaging-marks/31997D0129-it.pdf \
+  --source-html data/sources/packaging-marks/31997D0129-it.html \
+  --extracted-text data/sources/packaging-marks/31997D0129-it.txt \
+  --generated-at 2026-08-07T18:00:00+02:00 \
+  --output outputs/packaging-material-register.json \
+  --report outputs/packaging-material-register-report.json
+```
 
 Il catalogo regionale viene prima generato dai rifiutari acquisiti:
 

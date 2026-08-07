@@ -101,11 +101,16 @@ operano attraverso piu societa locali.
 | `condition` | Vuoto, contaminato, rotto, contenente residui ecc. |
 | `decision_question` | Domanda necessaria per risolvere un'ambiguita |
 | `eer_entry` | Voce ufficiale dell'Elenco europeo dei rifiuti |
+| `packaging_material_mark` | Codice UE che identifica il materiale di un imballaggio |
 
 `eer_entry` contiene codice a sei cifre, titolo ufficiale, flag di
 pericolosita, capitolo, sottocapitolo e riferimenti espansi ad altre voci. La
 sigla CER puo essere mostrata nell'interfaccia perche ancora molto usata; il
 modello usa `eer` come nome tecnico.
+
+`packaging_material_mark` descrive la composizione dichiarata dell'imballaggio,
+non la sua destinazione. Il collegamento al cassonetto e alle istruzioni passa
+sempre da una `collection_rule` valida per il territorio e il periodo.
 
 ### Servizi e conferimento
 

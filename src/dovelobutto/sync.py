@@ -133,6 +133,7 @@ def _reference_candidates(entity: CanonicalEntity) -> set[tuple[str, str]]:
 def load_canonical_entities(
     input_dirs: list[Path], registry_paths: list[Path],
     catalog_path: Path | None = None, eer_register_path: Path | None = None,
+    packaging_material_register_path: Path | None = None,
 ) -> dict[tuple[str, str], CanonicalEntity]:
     acquisition_paths = [
         path for directory in input_dirs
@@ -151,6 +152,14 @@ def load_canonical_entities(
         entities.extend(
             CanonicalEntity("waste_concept", concept["concept_id"], concept)
             for concept in catalog.get("concepts", [])
+        )
+    if packaging_material_register_path:
+        packaging_register = json.loads(
+            packaging_material_register_path.read_text(encoding="utf-8")
+        )
+        entities.extend(
+            CanonicalEntity("packaging_material_mark", entry["mark_id"], entry)
+            for entry in packaging_register.get("entries", [])
         )
     indexed = {(entity.entity_type, entity.entity_id): entity for entity in entities}
     if len(indexed) != len(entities):

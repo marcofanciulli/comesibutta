@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "model_id": "packaging-mark-detector",
+  "model_version": "0.1.0",
+  "taxonomy_version": "eu-packaging-marks-1.0.0",
+  "source": "pytorch",
+  "input": {
+    "width": 640,
+    "height": 640,
+    "color_space": "RGB",
+    "value_range": "0_1",
+    "tensor_layout": "NCHW"
+  },
+  "output": {
+    "boxes": "boxes",
+    "scores": "scores",
+    "classes": "classes",
+    "box_format": "xyxy",
+    "coordinates": "normalized"
+  },
+  "thresholds": {
+    "accepted": 0.85,
+    "confirmation_required": 0.55,
+    "nms_iou": 0.5
+  },
+  "artifacts": [
+    {
+      "runtime": "coreml",
+      "format": "mlpackage",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "runtime": "litert",
+      "format": "tflite",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  ]
+}

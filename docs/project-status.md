@@ -58,6 +58,10 @@ La risposta deve poter indicare:
     distribuito indicando `valid_from` senza essere presentato come gia attivo.
 16. Il registro EER importa la decisione 2025/934 e la rettifica ufficiale. La
     nuova edizione e futura e si applica dal 9 dicembre 2026.
+17. I codici UE degli imballaggi identificano il materiale, non la destinazione
+    locale: non implicano mai cassonetto, sacchetto o preparazione.
+18. Il riconoscimento visivo usa un checkpoint PyTorch autorevole ed esporta
+    artefatti Core ML e LiteRT verificati sullo stesso corpus.
 
 ## Artefatti persistenti
 
@@ -296,6 +300,23 @@ SQLite canonico e sincronizzazione remota:
   esplicita di ricostruzione dallo snapshot;
 - 91 test automatici superati.
 
+Registro UE dei materiali e riconoscimento visivo:
+
+- importati PDF e HTML ufficiali della Decisione 97/129/CE, testo estratto e
+  trascrizione controllata, tutti identificati tramite SHA-256;
+- materializzati tutti i 99 slot normativi: 31 assegnati e 68 non assegnati,
+  ripartiti nelle sette famiglie ufficiali;
+- i 13 codici per materiali composti conservano la regola `C/` seguita
+  dall'abbreviazione del materiale predominante, senza sigle inventate;
+- nessuna destinazione di conferimento e dedotta dal codice del materiale;
+- aggiunti i contratti JSON del registro, del modello e delle osservazioni
+  fotografiche, con immagini non conservate per impostazione predefinita;
+- documentata la pipeline condivisa PyTorch verso Core ML e LiteRT e la futura
+  transizione alle etichette armonizzate previste dal Regolamento 2025/40;
+- il registro aggiunge 99 entita `packaging_material_mark` alle pubblicazioni
+  canoniche che lo includono;
+- 98 test automatici superati.
+
 ## Limiti e questioni aperte
 
 - Le pagine di ritiro ingombranti non sono collegate dall'indice generale e
@@ -318,6 +339,8 @@ SQLite canonico e sincronizzazione remota:
    esporre i dettagli della rappresentazione SQLite.
 5. Aggiungere consolidati settimanali, mensili e annuali con conservazione e
    compattazione automatica nella finestra incrementale di cinque anni.
+6. Costruire il corpus visivo licenziato, definire le linee guida di annotazione
+   e preparare il primo modello di rilevamento condiviso.
 
 ## Regola di continuita
 

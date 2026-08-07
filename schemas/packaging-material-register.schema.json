@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dovelobutto.example/schemas/packaging-material-register.schema.json",
+  "title": "EU packaging material identification register",
+  "type": "object",
+  "required": ["version", "register_id", "language", "generated_at", "scheme", "sources", "entries"],
+  "properties": {
+    "version": { "const": 1 },
+    "register_id": { "const": "packaging-materials:eu:97-129-ec" },
+    "language": { "const": "it" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "scheme": { "$ref": "#/$defs/scheme" },
+    "sources": {
+      "type": "array",
+      "minItems": 4,
+      "items": { "$ref": "#/$defs/source" }
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 99,
+      "maxItems": 99,
+      "items": { "$ref": "#/$defs/entry" }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "scheme": {
+      "type": "object",
+      "required": [
+        "name", "legal_basis", "celex", "document_date", "publication_date",
+        "use_at_source", "visual_specification", "scope"
+      ],
+      "properties": {
+        "name": { "type": "string" },
+        "legal_basis": { "const": "Decisione 97/129/CE" },
+        "celex": { "const": "31997D0129" },
+        "document_date": { "const": "1997-01-28" },
+        "publication_date": { "const": "1997-02-20" },
+        "use_at_source": { "const": "voluntary" },
+        "visual_specification": { "const": "not_defined" },
+        "scope": { "const": "material_identification" }
+      },
+      "additionalProperties": false
+    },
+    "source": {
+      "type": "object",
+      "required": ["role", "celex", "url", "file", "sha256"],
+      "properties": {
+        "role": {
+          "enum": [
+            "official_pdf", "official_html", "pdftotext_layout_transcription",
+            "checked_machine_readable_transcription"
+          ]
+        },
+        "celex": { "const": "31997D0129" },
+        "url": { "type": "string", "format": "uri" },
+        "file": { "type": "string" },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      },
+      "additionalProperties": false
+    },
+    "entry": {
+      "type": "object",
+      "required": [
+        "mark_id", "numeric_code", "material_family", "assignment_status",
+        "material_name", "abbreviation", "abbreviation_rule", "composition",
+        "predominant_family", "display_code", "recognition_tokens", "disposal_semantics"
+      ],
+      "properties": {
+        "mark_id": { "type": "string", "pattern": "^packaging-material:eu-97-129:[1-9][0-9]?$" },
+        "numeric_code": { "type": "integer", "minimum": 1, "maximum": 99 },
+        "material_family": {
+          "enum": ["plastic", "paper_cardboard", "metal", "wood", "textile", "glass", "composite"]
+        },
+        "assignment_status": { "enum": ["assigned", "unassigned"] },
+        "material_name": { "type": ["string", "null"] },
+        "abbreviation": { "type": ["string", "null"] },
+        "abbreviation_rule": {
+          "type": ["string", "null"],
+          "enum": ["C/{predominant_material_abbreviation}", null]
+        },
+        "composition": { "type": "array", "items": { "type": "string" } },
+        "predominant_family": {
+          "type": ["string", "null"],
+          "enum": ["plastic", "paper_cardboard", "glass", null]
+        },
+        "display_code": { "type": "string" },
+        "recognition_tokens": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string" }
+        },
+        "disposal_semantics": { "const": "none" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

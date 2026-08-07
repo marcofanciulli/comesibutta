@@ -1,0 +1,58 @@
+{
+  "assigned_by_family": {
+    "composite": 13,
+    "glass": 3,
+    "metal": 2,
+    "paper_cardboard": 3,
+    "plastic": 6,
+    "textile": 2,
+    "wood": 2
+  },
+  "assigned_codes": 31,
+  "composite_codes": 13,
+  "entries_with_disposal_semantics": 0,
+  "families": {
+    "composite": 20,
+    "glass": 10,
+    "metal": 10,
+    "paper_cardboard": 20,
+    "plastic": 19,
+    "textile": 10,
+    "wood": 10
+  },
+  "generated_at": "2026-08-07T18:00:00+02:00",
+  "numeric_slots": 99,
+  "register_id": "packaging-materials:eu:97-129-ec",
+  "sources": [
+    {
+      "celex": "31997D0129",
+      "file": "data/sources/packaging-marks/31997D0129-it.pdf",
+      "role": "official_pdf",
+      "sha256": "284ef3cb9079129bf76edea2c6574d754a1711464444d75050feb6167101b81d",
+      "url": "https://eur-lex.europa.eu/legal-content/IT/TXT/?uri=CELEX:31997D0129"
+    },
+    {
+      "celex": "31997D0129",
+      "file": "data/sources/packaging-marks/31997D0129-it.html",
+      "role": "official_html",
+      "sha256": "aaad334f2ed67ebbc378eb66114e0de22f8cc695b564cccfcd6b4c6f60edff93",
+      "url": "https://eur-lex.europa.eu/legal-content/IT/TXT/?uri=CELEX:31997D0129"
+    },
+    {
+      "celex": "31997D0129",
+      "file": "data/sources/packaging-marks/31997D0129-it.txt",
+      "role": "pdftotext_layout_transcription",
+      "sha256": "c0578de1b7a61e213e49cfa27b36248078ea30c39129b40e63f3ad274f33b04f",
+      "url": "https://eur-lex.europa.eu/legal-content/IT/TXT/?uri=CELEX:31997D0129"
+    },
+    {
+      "celex": "31997D0129",
+      "file": "data/sources/packaging-marks/31997D0129-it.csv",
+      "role": "checked_machine_readable_transcription",
+      "sha256": "ce8bed60c77347c575babe55feac0fd0a00042449f8960993906d5982301de32",
+      "url": "https://eur-lex.europa.eu/legal-content/IT/TXT/?uri=CELEX:31997D0129"
+    }
+  ],
+  "transcription_labels_verified": 31,
+  "unassigned_codes": 68
+}

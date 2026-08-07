@@ -1,0 +1,32 @@
+numeric_code,material_family,material_name_it,abbreviation,composition_it,predominant_family
+1,plastic,Polietilentereftalato,PET,,
+2,plastic,Polietilene ad alta densita,HDPE,,
+3,plastic,Cloruro di polivinile,PVC,,
+4,plastic,Polietilene a bassa densita,LDPE,,
+5,plastic,Polipropilene,PP,,
+6,plastic,Polistirolo,PS,,
+20,paper_cardboard,Cartone ondulato,PAP,,
+21,paper_cardboard,Cartone non ondulato,PAP,,
+22,paper_cardboard,Carta,PAP,,
+40,metal,Acciaio,FE,,
+41,metal,Alluminio,ALU,,
+50,wood,Legno,FOR,,
+51,wood,Sughero,FOR,,
+60,textile,Cotone,TEX,,
+61,textile,Juta,TEX,,
+70,glass,Vetro incolore,GL,,
+71,glass,Vetro verde,GL,,
+72,glass,Vetro marrone,GL,,
+80,composite,Carta e cartone/metalli vari,,Carta e cartone; metalli vari,paper_cardboard
+81,composite,Carta e cartone/plastica,,Carta e cartone; plastica,paper_cardboard
+82,composite,Carta e cartone/alluminio,,Carta e cartone; alluminio,paper_cardboard
+83,composite,Carta e cartone/latta,,Carta e cartone; latta,paper_cardboard
+84,composite,Carta e cartone/plastica/alluminio,,Carta e cartone; plastica; alluminio,paper_cardboard
+85,composite,Carta e cartone/plastica/alluminio/latta,,Carta e cartone; plastica; alluminio; latta,paper_cardboard
+90,composite,Plastica/alluminio,,Plastica; alluminio,plastic
+91,composite,Plastica/latta,,Plastica; latta,plastic
+92,composite,Plastica/metalli vari,,Plastica; metalli vari,plastic
+95,composite,Vetro/plastica,,Vetro; plastica,glass
+96,composite,Vetro/alluminio,,Vetro; alluminio,glass
+97,composite,Vetro/latta,,Vetro; latta,glass
+98,composite,Vetro/metalli vari,,Vetro; metalli vari,glass

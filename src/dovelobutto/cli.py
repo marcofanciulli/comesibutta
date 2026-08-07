@@ -25,6 +25,7 @@ from .crawl import (
 )
 from .catalog import build_catalog_from_paths, write_catalog
 from .eer import build_eer_register, validate_acquired_eer, write_json
+from .packaging_marks import build_packaging_material_register
 from .ato_costa import (
     MunicipalityContext as CostaMunicipalityContext,
     extract_aamps_waste_lookup,
@@ -316,6 +317,7 @@ def build_parser() -> argparse.ArgumentParser:
     publish.add_argument("--registry", type=Path, action="append", required=True)
     publish.add_argument("--catalog", type=Path)
     publish.add_argument("--eer-register", type=Path)
+    publish.add_argument("--packaging-material-register", type=Path)
     publish.add_argument("--database", type=Path, required=True)
     publish.add_argument("--artifact-dir", type=Path, required=True)
     publish.add_argument("--manifest", type=Path, required=True)
@@ -353,6 +355,17 @@ def build_parser() -> argparse.ArgumentParser:
     eer.add_argument("--generated-at", required=True)
     eer.add_argument("--output", type=Path, required=True)
     eer.add_argument("--report", type=Path, required=True)
+    packaging_marks = subparsers.add_parser(
+        "build-packaging-material-register",
+        help="Build the EU 97/129/EC packaging material identification register",
+    )
+    packaging_marks.add_argument("--transcription-csv", type=Path, required=True)
+    packaging_marks.add_argument("--source-pdf", type=Path, required=True)
+    packaging_marks.add_argument("--source-html", type=Path, required=True)
+    packaging_marks.add_argument("--extracted-text", type=Path, required=True)
+    packaging_marks.add_argument("--generated-at", required=True)
+    packaging_marks.add_argument("--output", type=Path, required=True)
+    packaging_marks.add_argument("--report", type=Path, required=True)
     sweep = subparsers.add_parser(
         "sweep-sei",
         help="Run a resumable and rate-limited sweep from the SEI municipality registry",
@@ -380,6 +393,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "publish-data-release":
         entities = load_canonical_entities(
             args.input_dir, args.registry, args.catalog, args.eer_register,
+            args.packaging_material_register,
         )
         report = publish_release(
             entities, args.database, args.artifact_dir, args.manifest,
@@ -562,6 +576,17 @@ def main(argv: list[str] | None = None) -> int:
             report["acquired_validation"] = validate_acquired_eer(
                 register, args.input_dir
             )
+        write_json(args.output, register)
+        write_json(args.report, report)
+        return 0
+    if args.command == "build-packaging-material-register":
+        register, report = build_packaging_material_register(
+            args.transcription_csv,
+            args.source_pdf,
+            args.source_html,
+            args.extracted_text,
+            datetime.fromisoformat(args.generated_at),
+        )
         write_json(args.output, register)
         write_json(args.report, report)
         return 0

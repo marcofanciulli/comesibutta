@@ -1,0 +1,1705 @@
+{
+  "entries": [
+    {
+      "abbreviation": "PET",
+      "abbreviation_rule": null,
+      "assignment_status": "assigned",
+      "composition": [],
+      "display_code": "PET 1",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:1",
+      "material_family": "plastic",
+      "material_name": "Polietilentereftalato",
+      "numeric_code": 1,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "PET",
+        "1"
+      ]
+    },
+    {
+      "abbreviation": "HDPE",
+      "abbreviation_rule": null,
+      "assignment_status": "assigned",
+      "composition": [],
+      "display_code": "HDPE 2",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:2",
+      "material_family": "plastic",
+      "material_name": "Polietilene ad alta densita",
+      "numeric_code": 2,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "HDPE",
+        "2"
+      ]
+    },
+    {
+      "abbreviation": "PVC",
+      "abbreviation_rule": null,
+      "assignment_status": "assigned",
+      "composition": [],
+      "display_code": "PVC 3",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:3",
+      "material_family": "plastic",
+      "material_name": "Cloruro di polivinile",
+      "numeric_code": 3,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "PVC",
+        "3"
+      ]
+    },
+    {
+      "abbreviation": "LDPE",
+      "abbreviation_rule": null,
+      "assignment_status": "assigned",
+      "composition": [],
+      "display_code": "LDPE 4",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:4",
+      "material_family": "plastic",
+      "material_name": "Polietilene a bassa densita",
+      "numeric_code": 4,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "LDPE",
+        "4"
+      ]
+    },
+    {
+      "abbreviation": "PP",
+      "abbreviation_rule": null,
+      "assignment_status": "assigned",
+      "composition": [],
+      "display_code": "PP 5",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:5",
+      "material_family": "plastic",
+      "material_name": "Polipropilene",
+      "numeric_code": 5,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "PP",
+        "5"
+      ]
+    },
+    {
+      "abbreviation": "PS",
+      "abbreviation_rule": null,
+      "assignment_status": "assigned",
+      "composition": [],
+      "display_code": "PS 6",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:6",
+      "material_family": "plastic",
+      "material_name": "Polistirolo",
+      "numeric_code": 6,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "PS",
+        "6"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "7",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:7",
+      "material_family": "plastic",
+      "material_name": null,
+      "numeric_code": 7,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "7"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "8",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:8",
+      "material_family": "plastic",
+      "material_name": null,
+      "numeric_code": 8,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "8"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "9",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:9",
+      "material_family": "plastic",
+      "material_name": null,
+      "numeric_code": 9,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "9"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "10",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:10",
+      "material_family": "plastic",
+      "material_name": null,
+      "numeric_code": 10,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "10"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "11",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:11",
+      "material_family": "plastic",
+      "material_name": null,
+      "numeric_code": 11,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "11"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "12",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:12",
+      "material_family": "plastic",
+      "material_name": null,
+      "numeric_code": 12,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "12"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "13",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:13",
+      "material_family": "plastic",
+      "material_name": null,
+      "numeric_code": 13,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "13"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "14",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:14",
+      "material_family": "plastic",
+      "material_name": null,
+      "numeric_code": 14,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "14"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "15",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:15",
+      "material_family": "plastic",
+      "material_name": null,
+      "numeric_code": 15,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "15"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "16",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:16",
+      "material_family": "plastic",
+      "material_name": null,
+      "numeric_code": 16,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "16"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "17",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:17",
+      "material_family": "plastic",
+      "material_name": null,
+      "numeric_code": 17,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "17"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "18",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:18",
+      "material_family": "plastic",
+      "material_name": null,
+      "numeric_code": 18,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "18"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "19",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:19",
+      "material_family": "plastic",
+      "material_name": null,
+      "numeric_code": 19,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "19"
+      ]
+    },
+    {
+      "abbreviation": "PAP",
+      "abbreviation_rule": null,
+      "assignment_status": "assigned",
+      "composition": [],
+      "display_code": "PAP 20",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:20",
+      "material_family": "paper_cardboard",
+      "material_name": "Cartone ondulato",
+      "numeric_code": 20,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "PAP",
+        "20"
+      ]
+    },
+    {
+      "abbreviation": "PAP",
+      "abbreviation_rule": null,
+      "assignment_status": "assigned",
+      "composition": [],
+      "display_code": "PAP 21",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:21",
+      "material_family": "paper_cardboard",
+      "material_name": "Cartone non ondulato",
+      "numeric_code": 21,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "PAP",
+        "21"
+      ]
+    },
+    {
+      "abbreviation": "PAP",
+      "abbreviation_rule": null,
+      "assignment_status": "assigned",
+      "composition": [],
+      "display_code": "PAP 22",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:22",
+      "material_family": "paper_cardboard",
+      "material_name": "Carta",
+      "numeric_code": 22,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "PAP",
+        "22"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "23",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:23",
+      "material_family": "paper_cardboard",
+      "material_name": null,
+      "numeric_code": 23,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "23"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "24",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:24",
+      "material_family": "paper_cardboard",
+      "material_name": null,
+      "numeric_code": 24,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "24"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "25",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:25",
+      "material_family": "paper_cardboard",
+      "material_name": null,
+      "numeric_code": 25,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "25"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "26",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:26",
+      "material_family": "paper_cardboard",
+      "material_name": null,
+      "numeric_code": 26,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "26"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "27",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:27",
+      "material_family": "paper_cardboard",
+      "material_name": null,
+      "numeric_code": 27,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "27"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "28",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:28",
+      "material_family": "paper_cardboard",
+      "material_name": null,
+      "numeric_code": 28,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "28"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "29",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:29",
+      "material_family": "paper_cardboard",
+      "material_name": null,
+      "numeric_code": 29,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "29"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "30",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:30",
+      "material_family": "paper_cardboard",
+      "material_name": null,
+      "numeric_code": 30,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "30"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "31",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:31",
+      "material_family": "paper_cardboard",
+      "material_name": null,
+      "numeric_code": 31,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "31"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "32",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:32",
+      "material_family": "paper_cardboard",
+      "material_name": null,
+      "numeric_code": 32,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "32"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "33",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:33",
+      "material_family": "paper_cardboard",
+      "material_name": null,
+      "numeric_code": 33,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "33"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "34",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:34",
+      "material_family": "paper_cardboard",
+      "material_name": null,
+      "numeric_code": 34,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "34"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "35",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:35",
+      "material_family": "paper_cardboard",
+      "material_name": null,
+      "numeric_code": 35,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "35"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "36",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:36",
+      "material_family": "paper_cardboard",
+      "material_name": null,
+      "numeric_code": 36,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "36"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "37",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:37",
+      "material_family": "paper_cardboard",
+      "material_name": null,
+      "numeric_code": 37,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "37"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "38",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:38",
+      "material_family": "paper_cardboard",
+      "material_name": null,
+      "numeric_code": 38,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "38"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "39",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:39",
+      "material_family": "paper_cardboard",
+      "material_name": null,
+      "numeric_code": 39,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "39"
+      ]
+    },
+    {
+      "abbreviation": "FE",
+      "abbreviation_rule": null,
+      "assignment_status": "assigned",
+      "composition": [],
+      "display_code": "FE 40",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:40",
+      "material_family": "metal",
+      "material_name": "Acciaio",
+      "numeric_code": 40,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "FE",
+        "40"
+      ]
+    },
+    {
+      "abbreviation": "ALU",
+      "abbreviation_rule": null,
+      "assignment_status": "assigned",
+      "composition": [],
+      "display_code": "ALU 41",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:41",
+      "material_family": "metal",
+      "material_name": "Alluminio",
+      "numeric_code": 41,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "ALU",
+        "41"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "42",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:42",
+      "material_family": "metal",
+      "material_name": null,
+      "numeric_code": 42,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "42"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "43",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:43",
+      "material_family": "metal",
+      "material_name": null,
+      "numeric_code": 43,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "43"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "44",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:44",
+      "material_family": "metal",
+      "material_name": null,
+      "numeric_code": 44,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "44"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "45",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:45",
+      "material_family": "metal",
+      "material_name": null,
+      "numeric_code": 45,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "45"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "46",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:46",
+      "material_family": "metal",
+      "material_name": null,
+      "numeric_code": 46,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "46"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "47",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:47",
+      "material_family": "metal",
+      "material_name": null,
+      "numeric_code": 47,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "47"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "48",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:48",
+      "material_family": "metal",
+      "material_name": null,
+      "numeric_code": 48,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "48"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "49",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:49",
+      "material_family": "metal",
+      "material_name": null,
+      "numeric_code": 49,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "49"
+      ]
+    },
+    {
+      "abbreviation": "FOR",
+      "abbreviation_rule": null,
+      "assignment_status": "assigned",
+      "composition": [],
+      "display_code": "FOR 50",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:50",
+      "material_family": "wood",
+      "material_name": "Legno",
+      "numeric_code": 50,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "FOR",
+        "50"
+      ]
+    },
+    {
+      "abbreviation": "FOR",
+      "abbreviation_rule": null,
+      "assignment_status": "assigned",
+      "composition": [],
+      "display_code": "FOR 51",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:51",
+      "material_family": "wood",
+      "material_name": "Sughero",
+      "numeric_code": 51,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "FOR",
+        "51"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "52",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:52",
+      "material_family": "wood",
+      "material_name": null,
+      "numeric_code": 52,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "52"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "53",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:53",
+      "material_family": "wood",
+      "material_name": null,
+      "numeric_code": 53,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "53"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "54",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:54",
+      "material_family": "wood",
+      "material_name": null,
+      "numeric_code": 54,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "54"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "55",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:55",
+      "material_family": "wood",
+      "material_name": null,
+      "numeric_code": 55,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "55"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "56",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:56",
+      "material_family": "wood",
+      "material_name": null,
+      "numeric_code": 56,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "56"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "57",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:57",
+      "material_family": "wood",
+      "material_name": null,
+      "numeric_code": 57,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "57"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "58",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:58",
+      "material_family": "wood",
+      "material_name": null,
+      "numeric_code": 58,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "58"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "59",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:59",
+      "material_family": "wood",
+      "material_name": null,
+      "numeric_code": 59,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "59"
+      ]
+    },
+    {
+      "abbreviation": "TEX",
+      "abbreviation_rule": null,
+      "assignment_status": "assigned",
+      "composition": [],
+      "display_code": "TEX 60",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:60",
+      "material_family": "textile",
+      "material_name": "Cotone",
+      "numeric_code": 60,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "TEX",
+        "60"
+      ]
+    },
+    {
+      "abbreviation": "TEX",
+      "abbreviation_rule": null,
+      "assignment_status": "assigned",
+      "composition": [],
+      "display_code": "TEX 61",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:61",
+      "material_family": "textile",
+      "material_name": "Juta",
+      "numeric_code": 61,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "TEX",
+        "61"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "62",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:62",
+      "material_family": "textile",
+      "material_name": null,
+      "numeric_code": 62,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "62"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "63",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:63",
+      "material_family": "textile",
+      "material_name": null,
+      "numeric_code": 63,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "63"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "64",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:64",
+      "material_family": "textile",
+      "material_name": null,
+      "numeric_code": 64,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "64"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "65",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:65",
+      "material_family": "textile",
+      "material_name": null,
+      "numeric_code": 65,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "65"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "66",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:66",
+      "material_family": "textile",
+      "material_name": null,
+      "numeric_code": 66,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "66"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "67",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:67",
+      "material_family": "textile",
+      "material_name": null,
+      "numeric_code": 67,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "67"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "68",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:68",
+      "material_family": "textile",
+      "material_name": null,
+      "numeric_code": 68,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "68"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "69",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:69",
+      "material_family": "textile",
+      "material_name": null,
+      "numeric_code": 69,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "69"
+      ]
+    },
+    {
+      "abbreviation": "GL",
+      "abbreviation_rule": null,
+      "assignment_status": "assigned",
+      "composition": [],
+      "display_code": "GL 70",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:70",
+      "material_family": "glass",
+      "material_name": "Vetro incolore",
+      "numeric_code": 70,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "GL",
+        "70"
+      ]
+    },
+    {
+      "abbreviation": "GL",
+      "abbreviation_rule": null,
+      "assignment_status": "assigned",
+      "composition": [],
+      "display_code": "GL 71",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:71",
+      "material_family": "glass",
+      "material_name": "Vetro verde",
+      "numeric_code": 71,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "GL",
+        "71"
+      ]
+    },
+    {
+      "abbreviation": "GL",
+      "abbreviation_rule": null,
+      "assignment_status": "assigned",
+      "composition": [],
+      "display_code": "GL 72",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:72",
+      "material_family": "glass",
+      "material_name": "Vetro marrone",
+      "numeric_code": 72,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "GL",
+        "72"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "73",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:73",
+      "material_family": "glass",
+      "material_name": null,
+      "numeric_code": 73,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "73"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "74",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:74",
+      "material_family": "glass",
+      "material_name": null,
+      "numeric_code": 74,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "74"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "75",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:75",
+      "material_family": "glass",
+      "material_name": null,
+      "numeric_code": 75,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "75"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "76",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:76",
+      "material_family": "glass",
+      "material_name": null,
+      "numeric_code": 76,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "76"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "77",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:77",
+      "material_family": "glass",
+      "material_name": null,
+      "numeric_code": 77,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "77"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "78",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:78",
+      "material_family": "glass",
+      "material_name": null,
+      "numeric_code": 78,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "78"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "79",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:79",
+      "material_family": "glass",
+      "material_name": null,
+      "numeric_code": 79,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "79"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": "C/{predominant_material_abbreviation}",
+      "assignment_status": "assigned",
+      "composition": [
+        "Carta e cartone",
+        "metalli vari"
+      ],
+      "display_code": "C/{materiale predominante} 80",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:80",
+      "material_family": "composite",
+      "material_name": "Carta e cartone/metalli vari",
+      "numeric_code": 80,
+      "predominant_family": "paper_cardboard",
+      "recognition_tokens": [
+        "C/",
+        "80"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": "C/{predominant_material_abbreviation}",
+      "assignment_status": "assigned",
+      "composition": [
+        "Carta e cartone",
+        "plastica"
+      ],
+      "display_code": "C/{materiale predominante} 81",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:81",
+      "material_family": "composite",
+      "material_name": "Carta e cartone/plastica",
+      "numeric_code": 81,
+      "predominant_family": "paper_cardboard",
+      "recognition_tokens": [
+        "C/",
+        "81"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": "C/{predominant_material_abbreviation}",
+      "assignment_status": "assigned",
+      "composition": [
+        "Carta e cartone",
+        "alluminio"
+      ],
+      "display_code": "C/{materiale predominante} 82",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:82",
+      "material_family": "composite",
+      "material_name": "Carta e cartone/alluminio",
+      "numeric_code": 82,
+      "predominant_family": "paper_cardboard",
+      "recognition_tokens": [
+        "C/",
+        "82"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": "C/{predominant_material_abbreviation}",
+      "assignment_status": "assigned",
+      "composition": [
+        "Carta e cartone",
+        "latta"
+      ],
+      "display_code": "C/{materiale predominante} 83",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:83",
+      "material_family": "composite",
+      "material_name": "Carta e cartone/latta",
+      "numeric_code": 83,
+      "predominant_family": "paper_cardboard",
+      "recognition_tokens": [
+        "C/",
+        "83"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": "C/{predominant_material_abbreviation}",
+      "assignment_status": "assigned",
+      "composition": [
+        "Carta e cartone",
+        "plastica",
+        "alluminio"
+      ],
+      "display_code": "C/{materiale predominante} 84",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:84",
+      "material_family": "composite",
+      "material_name": "Carta e cartone/plastica/alluminio",
+      "numeric_code": 84,
+      "predominant_family": "paper_cardboard",
+      "recognition_tokens": [
+        "C/",
+        "84"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": "C/{predominant_material_abbreviation}",
+      "assignment_status": "assigned",
+      "composition": [
+        "Carta e cartone",
+        "plastica",
+        "alluminio",
+        "latta"
+      ],
+      "display_code": "C/{materiale predominante} 85",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:85",
+      "material_family": "composite",
+      "material_name": "Carta e cartone/plastica/alluminio/latta",
+      "numeric_code": 85,
+      "predominant_family": "paper_cardboard",
+      "recognition_tokens": [
+        "C/",
+        "85"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "86",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:86",
+      "material_family": "composite",
+      "material_name": null,
+      "numeric_code": 86,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "86"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "87",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:87",
+      "material_family": "composite",
+      "material_name": null,
+      "numeric_code": 87,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "87"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "88",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:88",
+      "material_family": "composite",
+      "material_name": null,
+      "numeric_code": 88,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "88"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "89",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:89",
+      "material_family": "composite",
+      "material_name": null,
+      "numeric_code": 89,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "89"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": "C/{predominant_material_abbreviation}",
+      "assignment_status": "assigned",
+      "composition": [
+        "Plastica",
+        "alluminio"
+      ],
+      "display_code": "C/{materiale predominante} 90",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:90",
+      "material_family": "composite",
+      "material_name": "Plastica/alluminio",
+      "numeric_code": 90,
+      "predominant_family": "plastic",
+      "recognition_tokens": [
+        "C/",
+        "90"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": "C/{predominant_material_abbreviation}",
+      "assignment_status": "assigned",
+      "composition": [
+        "Plastica",
+        "latta"
+      ],
+      "display_code": "C/{materiale predominante} 91",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:91",
+      "material_family": "composite",
+      "material_name": "Plastica/latta",
+      "numeric_code": 91,
+      "predominant_family": "plastic",
+      "recognition_tokens": [
+        "C/",
+        "91"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": "C/{predominant_material_abbreviation}",
+      "assignment_status": "assigned",
+      "composition": [
+        "Plastica",
+        "metalli vari"
+      ],
+      "display_code": "C/{materiale predominante} 92",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:92",
+      "material_family": "composite",
+      "material_name": "Plastica/metalli vari",
+      "numeric_code": 92,
+      "predominant_family": "plastic",
+      "recognition_tokens": [
+        "C/",
+        "92"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "93",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:93",
+      "material_family": "composite",
+      "material_name": null,
+      "numeric_code": 93,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "93"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "94",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:94",
+      "material_family": "composite",
+      "material_name": null,
+      "numeric_code": 94,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "94"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": "C/{predominant_material_abbreviation}",
+      "assignment_status": "assigned",
+      "composition": [
+        "Vetro",
+        "plastica"
+      ],
+      "display_code": "C/{materiale predominante} 95",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:95",
+      "material_family": "composite",
+      "material_name": "Vetro/plastica",
+      "numeric_code": 95,
+      "predominant_family": "glass",
+      "recognition_tokens": [
+        "C/",
+        "95"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": "C/{predominant_material_abbreviation}",
+      "assignment_status": "assigned",
+      "composition": [
+        "Vetro",
+        "alluminio"
+      ],
+      "display_code": "C/{materiale predominante} 96",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:96",
+      "material_family": "composite",
+      "material_name": "Vetro/alluminio",
+      "numeric_code": 96,
+      "predominant_family": "glass",
+      "recognition_tokens": [
+        "C/",
+        "96"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": "C/{predominant_material_abbreviation}",
+      "assignment_status": "assigned",
+      "composition": [
+        "Vetro",
+        "latta"
+      ],
+      "display_code": "C/{materiale predominante} 97",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:97",
+      "material_family": "composite",
+      "material_name": "Vetro/latta",
+      "numeric_code": 97,
+      "predominant_family": "glass",
+      "recognition_tokens": [
+        "C/",
+        "97"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": "C/{predominant_material_abbreviation}",
+      "assignment_status": "assigned",
+      "composition": [
+        "Vetro",
+        "metalli vari"
+      ],
+      "display_code": "C/{materiale predominante} 98",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:98",
+      "material_family": "composite",
+      "material_name": "Vetro/metalli vari",
+      "numeric_code": 98,
+      "predominant_family": "glass",
+      "recognition_tokens": [
+        "C/",
+        "98"
+      ]
+    },
+    {
+      "abbreviation": null,
+      "abbreviation_rule": null,
+      "assignment_status": "unassigned",
+      "composition": [],
+      "display_code": "99",
+      "disposal_semantics": "none",
+      "mark_id": "packaging-material:eu-97-129:99",
+      "material_family": "composite",
+      "material_name": null,
+      "numeric_code": 99,
+      "predominant_family": null,
+      "recognition_tokens": [
+        "99"
+      ]
+    }
+  ],
+  "generated_at": "2026-08-07T18:00:00+02:00",
+  "language": "it",
+  "register_id": "packaging-materials:eu:97-129-ec",
+  "scheme": {
+    "celex": "31997D0129",
+    "document_date": "1997-01-28",
+    "legal_basis": "Decisione 97/129/CE",
+    "name": "Sistema UE di identificazione dei materiali di imballaggio",
+    "publication_date": "1997-02-20",
+    "scope": "material_identification",
+    "use_at_source": "voluntary",
+    "visual_specification": "not_defined"
+  },
+  "sources": [
+    {
+      "celex": "31997D0129",
+      "file": "data/sources/packaging-marks/31997D0129-it.pdf",
+      "role": "official_pdf",
+      "sha256": "284ef3cb9079129bf76edea2c6574d754a1711464444d75050feb6167101b81d",
+      "url": "https://eur-lex.europa.eu/legal-content/IT/TXT/?uri=CELEX:31997D0129"
+    },
+    {
+      "celex": "31997D0129",
+      "file": "data/sources/packaging-marks/31997D0129-it.html",
+      "role": "official_html",
+      "sha256": "aaad334f2ed67ebbc378eb66114e0de22f8cc695b564cccfcd6b4c6f60edff93",
+      "url": "https://eur-lex.europa.eu/legal-content/IT/TXT/?uri=CELEX:31997D0129"
+    },
+    {
+      "celex": "31997D0129",
+      "file": "data/sources/packaging-marks/31997D0129-it.txt",
+      "role": "pdftotext_layout_transcription",
+      "sha256": "c0578de1b7a61e213e49cfa27b36248078ea30c39129b40e63f3ad274f33b04f",
+      "url": "https://eur-lex.europa.eu/legal-content/IT/TXT/?uri=CELEX:31997D0129"
+    },
+    {
+      "celex": "31997D0129",
+      "file": "data/sources/packaging-marks/31997D0129-it.csv",
+      "role": "checked_machine_readable_transcription",
+      "sha256": "ce8bed60c77347c575babe55feac0fd0a00042449f8960993906d5982301de32",
+      "url": "https://eur-lex.europa.eu/legal-content/IT/TXT/?uri=CELEX:31997D0129"
+    }
+  ],
+  "version": 1
+}

@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dovelobutto.example/schemas/vision-model-contract.schema.json",
+  "title": "Cross-platform packaging mark detector contract",
+  "type": "object",
+  "required": ["version", "model_id", "model_version", "taxonomy_version", "source", "input", "output", "thresholds", "artifacts"],
+  "properties": {
+    "version": { "const": 1 },
+    "model_id": { "type": "string" },
+    "model_version": { "type": "string" },
+    "taxonomy_version": { "type": "string" },
+    "source": { "const": "pytorch" },
+    "input": {
+      "type": "object",
+      "required": ["width", "height", "color_space", "value_range", "tensor_layout"],
+      "properties": {
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 },
+        "color_space": { "const": "RGB" },
+        "value_range": { "const": "0_1" },
+        "tensor_layout": { "const": "NCHW" }
+      },
+      "additionalProperties": false
+    },
+    "output": {
+      "type": "object",
+      "required": ["boxes", "scores", "classes", "box_format", "coordinates"],
+      "properties": {
+        "boxes": { "const": "boxes" },
+        "scores": { "const": "scores" },
+        "classes": { "const": "classes" },
+        "box_format": { "const": "xyxy" },
+        "coordinates": { "const": "normalized" }
+      },
+      "additionalProperties": false
+    },
+    "thresholds": {
+      "type": "object",
+      "required": ["accepted", "confirmation_required", "nms_iou"],
+      "properties": {
+        "accepted": { "type": "number", "minimum": 0, "maximum": 1 },
+        "confirmation_required": { "type": "number", "minimum": 0, "maximum": 1 },
+        "nms_iou": { "type": "number", "minimum": 0, "maximum": 1 }
+      },
+      "additionalProperties": false
+    },
+    "artifacts": {
+      "type": "array",
+      "minItems": 2,
+      "allOf": [
+        { "contains": { "properties": { "runtime": { "const": "coreml" } }, "required": ["runtime"] } },
+        { "contains": { "properties": { "runtime": { "const": "litert" } }, "required": ["runtime"] } }
+      ],
+      "items": {
+        "type": "object",
+        "required": ["runtime", "format", "sha256"],
+        "properties": {
+          "runtime": { "enum": ["coreml", "litert"] },
+          "format": { "enum": ["mlpackage", "tflite"] },
+          "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+        },
+        "allOf": [
+          {
+            "if": { "properties": { "runtime": { "const": "coreml" } }, "required": ["runtime"] },
+            "then": { "properties": { "format": { "const": "mlpackage" } } }
+          },
+          {
+            "if": { "properties": { "runtime": { "const": "litert" } }, "required": ["runtime"] },
+            "then": { "properties": { "format": { "const": "tflite" } } }
+          }
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
