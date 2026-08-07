@@ -30,6 +30,8 @@ verificati e un esploratore locale.
   della futura base dati locale.
 - `docs/sqlite-sync-operations.md`: pubblicazione firmata, database SQLite,
   scelta del percorso minimo e applicazione atomica degli aggiornamenti.
+- `docs/app-query.md`: ricerca tollerante e composizione della risposta
+  territoriale letta da sito, app e backend.
 - `docs/eer-register.md`: importazione normativa, validita e controllo dei
   codici EER pubblicati dai centri.
 - `docs/packaging-material-register.md`: registro europeo dei materiali di

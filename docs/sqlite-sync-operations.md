@@ -22,6 +22,8 @@ Entrambi i ruoli usano lo stesso schema e attivano le chiavi esterne:
 - `metadata`: dataset, versione dello schema, revisione e ruolo;
 - `entities`: stato canonico corrente, corpo JSON compresso, hash e campi di
   ricerca, territorio, destinazione, flusso e centro immediatamente leggibili;
+- `waste_search_terms`: etichette normalizzate dei concetti, aggiornate
+  atomicamente con le entita per la ricerca tollerante dell'app;
 - `entity_templates`: contenuto condiviso delle regole e delle voci territoriali;
 - `source_documents`: documenti sorgente deduplicati tramite SHA-256;
 - `source_evidence`: evidenze deduplicate e collegate al documento;
@@ -43,6 +45,10 @@ database o si genera un nuovo pacchetto. La versione del formato SQLite e
 distinta dalla versione del contratto distribuito: un database locale creato
 con un formato precedente deve essere ricostruito da uno snapshot firmato,
 senza richiedere modifiche al pacchetto.
+
+La versione 5 dello storage introduce l'indice di ricerca dell'app. Come per le
+precedenti modifiche strutturali, i database locali in versione 4 richiedono
+una ricostruzione dallo snapshot; i pacchetti e gli ID canonici non cambiano.
 
 Le entita `waste_lookup`, `collection_rule` e `service_zone` separano il
 contenuto comune dall'applicabilita. Il modello conserva termine, destinazione,

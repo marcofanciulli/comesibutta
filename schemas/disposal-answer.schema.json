@@ -105,11 +105,12 @@
       "type": "object",
       "required": ["verified_at", "sources"],
       "properties": {
-        "verified_at": { "type": "string", "format": "date-time" },
+        "verified_at": { "type": ["string", "null"], "format": "date-time" },
+        "dataset_revision": { "type": ["integer", "null"], "minimum": 0 },
         "review_status": { "enum": ["automatic", "reviewed"] },
         "sources": {
           "type": "array",
-          "minItems": 1,
+          "minItems": 0,
           "items": {
             "type": "object",
             "required": ["url", "retrieved_at"],
@@ -125,6 +126,23 @@
       "additionalProperties": false
     }
   },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": { "enum": ["resolved", "conflict", "outdated"] }
+        }
+      },
+      "then": {
+        "properties": {
+          "provenance": {
+            "properties": {
+              "sources": { "minItems": 1 }
+            }
+          }
+        }
+      }
+    }
+  ],
   "additionalProperties": false
 }
-

@@ -17,7 +17,7 @@ from urllib.parse import urljoin
 
 DATASET_ID = "comesibutta-toscana"
 SCHEMA_VERSION = 1
-STORAGE_VERSION = 4
+STORAGE_VERSION = 5
 TERRITORIAL_TEMPLATE_TYPES = frozenset({"collection_rule", "service_zone", "waste_lookup"})
 
 
@@ -210,6 +210,16 @@ CREATE INDEX IF NOT EXISTS entities_type_municipality
     ON entities(entity_type, municipality_ref);
 CREATE INDEX IF NOT EXISTS entities_type_facility
     ON entities(entity_type, facility_ref);
+CREATE TABLE IF NOT EXISTS waste_search_terms (
+    entity_key INTEGER NOT NULL,
+    term TEXT NOT NULL,
+    normalized_term TEXT NOT NULL,
+    PRIMARY KEY (entity_key, normalized_term),
+    FOREIGN KEY (entity_key) REFERENCES entities(entity_key)
+        ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED
+);
+CREATE INDEX IF NOT EXISTS waste_search_terms_normalized
+    ON waste_search_terms(normalized_term);
 CREATE TABLE IF NOT EXISTS entity_templates (
     template_key INTEGER PRIMARY KEY,
     entity_type TEXT NOT NULL,
@@ -365,6 +375,46 @@ def read_database_entities(connection: sqlite3.Connection) -> dict[tuple[str, st
     return result
 
 
+def read_entity_data(
+    connection: sqlite3.Connection,
+    entity_type: str,
+    entity_id: str,
+    *,
+    include_sources: bool = True,
+) -> dict[str, Any] | None:
+    row = connection.execute(
+        """SELECT entity.*, template.data_json AS template_json
+        FROM entities entity
+        LEFT JOIN entity_templates template ON template.template_key = entity.template_key
+        WHERE entity.entity_type = ? AND entity.entity_id = ?""",
+        (entity_type, entity_id),
+    ).fetchone()
+    if row is None:
+        return None
+    if row["template_key"] is None:
+        data = _gunzip_json(row["data_json"])
+    else:
+        data = _restore_territorial_entity(row, _gunzip_json(row["template_json"]))
+    if include_sources:
+        sources = []
+        for source in connection.execute(
+            """SELECT document.document_json, evidence.evidence_json
+            FROM entity_sources link
+            JOIN source_evidence evidence ON evidence.evidence_key = link.evidence_key
+            JOIN source_documents document ON document.source_key = evidence.source_key
+            WHERE link.entity_key = ? ORDER BY link.ordinal""",
+            (row["entity_key"],),
+        ):
+            document = _gunzip_json(source["document_json"])
+            evidence_wrapper = _gunzip_json(source["evidence_json"])
+            if evidence_wrapper["present"]:
+                document["evidence"] = evidence_wrapper["value"]
+            sources.append(document)
+        if sources:
+            data["sources"] = sources
+    return data
+
+
 def build_update_package(
     current: dict[tuple[str, str], CanonicalEntity],
     desired: dict[tuple[str, str], CanonicalEntity],
@@ -439,6 +489,20 @@ def _indexed_fields(data: dict[str, Any]) -> tuple[Any, ...]:
         validity.get("valid_to"), data.get("confidence"), " | ".join(searchable) or None,
         payload.get("destination_raw"), payload.get("stream_name"), payload.get("facility_ref"),
     )
+
+
+def _waste_search_terms(data: dict[str, Any]) -> list[tuple[str, str]]:
+    from .catalog import normalize_term
+
+    candidates = [data.get("preferred_label"), *(data.get("terms") or [])]
+    terms: dict[str, str] = {}
+    for candidate in candidates:
+        if not isinstance(candidate, str) or not candidate.strip():
+            continue
+        normalized = normalize_term(candidate)
+        if normalized:
+            terms.setdefault(normalized, candidate.strip())
+    return [(term, normalized) for normalized, term in sorted(terms.items())]
 
 
 def _split_sources(data: dict[str, Any]) -> tuple[dict[str, Any], list[tuple[str, str, bytes, bytes]]]:
@@ -620,6 +684,18 @@ def apply_package(
                     "SELECT entity_key FROM entities WHERE entity_type = ? AND entity_id = ?", public_key,
                 ).fetchone()[0]
                 entity_keys[public_key] = entity_key
+                connection.execute(
+                    "DELETE FROM waste_search_terms WHERE entity_key = ?", (entity_key,),
+                )
+                if operation["entity_type"] == "waste_concept":
+                    connection.executemany(
+                        """INSERT INTO waste_search_terms(entity_key, term, normalized_term)
+                        VALUES (?, ?, ?)""",
+                        (
+                            (entity_key, term, normalized)
+                            for term, normalized in _waste_search_terms(operation["data"])
+                        ),
+                    )
                 connection.execute(
                     "DELETE FROM entity_sources WHERE entity_key = ?", (entity_key,),
                 )

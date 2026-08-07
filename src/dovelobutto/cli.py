@@ -414,6 +414,20 @@ def build_parser() -> argparse.ArgumentParser:
     vision_evaluation.add_argument("--assets-root", type=Path, required=True)
     vision_evaluation.add_argument("--output-dir", type=Path, required=True)
     vision_evaluation.add_argument("--generated-at", required=True)
+    disposal_query = subparsers.add_parser(
+        "query-disposal",
+        help="Search the synchronized client database and compose a territorial answer",
+    )
+    disposal_query.add_argument("--database", type=Path, required=True)
+    disposal_query.add_argument("--text", required=True)
+    disposal_query.add_argument("--municipality", required=True)
+    disposal_query.add_argument("--concept")
+    disposal_query.add_argument("--zone")
+    disposal_query.add_argument(
+        "--user-type", choices=("domestic", "non_domestic"), default="domestic",
+    )
+    disposal_query.add_argument("--as-of", required=True)
+    disposal_query.add_argument("--output", type=Path)
     sweep = subparsers.add_parser(
         "sweep-sei",
         help="Run a resumable and rate-limited sweep from the SEI municipality registry",
@@ -685,6 +699,28 @@ def main(argv: list[str] | None = None) -> int:
             args.output_dir,
             datetime.fromisoformat(args.generated_at),
         )
+        return 0
+    if args.command == "query-disposal":
+        from .app_query import DisposalQueryService, open_query_database
+
+        connection = open_query_database(args.database)
+        try:
+            answer = DisposalQueryService(connection).answer(
+                args.text,
+                args.municipality,
+                concept_id=args.concept,
+                zone_id=args.zone,
+                user_type=args.user_type,
+                as_of=datetime.fromisoformat(args.as_of).date(),
+            )
+        finally:
+            connection.close()
+        serialized = json.dumps(answer, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
+        if args.output:
+            args.output.parent.mkdir(parents=True, exist_ok=True)
+            args.output.write_text(serialized, encoding="utf-8")
+        else:
+            print(serialized, end="")
         return 0
     if args.command == "build-waste-catalog":
         catalog, report = build_catalog_from_paths(

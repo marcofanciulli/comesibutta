@@ -62,6 +62,9 @@ La risposta deve poter indicare:
     locale: non implicano mai cassonetto, sacchetto o preparazione.
 18. Il riconoscimento visivo usa un checkpoint PyTorch autorevole ed esporta
     artefatti Core ML e LiteRT verificati sullo stesso corpus.
+19. La ricerca lessicale propone concetti, ma la risposta deriva soltanto da
+    destinazioni e regole territoriali citabili; una somiglianza incerta
+    richiede conferma dell'utente.
 
 ## Artefatti persistenti
 
@@ -340,7 +343,23 @@ Registro UE dei materiali e riconoscimento visivo:
   sintetica la soglia 0,4 ottiene F1 0,500, precisione 0,571 e recall 0,444;
 - checkpoint locale da 15,4 MB, report riproducibili e anteprima delle
   predizioni prodotti; il modello e marcato esplicitamente non distribuibile;
-- 115 test automatici superati.
+- 123 test automatici superati.
+
+Ricerca e risposta applicativa:
+
+- aggiunto allo SQLite v5 l'indice derivato dei 3.124 concetti, aggiornato
+  atomicamente da snapshot e delta e privo di un ciclo di versione autonomo;
+- implementata la ricerca tollerante a errori di digitazione, con conferma per
+  somiglianze incerte e priorita territoriale senza alterare la similarita;
+- composta la prima risposta conforme al contratto con destinazione,
+  contenitore, colore, preparazione, EER, avvisi, fonti e revisione dataset;
+- differenze tra zone e destinazioni in conflitto restano domande o conflitti,
+  mentre termini sconosciuti non producono regole inventate;
+- collaudo sul dataset completo: 156.045 entita e 3.124 termini indicizzati;
+  corretti i casi reali di bottiglia di vetro, guscio di cozze e confezione del
+  latte con errore di digitazione;
+- documentate le lacune su sinonimi, collegamento destinazione-flusso e scelta
+  dei centri accessibili.
 
 ## Limiti e questioni aperte
 
@@ -360,11 +379,13 @@ Registro UE dei materiali e riconoscimento visivo:
 2. Acquisire i dettagli dei centri ESA e cercare una guida AAMPS piu recente.
 3. Modellare l'accesso intergestore Montignoso-ERSU e approfondire i centri non
    pubblicati o non attribuiti esplicitamente dalle fonti.
-4. Progettare le viste di lettura ottimizzate per la ricerca dell'app senza
-   esporre i dettagli della rappresentazione SQLite.
-5. Aggiungere consolidati settimanali, mensili e annuali con conservazione e
+4. Consolidare i sinonimi del catalogo e la mappatura controllata tra
+   destinazioni dei rifiutari e flussi delle regole locali.
+5. Risolvere centri accessibili, alternative limitrofe, distanza, orari e stato
+   del servizio nella risposta applicativa.
+6. Aggiungere consolidati settimanali, mensili e annuali con conservazione e
    compattazione automatica nella finestra incrementale di cinque anni.
-6. Importare il primo lotto fotografico classificato col prontuario, annotarlo
+7. Importare il primo lotto fotografico classificato col prontuario, annotarlo
    in CVAT e fissare le soglie quantitative del primo dataset addestrabile.
 
 ## Regola di continuita
