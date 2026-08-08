@@ -369,6 +369,27 @@ class DisposalQueryTests(unittest.TestCase):
         )
         self.assertEqual("not_found", invalid_choice["status"])
 
+    def test_another_territorys_classification_does_not_become_local(self) -> None:
+        self.connection.close()
+        writer = open_database(self.database, role="client")
+        current = read_database_entities(writer)
+        changed = dict(current)
+        rope = _concept("waste:corda", "Corda", ["Indifferenziato"])
+        rope.data["local_destinations"][0]["municipality_istats"] = ["048017"]
+        rope.data["coverage"]["municipalities"] = ["048017"]
+        rope.data["evidence"][0]["municipality_istats"] = ["048017"]
+        changed[(rope.entity_type, rope.entity_id)] = rope
+        apply_package(writer, build_update_package(current, changed, 1, 2, GENERATED_AT))
+        writer.close()
+        self.connection = open_query_database(self.database)
+        self.service = DisposalQueryService(self.connection)
+
+        answer = self.service.answer("corda", "053014")
+
+        self.assertEqual("not_found", answer["status"])
+        self.assertIsNone(answer["result"])
+        self.assertEqual([], answer["provenance"]["sources"])
+
     def test_selected_concept_does_not_depend_on_fuzzy_search(self) -> None:
         with patch.object(
             self.service, "search", side_effect=AssertionError("search must not run"),

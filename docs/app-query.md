@@ -96,6 +96,13 @@ L'audit non estende una regola locale a una voce generale priva di evidenza per
 quel territorio. Una simile estensione inventerebbe una destinazione non
 pubblicata dalla fonte competente.
 
+La classificazione pubblicata da un altro gestore puo alimentare soltanto una
+coda di revisione: non diventa una risposta operativa, anche quando piu gestori
+concordano. Neppure un EER comune autorizza a dedurre cassonetto, sacchetto o
+preparazione. L'EER puo invece collegare il concetto a un centro accessibile nel
+territorio quando quel centro pubblica esplicitamente l'accettazione dello
+stesso codice.
+
 Il client puo aggiungere la posizione della singola richiesta:
 
 ```sh

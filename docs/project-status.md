@@ -80,6 +80,10 @@ La risposta deve poter indicare:
 24. Una regola generale del gestore puo essere applicata ai suoi punti soltanto
     quando la fonte dichiara esplicitamente quell'ambito. Un elenco specifico
     del punto ha sempre la precedenza e ogni fonte conserva la propria data.
+25. La classificazione di un altro gestore e solo materiale di revisione e non
+    produce una destinazione locale. La coincidenza EER puo verificare
+    l'accettazione presso un centro accessibile che pubblica quel codice, ma
+    non permette di dedurre cassonetto, sacchetto o preparazione.
 
 ## Artefatti persistenti
 
