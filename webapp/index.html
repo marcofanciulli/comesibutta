@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#123c35">
+  <title>ComeSiButta</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="ComeSiButta, pagina iniziale">
+      <span class="brand-mark" aria-hidden="true">C</span>
+      <span>ComeSiButta</span>
+    </a>
+    <button class="place-button" id="change-place" type="button">
+      <span aria-hidden="true">⌖</span>
+      <span id="current-place">Scegli il comune</span>
+    </button>
+  </header>
+
+  <main>
+    <section class="search-band" aria-labelledby="page-title">
+      <div class="search-inner">
+        <p class="eyebrow">Raccolta differenziata in Toscana</p>
+        <h1 id="page-title">Dove lo butto?</h1>
+        <form id="waste-form" class="waste-form" role="search">
+          <label for="waste-input">Cerca un oggetto o un materiale</label>
+          <div class="search-box">
+            <input id="waste-input" name="q" type="search" autocomplete="off"
+              placeholder="Es. confezione del latte" disabled>
+            <button type="submit" disabled id="search-button">Cerca</button>
+          </div>
+          <div id="suggestions" class="suggestions" hidden></div>
+        </form>
+        <div class="examples" aria-label="Ricerche di esempio">
+          <button type="button" data-query="bottiglia dell'olio">Bottiglia dell'olio</button>
+          <button type="button" data-query="cartone del latte">Cartone del latte</button>
+          <button type="button" data-query="vecchio armadio">Vecchio armadio</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="welcome" class="welcome-band">
+      <div class="content-column">
+        <div class="empty-illustration" aria-hidden="true">
+          <span>?</span>
+        </div>
+        <div>
+          <h2>Partiamo dal tuo comune</h2>
+          <p>Le regole cambiano da territorio a territorio. Selezionalo una volta: lo ricorderemo per le prossime ricerche.</p>
+          <button class="primary" id="choose-place" type="button">Scegli il comune</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="loading" class="state-band" hidden aria-live="polite">
+      <div class="content-column compact">
+        <span class="spinner" aria-hidden="true"></span>
+        <p>Sto controllando le regole locali…</p>
+      </div>
+    </section>
+
+    <section id="answer" class="answer" hidden aria-live="polite"></section>
+
+    <section id="not-found" class="state-band" hidden aria-live="polite">
+      <div class="content-column">
+        <div class="status-symbol">?</div>
+        <div>
+          <p class="eyebrow">Nessuna risposta certa</p>
+          <h2>Prova a descriverlo in un altro modo</h2>
+          <p>Indica l’oggetto e, se puoi, il materiale. Non suggeriamo una destinazione quando i dati non bastano.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="error" class="state-band error-band" hidden role="alert">
+      <div class="content-column compact">
+        <strong>Non riesco a consultare i dati.</strong>
+        <span id="error-message">Riprova tra poco.</span>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="place-dialog">
+    <form method="dialog" class="dialog-shell">
+      <div class="dialog-head">
+        <div>
+          <p class="eyebrow">Regole territoriali</p>
+          <h2>Scegli il comune</h2>
+        </div>
+        <button class="icon-button" value="cancel" aria-label="Chiudi" title="Chiudi">×</button>
+      </div>
+      <label for="place-search">Cerca per nome</label>
+      <input id="place-search" type="search" autocomplete="off" placeholder="Es. Livorno">
+      <div id="place-list" class="place-list" role="listbox"></div>
+    </form>
+  </dialog>
+
+  <dialog id="detail-dialog">
+    <form method="dialog" class="dialog-shell detail-shell">
+      <div class="dialog-head">
+        <h2 id="detail-title">Dettagli</h2>
+        <button class="icon-button" value="cancel" aria-label="Chiudi" title="Chiudi">×</button>
+      </div>
+      <div id="detail-content"></div>
+    </form>
+  </dialog>
+
+  <script src="/app.js" defer></script>
+</body>
+</html>

@@ -4,6 +4,22 @@ Sistema informativo per rispondere alla domanda "Dove lo butto?" nei comuni
 della Toscana. Il progetto collega i nomi quotidiani dei rifiuti alle regole
 territoriali di raccolta, ai centri di conferimento e ai codici EER/CER.
 
+## Provare l'app
+
+L'interfaccia utente legge lo stesso database SQLite aggiornabile usato dai
+client. Dopo aver preparato `data/canonical/client.sqlite` come descritto nella
+guida di sincronizzazione, si avvia con:
+
+```sh
+PYTHONPATH=src python3 -m dovelobutto.cli serve-app \
+  --database data/canonical/client.sqlite \
+  --port 8780
+```
+
+L'app e disponibile su `http://127.0.0.1:8780`. Ricorda localmente il comune
+scelto e mostra destinazione, preparazione, contenitore, codice EER, servizi,
+avvertenze e fonti della risposta territoriale.
+
 Il perimetro censito comprende i 104 comuni di ATO Toscana Sud, i 100 comuni
 di ATO Toscana Costa, i 65 comuni di ATO Toscana Centro e i quattro comuni
 toscani assegnati ad ATO extra-regionali. Il repository
@@ -32,6 +48,8 @@ verificati e un esploratore locale.
   scelta del percorso minimo e applicazione atomica degli aggiornamenti.
 - `docs/app-query.md`: ricerca tollerante e composizione della risposta
   territoriale letta da sito, app e backend.
+- `docs/web-app.md`: prima verticale utente, API locale e stati espliciti
+  dell'interfaccia.
 - `docs/facility-resolution.md`: accesso, accettazione, distanza, orari e
   scelta prudente dei centri di raccolta.
 - `docs/channel-services.md`: ritiri, punti mobili, compatibilita e canali

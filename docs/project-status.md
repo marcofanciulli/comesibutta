@@ -449,7 +449,20 @@ Risoluzione degli altri canali:
 - riuso per `Assi da stiro`, uno-contro-uno per `Asciugacapelli` e operatore
   specializzato per `Bitumi` restano indicazioni `source_only` citabili;
 - tutti i fatti di servizio utilizzati entrano nella provenienza della risposta.
-- 147 test automatici superati.
+
+Prima verticale applicativa:
+
+- aggiunti un servizio HTTP locale senza dipendenze esterne e quattro endpoint
+  per disponibilita, comuni, ricerca e risposta territoriale;
+- l'interfaccia responsive ricorda il comune sul dispositivo e gestisce
+  risposte risolte, chiarimenti, conflitti, assenza di dati ed errori;
+- destinazione, preparazione, contenitore, EER, centri, ritiri, punti,
+  avvertenze e fonti sono letti direttamente dal database client sincronizzato;
+- pubblicata e applicata localmente la revisione firmata `202608080001`, con
+  tutti i 273 comuni toscani visibili all'app;
+- verificato nel browser il percorso reale `Cartone del latte` a Livorno su
+  schermo desktop e mobile, senza errori o scorrimento orizzontale;
+- 153 test automatici superati.
 
 ## Limiti e questioni aperte
 
@@ -470,13 +483,14 @@ Risoluzione degli altri canali:
 
 ## Prossimi passi
 
-1. Cercare una guida AAMPS piu recente e approfondire le fonti ancora parziali.
-2. Modellare l'accesso intergestore Montignoso-ERSU e approfondire i centri non
-   pubblicati o non attribuiti esplicitamente dalle fonti.
-3. Estendere il registro alle formule ancora prive di flusso o canale solo dopo
+1. Collaudare con utenti la prima verticale web `Dove lo butto?` e correggere
+   lessico, priorita informative e casi di disambiguazione emersi.
+2. Aggiungere la localizzazione del comune, con consenso esplicito e possibilita
+   di correzione manuale, riusando le coordinate per ordinare i servizi vicini.
+3. Definire autenticazione opzionale e sincronizzazione delle preferenze senza
+   rendere obbligatoria la registrazione.
+4. Estendere il registro alle formule ancora prive di flusso o canale solo dopo
    revisione delle relative evidenze territoriali.
-4. Ripulire i testi di accesso estratti da pagine con contenuto redazionale,
-   mantenendo il testo integrale nella provenienza.
 5. Aggiungere consolidati settimanali, mensili e annuali con conservazione e
    compattazione automatica nella finestra incrementale di cinque anni.
 6. Importare il primo lotto fotografico classificato col prontuario, annotarlo

@@ -6,6 +6,7 @@ from tempfile import TemporaryDirectory
 import unittest
 
 from dovelobutto.app_query import DisposalQueryService, open_query_database
+from dovelobutto.web_api import DisposalApi
 from dovelobutto.sync import (
     CanonicalEntity,
     apply_package,
@@ -285,6 +286,29 @@ class DisposalQueryTests(unittest.TestCase):
         results = self.service.search("botiglia di vtro", municipality_istat="053014")
         self.assertEqual("waste:bottiglia-di-vetro", results[0]["concept_id"])
         self.assertTrue(results[0]["available_in_municipality"])
+
+    def test_web_api_lists_municipalities_and_answers_queries(self) -> None:
+        api = DisposalApi(self.database)
+        municipalities = api.municipalities()
+        self.assertEqual("Manciano", municipalities["municipalities"][0]["name"])
+        self.assertEqual("053014", municipalities["municipalities"][0]["istat_code"])
+        self.assertEqual(1, municipalities["dataset_revision"])
+        results = api.search("botiglia di vtro", "053014")
+        self.assertEqual("waste:bottiglia-di-vetro", results["results"][0]["concept_id"])
+        answer = api.answer({
+            "text": "bottiglia di vetro",
+            "municipality": "053014",
+            "as_of": "2026-08-07",
+        })
+        self.assertEqual("resolved", answer["status"])
+        self.assertEqual("Vetro", answer["result"]["stream"])
+
+    def test_web_api_rejects_incomplete_requests(self) -> None:
+        api = DisposalApi(self.database)
+        with self.assertRaisesRegex(ValueError, "Waste text is required"):
+            api.answer({"text": "", "municipality": "053014"})
+        with self.assertRaisesRegex(ValueError, "Municipality is required"):
+            api.answer({"text": "vetro"})
 
     def test_answer_combines_destination_container_and_provenance(self) -> None:
         answer = self.service.answer(

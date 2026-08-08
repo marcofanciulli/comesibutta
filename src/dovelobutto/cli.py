@@ -452,6 +452,14 @@ def build_parser() -> argparse.ArgumentParser:
     disposal_query.add_argument("--latitude", type=float)
     disposal_query.add_argument("--longitude", type=float)
     disposal_query.add_argument("--output", type=Path)
+    web_app = subparsers.add_parser(
+        "serve-app",
+        help="Serve the local ComeSiButta web application and query API",
+    )
+    web_app.add_argument("--database", type=Path, required=True)
+    web_app.add_argument("--static-root", type=Path, default=Path("webapp"))
+    web_app.add_argument("--host", default="127.0.0.1")
+    web_app.add_argument("--port", type=int, default=8780)
     sweep = subparsers.add_parser(
         "sweep-sei",
         help="Run a resumable and rate-limited sweep from the SEI municipality registry",
@@ -755,6 +763,11 @@ def main(argv: list[str] | None = None) -> int:
             args.output.write_text(serialized, encoding="utf-8")
         else:
             print(serialized, end="")
+        return 0
+    if args.command == "serve-app":
+        from .web_api import run_server
+
+        run_server(args.database, args.static_root, args.host, args.port)
         return 0
     if args.command == "build-waste-catalog":
         catalog, report = build_catalog_from_paths(
