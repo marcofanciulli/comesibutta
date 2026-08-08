@@ -140,6 +140,9 @@ class DisposalQueryService:
         self.delivery_channels: list[dict[str, Any]] = []
         self.eer_mappings: dict[str, list[dict[str, Any]]] = {}
         self._concept_cache: dict[str, dict[str, Any] | None] = {}
+        self._matching_rules_cache: dict[
+            tuple[str, str, str | None, str], list[dict[str, Any]]
+        ] = {}
         for row in connection.execute(
             """SELECT entity_id FROM entities
             WHERE entity_type = 'waste_alias_group' ORDER BY entity_id"""
@@ -322,7 +325,6 @@ class DisposalQueryService:
         if longitude is not None and not -180 <= longitude <= 180:
             raise ValueError("Longitude must be between -180 and 180")
         as_of = as_of or date.today()
-        suggestions = self.search(text, municipality_istat=municipality_istat, limit=6)
         if concept_id:
             selected_concept = self._concept_for_choice(concept_id)
             if selected_concept:
@@ -341,6 +343,8 @@ class DisposalQueryService:
                 }]
             else:
                 suggestions = []
+        else:
+            suggestions = self.search(text, municipality_istat=municipality_istat, limit=6)
         base = {
             "query": {"text": text, "matched_concept_id": None, "matched_label": None},
             "context": {
@@ -496,6 +500,10 @@ class DisposalQueryService:
         zone_id: str | None,
         user_type: str,
     ) -> list[dict[str, Any]]:
+        cache_key = (normalize_term(destination), municipality_istat, zone_id, user_type)
+        cached = self._matching_rules_cache.get(cache_key)
+        if cached is not None:
+            return cached
         candidates = []
         for row in self.connection.execute(
             """SELECT entity_id, zone_ref, stream_name FROM entities
@@ -523,11 +531,13 @@ class DisposalQueryService:
                 continue
             data["_score"] = score
             candidates.append(data)
-        return sorted(candidates, key=lambda item: (
+        result = sorted(candidates, key=lambda item: (
             -item["_score"],
             item["payload"].get("zone_ref") or "",
             item.get("natural_key", ""),
         ))
+        self._matching_rules_cache[cache_key] = result
+        return result
 
     @staticmethod
     def _rule_signature(rule: dict[str, Any]) -> str:

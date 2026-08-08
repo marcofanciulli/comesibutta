@@ -4,6 +4,7 @@ from datetime import date, datetime
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
+from unittest.mock import patch
 
 from dovelobutto.app_query import (
     DisposalQueryService,
@@ -11,6 +12,7 @@ from dovelobutto.app_query import (
     open_query_database,
 )
 from dovelobutto.web_api import DisposalApi
+from dovelobutto.query_coverage import audit_query_coverage
 from dovelobutto.sync import (
     CanonicalEntity,
     apply_package,
@@ -366,6 +368,45 @@ class DisposalQueryTests(unittest.TestCase):
             "bottiglia di vetro", "053014", concept_id="waste:inesistente",
         )
         self.assertEqual("not_found", invalid_choice["status"])
+
+    def test_selected_concept_does_not_depend_on_fuzzy_search(self) -> None:
+        with patch.object(
+            self.service, "search", side_effect=AssertionError("search must not run"),
+        ):
+            answer = self.service.answer(
+                "testo irrilevante",
+                "053014",
+                concept_id="waste:bottiglia-di-vetro",
+            )
+        self.assertEqual("resolved", answer["status"])
+        self.assertEqual("Vetro", answer["result"]["stream"])
+
+    def test_coverage_audit_counts_every_territorial_concept_case(self) -> None:
+        report = audit_query_coverage(self.connection, generated_at=GENERATED_AT)
+        self.assertEqual("pass", report["summary"]["status"])
+        self.assertEqual(0, report["summary"]["failures"])
+        self.assertEqual(2, report["summary"]["territorial_concept_zone_cases"])
+        self.assertEqual(2, report["summary"]["total_guaranteed_cases"])
+        self.assertEqual(2, report["summary"]["runtime_answer_checks"])
+        self.assertEqual({"resolved": 2}, report["summary"]["runtime_answer_statuses"])
+
+    def test_coverage_audit_rejects_unknown_territorial_municipality(self) -> None:
+        self.connection.close()
+        writer = open_database(self.database, role="client")
+        current = read_database_entities(writer)
+        changed = dict(current)
+        invalid = _concept("waste:invalid", "Rifiuto invalido", ["Vetro"])
+        invalid.data["local_destinations"][0]["municipality_istats"] = ["999999"]
+        changed[(invalid.entity_type, invalid.entity_id)] = invalid
+        apply_package(writer, build_update_package(current, changed, 1, 2, GENERATED_AT))
+        writer.close()
+        self.connection = open_query_database(self.database)
+        report = audit_query_coverage(self.connection, generated_at=GENERATED_AT)
+        self.assertEqual("fail", report["summary"]["status"])
+        self.assertIn(
+            "concept_unknown_municipality",
+            {item["code"] for item in report["failures"]},
+        )
 
     def test_uncertain_similarity_requires_confirmation(self) -> None:
         answer = self.service.answer("carta colorata", "053014")

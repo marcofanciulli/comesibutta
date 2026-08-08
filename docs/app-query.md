@@ -70,6 +70,32 @@ PYTHONPATH=src python3 -m dovelobutto.cli query-disposal \
   --as-of 2026-08-07
 ```
 
+## Audit di copertura territoriale
+
+Prima di pubblicare un dataset, l'audit attraversa tutte le combinazioni fra
+voci con una destinazione pubblicata, comuni coperti e zone di servizio, e per
+ognuna esegue il compositore di risposta usato dall'app. Verifica anche che gli
+alias approvati siano ricercabili in modo esatto e che nessun riferimento
+territoriale punti a un comune assente:
+
+```sh
+PYTHONPATH=src python3 -m dovelobutto.cli audit-query-coverage \
+  --database data/canonical/client.sqlite \
+  --generated-at 2026-08-08T19:30:00+02:00 \
+  --output outputs/query-coverage-report.json
+```
+
+`status: pass` certifica gli invarianti strutturali delle risposte territoriali.
+`release_ready` resta invece falso quando la coda `review_queue` contiene coppie
+di termini molto simili con coperture diverse: possono essere sinonimi da
+riconciliare oppure rifiuti distinti, e richiedono una decisione esplicita.
+Risposte definite ma non risolte, come conflitti pubblicati dalle fonti, sono
+conservate con il loro contesto in `defined_non_resolved`.
+
+L'audit non estende una regola locale a una voce generale priva di evidenza per
+quel territorio. Una simile estensione inventerebbe una destinazione non
+pubblicata dalla fonte competente.
+
 Il client puo aggiungere la posizione della singola richiesta:
 
 ```sh

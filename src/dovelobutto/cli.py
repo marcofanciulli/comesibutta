@@ -462,6 +462,14 @@ def build_parser() -> argparse.ArgumentParser:
     disposal_query.add_argument("--latitude", type=float)
     disposal_query.add_argument("--longitude", type=float)
     disposal_query.add_argument("--output", type=Path)
+    query_coverage = subparsers.add_parser(
+        "audit-query-coverage",
+        help="Audit territorial waste answers across municipalities and service zones",
+    )
+    query_coverage.add_argument("--database", type=Path, required=True)
+    query_coverage.add_argument("--generated-at", required=True)
+    query_coverage.add_argument("--output", type=Path, required=True)
+    query_coverage.add_argument("--similarity-threshold", type=float, default=0.94)
     web_app = subparsers.add_parser(
         "serve-app",
         help="Serve the local ComeSiButta web application and query API",
@@ -790,6 +798,17 @@ def main(argv: list[str] | None = None) -> int:
         else:
             print(serialized, end="")
         return 0
+    if args.command == "audit-query-coverage":
+        from .query_coverage import audit_query_coverage_path, write_coverage_report
+
+        report = audit_query_coverage_path(
+            args.database,
+            generated_at=datetime.fromisoformat(args.generated_at),
+            similarity_threshold=args.similarity_threshold,
+        )
+        write_coverage_report(args.output, report)
+        print(json.dumps(report["summary"], ensure_ascii=False))
+        return 0 if report["summary"]["status"] == "pass" else 1
     if args.command == "serve-app":
         from .web_api import run_server
 

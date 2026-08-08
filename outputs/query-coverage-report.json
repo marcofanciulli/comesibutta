@@ -1,0 +1,2695 @@
+{
+  "dataset_revision": 202608080008,
+  "defined_non_resolved": [
+    {
+      "entity_id": "waste:private-del-contenuto",
+      "entity_type": "waste_concept",
+      "label": "(private del contenuto)",
+      "municipality_istat": "049009",
+      "question": {
+        "options": [
+          {
+            "id": "centri-di-raccolta",
+            "label": "Centri di raccolta"
+          },
+          {
+            "id": "multimateriale-centri-di-raccolta",
+            "label": "Multimateriale, Centri di raccolta"
+          }
+        ],
+        "text": "Le fonti pubblicano piu destinazioni per questo rifiuto."
+      },
+      "status": "conflict",
+      "zone_id": null
+    }
+  ],
+  "failures": [],
+  "generated_at": "2026-08-08T19:30:00+02:00",
+  "review_queue": [
+    {
+      "coverage": {
+        "left_municipalities": 1,
+        "right_municipalities": 12,
+        "symmetric_difference": 13
+      },
+      "left": {
+        "concept_id": "waste:barattoli-di-vetro",
+        "label": "Barattoli di vetro"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:barattoli-vetro",
+        "label": "barattoli vetro"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 25,
+        "symmetric_difference": 90
+      },
+      "left": {
+        "concept_id": "waste:bastone-per-tende",
+        "label": "Bastone per tende"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:bastone-tende",
+        "label": "Bastone tende"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 102,
+        "right_municipalities": 21,
+        "symmetric_difference": 123
+      },
+      "left": {
+        "concept_id": "waste:batteria-auto",
+        "label": "Batteria auto"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:batteria-per-auto",
+        "label": "Batteria per auto"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 12,
+        "right_municipalities": 65,
+        "symmetric_difference": 77
+      },
+      "left": {
+        "concept_id": "waste:bicchiere-cristallo",
+        "label": "Bicchiere cristallo"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:bicchiere-di-cristallo",
+        "label": "Bicchiere di cristallo"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 12,
+        "right_municipalities": 1,
+        "symmetric_difference": 13
+      },
+      "left": {
+        "concept_id": "waste:bicchiere-cristallo",
+        "label": "Bicchiere cristallo"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:bicchiere-in-cristallo",
+        "label": "Bicchiere in cristallo"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 1,
+        "symmetric_difference": 66
+      },
+      "left": {
+        "concept_id": "waste:bicchiere-di-cristallo",
+        "label": "Bicchiere di cristallo"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:bicchiere-in-cristallo",
+        "label": "Bicchiere in cristallo"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 12,
+        "symmetric_difference": 77
+      },
+      "left": {
+        "concept_id": "waste:bicchiere-di-vetro",
+        "label": "Bicchiere di vetro"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:bicchiere-vetro",
+        "label": "bicchiere vetro"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 3,
+        "right_municipalities": 26,
+        "symmetric_difference": 29
+      },
+      "left": {
+        "concept_id": "waste:bicchieri-di-plastica",
+        "label": "Bicchieri di plastica"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:bicchieri-in-plastica",
+        "label": "Bicchieri in plastica"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 28,
+        "right_municipalities": 1,
+        "symmetric_difference": 29
+      },
+      "left": {
+        "concept_id": "waste:bicchieri-di-vetro",
+        "label": "Bicchieri di vetro"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:bicchieri-in-vetro",
+        "label": "Bicchieri in vetro"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 25,
+        "right_municipalities": 65,
+        "symmetric_difference": 90
+      },
+      "left": {
+        "concept_id": "waste:calze-di-nylon",
+        "label": "Calze di nylon"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:calze-in-nylon",
+        "label": "Calze in nylon"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 12,
+        "right_municipalities": 65,
+        "symmetric_difference": 77
+      },
+      "left": {
+        "concept_id": "waste:carcassa-animale",
+        "label": "carcassa animale"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:carcassa-di-animale",
+        "label": "Carcassa di animale"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 12,
+        "right_municipalities": 1,
+        "symmetric_difference": 13
+      },
+      "left": {
+        "concept_id": "waste:carta-assorbente-da-cucina",
+        "label": "carta assorbente (da cucina)"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:carta-assorbente-per-cucina",
+        "label": "Carta assorbente per cucina"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 12,
+        "right_municipalities": 65,
+        "symmetric_difference": 77
+      },
+      "left": {
+        "concept_id": "waste:carta-cono-gelato",
+        "label": "carta cono gelato"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:carta-del-cono-gelato",
+        "label": "Carta del cono gelato"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 17,
+        "symmetric_difference": 82
+      },
+      "left": {
+        "concept_id": "waste:cartone-della-pizza-pulito",
+        "label": "Cartone della pizza (pulito)"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:cartone-per-pizza-pulito",
+        "label": "Cartone per pizza pulito"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 12,
+        "symmetric_difference": 77
+      },
+      "left": {
+        "concept_id": "waste:cartone-della-pizza-pulito",
+        "label": "Cartone della pizza (pulito)"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:cartone-pizza-pulito",
+        "label": "cartone pizza (pulito)"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 17,
+        "symmetric_difference": 82
+      },
+      "left": {
+        "concept_id": "waste:cartone-della-pizza-sporco",
+        "label": "Cartone della pizza (sporco)"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:cartone-per-pizza-sporco",
+        "label": "Cartone per pizza sporco"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 17,
+        "right_municipalities": 12,
+        "symmetric_difference": 29
+      },
+      "left": {
+        "concept_id": "waste:cartone-per-pizza-pulito",
+        "label": "Cartone per pizza pulito"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:cartone-pizza-pulito",
+        "label": "cartone pizza (pulito)"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 63,
+        "symmetric_difference": 128
+      },
+      "left": {
+        "concept_id": "waste:casco-da-moto",
+        "label": "Casco da moto"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:casco-per-moto",
+        "label": "Casco per moto"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 1,
+        "right_municipalities": 25,
+        "symmetric_difference": 26
+      },
+      "left": {
+        "concept_id": "waste:cassette-della-frutta-in-cartone",
+        "label": "Cassette della frutta in cartone"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:cassette-di-cartone-per-la-frutta",
+        "label": "Cassette di cartone per la frutta"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 3,
+        "right_municipalities": 12,
+        "symmetric_difference": 15
+      },
+      "left": {
+        "concept_id": "waste:cassette-in-plastica",
+        "label": "Cassette in plastica"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:cassette-plastica",
+        "label": "cassette plastica"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 12,
+        "symmetric_difference": 77
+      },
+      "left": {
+        "concept_id": "waste:cenere-di-pellet",
+        "label": "Cenere di pellet"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:cenere-pellet",
+        "label": "cenere pellet"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 12,
+        "right_municipalities": 65,
+        "symmetric_difference": 77
+      },
+      "left": {
+        "concept_id": "waste:contenitore-per-uova-in-plastica",
+        "label": "contenitore per uova in plastica"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:contenitore-uova-plastica",
+        "label": "Contenitore uova (plastica)"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 104,
+        "right_municipalities": 21,
+        "symmetric_difference": 125
+      },
+      "left": {
+        "concept_id": "waste:di-pile",
+        "label": "di pile"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:pile",
+        "label": "Pile"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 38,
+        "right_municipalities": 65,
+        "symmetric_difference": 103
+      },
+      "left": {
+        "concept_id": "waste:escrementi-animali",
+        "label": "Escrementi animali"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:escrementi-di-animali",
+        "label": "Escrementi di animali"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 17,
+        "right_municipalities": 65,
+        "symmetric_difference": 82
+      },
+      "left": {
+        "concept_id": "waste:filtro-aspirapolvere",
+        "label": "Filtro aspirapolvere"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:filtro-per-aspirapolvere",
+        "label": "Filtro per aspirapolvere"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 28,
+        "right_municipalities": 104,
+        "symmetric_difference": 132
+      },
+      "left": {
+        "concept_id": "waste:fondi-di-caffe-o-te",
+        "label": "Fondi di caffè o tè"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:fondi-di-te-o-caffe",
+        "label": "Fondi di tè o caffè"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 21,
+        "right_municipalities": 25,
+        "symmetric_difference": 46
+      },
+      "left": {
+        "concept_id": "waste:grucce-appendiabiti-di-plastica",
+        "label": "Grucce appendiabiti di plastica"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:grucce-appendiabiti-in-plastica",
+        "label": "Grucce appendiabiti in plastica"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 1,
+        "symmetric_difference": 66
+      },
+      "left": {
+        "concept_id": "waste:guanti-di-pelle",
+        "label": "Guanti di pelle"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:guanti-in-pelle",
+        "label": "Guanti in pelle"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 12,
+        "right_municipalities": 28,
+        "symmetric_difference": 40
+      },
+      "left": {
+        "concept_id": "waste:guanti-gomma",
+        "label": "guanti gomma"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:guanti-in-gomma",
+        "label": "Guanti in gomma"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 12,
+        "symmetric_difference": 77
+      },
+      "left": {
+        "concept_id": "waste:guanti-in-vinile",
+        "label": "Guanti in vinile"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:guanti-vinile",
+        "label": "guanti vinile"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 17,
+        "right_municipalities": 4,
+        "symmetric_difference": 21
+      },
+      "left": {
+        "concept_id": "waste:imballaggi-di-carta-e-cartone",
+        "label": "Imballaggi di carta e cartone"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:imballaggi-in-carta-e-cartone",
+        "label": "Imballaggi in carta e cartone"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 38,
+        "right_municipalities": 3,
+        "symmetric_difference": 41
+      },
+      "left": {
+        "concept_id": "waste:imballaggi-in-plastica",
+        "label": "Imballaggi in plastica"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:imballaggi-plastica",
+        "label": "Imballaggi plastica"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 1,
+        "right_municipalities": 3,
+        "symmetric_difference": 4
+      },
+      "left": {
+        "concept_id": "waste:lampade-al-neon",
+        "label": "Lampade al neon"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:lampade-neon",
+        "label": "Lampade Neon"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 12,
+        "right_municipalities": 65,
+        "symmetric_difference": 77
+      },
+      "left": {
+        "concept_id": "waste:lettiera-bentonite",
+        "label": "lettiera bentonite"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:lettiera-in-bentonite",
+        "label": "Lettiera in bentonite"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 12,
+        "symmetric_difference": 77
+      },
+      "left": {
+        "concept_id": "waste:manico-di-scopa-in-legno",
+        "label": "Manico di scopa in legno"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:manico-scopa-di-legno",
+        "label": "manico scopa di legno"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 38,
+        "right_municipalities": 1,
+        "symmetric_difference": 39
+      },
+      "left": {
+        "concept_id": "waste:mollette-per-bucato",
+        "label": "Mollette per bucato"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:mollette-per-il-bucato",
+        "label": "Mollette per il bucato"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 17,
+        "symmetric_difference": 82
+      },
+      "left": {
+        "concept_id": "waste:nastro-adesivo-di-carta",
+        "label": "Nastro adesivo di carta"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:nastro-adesivo-e-nastro-carta",
+        "label": "Nastro adesivo e nastro carta"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 1,
+        "right_municipalities": 46,
+        "symmetric_difference": 47
+      },
+      "left": {
+        "concept_id": "waste:noccioli-della-frutta",
+        "label": "Noccioli della frutta"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:noccioli-di-frutta",
+        "label": "Noccioli di frutta"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 1,
+        "right_municipalities": 38,
+        "symmetric_difference": 39
+      },
+      "left": {
+        "concept_id": "waste:nylon-da-imballaggi",
+        "label": "Nylon da imballaggi"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:nylon-per-imballaggi",
+        "label": "Nylon per Imballaggi"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 12,
+        "symmetric_difference": 77
+      },
+      "left": {
+        "concept_id": "waste:pacchetto-di-sigarette",
+        "label": "Pacchetto di sigarette"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:pacchetto-sigarette",
+        "label": "pacchetto sigarette"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 63,
+        "right_municipalities": 3,
+        "symmetric_difference": 66
+      },
+      "left": {
+        "concept_id": "waste:pannolini-e-pannoloni",
+        "label": "Pannolini e pannoloni"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:pannolini-pannoloni",
+        "label": "Pannolini/pannoloni"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 12,
+        "symmetric_difference": 77
+      },
+      "left": {
+        "concept_id": "waste:peli-del-cane",
+        "label": "Peli del cane"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:peli-di-cane",
+        "label": "peli di cane"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 26,
+        "right_municipalities": 12,
+        "symmetric_difference": 38
+      },
+      "left": {
+        "concept_id": "waste:piastrine-per-zanzare",
+        "label": "Piastrine per zanzare"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:piastrine-zanzare",
+        "label": "piastrine zanzare"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 25,
+        "right_municipalities": 12,
+        "symmetric_difference": 37
+      },
+      "left": {
+        "concept_id": "waste:piatti-in-plastica",
+        "label": "Piatti in plastica"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:piatti-plastica",
+        "label": "piatti plastica"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 21,
+        "right_municipalities": 12,
+        "symmetric_difference": 33
+      },
+      "left": {
+        "concept_id": "waste:piatti-in-porcellana",
+        "label": "Piatti in porcellana"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:piatti-porcellana",
+        "label": "piatti porcellana"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 3,
+        "symmetric_difference": 68
+      },
+      "left": {
+        "concept_id": "waste:polistirolo-da-coibentazione",
+        "label": "Polistirolo da coibentazione"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:polistirolo-per-coibentazione",
+        "label": "Polistirolo per coibentazione"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 1,
+        "symmetric_difference": 66
+      },
+      "left": {
+        "concept_id": "waste:polvere-aspirapolvere",
+        "label": "Polvere aspirapolvere"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:polvere-da-aspirapolvere",
+        "label": "Polvere da aspirapolvere"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 1,
+        "right_municipalities": 49,
+        "symmetric_difference": 50
+      },
+      "left": {
+        "concept_id": "waste:posate-di-plastica",
+        "label": "Posate di plastica"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:posate-in-plastica",
+        "label": "Posate in plastica"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 1,
+        "right_municipalities": 25,
+        "symmetric_difference": 26
+      },
+      "left": {
+        "concept_id": "waste:profumi-contenitori-vuoti-in-vetro",
+        "label": "Profumi (contenitori vuoti in vetro)"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:profumi-in-vetro-contenitori-vuoti",
+        "label": "PROFUMI IN VETRO (contenitori vuoti)"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 17,
+        "right_municipalities": 3,
+        "symmetric_difference": 20
+      },
+      "left": {
+        "concept_id": "waste:sacchetti-aspirapolvere",
+        "label": "sacchetti aspirapolvere"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:sacchetti-per-aspirapolvere",
+        "label": "Sacchetti per aspirapolvere"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 25,
+        "right_municipalities": 17,
+        "symmetric_difference": 42
+      },
+      "left": {
+        "concept_id": "waste:sci-e-e-scarponi-da-sci",
+        "label": "Sci e e scarponi da sci"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:sci-e-scarponi-da-sci",
+        "label": "Sci e scarponi da sci"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 21,
+        "right_municipalities": 3,
+        "symmetric_difference": 24
+      },
+      "left": {
+        "concept_id": "waste:tappi-di-metallo",
+        "label": "Tappi di metallo"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:tappi-in-metallo",
+        "label": "Tappi in metallo"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 17,
+        "right_municipalities": 1,
+        "symmetric_difference": 18
+      },
+      "left": {
+        "concept_id": "waste:tappi-di-metallo-e-plastica",
+        "label": "Tappi di metallo e plastica"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:tappi-in-metallo-plastica",
+        "label": "Tappi in metallo/plastica"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 21,
+        "right_municipalities": 3,
+        "symmetric_difference": 24
+      },
+      "left": {
+        "concept_id": "waste:tappi-di-plastica",
+        "label": "Tappi di plastica"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:tappi-in-plastica",
+        "label": "Tappi in plastica"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 21,
+        "right_municipalities": 12,
+        "symmetric_difference": 33
+      },
+      "left": {
+        "concept_id": "waste:tappi-di-plastica",
+        "label": "Tappi di plastica"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:tappi-plastica",
+        "label": "tappi plastica"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 3,
+        "right_municipalities": 12,
+        "symmetric_difference": 15
+      },
+      "left": {
+        "concept_id": "waste:tappi-in-plastica",
+        "label": "Tappi in plastica"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:tappi-plastica",
+        "label": "tappi plastica"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 12,
+        "right_municipalities": 65,
+        "symmetric_difference": 77
+      },
+      "left": {
+        "concept_id": "waste:tastiera-da-pc",
+        "label": "tastiera da pc"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:tastiera-pc",
+        "label": "Tastiera PC"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 12,
+        "symmetric_difference": 77
+      },
+      "left": {
+        "concept_id": "waste:test-di-gravidanza",
+        "label": "Test di gravidanza"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:test-gravidanza",
+        "label": "test gravidanza"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 12,
+        "right_municipalities": 3,
+        "symmetric_difference": 15
+      },
+      "left": {
+        "concept_id": "waste:traversine-cani",
+        "label": "traversine cani"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:traversine-per-cani",
+        "label": "Traversine per cani"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 12,
+        "right_municipalities": 0,
+        "symmetric_difference": 12
+      },
+      "left": {
+        "concept_id": "waste:vaschette-di-polistirolo",
+        "label": "vaschette di polistirolo"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:vaschette-polistirolo",
+        "label": "vaschette polistirolo"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 24,
+        "right_municipalities": 1,
+        "symmetric_difference": 25
+      },
+      "left": {
+        "concept_id": "waste:vasi-di-plastica",
+        "label": "Vasi di plastica"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:vasi-in-plastica",
+        "label": "Vasi in plastica"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 1,
+        "right_municipalities": 104,
+        "symmetric_difference": 105
+      },
+      "left": {
+        "concept_id": "waste:volantini-e-pieghevoli-pubblicitari",
+        "label": "Volantini e pieghevoli pubblicitari"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:volantini-pubblicitari-e-pieghevoli",
+        "label": "Volantini pubblicitari e pieghevoli"
+      },
+      "similarity": 1.0
+    },
+    {
+      "coverage": {
+        "left_municipalities": 12,
+        "right_municipalities": 65,
+        "symmetric_difference": 77
+      },
+      "left": {
+        "concept_id": "waste:lastra-radiografia",
+        "label": "lastra radiografia"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:lastra-radiografica-radiografia",
+        "label": "Lastra radiografica (radiografia)"
+      },
+      "similarity": 0.992701
+    },
+    {
+      "coverage": {
+        "left_municipalities": 38,
+        "right_municipalities": 0,
+        "symmetric_difference": 38
+      },
+      "left": {
+        "concept_id": "waste:giocattoli-di-piccole-dimensioni",
+        "label": "Giocattoli di piccole dimensioni"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:giocattoli-dipiccole-dimensioni",
+        "label": "Giocattoli dipiccole dimensioni"
+      },
+      "similarity": 0.984127
+    },
+    {
+      "coverage": {
+        "left_municipalities": 104,
+        "right_municipalities": 3,
+        "symmetric_difference": 107
+      },
+      "left": {
+        "concept_id": "waste:lampade-a-risparmio-energetico",
+        "label": "lampade a risparmio energetico"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:lampade-e-lampadine-a-risparmio-energetico",
+        "label": "Lampade e lampadine a risparmio energetico"
+      },
+      "similarity": 0.984127
+    },
+    {
+      "coverage": {
+        "left_municipalities": 3,
+        "right_municipalities": 25,
+        "symmetric_difference": 28
+      },
+      "left": {
+        "concept_id": "waste:lampade-e-lampadine-a-risparmio-energetico",
+        "label": "Lampade e lampadine a risparmio energetico"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:lampadine-a-risparmio-energetico",
+        "label": "Lampadine a risparmio energetico"
+      },
+      "similarity": 0.984127
+    },
+    {
+      "coverage": {
+        "left_municipalities": 38,
+        "right_municipalities": 0,
+        "symmetric_difference": 38
+      },
+      "left": {
+        "concept_id": "waste:giocattoli-di-grandi-dimensioni",
+        "label": "Giocattoli di grandi dimensioni"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:giocattoli-i-grandi-dimensioni",
+        "label": "Giocattoli i grandi dimensioni"
+      },
+      "similarity": 0.983607
+    },
+    {
+      "coverage": {
+        "left_municipalities": 25,
+        "right_municipalities": 17,
+        "symmetric_difference": 42
+      },
+      "left": {
+        "concept_id": "waste:bombolette-spray-contenenti-gas-infiammabile",
+        "label": "Bombolette spray contenenti gas infiammabile"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:bombolette-spray-contenenti-gas-infiammabili",
+        "label": "Bombolette spray contenenti gas infiammabili"
+      },
+      "similarity": 0.983333
+    },
+    {
+      "coverage": {
+        "left_municipalities": 130,
+        "right_municipalities": 3,
+        "symmetric_difference": 133
+      },
+      "left": {
+        "concept_id": "waste:penne-e-pennarelli",
+        "label": "Penne e pennarelli"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:penne-pennarelli-pennelli",
+        "label": "Penne, pennarelli, pennelli"
+      },
+      "similarity": 0.981132
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 12,
+        "symmetric_difference": 77
+      },
+      "left": {
+        "concept_id": "waste:lampadina-a-incandescenza",
+        "label": "Lampadina a incandescenza"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:lampadina-ad-incandescenza",
+        "label": "lampadina ad incandescenza"
+      },
+      "similarity": 0.980392
+    },
+    {
+      "coverage": {
+        "left_municipalities": 3,
+        "right_municipalities": 1,
+        "symmetric_difference": 4
+      },
+      "left": {
+        "concept_id": "waste:lampade-e-lampadine-a-incandescenza",
+        "label": "Lampade e lampadine a incandescenza"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:lampadine-a-incandescenza",
+        "label": "Lampadine a incandescenza"
+      },
+      "similarity": 0.978723
+    },
+    {
+      "coverage": {
+        "left_municipalities": 3,
+        "right_municipalities": 21,
+        "symmetric_difference": 24
+      },
+      "left": {
+        "concept_id": "waste:polistirolo-da-imballaggio",
+        "label": "Polistirolo (da imballaggio)"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:polistirolo-per-imballaggi",
+        "label": "Polistirolo per imballaggi"
+      },
+      "similarity": 0.97619
+    },
+    {
+      "coverage": {
+        "left_municipalities": 1,
+        "right_municipalities": 65,
+        "symmetric_difference": 66
+      },
+      "left": {
+        "concept_id": "waste:fogli-di-alluminio",
+        "label": "Fogli di alluminio"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:foglio-di-alluminio",
+        "label": "Foglio di alluminio"
+      },
+      "similarity": 0.972973
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 1,
+        "symmetric_difference": 66
+      },
+      "left": {
+        "concept_id": "waste:bambole-e-peluche",
+        "label": "Bambole e peluche"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:bambole-e-peluches",
+        "label": "Bambole e peluches"
+      },
+      "similarity": 0.971429
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 25,
+        "symmetric_difference": 90
+      },
+      "left": {
+        "concept_id": "waste:cassetta-di-plastica-per-ortofrutta",
+        "label": "Cassetta di plastica per ortofrutta"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:cassette-di-plastica-per-ortofrutta",
+        "label": "Cassette di plastica per ortofrutta"
+      },
+      "similarity": 0.971429
+    },
+    {
+      "coverage": {
+        "left_municipalities": 123,
+        "right_municipalities": 17,
+        "symmetric_difference": 140
+      },
+      "left": {
+        "concept_id": "waste:ombrello",
+        "label": "Ombrello"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:ombrellone-e-ombrello",
+        "label": "Ombrellone e ombrello"
+      },
+      "similarity": 0.971429
+    },
+    {
+      "coverage": {
+        "left_municipalities": 101,
+        "right_municipalities": 17,
+        "symmetric_difference": 118
+      },
+      "left": {
+        "concept_id": "waste:ombrellone",
+        "label": "Ombrellone"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:ombrellone-e-ombrello",
+        "label": "Ombrellone e ombrello"
+      },
+      "similarity": 0.971429
+    },
+    {
+      "coverage": {
+        "left_municipalities": 104,
+        "right_municipalities": 63,
+        "symmetric_difference": 167
+      },
+      "left": {
+        "concept_id": "waste:pannolini",
+        "label": "Pannolini"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:pannolini-e-pannoloni",
+        "label": "Pannolini e pannoloni"
+      },
+      "similarity": 0.971429
+    },
+    {
+      "coverage": {
+        "left_municipalities": 104,
+        "right_municipalities": 3,
+        "symmetric_difference": 107
+      },
+      "left": {
+        "concept_id": "waste:pannolini",
+        "label": "Pannolini"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:pannolini-pannoloni",
+        "label": "Pannolini/pannoloni"
+      },
+      "similarity": 0.971429
+    },
+    {
+      "coverage": {
+        "left_municipalities": 63,
+        "right_municipalities": 12,
+        "symmetric_difference": 75
+      },
+      "left": {
+        "concept_id": "waste:pannolini-e-pannoloni",
+        "label": "Pannolini e pannoloni"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:pannoloni",
+        "label": "pannoloni"
+      },
+      "similarity": 0.971429
+    },
+    {
+      "coverage": {
+        "left_municipalities": 3,
+        "right_municipalities": 12,
+        "symmetric_difference": 15
+      },
+      "left": {
+        "concept_id": "waste:pannolini-pannoloni",
+        "label": "Pannolini/pannoloni"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:pannoloni",
+        "label": "pannoloni"
+      },
+      "similarity": 0.971429
+    },
+    {
+      "coverage": {
+        "left_municipalities": 107,
+        "right_municipalities": 77,
+        "symmetric_difference": 184
+      },
+      "left": {
+        "concept_id": "waste:gusci-d-uovo",
+        "label": "Gusci d'uovo"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:guscio-d-uovo",
+        "label": "Guscio d'uovo"
+      },
+      "similarity": 0.969697
+    },
+    {
+      "coverage": {
+        "left_municipalities": 1,
+        "right_municipalities": 12,
+        "symmetric_difference": 13
+      },
+      "left": {
+        "concept_id": "waste:gusci-frutta-secca",
+        "label": "Gusci frutta secca"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:guscio-di-frutta-secca",
+        "label": "guscio di frutta secca"
+      },
+      "similarity": 0.969697
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 25,
+        "symmetric_difference": 90
+      },
+      "left": {
+        "concept_id": "waste:cassetta-di-legno-per-ortofrutta",
+        "label": "Cassetta di legno per ortofrutta"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:cassette-di-legno-per-ortofrutta",
+        "label": "Cassette di legno per ortofrutta"
+      },
+      "similarity": 0.96875
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 25,
+        "symmetric_difference": 90
+      },
+      "left": {
+        "concept_id": "waste:lampadina-a-risparmio-energetico",
+        "label": "Lampadina a risparmio energetico"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:lampadine-a-risparmio-energetico",
+        "label": "Lampadine a risparmio energetico"
+      },
+      "similarity": 0.96875
+    },
+    {
+      "coverage": {
+        "left_municipalities": 25,
+        "right_municipalities": 65,
+        "symmetric_difference": 90
+      },
+      "left": {
+        "concept_id": "waste:antiparassitari",
+        "label": "Antiparassitari"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:antiparassitario",
+        "label": "Antiparassitario"
+      },
+      "similarity": 0.967742
+    },
+    {
+      "coverage": {
+        "left_municipalities": 104,
+        "right_municipalities": 25,
+        "symmetric_difference": 129
+      },
+      "left": {
+        "concept_id": "waste:lampade-a-risparmio-energetico",
+        "label": "lampade a risparmio energetico"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:lampadine-a-risparmio-energetico",
+        "label": "Lampadine a risparmio energetico"
+      },
+      "similarity": 0.967742
+    },
+    {
+      "coverage": {
+        "left_municipalities": 28,
+        "right_municipalities": 1,
+        "symmetric_difference": 29
+      },
+      "left": {
+        "concept_id": "waste:mozziconi-di-sigaretta-e-sigari",
+        "label": "Mozziconi di sigaretta e sigari"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:mozziconi-di-sigarette-e-sigari",
+        "label": "Mozziconi di sigarette e sigari"
+      },
+      "similarity": 0.967742
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 104,
+        "symmetric_difference": 169
+      },
+      "left": {
+        "concept_id": "waste:console-per-videogiochi",
+        "label": "Console per videogiochi"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:consolle-videogiochi",
+        "label": "consolle videogiochi"
+      },
+      "similarity": 0.966667
+    },
+    {
+      "coverage": {
+        "left_municipalities": 3,
+        "right_municipalities": 65,
+        "symmetric_difference": 68
+      },
+      "left": {
+        "concept_id": "waste:fogli-di-carta",
+        "label": "Fogli di carta"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:foglio-di-carta",
+        "label": "Foglio di carta"
+      },
+      "similarity": 0.965517
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 3,
+        "symmetric_difference": 68
+      },
+      "left": {
+        "concept_id": "waste:vasca-da-bagno-in-vetroresina",
+        "label": "Vasca da bagno in vetroresina"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:vasca-da-bagno-no-vetroresina",
+        "label": "Vasca da bagno (no vetroresina)"
+      },
+      "similarity": 0.965517
+    },
+    {
+      "coverage": {
+        "left_municipalities": 14,
+        "right_municipalities": 7,
+        "symmetric_difference": 21
+      },
+      "left": {
+        "concept_id": "waste:imballaggi-di-carta-cartone-e-tetrapach",
+        "label": "Imballaggi di carta, cartone e tetrapach"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:imballaggi-di-carta-cartone-e-tetrapak",
+        "label": "Imballaggi di carta, cartone e tetrapak"
+      },
+      "similarity": 0.961039
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 1,
+        "symmetric_difference": 66
+      },
+      "left": {
+        "concept_id": "waste:lampadina-a-incandescenza",
+        "label": "Lampadina a incandescenza"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:lampadine-a-incandescenza",
+        "label": "Lampadine a incandescenza"
+      },
+      "similarity": 0.96
+    },
+    {
+      "coverage": {
+        "left_municipalities": 3,
+        "right_municipalities": 21,
+        "symmetric_difference": 24
+      },
+      "left": {
+        "concept_id": "waste:filtri-da-te-caffe-tisane",
+        "label": "Filtri da tè/caffe/tisane"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:filtro-per-te-tisane-e-caffe",
+        "label": "Filtro per te, tisane e caffe"
+      },
+      "similarity": 0.958333
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 12,
+        "symmetric_difference": 77
+      },
+      "left": {
+        "concept_id": "waste:lampada-a-basso-consumo",
+        "label": "Lampada a basso consumo"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:lampadina-a-basso-consumo",
+        "label": "lampadina a basso consumo"
+      },
+      "similarity": 0.958333
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 1,
+        "symmetric_difference": 66
+      },
+      "left": {
+        "concept_id": "waste:lampada-a-basso-consumo",
+        "label": "Lampada a basso consumo"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:lampade-a-basso-consumo",
+        "label": "Lampade a basso consumo"
+      },
+      "similarity": 0.956522
+    },
+    {
+      "coverage": {
+        "left_municipalities": 3,
+        "right_municipalities": 65,
+        "symmetric_difference": 68
+      },
+      "left": {
+        "concept_id": "waste:pannelli-in-poliuretano",
+        "label": "Pannelli in poliuretano"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:pannello-in-poliuretano",
+        "label": "Pannello in poliuretano"
+      },
+      "similarity": 0.956522
+    },
+    {
+      "coverage": {
+        "left_municipalities": 17,
+        "right_municipalities": 77,
+        "symmetric_difference": 94
+      },
+      "left": {
+        "concept_id": "waste:sacchetti-aspirapolvere",
+        "label": "sacchetti aspirapolvere"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:sacchetto-aspirapolvere",
+        "label": "Sacchetto aspirapolvere"
+      },
+      "similarity": 0.956522
+    },
+    {
+      "coverage": {
+        "left_municipalities": 38,
+        "right_municipalities": 25,
+        "symmetric_difference": 63
+      },
+      "left": {
+        "concept_id": "waste:giocattoli-elettrici-ed-elettronici",
+        "label": "Giocattoli elettrici ed elettronici"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:giocattoli-elettrici-elettronici",
+        "label": "Giocattoli elettrici/elettronici"
+      },
+      "similarity": 0.955224
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 25,
+        "symmetric_difference": 90
+      },
+      "left": {
+        "concept_id": "waste:bicchiere-di-cristallo",
+        "label": "Bicchiere di cristallo"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:bicchieri-di-cristallo",
+        "label": "Bicchieri di cristallo"
+      },
+      "similarity": 0.954545
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 1,
+        "symmetric_difference": 66
+      },
+      "left": {
+        "concept_id": "waste:caffettiera-in-metallo",
+        "label": "Caffettiera in metallo"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:caffettiere-in-metallo",
+        "label": "Caffettiere in metallo"
+      },
+      "similarity": 0.954545
+    },
+    {
+      "coverage": {
+        "left_municipalities": 12,
+        "right_municipalities": 17,
+        "symmetric_difference": 29
+      },
+      "left": {
+        "concept_id": "waste:lastra-radiografia",
+        "label": "lastra radiografia"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:lastra-radiografie",
+        "label": "Lastra (radiografie)"
+      },
+      "similarity": 0.954545
+    },
+    {
+      "coverage": {
+        "left_municipalities": 90,
+        "right_municipalities": 17,
+        "symmetric_difference": 107
+      },
+      "left": {
+        "concept_id": "waste:seggiolone-per-bambini",
+        "label": "Seggiolone per bambini"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:seggiolone-per-bambino",
+        "label": "Seggiolone per bambino"
+      },
+      "similarity": 0.954545
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 1,
+        "symmetric_difference": 66
+      },
+      "left": {
+        "concept_id": "waste:flacone-di-plastica-detersivi",
+        "label": "Flacone di plastica (detersivi)"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:flaconi-di-detersivi-in-plastica",
+        "label": "Flaconi di detersivi in plastica"
+      },
+      "similarity": 0.952381
+    },
+    {
+      "coverage": {
+        "left_municipalities": 1,
+        "right_municipalities": 65,
+        "symmetric_difference": 66
+      },
+      "left": {
+        "concept_id": "waste:noccioli-della-frutta",
+        "label": "Noccioli della frutta"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:nocciolo-della-frutta",
+        "label": "Nocciolo della frutta"
+      },
+      "similarity": 0.952381
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 26,
+        "symmetric_difference": 91
+      },
+      "left": {
+        "concept_id": "waste:piastrina-per-zanzare",
+        "label": "Piastrina per zanzare"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:piastrine-per-zanzare",
+        "label": "Piastrine per zanzare"
+      },
+      "similarity": 0.952381
+    },
+    {
+      "coverage": {
+        "left_municipalities": 3,
+        "right_municipalities": 65,
+        "symmetric_difference": 68
+      },
+      "left": {
+        "concept_id": "waste:vetri-antisfondamento",
+        "label": "Vetri antisfondamento"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:vetro-antisfondamento",
+        "label": "Vetro antisfondamento"
+      },
+      "similarity": 0.952381
+    },
+    {
+      "coverage": {
+        "left_municipalities": 25,
+        "right_municipalities": 3,
+        "symmetric_difference": 28
+      },
+      "left": {
+        "concept_id": "waste:alberi-di-natale",
+        "label": "Alberi di natale"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:alberi-di-natale-naturali",
+        "label": "Alberi di natale (naturali)"
+      },
+      "similarity": 0.95
+    },
+    {
+      "coverage": {
+        "left_municipalities": 1,
+        "right_municipalities": 17,
+        "symmetric_difference": 18
+      },
+      "left": {
+        "concept_id": "waste:filtri-aspirapolvere",
+        "label": "Filtri aspirapolvere"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:filtro-aspirapolvere",
+        "label": "Filtro aspirapolvere"
+      },
+      "similarity": 0.95
+    },
+    {
+      "coverage": {
+        "left_municipalities": 4,
+        "right_municipalities": 37,
+        "symmetric_difference": 41
+      },
+      "left": {
+        "concept_id": "waste:spazzolini-da-denti",
+        "label": "Spazzolini da denti"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:spazzolino-da-denti",
+        "label": "spazzolino da denti"
+      },
+      "similarity": 0.95
+    },
+    {
+      "coverage": {
+        "left_municipalities": 66,
+        "right_municipalities": 65,
+        "symmetric_difference": 1
+      },
+      "left": {
+        "concept_id": "waste:sveglia-elettrica",
+        "label": "Sveglia elettrica"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:sveglia-elettronica",
+        "label": "Sveglia elettronica"
+      },
+      "similarity": 0.95
+    },
+    {
+      "coverage": {
+        "left_municipalities": 1,
+        "right_municipalities": 21,
+        "symmetric_difference": 22
+      },
+      "left": {
+        "concept_id": "waste:termometri-al-mercurio",
+        "label": "Termometri al mercurio"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:termometro-a-mercurio",
+        "label": "Termometro a mercurio"
+      },
+      "similarity": 0.95
+    },
+    {
+      "coverage": {
+        "left_municipalities": 12,
+        "right_municipalities": 25,
+        "symmetric_difference": 37
+      },
+      "left": {
+        "concept_id": "waste:lampadina-ad-incandescenza",
+        "label": "lampadina ad incandescenza"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:lampadine-ad-incadescenza",
+        "label": "Lampadine ad incadescenza"
+      },
+      "similarity": 0.94963
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 12,
+        "symmetric_difference": 77
+      },
+      "left": {
+        "concept_id": "waste:carta-da-regalo-di-carta",
+        "label": "Carta da regalo di carta"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:carta-regalo-in-carta-colorata",
+        "label": "carta regalo (in carta colorata)"
+      },
+      "similarity": 0.949495
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 12,
+        "symmetric_difference": 77
+      },
+      "left": {
+        "concept_id": "waste:carta-regalo-carta",
+        "label": "Carta regalo (carta)"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:carta-regalo-in-carta-colorata",
+        "label": "carta regalo (in carta colorata)"
+      },
+      "similarity": 0.949495
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 12,
+        "symmetric_difference": 77
+      },
+      "left": {
+        "concept_id": "waste:carta-regalo-in-carta",
+        "label": "Carta regalo in carta"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:carta-regalo-in-carta-colorata",
+        "label": "carta regalo (in carta colorata)"
+      },
+      "similarity": 0.949495
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 3,
+        "symmetric_difference": 68
+      },
+      "left": {
+        "concept_id": "waste:cartone-per-bevande",
+        "label": "Cartone per bevande"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:cartoni-per-bevande",
+        "label": "Cartoni per bevande"
+      },
+      "similarity": 0.947368
+    },
+    {
+      "coverage": {
+        "left_municipalities": 25,
+        "right_municipalities": 38,
+        "symmetric_difference": 63
+      },
+      "left": {
+        "concept_id": "waste:damigiana-in-vetro-senza-veste",
+        "label": "DAMIGIANA IN VETRO ( senza veste)"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:damigiana-senza-veste",
+        "label": "Damigiana senza veste"
+      },
+      "similarity": 0.947368
+    },
+    {
+      "coverage": {
+        "left_municipalities": 1,
+        "right_municipalities": 77,
+        "symmetric_difference": 78
+      },
+      "left": {
+        "concept_id": "waste:fasciatoi",
+        "label": "Fasciatoi"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:fasciatoio",
+        "label": "Fasciatoio"
+      },
+      "similarity": 0.947368
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 12,
+        "symmetric_difference": 77
+      },
+      "left": {
+        "concept_id": "waste:stampino-in-silicone",
+        "label": "Stampino in silicone"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:stampo-in-silicone",
+        "label": "stampo in silicone"
+      },
+      "similarity": 0.947368
+    },
+    {
+      "coverage": {
+        "left_municipalities": 1,
+        "right_municipalities": 65,
+        "symmetric_difference": 66
+      },
+      "left": {
+        "concept_id": "waste:barattoli-di-vetro",
+        "label": "Barattoli di vetro"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:barattolo-di-vetro",
+        "label": "Barattolo di vetro"
+      },
+      "similarity": 0.944444
+    },
+    {
+      "coverage": {
+        "left_municipalities": 12,
+        "right_municipalities": 65,
+        "symmetric_difference": 77
+      },
+      "left": {
+        "concept_id": "waste:barattoli-latta",
+        "label": "barattoli latta"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:barattolo-di-latta",
+        "label": "Barattolo di latta"
+      },
+      "similarity": 0.944444
+    },
+    {
+      "coverage": {
+        "left_municipalities": 12,
+        "right_municipalities": 65,
+        "symmetric_difference": 77
+      },
+      "left": {
+        "concept_id": "waste:barattoli-vetro",
+        "label": "barattoli vetro"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:barattolo-di-vetro",
+        "label": "Barattolo di vetro"
+      },
+      "similarity": 0.944444
+    },
+    {
+      "coverage": {
+        "left_municipalities": 1,
+        "right_municipalities": 25,
+        "symmetric_difference": 26
+      },
+      "left": {
+        "concept_id": "waste:batterie-cellulare",
+        "label": "Batterie cellulare"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:batterie-per-cellulari",
+        "label": "Batterie per cellulari"
+      },
+      "similarity": 0.944444
+    },
+    {
+      "coverage": {
+        "left_municipalities": 12,
+        "right_municipalities": 25,
+        "symmetric_difference": 37
+      },
+      "left": {
+        "concept_id": "waste:bicchiere-cristallo",
+        "label": "Bicchiere cristallo"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:bicchieri-di-cristallo",
+        "label": "Bicchieri di cristallo"
+      },
+      "similarity": 0.944444
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 28,
+        "symmetric_difference": 93
+      },
+      "left": {
+        "concept_id": "waste:bicchiere-di-vetro",
+        "label": "Bicchiere di vetro"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:bicchieri-di-vetro",
+        "label": "Bicchieri di vetro"
+      },
+      "similarity": 0.944444
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 1,
+        "symmetric_difference": 66
+      },
+      "left": {
+        "concept_id": "waste:bicchiere-di-vetro",
+        "label": "Bicchiere di vetro"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:bicchieri-in-vetro",
+        "label": "Bicchieri in vetro"
+      },
+      "similarity": 0.944444
+    },
+    {
+      "coverage": {
+        "left_municipalities": 1,
+        "right_municipalities": 25,
+        "symmetric_difference": 26
+      },
+      "left": {
+        "concept_id": "waste:bicchiere-in-cristallo",
+        "label": "Bicchiere in cristallo"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:bicchieri-di-cristallo",
+        "label": "Bicchieri di cristallo"
+      },
+      "similarity": 0.944444
+    },
+    {
+      "coverage": {
+        "left_municipalities": 12,
+        "right_municipalities": 28,
+        "symmetric_difference": 40
+      },
+      "left": {
+        "concept_id": "waste:bicchiere-vetro",
+        "label": "bicchiere vetro"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:bicchieri-di-vetro",
+        "label": "Bicchieri di vetro"
+      },
+      "similarity": 0.944444
+    },
+    {
+      "coverage": {
+        "left_municipalities": 12,
+        "right_municipalities": 1,
+        "symmetric_difference": 13
+      },
+      "left": {
+        "concept_id": "waste:bicchiere-vetro",
+        "label": "bicchiere vetro"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:bicchieri-in-vetro",
+        "label": "Bicchieri in vetro"
+      },
+      "similarity": 0.944444
+    },
+    {
+      "coverage": {
+        "left_municipalities": 12,
+        "right_municipalities": 65,
+        "symmetric_difference": 77
+      },
+      "left": {
+        "concept_id": "waste:biglietti-treno",
+        "label": "biglietti treno"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:biglietto-treno",
+        "label": "Biglietto treno"
+      },
+      "similarity": 0.944444
+    },
+    {
+      "coverage": {
+        "left_municipalities": 12,
+        "right_municipalities": 21,
+        "symmetric_difference": 33
+      },
+      "left": {
+        "concept_id": "waste:bottiglia-plastica",
+        "label": "bottiglia plastica"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:bottiglie-in-plastica",
+        "label": "Bottiglie in plastica"
+      },
+      "similarity": 0.944444
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 25,
+        "symmetric_difference": 90
+      },
+      "left": {
+        "concept_id": "waste:cover-del-cellulare",
+        "label": "Cover del cellulare"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:cover-di-cellulari",
+        "label": "Cover di cellulari"
+      },
+      "similarity": 0.944444
+    },
+    {
+      "coverage": {
+        "left_municipalities": 124,
+        "right_municipalities": 65,
+        "symmetric_difference": 59
+      },
+      "left": {
+        "concept_id": "waste:gomma-da-masticare",
+        "label": "Gomma da masticare"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:gomme-da-masticare",
+        "label": "Gomme da masticare"
+      },
+      "similarity": 0.944444
+    },
+    {
+      "coverage": {
+        "left_municipalities": 77,
+        "right_municipalities": 3,
+        "symmetric_difference": 80
+      },
+      "left": {
+        "concept_id": "waste:lampadina-led",
+        "label": "Lampadina LED"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:lampadine-led",
+        "label": "Lampadine LED"
+      },
+      "similarity": 0.944444
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 12,
+        "symmetric_difference": 77
+      },
+      "left": {
+        "concept_id": "waste:mozzicone-di-sigaretta",
+        "label": "Mozzicone di sigaretta"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:mozziconi-sigaretta",
+        "label": "mozziconi sigaretta"
+      },
+      "similarity": 0.944444
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 12,
+        "symmetric_difference": 77
+      },
+      "left": {
+        "concept_id": "waste:piastrina-per-zanzare",
+        "label": "Piastrina per zanzare"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:piastrine-zanzare",
+        "label": "piastrine zanzare"
+      },
+      "similarity": 0.944444
+    },
+    {
+      "coverage": {
+        "left_municipalities": 12,
+        "right_municipalities": 63,
+        "symmetric_difference": 75
+      },
+      "left": {
+        "concept_id": "waste:retina-frutta-e-verdura",
+        "label": "retina frutta e verdura"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:retine-per-frutta-e-verdura",
+        "label": "Retine per frutta e verdura"
+      },
+      "similarity": 0.944444
+    },
+    {
+      "coverage": {
+        "left_municipalities": 3,
+        "right_municipalities": 77,
+        "symmetric_difference": 80
+      },
+      "left": {
+        "concept_id": "waste:sacchetti-per-aspirapolvere",
+        "label": "Sacchetti per aspirapolvere"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:sacchetto-aspirapolvere",
+        "label": "Sacchetto aspirapolvere"
+      },
+      "similarity": 0.944444
+    },
+    {
+      "coverage": {
+        "left_municipalities": 90,
+        "right_municipalities": 1,
+        "symmetric_difference": 91
+      },
+      "left": {
+        "concept_id": "waste:tampone-per-timbri",
+        "label": "Tampone per timbri"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:tamponi-per-timbri",
+        "label": "Tamponi per timbri"
+      },
+      "similarity": 0.944444
+    },
+    {
+      "coverage": {
+        "left_municipalities": 12,
+        "right_municipalities": 22,
+        "symmetric_difference": 34
+      },
+      "left": {
+        "concept_id": "waste:vaschetta-alimenti",
+        "label": "vaschetta alimenti"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:vaschette-per-alimenti",
+        "label": "Vaschette per alimenti"
+      },
+      "similarity": 0.944444
+    },
+    {
+      "coverage": {
+        "left_municipalities": 12,
+        "right_municipalities": 25,
+        "symmetric_difference": 37
+      },
+      "left": {
+        "concept_id": "waste:vaschetta-alluminio",
+        "label": "vaschetta alluminio"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:vaschette-in-alluminio",
+        "label": "Vaschette in alluminio"
+      },
+      "similarity": 0.944444
+    },
+    {
+      "coverage": {
+        "left_municipalities": 1,
+        "right_municipalities": 25,
+        "symmetric_difference": 26
+      },
+      "left": {
+        "concept_id": "waste:scontrini-fiscali-in-carta-chimica",
+        "label": "Scontrini fiscali in carta chimica"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:scontrini-fiscali-su-carta-chimica",
+        "label": "Scontrini fiscali su carta chimica"
+      },
+      "similarity": 0.944011
+    },
+    {
+      "coverage": {
+        "left_municipalities": 1,
+        "right_municipalities": 4,
+        "symmetric_difference": 3
+      },
+      "left": {
+        "concept_id": "waste:cartone-della-pizza-con-residui-di-cibo",
+        "label": "Cartone della pizza con residui di cibo"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:cartone-della-pizza-senza-residui-di-cibo",
+        "label": "Cartone della pizza senza residui di cibo"
+      },
+      "similarity": 0.94391
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 12,
+        "symmetric_difference": 77
+      },
+      "left": {
+        "concept_id": "waste:involucro-uovo-di-pasqua",
+        "label": "Involucro uovo di Pasqua"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:involucro-uovo-di-pasqua-in-plastica",
+        "label": "involucro uovo di Pasqua (in plastica)"
+      },
+      "similarity": 0.943396
+    },
+    {
+      "coverage": {
+        "left_municipalities": 3,
+        "right_municipalities": 65,
+        "symmetric_difference": 68
+      },
+      "left": {
+        "concept_id": "waste:bucce-di-frutta-e-verdura",
+        "label": "Bucce di frutta e verdura"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:buccia-di-frutta-e-verdura",
+        "label": "Buccia di frutta e verdura"
+      },
+      "similarity": 0.941176
+    },
+    {
+      "coverage": {
+        "left_municipalities": 25,
+        "right_municipalities": 65,
+        "symmetric_difference": 90
+      },
+      "left": {
+        "concept_id": "waste:cartucce-d-inchiostro",
+        "label": "Cartucce d'inchiostro"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:cartuccia-d-inchiostro",
+        "label": "Cartuccia d'inchiostro"
+      },
+      "similarity": 0.941176
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 63,
+        "symmetric_difference": 128
+      },
+      "left": {
+        "concept_id": "waste:casco-da-moto-motorino",
+        "label": "Casco da moto/motorino"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:casco-per-moto",
+        "label": "Casco per moto"
+      },
+      "similarity": 0.941176
+    },
+    {
+      "coverage": {
+        "left_municipalities": 1,
+        "right_municipalities": 12,
+        "symmetric_difference": 13
+      },
+      "left": {
+        "concept_id": "waste:forni-a-microonde",
+        "label": "Forni a microonde"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:forno-a-microonde",
+        "label": "forno a microonde"
+      },
+      "similarity": 0.941176
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 1,
+        "symmetric_difference": 66
+      },
+      "left": {
+        "concept_id": "waste:lampada-da-tavolo",
+        "label": "Lampada da tavolo"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:lampade-da-tavolo",
+        "label": "Lampade da tavolo"
+      },
+      "similarity": 0.941176
+    },
+    {
+      "coverage": {
+        "left_municipalities": 12,
+        "right_municipalities": 1,
+        "symmetric_difference": 13
+      },
+      "left": {
+        "concept_id": "waste:lettore-dvd",
+        "label": "lettore dvd"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:lettore-dvd-dvx",
+        "label": "Lettore DVD-DVX"
+      },
+      "similarity": 0.941176
+    },
+    {
+      "coverage": {
+        "left_municipalities": 28,
+        "right_municipalities": 12,
+        "symmetric_difference": 40
+      },
+      "left": {
+        "concept_id": "waste:mozziconi-di-sigaretta-e-sigari",
+        "label": "Mozziconi di sigaretta e sigari"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:mozziconi-sigaretta",
+        "label": "mozziconi sigaretta"
+      },
+      "similarity": 0.941176
+    },
+    {
+      "coverage": {
+        "left_municipalities": 3,
+        "right_municipalities": 104,
+        "symmetric_difference": 107
+      },
+      "left": {
+        "concept_id": "waste:sacchetti-per-aspirapolvere",
+        "label": "Sacchetti per aspirapolvere"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:sacchi-per-aspirapolvere",
+        "label": "Sacchi per aspirapolvere"
+      },
+      "similarity": 0.941176
+    },
+    {
+      "coverage": {
+        "left_municipalities": 46,
+        "right_municipalities": 1,
+        "symmetric_difference": 47
+      },
+      "left": {
+        "concept_id": "waste:videoregistratore",
+        "label": "Videoregistratore"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:videoregistratori",
+        "label": "Videoregistratori"
+      },
+      "similarity": 0.941176
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 17,
+        "symmetric_difference": 82
+      },
+      "left": {
+        "concept_id": "waste:lastra-radiografica-radiografia",
+        "label": "Lastra radiografica (radiografia)"
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:lastra-radiografie",
+        "label": "Lastra (radiografie)"
+      },
+      "similarity": 0.940169
+    }
+  ],
+  "scope": {
+    "excluded": "General catalog concepts without territorial evidence are not asserted in every municipality.",
+    "guarantee": "Every published territorial concept and approved alias has a defined destination path for every covered municipality and registered service zone."
+  },
+  "summary": {
+    "alias_exact_search_checks": 17,
+    "approved_alias_groups": 4,
+    "approved_alias_search_terms": 17,
+    "concepts": 3485,
+    "concepts_with_territorial_destination": 3480,
+    "exact_semantic_review_candidates": 62,
+    "failures": 0,
+    "municipalities": 273,
+    "municipalities_with_service_zones": 270,
+    "near_duplicate_review_candidates": 155,
+    "release_ready": false,
+    "review_status": "required",
+    "runtime_answer_checks": 184110,
+    "runtime_answer_statuses": {
+      "conflict": 1,
+      "resolved": 184109
+    },
+    "search_term_bindings": 3485,
+    "service_zones": 417,
+    "status": "pass",
+    "territorial_alias_term_zone_cases": 4890,
+    "territorial_alias_zone_cases": 1225,
+    "territorial_concept_zone_cases": 182885,
+    "total_guaranteed_cases": 189000
+  }
+}
