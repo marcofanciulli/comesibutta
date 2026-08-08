@@ -527,6 +527,56 @@ class DisposalQueryTests(unittest.TestCase):
         )
         self.assertIn("struttura accessibile", " ".join(answer["result"]["warnings"]))
 
+    def test_reviewed_object_eer_mapping_verifies_centre_acceptance(self) -> None:
+        self.connection.close()
+        writer = open_database(self.database, role="client")
+        current = read_database_entities(writer)
+        changed = dict(current)
+        toaster = _concept(
+            "waste:tostapane", "Tostapane", ["Centro di raccolta"],
+        )
+        additions = [
+            toaster,
+            CanonicalEntity("eer_entry", "eer:200136", {
+                "entry_id": "eer:200136",
+                "code": "200136",
+                "title": "apparecchiature elettriche ed elettroniche fuori uso non pericolose",
+                "hazardous": False,
+            }),
+            CanonicalEntity("waste_eer_mapping", "eer-map:small-raee", {
+                "mapping_id": "eer-map:small-raee",
+                "preferred_label": "RAEE non pericolosi",
+                "eer_code": "200136",
+                "concept_ids": ["waste:tostapane"],
+                "condition": "se non contiene componenti pericolosi",
+                "review_status": "approved",
+                "rationale": "Corrispondenza revisionata",
+                "source_urls": ["https://example.test/raee"],
+            }),
+            CanonicalEntity("delivery_channel", "channel:collection-centre", {
+                "channel_id": "channel:collection-centre",
+                "preferred_label": "Centro di raccolta",
+                "destination_type": "facility",
+                "aliases": ["Centro di raccolta"],
+            }),
+            _facility("facility:one", "Centro", 42.6, 11.5),
+            _facility_access("facility:one"),
+            _facility_acceptance(
+                "facility:one", "RAEE non pericolosi", eer_code="200136",
+            ),
+        ]
+        for entity in additions:
+            changed[(entity.entity_type, entity.entity_id)] = entity
+        apply_package(writer, build_update_package(current, changed, 1, 2, GENERATED_AT))
+        writer.close()
+        self.connection = open_query_database(self.database)
+        self.service = DisposalQueryService(self.connection)
+        answer = self.service.answer("tostapane", "053014")
+        self.assertEqual("resolved", answer["status"])
+        self.assertEqual("200136", answer["result"]["eer"]["code"])
+        self.assertEqual("verified_eer", answer["result"]["facility"]["acceptance"]["status"])
+        self.assertIn("componenti pericolosi", " ".join(answer["result"]["warnings"]))
+
     def test_equivalent_single_channel_aliases_do_not_create_a_conflict(self) -> None:
         self.connection.close()
         writer = open_database(self.database, role="client")

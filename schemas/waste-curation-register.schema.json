@@ -3,7 +3,7 @@
   "$id": "https://dovelobutto.example/schemas/waste-curation-register.schema.json",
   "title": "Reviewed waste aliases, collection streams, and delivery channels",
   "type": "object",
-  "required": ["register_id", "version", "generated_at", "alias_groups", "collection_streams", "delivery_channels"],
+  "required": ["register_id", "version", "generated_at", "alias_groups", "eer_mappings", "collection_streams", "delivery_channels"],
   "properties": {
     "register_id": { "type": "string" },
     "version": { "type": "integer", "minimum": 1 },
@@ -30,6 +30,34 @@
           },
           "review_status": { "const": "approved" },
           "rationale": { "type": "string", "minLength": 1 }
+        },
+        "additionalProperties": false
+      }
+    },
+    "eer_mappings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["mapping_id", "preferred_label", "eer_code", "concept_ids", "review_status", "rationale", "source_urls"],
+        "properties": {
+          "mapping_id": { "type": "string", "pattern": "^eer-map:[a-z0-9-]+$" },
+          "preferred_label": { "type": "string", "minLength": 1 },
+          "eer_code": { "type": "string", "pattern": "^[0-9]{6}$" },
+          "concept_ids": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": { "type": "string", "pattern": "^waste:[a-z0-9-]+$" }
+          },
+          "condition": { "type": "string", "minLength": 1 },
+          "review_status": { "const": "approved" },
+          "rationale": { "type": "string", "minLength": 1 },
+          "source_urls": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": { "type": "string", "format": "uri" }
+          }
         },
         "additionalProperties": false
       }

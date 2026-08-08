@@ -138,6 +138,7 @@ class DisposalQueryService:
         self.streams: dict[str, dict[str, Any]] = {}
         self.stream_aliases: dict[str, str] = {}
         self.delivery_channels: list[dict[str, Any]] = []
+        self.eer_mappings: dict[str, list[dict[str, Any]]] = {}
         self._concept_cache: dict[str, dict[str, Any] | None] = {}
         for row in connection.execute(
             """SELECT entity_id FROM entities
@@ -170,6 +171,52 @@ class DisposalQueryService:
             )
             if channel:
                 self.delivery_channels.append(channel)
+        for row in connection.execute(
+            """SELECT entity_id FROM entities
+            WHERE entity_type = 'waste_eer_mapping' ORDER BY entity_id"""
+        ):
+            mapping = read_entity_data(
+                connection, "waste_eer_mapping", row["entity_id"], include_sources=False,
+            )
+            if not mapping:
+                continue
+            entry = read_entity_data(
+                connection, "eer_entry", f"eer:{mapping['eer_code']}",
+                include_sources=False,
+            ) or {}
+            candidate = {
+                "code": mapping["eer_code"],
+                "source_labels": [mapping["preferred_label"]],
+                "source_urls": mapping.get("source_urls", []),
+                "hazardous": entry.get("hazardous"),
+                "official_hazardous": entry.get("hazardous"),
+                "official_title": entry.get("title"),
+                "register_status": "active_in_target" if entry else "unknown_code",
+                "valid_to": None,
+                "mapping_condition": mapping.get("condition"),
+                "mapping_id": mapping["mapping_id"],
+            }
+            for concept_id in mapping.get("concept_ids", []):
+                self.eer_mappings.setdefault(concept_id, []).append(candidate)
+
+    def _with_curated_eer(self, concept: dict[str, Any]) -> dict[str, Any]:
+        mappings = self.eer_mappings.get(concept["concept_id"], [])
+        if not mappings:
+            return concept
+        source_candidates = concept.get("eer", {}).get("candidates", [])
+        candidates = {candidate["code"]: candidate for candidate in mappings}
+        candidates.update({candidate["code"]: candidate for candidate in source_candidates})
+        source_codes = {candidate["code"] for candidate in source_candidates}
+        result = dict(concept)
+        result["eer"] = {
+            "status": (
+                "source_consensus" if len(source_codes) == 1 and len(candidates) == 1
+                else "curated_mapping" if not source_codes and len(candidates) == 1
+                else "conflict" if candidates else "not_available"
+            ),
+            "candidates": [candidates[code] for code in sorted(candidates)],
+        }
+        return result
 
     def search(
         self,
@@ -522,14 +569,17 @@ class DisposalQueryService:
             concept = read_entity_data(
                 self.connection, "waste_concept", choice_id, include_sources=False,
             )
+            if concept:
+                concept = self._with_curated_eer(concept)
             self._concept_cache[choice_id] = concept
             return concept
-        members = [
-            concept for concept_id in group["member_concept_ids"]
-            if (concept := read_entity_data(
+        members = []
+        for concept_id in group["member_concept_ids"]:
+            member = read_entity_data(
                 self.connection, "waste_concept", concept_id, include_sources=False,
-            )) is not None
-        ]
+            )
+            if member is not None:
+                members.append(self._with_curated_eer(member))
         destinations: dict[str, dict[str, Any]] = {}
         evidence = []
         terms = set()
@@ -601,6 +651,8 @@ class DisposalQueryService:
             instructions.append(presentation["instructions_raw"])
         eer = self._eer_summary(concept)
         warnings = []
+        if eer and eer.get("condition"):
+            warnings.append(f"Il codice EER vale {eer['condition']}.")
         channels = self._channel_matches(destination)
         if rule is None and not channels:
             warnings.append("La destinazione e pubblicata, ma non e collegata a una regola di preparazione locale.")
@@ -729,7 +781,9 @@ class DisposalQueryService:
     @staticmethod
     def _eer_summary(concept: dict[str, Any]) -> dict[str, Any] | None:
         candidates = concept.get("eer", {}).get("candidates", [])
-        if concept.get("eer", {}).get("status") != "source_consensus" or len(candidates) != 1:
+        if concept.get("eer", {}).get("status") not in {
+            "source_consensus", "curated_mapping",
+        } or len(candidates) != 1:
             return None
         candidate = candidates[0]
         if candidate.get("register_status") == "unknown_code":
@@ -745,6 +799,7 @@ class DisposalQueryService:
                 candidate.get("official_hazardous") or candidate.get("hazardous")
             ),
             "facility_operational_label": source_labels[0] if source_labels else None,
+            "condition": candidate.get("mapping_condition"),
         }
 
     def _facility_fallback(

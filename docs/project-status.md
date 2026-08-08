@@ -458,10 +458,11 @@ Prima verticale applicativa:
   risposte risolte, chiarimenti, conflitti, assenza di dati ed errori;
 - destinazione, preparazione, contenitore, EER, centri, ritiri, punti,
   avvertenze e fonti sono letti direttamente dal database client sincronizzato;
-- pubblicata e applicata localmente la revisione firmata `202608080004`, con
+- pubblicata e applicata localmente la revisione firmata `202608080006`, con
   tutti i 273 comuni toscani visibili all'app;
-- acquisita la guida generale SEI Toscana per l'organico: 16 materiali sono
-  collegati con evidenza unica ai 104 comuni gestiti, senza duplicare la fonte;
+- acquisite tutte le 9 guide generali SEI Toscana: 16.328 fatti territoriali
+  coprono i 104 comuni gestiti; gli esempi nelle categorie diventano termini
+  ricercabili senza perdere l'evidenza originale;
 - verificato `Tappo di sughero` a Manciano: la guida del gestore determina
   l'organico e la regola comunale completa contenitore, colore e sacchetto in
   base alla zona scelta;
@@ -470,9 +471,14 @@ Prima verticale applicativa:
   toner tramite una descrizione associata a un solo EER;
 - le descrizioni richiedono tutte le parole significative e un unico codice:
   formulazioni parziali come `mobile in legno` non vengono generalizzate;
+- aggiunte 4 mappature oggetto-EER revisionate per 14 concetti, con condizioni
+  esplicite quando la classificazione dipende dall'assenza di componenti
+  pericolosi;
+- verificato nel browser `Tostapane` a Manciano: EER `20 01 36`, accettazione
+  del centro confermata per codice e indicazione alternativa del rivenditore;
 - verificato nel browser il percorso reale `Cartone del latte` a Livorno su
   schermo desktop e mobile, senza errori o scorrimento orizzontale;
-- 160 test automatici superati.
+- 164 test automatici superati.
 
 ## Limiti e questioni aperte
 

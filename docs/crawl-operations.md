@@ -144,16 +144,25 @@ PYTHONPATH=src python3 -m dovelobutto.cli materialize-sei-guidance \
   --html data/sources/sei-toscana/organico.html \
   --registry outputs/sei-toscana-municipalities.jsonl \
   --source-url https://seitoscana.it/raccolta-differenziata/organico \
-  --retrieved-at 2026-08-08T09:35:00+02:00 \
+  --retrieved-at 2026-08-08T10:25:00+02:00 \
   --output outputs/sei-toscana/operator-organico-guidance.jsonl \
   --report outputs/sei-toscana/operator-organico-guidance-report.json
 ```
+
+Sono acquisite tutte le nove guide pubblicate: carta e cartone, farmaci
+scaduti, indifferenziato, multimateriale, olio alimentare esausto, organico,
+pile esauste, RAEE e vetro. Producono 16.328 fatti nei 104 comuni SEI. Gli
+esempi espliciti nelle categorie, come frigoriferi o tostapane nei RAEE,
+diventano termini ricercabili ma conservano come evidenza il punto originale.
 
 Il catalogo riconosce i file `*-guidance.jsonl` come acquisizioni condivise.
 Ogni fatto conserva una sola impronta della fonte ma il suo ambito territoriale
 comprende i comuni interessati. La guida non sostituisce le regole locali: ad
 esempio classifica il tappo di sughero come organico, mentre contenitore e
 sacchetto vengono dalla pagina del comune e dall'eventuale zona di raccolta.
+Le pagine speciali senza elenco `Si`, come olio, pile e farmaci, conservano
+inoltre le istruzioni pubblicate e indicano il canale dedicato senza dedurre
+un cassonetto ordinario.
 
 ## Lotti provinciali ATO Toscana Sud
 

@@ -52,3 +52,53 @@ class SeiGuidanceTests(unittest.TestCase):
                 extract_sei_stream_guidance(
                     "<h1>Organico</h1>", registry, "https://example.test", datetime.now(),
                 )
+
+    def test_special_guidance_uses_title_and_published_instructions(self) -> None:
+        html = """
+        <h1><small>Raccolta differenziata</small> Pile esauste</h1>
+        <div class="page-body"><p>Usa gli appositi contenitori o portale al centro.</p></div>
+        """
+        with TemporaryDirectory() as temporary:
+            registry = Path(temporary) / "registry.jsonl"
+            registry.write_text(json.dumps({"payload": {
+                "istat_code": "053014", "operator_ref": "sei-toscana",
+            }}) + "\n", encoding="utf-8")
+            records, report = extract_sei_stream_guidance(
+                html, registry, "https://example.test/pile", datetime.now(),
+            )
+        self.assertEqual(1, len(records))
+        self.assertEqual("Pile esauste", records[0]["payload"]["term"])
+        self.assertEqual(
+            "Punto di raccolta o centro di raccolta",
+            records[0]["payload"]["destination_raw"],
+        )
+        self.assertIn("appositi contenitori", records[0]["payload"]["instructions_raw"])
+        self.assertEqual(".page-body", records[0]["source"]["evidence"]["selector"])
+        self.assertEqual(report["destination"], records[0]["payload"]["destination_raw"])
+
+    def test_examples_are_added_as_search_terms_after_source_bullets(self) -> None:
+        html = """
+        <h1><small>Raccolta differenziata</small> RAEE</h1>
+        <div class="differenziata__conferimenti si"><p>
+          Sorgenti luminose (es. lampade a LED, tubi al neon, etc.)
+          • Piccoli elettrodomestici (es. aspirapolvere, tostapane)
+        </p></div>
+        """
+        with TemporaryDirectory() as temporary:
+            registry = Path(temporary) / "registry.jsonl"
+            registry.write_text(json.dumps({"payload": {
+                "istat_code": "053014", "operator_ref": "sei-toscana",
+            }}) + "\n", encoding="utf-8")
+            records, report = extract_sei_stream_guidance(
+                html, registry, "https://example.test/raee", datetime.now(),
+            )
+        terms = [record["payload"]["term"] for record in records]
+        self.assertEqual("Sorgenti luminose (es. lampade a LED, tubi al neon, etc.)", terms[0])
+        self.assertEqual("Piccoli elettrodomestici (es. aspirapolvere, tostapane)", terms[1])
+        self.assertEqual(
+            ["lampade a LED", "tubi al neon", "aspirapolvere", "tostapane"],
+            terms[2:],
+        )
+        self.assertEqual(2, report["source_bullets"])
+        self.assertEqual(6, report["accepted_terms"])
+        self.assertIn("Sorgenti luminose", records[2]["source"]["evidence"]["quote"])

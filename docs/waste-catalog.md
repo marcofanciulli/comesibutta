@@ -1,7 +1,7 @@
 # Catalogo canonico dei rifiuti
 
-Versione: 0.3.0
-Ultimo aggiornamento: 7 agosto 2026
+Versione: 0.4.0
+Ultimo aggiornamento: 8 agosto 2026
 
 ## Obiettivo
 
@@ -21,10 +21,14 @@ corrente e `outputs/waste-catalog.json`, accompagnato dal rapporto
 PYTHONPATH=src python3 -m dovelobutto.cli build-waste-catalog \
   --input-dir outputs/sei-toscana \
   --input-dir outputs/ato-toscana-costa \
+  --input-dir outputs/ato-toscana-centro \
+  --input-dir outputs/toscana-boundary \
   --registry outputs/sei-toscana-municipalities.jsonl \
   --registry outputs/ato-toscana-costa-municipalities.jsonl \
+  --registry outputs/ato-toscana-centro-municipalities.jsonl \
+  --registry outputs/toscana-boundary-municipalities.jsonl \
   --eer-register outputs/eer-register.json \
-  --generated-at 2026-08-06T23:00:00+02:00 \
+  --generated-at 2026-08-08T15:00:00+02:00 \
   --output outputs/waste-catalog.json \
   --report outputs/waste-catalog-report.json
 ```
@@ -41,18 +45,20 @@ locali, non trattate come contraddizioni globali.
 
 ## Stato corrente
 
-- 141.172 record locali di rifiutario analizzati;
-- 5.062 indicazioni sorgente distinte dopo la deduplicazione;
-- 3.363 concetti canonici iniziali;
+- 155.836 record locali di rifiutario e guide analizzati;
+- 5.203 indicazioni sorgente distinte dopo la deduplicazione;
+- 3.471 concetti canonici;
 - 331 concetti con un EER concordante pubblicato dalla fonte;
 - nessun conflitto EER per i termini coincidenti;
-- 3.032 concetti ancora senza EER;
-- 598 concetti con piu destinazioni locali osservate.
+- 3.140 concetti senza EER pubblicato direttamente dalla fonte;
+- 615 concetti con piu destinazioni locali osservate.
 
 `source_consensus` significa che tutte le fonti che pubblicano un EER per quel
 termine indicano lo stesso codice. Ogni candidato e ora controllato anche
 contro `outputs/eer-register.json` e conserva titolo e pericolosita ufficiali.
-La destinazione continua invece a essere un'osservazione territoriale.
+La destinazione continua invece a essere un'osservazione territoriale. Il
+registro di curatela aggiunge separatamente 4 mappature oggetto-EER revisionate
+per 14 concetti; non vengono conteggiate come consenso della fonte.
 
 Il registro collegato e l'edizione futura applicabile dal 9 dicembre 2026. I
 codici `20 01 33` e `20 01 34` sono quindi marcati `retired_in_target`, senza

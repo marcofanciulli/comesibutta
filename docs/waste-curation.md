@@ -1,14 +1,15 @@
-# Curatela di sinonimi, flussi e canali
+# Curatela di sinonimi, EER, flussi e canali
 
 Versione: 1
-Ultimo aggiornamento: 7 agosto 2026
+Ultimo aggiornamento: 8 agosto 2026
 
 ## Scopo
 
 Il registro `data/curation/waste-curation-v1.json` collega varianti linguistiche
-dello stesso rifiuto e normalizza i nomi dei flussi e dei canali usati dai gestori. Non
-modifica ne elimina i concetti sorgente: ogni membro, destinazione territoriale
-ed evidenza resta disponibile e aggiornabile in modo indipendente.
+dello stesso rifiuto, registra associazioni oggetto-EER revisionate e
+normalizza i nomi dei flussi e dei canali usati dai gestori. Non modifica ne
+elimina i concetti sorgente: ogni membro, destinazione territoriale ed evidenza
+resta disponibile e aggiornabile in modo indipendente.
 
 La curatela risolve due problemi distinti:
 
@@ -18,6 +19,8 @@ La curatela risolve due problemi distinti:
   senza dedurre il flusso da una somiglianza generica.
 - formule come `Ecocentro, Ritiro ingombranti` devono esporre entrambi i canali
   disponibili senza trasformarli in un flusso di materiale.
+- termini quotidiani come `tostapane` devono poter usare il codice EER del
+  centro soltanto quando la corrispondenza e stata revisionata e delimitata.
 
 ## Regole di sicurezza
 
@@ -39,23 +42,29 @@ limitazioni e formulazioni che il primo scompositore non interpreta. Quando una
 fonte elenca piu canali, la relazione e `alternatives`; il motore non sceglie al
 posto dell'utente e non collega per somiglianza una regola di cassonetto.
 
+Ogni mappatura EER richiede codice normalizzato, concetti esistenti, fonte,
+motivazione e stato `approved`. Un concetto non puo ricevere due mappature
+concorrenti. Le condizioni, per esempio l'assenza di componenti pericolosi,
+sono mostrate nella risposta e non vengono eliminate durante la distribuzione.
+
 ## Contenuto iniziale
 
 Il registro comprende:
 
 - 3 gruppi approvati e 30 concetti membri;
 - 14 termini di ricerca approvati;
+- 4 mappature EER approvate per 14 concetti;
 - 7 flussi canonici e 34 alias di flusso;
-- 7 canali di conferimento e 26 alias di canale;
+- 7 canali di conferimento e 28 alias di canale;
 - cartoni per bevande, tappi di vero sughero e bottiglie di vetro generiche;
 - organico, carta, vetro, multimateriale, residuo, plastica e metalli.
 
-La validazione sul catalogo corrente conta 189 etichette di destinazione e
-4.065 associazioni. I primi alias mappano 28 etichette e 1.938 associazioni,
-pari al 47,7%, senza conflitti territoriali nei gruppi approvati.
+La validazione sul catalogo corrente conta 191 etichette di destinazione e
+4.493 associazioni. Gli alias di flusso mappano 27 etichette e 2.124
+associazioni, senza conflitti territoriali nei gruppi approvati.
 
-I canali riconoscono 102 etichette e 1.750 associazioni. In 41 etichette, pari
-a 807 associazioni, la fonte pubblica piu alternative: centro di raccolta,
+I canali riconoscono 111 etichette e 1.947 associazioni. In 48 etichette, pari
+a 867 associazioni, la fonte pubblica piu alternative: centro di raccolta,
 servizio mobile, ritiro, punto di raccolta, rivenditore, operatore specializzato
 o riuso vengono restituiti separatamente insieme alla formulazione sorgente.
 
@@ -73,9 +82,10 @@ ancora prive sia di flusso sia di canale controllato.
 
 ## Distribuzione
 
-Gruppi, flussi e canali diventano normali entita canoniche, rispettivamente
-`waste_alias_group`, `collection_stream` e `delivery_channel`. I gruppi
-dipendono dai concetti membri; snapshot e delta impediscono quindi di
+Gruppi, mappature EER, flussi e canali diventano normali entita canoniche,
+rispettivamente `waste_alias_group`, `waste_eer_mapping`, `collection_stream`
+e `delivery_channel`. Gruppi e mappature dipendono dai concetti e, per le
+seconde, dalla voce EER ufficiale; snapshot e delta impediscono quindi di
 pubblicare riferimenti mancanti.
 
 La pubblicazione include il registro con:

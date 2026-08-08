@@ -29,6 +29,8 @@ class WasteCurationTests(unittest.TestCase):
         self.assertEqual(30, report["alias_members"])
         self.assertEqual(7, report["collection_streams"])
         self.assertEqual(7, report["delivery_channels"])
+        self.assertEqual(4, report["eer_mappings"])
+        self.assertEqual(14, report["eer_mapped_concepts"])
         self.assertEqual(0, report["alias_group_territorial_conflicts"])
         self.assertGreater(report["mapped_destination_assertions"], 1900)
         self.assertGreater(report["channel_mapped_destination_assertions"], 1700)
@@ -75,6 +77,22 @@ class WasteCurationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Channel alias.*belongs to both"):
             validate_waste_curation(register, self.catalog)
 
+    def test_eer_mapping_requires_known_unique_concepts_and_valid_code(self) -> None:
+        register = copy.deepcopy(self.register)
+        register["eer_mappings"][0]["concept_ids"].append("waste:inesistente")
+        with self.assertRaisesRegex(ValueError, "Unknown concept"):
+            validate_waste_curation(register, self.catalog)
+        register = copy.deepcopy(self.register)
+        register["eer_mappings"][1]["eer_code"] = "20 01 36"
+        with self.assertRaisesRegex(ValueError, "Invalid EER code"):
+            validate_waste_curation(register, self.catalog)
+        register = copy.deepcopy(self.register)
+        register["eer_mappings"][1]["concept_ids"].append(
+            register["eer_mappings"][0]["concept_ids"][0]
+        )
+        with self.assertRaisesRegex(ValueError, "mappings in both"):
+            validate_waste_curation(register, self.catalog)
+
     def test_compound_destination_preserves_all_controlled_channels(self) -> None:
         matches = matching_delivery_channels(
             "Ecocentro - ritiro ingombranti", self.register["delivery_channels"],
@@ -110,6 +128,8 @@ class WasteCurationTests(unittest.TestCase):
         self.assertEqual(18, len(group.dependencies))
         self.assertIn(("collection_stream", "stream:organic"), entities)
         self.assertIn(("delivery_channel", "channel:home-pickup"), entities)
+        mapping = entities[("waste_eer_mapping", "eer-map:used-cooking-oil")]
+        self.assertIn(("waste_concept", "waste:olio-alimentare-esausto"), mapping.dependencies)
 
     def test_schema_and_generated_report_are_machine_readable(self) -> None:
         schema = json.loads(

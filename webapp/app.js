@@ -168,6 +168,15 @@ function statusLabel(status) {
   return ({open: "Aperto", closed: "Chiuso", temporarily_closed: "Temporaneamente chiuso", unknown: "Stato non pubblicato"})[status] || status;
 }
 
+function acceptanceLabel(status) {
+  return ({
+    verified_eer: "Accettazione verificata tramite codice EER",
+    verified_description: "Accettazione verificata dalla descrizione pubblicata",
+    acceptance_not_published: "Elenco dei rifiuti accettati non pubblicato",
+    not_listed: "Rifiuto non presente nell’elenco pubblicato",
+  })[status] || "Stato dell’accettazione non disponibile";
+}
+
 function renderService(service, index, kind) {
   const title = service.name || service.preferred_label || (kind === "facility" ? "Centro di raccolta" : "Servizio");
   const subtitle = service.address || service.access_summary || service.status_raw || "Consulta i dettagli pubblicati";
@@ -235,7 +244,7 @@ function detailRows(service) {
   }
   add("Limite", service.quantity_limit || (service.max_items ? `${service.max_items} pezzi` : null));
   add("Istruzioni", service.instructions);
-  if (service.acceptance) add("Accettazione", service.acceptance.status.replaceAll("_", " "));
+  if (service.acceptance) add("Accettazione", acceptanceLabel(service.acceptance.status));
   for (const period of service.opening_periods || []) {
     const intervals = (period.weekly_intervals || []).map((item) => `${["Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"][item.weekday - 1] || item.weekday} ${item.opens}–${item.closes}`).join(", ");
     add(period.period_label || "Orari", intervals || period.exceptions);

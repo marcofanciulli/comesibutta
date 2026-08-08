@@ -1,7 +1,9 @@
 {
-  "accepted_terms": 16,
+  "accepted_terms": 17,
+  "destination": "Organico",
   "municipalities": 104,
-  "records": 1664,
+  "records": 1768,
+  "source_bullets": 16,
   "source_url": "https://seitoscana.it/raccolta-differenziata/organico",
   "stream_name": "Organico"
 }

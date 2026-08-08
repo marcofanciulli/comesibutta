@@ -1,7 +1,7 @@
 {
   "register_id": "waste-curation:toscana:v1",
   "version": 1,
-  "generated_at": "2026-08-08T13:00:00+02:00",
+  "generated_at": "2026-08-08T15:30:00+02:00",
   "alias_groups": [
     {
       "group_id": "waste-alias:beverage-carton",
@@ -76,6 +76,69 @@
       ],
       "review_status": "approved",
       "rationale": "Varianti generiche singolari, plurali e con condizione vuota; sono escluse bottiglie di medicinali, profumo e oggetti con residui specifici."
+    }
+  ],
+  "eer_mappings": [
+    {
+      "mapping_id": "eer-map:used-cooking-oil",
+      "preferred_label": "Oli e grassi commestibili",
+      "eer_code": "200125",
+      "concept_ids": ["waste:olio-alimentare-esausto"],
+      "review_status": "approved",
+      "rationale": "La guida SEI identifica l'olio alimentare esausto; la corrispondente voce EER domestica e 20 01 25, oli e grassi commestibili.",
+      "source_urls": [
+        "https://seitoscana.it/raccolta-differenziata/olioalimentareesausto"
+      ]
+    },
+    {
+      "mapping_id": "eer-map:small-household-raee-non-hazardous",
+      "preferred_label": "RAEE non pericolosi",
+      "eer_code": "200136",
+      "concept_ids": [
+        "waste:aspirapolvere",
+        "waste:ferri-da-stiro",
+        "waste:frullatori",
+        "waste:macchine-da-cucire",
+        "waste:macchine-del-caffe",
+        "waste:piccoli-elettrodomestici-es-aspirapolvere-macchine-da-cucire-macchine-del-caffe-frullatori-ferri-da-stiro-plafoniere-tostapane-apparecchiature-mediche-etc",
+        "waste:tostapane"
+      ],
+      "condition": "per apparecchiature diverse da lampade, apparecchi refrigeranti e RAEE contenenti componenti pericolosi",
+      "review_status": "approved",
+      "rationale": "Gli esempi appartengono alla categoria SEI dei piccoli elettrodomestici e, in assenza delle caratteristiche escluse dalle voci 20 01 21, 20 01 23 e 20 01 35, ricadono nella voce residuale 20 01 36.",
+      "source_urls": [
+        "https://seitoscana.it/raccolta-differenziata/raee"
+      ]
+    },
+    {
+      "mapping_id": "eer-map:large-household-raee-non-hazardous",
+      "preferred_label": "RAEE non pericolosi",
+      "eer_code": "200136",
+      "concept_ids": [
+        "waste:addolcitori",
+        "waste:cappe",
+        "waste:forni",
+        "waste:grandi-elettrodomestici-es-lavatrici-forni-cappe-addolcitori-etc",
+        "waste:lavatrici"
+      ],
+      "condition": "per apparecchiature diverse da apparecchi refrigeranti e RAEE contenenti componenti pericolosi",
+      "review_status": "approved",
+      "rationale": "Gli esempi appartengono alla categoria SEI dei grandi elettrodomestici e, quando non ricadono nelle voci pericolose specifiche, sono descritti dalla voce residuale 20 01 36.",
+      "source_urls": [
+        "https://seitoscana.it/raccolta-differenziata/raee"
+      ]
+    },
+    {
+      "mapping_id": "eer-map:mercury-light-sources",
+      "preferred_label": "Tubi fluorescenti e altre sorgenti contenenti mercurio",
+      "eer_code": "200121",
+      "concept_ids": ["waste:tubi-e-lampade-al-neon"],
+      "condition": "se la sorgente luminosa contiene mercurio",
+      "review_status": "approved",
+      "rationale": "La voce 20 01 21 riguarda tubi fluorescenti e altri rifiuti contenenti mercurio; LED e alogene restano esclusi da questa inferenza.",
+      "source_urls": [
+        "https://seitoscana.it/raccolta-differenziata/raee"
+      ]
     }
   ],
   "collection_streams": [
@@ -192,7 +255,13 @@
       "channel_id": "channel:retailer-return",
       "preferred_label": "Consegna al rivenditore",
       "destination_type": "special_case",
-      "aliases": ["Uno contro uno", "Negozianti", "Rivenditori autorizzati"]
+      "aliases": [
+        "Uno contro uno",
+        "Negozianti",
+        "Rivenditore",
+        "Rivenditori",
+        "Rivenditori autorizzati"
+      ]
     },
     {
       "channel_id": "channel:specialist-operator",

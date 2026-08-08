@@ -3,9 +3,13 @@ from __future__ import annotations
 from collections import Counter, defaultdict
 import json
 from pathlib import Path
+import re
 from typing import Any
 
 from .catalog import normalize_term
+
+
+_EER_CODE_RE = re.compile(r"^\d{6}$")
 
 
 def matching_delivery_channels(
@@ -70,6 +74,27 @@ def validate_waste_curation(
                     f"Concept {concept_id} belongs to both {member_owner[concept_id]} and {group_id}"
                 )
             member_owner[concept_id] = group_id
+
+    mapping_ids = set()
+    mapped_concepts: dict[str, str] = {}
+    for mapping in register.get("eer_mappings", []):
+        mapping_id = mapping["mapping_id"]
+        if mapping_id in mapping_ids:
+            raise ValueError(f"Duplicate EER mapping {mapping_id}")
+        mapping_ids.add(mapping_id)
+        if mapping.get("review_status") != "approved":
+            raise ValueError(f"EER mapping {mapping_id} is not approved")
+        if not _EER_CODE_RE.fullmatch(str(mapping.get("eer_code", ""))):
+            raise ValueError(f"Invalid EER code in {mapping_id}")
+        for concept_id in mapping.get("concept_ids", []):
+            if concept_id not in concept_ids:
+                raise ValueError(f"Unknown concept {concept_id} in {mapping_id}")
+            if concept_id in mapped_concepts:
+                raise ValueError(
+                    f"Concept {concept_id} has EER mappings in both "
+                    f"{mapped_concepts[concept_id]} and {mapping_id}"
+                )
+            mapped_concepts[concept_id] = mapping_id
 
     stream_ids = set()
     alias_owner: dict[str, str] = {}
@@ -175,6 +200,8 @@ def validate_waste_curation(
         "alias_groups": len(group_ids),
         "alias_members": len(member_owner),
         "approved_search_terms": len(search_owner),
+        "eer_mappings": len(mapping_ids),
+        "eer_mapped_concepts": len(mapped_concepts),
         "collection_streams": len(stream_ids),
         "stream_aliases": len(alias_owner),
         "delivery_channels": len(channel_ids),

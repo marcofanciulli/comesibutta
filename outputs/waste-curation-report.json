@@ -3,37 +3,39 @@
   "alias_groups": 3,
   "alias_members": 30,
   "approved_search_terms": 14,
-  "catalog_generated_at": "2026-08-08T14:10:00+02:00",
-  "channel_aliases": 26,
+  "catalog_generated_at": "2026-08-08T15:00:00+02:00",
+  "channel_aliases": 28,
   "channel_destination_assertions": {
-    "channel:collection-centre": 1752,
-    "channel:collection-point": 189,
+    "channel:collection-centre": 1795,
+    "channel:collection-point": 192,
     "channel:home-pickup": 426,
     "channel:mobile-collection": 381,
-    "channel:retailer-return": 63,
+    "channel:retailer-return": 108,
     "channel:reuse-service": 66,
     "channel:specialist-operator": 122
   },
   "channel_destination_labels": {
-    "channel:collection-centre": 99,
-    "channel:collection-point": 2,
+    "channel:collection-centre": 102,
+    "channel:collection-point": 4,
     "channel:home-pickup": 24,
     "channel:mobile-collection": 14,
-    "channel:retailer-return": 11,
+    "channel:retailer-return": 17,
     "channel:reuse-service": 8,
     "channel:specialist-operator": 6
   },
-  "channel_mapped_destination_assertions": 1904,
-  "channel_mapped_destination_labels": 108,
+  "channel_mapped_destination_assertions": 1947,
+  "channel_mapped_destination_labels": 111,
   "collection_streams": 7,
   "conflicts_by_group": {},
   "delivery_channels": 7,
-  "destination_assertions": 4357,
-  "destination_labels": 188,
-  "mapped_destination_assertions": 2031,
+  "destination_assertions": 4493,
+  "destination_labels": 191,
+  "eer_mapped_concepts": 14,
+  "eer_mappings": 4,
+  "mapped_destination_assertions": 2124,
   "mapped_destination_labels": 27,
-  "multi_channel_destination_assertions": 821,
-  "multi_channel_destination_labels": 42,
+  "multi_channel_destination_assertions": 867,
+  "multi_channel_destination_labels": 48,
   "register_id": "waste-curation:toscana:v1",
   "register_version": 1,
   "stream_aliases": 34,
@@ -301,6 +303,10 @@
       "label": "centri di raccolta raee"
     },
     {
+      "assertions": 40,
+      "label": "centro di raccolta o rivenditore"
+    },
+    {
       "assertions": 34,
       "label": "ecocentro contenitore raccolta abiti"
     },
@@ -435,10 +441,6 @@
     {
       "assertions": 9,
       "label": "legno centro di raccolta"
-    },
-    {
-      "assertions": 9,
-      "label": "riuso cambia il finale contenitore stradale grigio per indifferenziata dotato di cassetto apribile con carta smeraldo distribuzione materiali"
     }
   ]
 }

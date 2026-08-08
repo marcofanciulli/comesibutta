@@ -134,6 +134,12 @@ def _reference_candidates(entity: CanonicalEntity) -> set[tuple[str, str]]:
             ("waste_concept", concept_id)
             for concept_id in entity.data.get("member_concept_ids", [])
         )
+    if entity.entity_type == "waste_eer_mapping":
+        references.add(("eer_entry", f"eer:{entity.data['eer_code']}"))
+        references.update(
+            ("waste_concept", concept_id)
+            for concept_id in entity.data.get("concept_ids", [])
+        )
     return references
 
 
@@ -149,8 +155,10 @@ def load_canonical_entities(
     ]
     records = _read_jsonl([*acquisition_paths, *registry_paths])
     entities = _merge_acquisition_records(records)
+    eer_codes = set()
     if eer_register_path:
         register = json.loads(eer_register_path.read_text(encoding="utf-8"))
+        eer_codes = {entry["code"] for entry in register.get("entries", [])}
         entities.extend(
             CanonicalEntity("eer_entry", entry["entry_id"], entry)
             for entry in register.get("entries", [])
@@ -179,6 +187,15 @@ def load_canonical_entities(
             waste_curation_register_path.read_text(encoding="utf-8")
         )
         validate_waste_curation(curation, catalog)
+        unknown_mappings = sorted(
+            mapping["eer_code"] for mapping in curation.get("eer_mappings", [])
+            if eer_codes and mapping["eer_code"] not in eer_codes
+        )
+        if unknown_mappings:
+            raise ValueError(
+                "Waste curation references unknown EER codes: "
+                + ", ".join(unknown_mappings)
+            )
         entities.extend(
             CanonicalEntity("waste_alias_group", group["group_id"], group)
             for group in curation.get("alias_groups", [])
@@ -190,6 +207,10 @@ def load_canonical_entities(
         entities.extend(
             CanonicalEntity("delivery_channel", channel["channel_id"], channel)
             for channel in curation.get("delivery_channels", [])
+        )
+        entities.extend(
+            CanonicalEntity("waste_eer_mapping", mapping["mapping_id"], mapping)
+            for mapping in curation.get("eer_mappings", [])
         )
     indexed = {(entity.entity_type, entity.entity_id): entity for entity in entities}
     if len(indexed) != len(entities):
