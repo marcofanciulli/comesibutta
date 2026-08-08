@@ -30,20 +30,23 @@ come gia previsto per le modifiche dello storage locale.
 5. Per una corrispondenza incerta propone soltanto le interpretazioni che hanno
    una destinazione pubblicata nel territorio, se disponibili.
 6. Dopo la scelta del concetto legge la destinazione territoriale.
-7. Normalizza destinazione e regola tramite il vocabolario controllato dei
+7. Se il rifiutario locale manca, cerca un EER concordante accettato con lo
+   stesso codice da un centro accessibile; in assenza di EER usa una descrizione
+   del centro soltanto quando identifica un unico codice senza ambiguita.
+8. Normalizza destinazione e regola tramite il vocabolario controllato dei
    flussi.
-8. Scompone gli eventuali canali di conferimento approvati e conserva il testo
+9. Scompone gli eventuali canali di conferimento approvati e conserva il testo
    originale con condizioni e alternative.
-9. Collega, quando possibile, la destinazione alla regola locale per ricavare
+10. Collega, quando possibile, la destinazione alla regola locale per ricavare
    contenitore, colore, modalita, sacchetto e istruzioni.
-10. Per il canale centro usa soltanto accessi pubblicati e verifica
+11. Per il canale centro usa soltanto accessi pubblicati e verifica
     l'accettazione tramite EER o descrizione.
-11. Collega ritiri e punti territoriali, mantenendo distinta l'esistenza del
+12. Collega ritiri e punti territoriali, mantenendo distinta l'esistenza del
     servizio dalla compatibilita col rifiuto.
-12. Conserva riuso, rivenditore e operatore specializzato come indicazioni
+13. Conserva riuso, rivenditore e operatore specializzato come indicazioni
     sorgente finche non esiste un servizio acquisito.
-13. Se regole di zone diverse producono risposte differenti chiede la zona.
-14. Restituisce fonti, data di verifica e revisione del dataset.
+14. Se regole di zone diverse producono risposte differenti chiede la zona.
+15. Restituisce fonti, data di verifica e revisione del dataset.
 
 Gli stati sono:
 

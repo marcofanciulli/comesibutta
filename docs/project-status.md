@@ -465,9 +465,14 @@ Prima verticale applicativa:
 - verificato `Tappo di sughero` a Manciano: la guida del gestore determina
   l'organico e la regola comunale completa contenitore, colore e sacchetto in
   base alla zona scelta;
+- aggiunto il percorso inverso concetto-EER-centro per i comuni privi di
+  rifiutario: a Manciano risolve quattro RAEE per codice esatto e pneumatici e
+  toner tramite una descrizione associata a un solo EER;
+- le descrizioni richiedono tutte le parole significative e un unico codice:
+  formulazioni parziali come `mobile in legno` non vengono generalizzate;
 - verificato nel browser il percorso reale `Cartone del latte` a Livorno su
   schermo desktop e mobile, senza errori o scorrimento orizzontale;
-- 157 test automatici superati.
+- 160 test automatici superati.
 
 ## Limiti e questioni aperte
 

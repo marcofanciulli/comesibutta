@@ -72,6 +72,29 @@ def _destination_type(destination: str) -> str:
     return "collection_stream"
 
 
+def _description_matches_terms(description: str, terms: set[str]) -> bool:
+    description_tokens = description.split()
+    stopwords = {"a", "al", "con", "da", "dei", "del", "di", "e", "in", "la", "le", "per"}
+    for term in terms:
+        term_tokens = [
+            token for token in term.split()
+            if token not in stopwords and len(token) >= 5
+        ]
+        if term_tokens and all(
+            any(
+                token == candidate
+                or (
+                    len(candidate) >= 5
+                    and token[:-1] == candidate[:-1]
+                )
+                for candidate in description_tokens
+            )
+            for token in term_tokens
+        ):
+            return True
+    return False
+
+
 def _distance_km(
     latitude_a: float | None,
     longitude_a: float | None,
@@ -357,6 +380,19 @@ class DisposalQueryService:
         ]
         self._set_provenance(base, evidence)
         if not destinations:
+            fallback, fallback_sources = self._facility_fallback(
+                concept,
+                municipality_istat=municipality_istat,
+                user_type=user_type,
+                latitude=latitude,
+                longitude=longitude,
+            )
+            if fallback is not None:
+                base["status"] = "resolved"
+                base["result"] = fallback
+                self._set_provenance(base, [
+                    *concept.get("evidence", []), *fallback_sources,
+                ])
             return base
         if len(destinations) > 1:
             base["status"] = "conflict"
@@ -563,16 +599,7 @@ class DisposalQueryService:
         instructions = []
         if presentation and presentation.get("instructions_raw"):
             instructions.append(presentation["instructions_raw"])
-        eer = None
-        candidates = concept.get("eer", {}).get("candidates", [])
-        if concept.get("eer", {}).get("status") == "source_consensus" and len(candidates) == 1:
-            candidate = candidates[0]
-            eer = {
-                "code": candidate["code"],
-                "official_label": candidate.get("official_title") or candidate["source_labels"][0],
-                "hazardous": bool(candidate.get("official_hazardous") or candidate.get("hazardous")),
-                "facility_operational_label": candidate["source_labels"][0] if candidate.get("source_labels") else None,
-            }
+        eer = self._eer_summary(concept)
         warnings = []
         channels = self._channel_matches(destination)
         if rule is None and not channels:
@@ -699,6 +726,143 @@ class DisposalQueryService:
         }
         return result, [*facility_sources, *service_sources]
 
+    @staticmethod
+    def _eer_summary(concept: dict[str, Any]) -> dict[str, Any] | None:
+        candidates = concept.get("eer", {}).get("candidates", [])
+        if concept.get("eer", {}).get("status") != "source_consensus" or len(candidates) != 1:
+            return None
+        candidate = candidates[0]
+        if candidate.get("register_status") == "unknown_code":
+            return None
+        source_labels = candidate.get("source_labels") or []
+        return {
+            "code": candidate["code"],
+            "official_label": (
+                candidate.get("official_title")
+                or (source_labels[0] if source_labels else candidate["code"])
+            ),
+            "hazardous": bool(
+                candidate.get("official_hazardous") or candidate.get("hazardous")
+            ),
+            "facility_operational_label": source_labels[0] if source_labels else None,
+        }
+
+    def _facility_fallback(
+        self,
+        concept: dict[str, Any],
+        *,
+        municipality_istat: str,
+        user_type: str,
+        latitude: float | None,
+        longitude: float | None,
+    ) -> tuple[dict[str, Any] | None, list[dict[str, Any]]]:
+        eer = self._eer_summary(concept)
+        facilities, sources = self._resolve_facilities(
+            concept,
+            "Centro di raccolta",
+            municipality_istat=municipality_istat,
+            user_type=user_type,
+            latitude=latitude,
+            longitude=longitude,
+            allow_term_match=eer is None,
+        )
+        if eer is not None:
+            verified = [
+                facility for facility in facilities
+                if facility["acceptance"]["status"] == "verified_eer"
+            ]
+            resolution_basis = "exact_eer"
+        else:
+            verified = [
+                facility for facility in facilities
+                if facility["acceptance"]["status"] == "verified_description"
+                and len(facility["acceptance"]["eer_codes"]) == 1
+            ]
+            codes = {
+                code for facility in verified
+                for code in facility["acceptance"]["eer_codes"]
+            }
+            if len(codes) != 1:
+                return None, sources
+            eer = self._eer_from_code(next(iter(codes)), verified)
+            if eer is None:
+                return None, sources
+            resolution_basis = "facility_description"
+        if not verified:
+            return None, sources
+        selectable = [
+            facility for facility in verified
+            if facility["operational_status"] not in {"closed", "temporarily_closed"}
+        ]
+        primary = None
+        if len(selectable) == 1 or (selectable and latitude is not None):
+            primary = selectable[0]
+        elif selectable:
+            local = [facility for facility in selectable if facility["_local"]]
+            if len(local) == 1:
+                primary = local[0]
+        if resolution_basis == "exact_eer":
+            warnings = [
+                "La fonte locale non pubblica questo oggetto nel rifiutario: "
+                f"il centro \u00e8 stato individuato tramite l'accettazione esatta del codice EER {eer['code']}."
+            ]
+        else:
+            warnings = [
+                "La fonte locale non pubblica un rifiutario: il collegamento deriva "
+                f"dalla descrizione del materiale associata dal centro al codice EER {eer['code']}."
+            ]
+        if not selectable:
+            warnings.append(
+                "I centri che pubblicano questo codice risultano chiusi o temporaneamente chiusi."
+            )
+        elif primary is None:
+            warnings.append(
+                "Sono disponibili piu centri compatibili: usa la posizione per ordinare quelli piu vicini."
+            )
+        for facility in verified:
+            facility.pop("_local", None)
+        channels = self._channel_matches("Centro di raccolta")
+        return {
+            "destination_type": "facility",
+            "stream_id": None,
+            "stream": None,
+            "source_destination": f"Centro di raccolta tramite codice EER {eer['code']}",
+            "channel_relation": "single",
+            "delivery_channels": channels,
+            "container": None,
+            "presentation": None,
+            "eer": eer,
+            "facility": primary,
+            "facility_alternatives": [
+                facility for facility in verified if facility is not primary
+            ],
+            "channel_services": [],
+            "unresolved_channels": [],
+            "environmental_note": concept.get("general_details", {}).get(
+                "environmental_note"
+            ),
+            "warnings": warnings,
+        }, sources
+
+    def _eer_from_code(
+        self, code: str, facilities: list[dict[str, Any]],
+    ) -> dict[str, Any] | None:
+        entry = read_entity_data(
+            self.connection, "eer_entry", f"eer:{code}", include_sources=False,
+        )
+        if entry is None:
+            return None
+        labels = sorted({
+            label for facility in facilities
+            for label in facility["acceptance"]["labels"]
+        })
+        return {
+            "code": code,
+            "official_label": entry["title_expanded"] or entry["title"],
+            "hazardous": bool(entry["hazardous"]),
+            "facility_operational_label": labels[0] if labels else None,
+        }
+
     def _resolve_facilities(
         self,
         concept: dict[str, Any],
@@ -708,6 +872,7 @@ class DisposalQueryService:
         user_type: str,
         latitude: float | None,
         longitude: float | None,
+        allow_term_match: bool = False,
     ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
         access_by_facility: dict[str, list[dict[str, Any]]] = {}
         for row in self.connection.execute(
@@ -736,6 +901,7 @@ class DisposalQueryService:
             payload = facility.get("payload") or {}
             acceptance, acceptance_sources = self._facility_acceptance(
                 facility_id, concept, source_destination, user_type,
+                allow_term_match=allow_term_match,
             )
             periods, period_sources = self._facility_opening_periods(facility_id)
             access_payloads = [access.get("payload") or {} for access in accesses]
@@ -830,6 +996,8 @@ class DisposalQueryService:
         concept: dict[str, Any],
         source_destination: str,
         user_type: str,
+        *,
+        allow_term_match: bool = False,
     ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
         accepted = []
         sources = []
@@ -883,6 +1051,9 @@ class DisposalQueryService:
                     for term in concept_terms
                 )
                 or f" {description} " in f" {normalized_destination} "
+                or allow_term_match and _description_matches_terms(
+                    description, concept_terms,
+                )
             ):
                 item_basis = "description"
             if item_basis:

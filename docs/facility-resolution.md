@@ -25,6 +25,14 @@ Gli ultimi due stati restano visibili ma non producono una struttura primaria.
 `not_listed` significa soltanto che il collegamento non e dimostrato dai dati
 correnti, non che il conferimento sia certamente vietato.
 
+Quando manca del tutto un rifiutario locale, il motore puo invertire il
+percorso: parte dall'EER concordante del concetto e cerca lo stesso codice nei
+centri accessibili. Se il concetto non ha ancora un EER, una descrizione del
+centro puo fornire il codice soltanto quando tutte le parole significative
+coincidono e tutti i centri compatibili indicano un unico EER. Corrispondenze
+parziali, codici multipli e descrizioni generiche non producono una risposta.
+La risposta espone sempre quale dei due criteri e stato usato.
+
 I centri chiusi o temporaneamente chiusi non vengono mai scelti come proposta
 primaria. Restano tra le alternative con stato e testo originale, affinche una
 chiusura pubblicata non venga nascosta.
@@ -70,6 +78,12 @@ Il caso reale `Armadio` a Firenze produce due centri compatibili. Senza GPS
 restano alternative equivalenti; con una posizione presso viale Guidoni viene
 proposto `CDR SAN DONATO`. Il centro dell'Isola del Giglio conserva lo stato
 `temporarily_closed` e il testo `Chiuso per lavori di adeguamento`.
+
+Nel caso reale di Manciano, frigorifero, lavatrice, batteria auto e televisore
+sono risolti per EER esatto; pneumatico e toner sono risolti dalla descrizione
+univoca pubblicata dal centro. Un mobile in legno non viene invece associato
+automaticamente alla sola voce `legno`, perche trattamenti e componenti possono
+cambiarne la classificazione.
 
 ## Limiti
 

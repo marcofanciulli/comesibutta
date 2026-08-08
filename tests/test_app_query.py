@@ -5,7 +5,11 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
 
-from dovelobutto.app_query import DisposalQueryService, open_query_database
+from dovelobutto.app_query import (
+    DisposalQueryService,
+    _description_matches_terms,
+    open_query_database,
+)
 from dovelobutto.web_api import DisposalApi
 from dovelobutto.sync import (
     CanonicalEntity,
@@ -286,6 +290,18 @@ class DisposalQueryTests(unittest.TestCase):
         results = self.service.search("botiglia di vtro", municipality_istat="053014")
         self.assertEqual("waste:bottiglia-di-vetro", results[0]["concept_id"])
         self.assertTrue(results[0]["available_in_municipality"])
+
+    def test_description_match_requires_the_complete_material_phrase(self) -> None:
+        self.assertTrue(_description_matches_terms(
+            "pneumatici fuori uso", {"pneumatico"},
+        ))
+        self.assertTrue(_description_matches_terms(
+            "toner per stampa esauriti", {"toner"},
+        ))
+        self.assertFalse(_description_matches_terms(
+            "legno diverso da quello contenente sostanze pericolose",
+            {"mobile in legno"},
+        ))
 
     def test_web_api_lists_municipalities_and_answers_queries(self) -> None:
         api = DisposalApi(self.database)
@@ -645,6 +661,109 @@ class DisposalQueryTests(unittest.TestCase):
         self.assertEqual("facility:fridge", answer["result"]["facility"]["id"])
         self.assertEqual("verified_eer", answer["result"]["facility"]["acceptance"]["status"])
         self.assertEqual(["200123"], answer["result"]["facility"]["acceptance"]["eer_codes"])
+
+    def test_eer_resolves_a_centre_when_local_lookup_is_missing(self) -> None:
+        self.connection.close()
+        writer = open_database(self.database, role="client")
+        current = read_database_entities(writer)
+        changed = dict(current)
+        fridge = _concept("waste:frigorifero", "Frigorifero", [])
+        fridge.data["eer"] = {
+            "status": "source_consensus",
+            "candidates": [{
+                "code": "200123",
+                "source_labels": ["Apparecchiature contenenti CFC"],
+                "official_title": "Apparecchiature fuori uso contenenti CFC",
+                "official_hazardous": True,
+                "register_status": "active_in_target",
+            }],
+        }
+        changed[(fridge.entity_type, fridge.entity_id)] = fridge
+        changed[("delivery_channel", "channel:collection-centre")] = CanonicalEntity(
+            "delivery_channel", "channel:collection-centre", {
+                "channel_id": "channel:collection-centre",
+                "preferred_label": "Centro di raccolta",
+                "destination_type": "facility",
+                "aliases": ["Centro di raccolta", "Ecocentro"],
+            },
+        )
+        for entity in (
+            _facility("facility:fridge", "Centro RAEE", 43.0, 11.0),
+            _facility_access("facility:fridge"),
+            _facility_acceptance(
+                "facility:fridge", "Apparecchiature con CFC", eer_code="200123",
+            ),
+        ):
+            changed[(entity.entity_type, entity.entity_id)] = entity
+        apply_package(writer, build_update_package(current, changed, 1, 2, GENERATED_AT))
+        writer.close()
+        self.connection = open_query_database(self.database)
+        self.service = DisposalQueryService(self.connection)
+
+        answer = self.service.answer("frigorifero", "053014")
+
+        self.assertEqual("resolved", answer["status"])
+        self.assertEqual("facility", answer["result"]["destination_type"])
+        self.assertEqual("200123", answer["result"]["eer"]["code"])
+        self.assertEqual("facility:fridge", answer["result"]["facility"]["id"])
+        self.assertIn(
+            "accettazione esatta del codice EER 200123",
+            " ".join(answer["result"]["warnings"]),
+        )
+
+    def test_centre_description_can_supply_one_unambiguous_eer(self) -> None:
+        self.connection.close()
+        writer = open_database(self.database, role="client")
+        current = read_database_entities(writer)
+        changed = dict(current)
+        toner = _concept("waste:toner", "Toner", [])
+        changed[(toner.entity_type, toner.entity_id)] = toner
+        changed[("eer_entry", "eer:080318")] = CanonicalEntity(
+            "eer_entry", "eer:080318", {
+                "entry_id": "eer:080318",
+                "code": "080318",
+                "title": "toner per stampa esauriti",
+                "title_expanded": "toner per stampa esauriti, diversi da quelli pericolosi",
+                "hazardous": False,
+                "chapter_ref": "eer-chapter:08",
+                "subchapter_ref": "eer-subchapter:0803",
+                "references": [],
+                "source_celex": "02000D0532-20231206",
+            },
+        )
+        changed[("delivery_channel", "channel:collection-centre")] = CanonicalEntity(
+            "delivery_channel", "channel:collection-centre", {
+                "channel_id": "channel:collection-centre",
+                "preferred_label": "Centro di raccolta",
+                "destination_type": "facility",
+                "aliases": ["Centro di raccolta"],
+            },
+        )
+        for entity in (
+            _facility("facility:toner", "Centro toner", 43.0, 11.0),
+            _facility_access("facility:toner"),
+            _facility_acceptance(
+                "facility:toner", "Toner per stampa esauriti", eer_code="080318",
+            ),
+        ):
+            changed[(entity.entity_type, entity.entity_id)] = entity
+        apply_package(writer, build_update_package(current, changed, 1, 2, GENERATED_AT))
+        writer.close()
+        self.connection = open_query_database(self.database)
+        self.service = DisposalQueryService(self.connection)
+
+        answer = self.service.answer("toner", "053014")
+
+        self.assertEqual("resolved", answer["status"])
+        self.assertEqual("080318", answer["result"]["eer"]["code"])
+        self.assertEqual(
+            "verified_description",
+            answer["result"]["facility"]["acceptance"]["status"],
+        )
+        self.assertIn(
+            "descrizione del materiale",
+            " ".join(answer["result"]["warnings"]),
+        )
 
     def test_pickup_channel_exposes_booking_and_limits(self) -> None:
         self.connection.close()

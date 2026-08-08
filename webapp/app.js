@@ -16,6 +16,8 @@ const elements = {
   placeSearch: $("#place-search"), placeList: $("#place-list"),
   currentPlace: $("#current-place"), detailDialog: $("#detail-dialog"),
   detailTitle: $("#detail-title"), detailContent: $("#detail-content"),
+  notFoundEyebrow: $("#not-found-eyebrow"), notFoundTitle: $("#not-found-title"),
+  notFoundMessage: $("#not-found-message"),
 };
 
 const escapeHtml = (value) => String(value ?? "").replace(/[&<>'"]/g, (char) => ({
@@ -114,12 +116,25 @@ async function resolveWaste(text, conceptId = null, zoneId = null) {
     hideStates();
     if (body.status === "resolved") renderAnswer(body);
     else if (body.status === "needs_question" || body.status === "conflict") renderQuestion(body);
-    else elements.notFound.hidden = false;
+    else renderNotFound(body);
   } catch (error) {
     hideStates();
     elements.errorMessage.textContent = error.message;
     elements.error.hidden = false;
   }
+}
+
+function renderNotFound(body) {
+  if (body.query?.matched_concept_id) {
+    elements.notFoundEyebrow.textContent = "Rifiuto riconosciuto";
+    elements.notFoundTitle.textContent = `Manca una destinazione verificata per ${state.municipality.name}`;
+    elements.notFoundMessage.textContent = `Abbiamo riconosciuto “${body.query.matched_label}”, ma le fonti disponibili non permettono ancora di collegarlo a una raccolta o a un centro accessibile in questo comune.`;
+  } else {
+    elements.notFoundEyebrow.textContent = "Nessuna risposta certa";
+    elements.notFoundTitle.textContent = "Prova a descriverlo in un altro modo";
+    elements.notFoundMessage.textContent = "Indica l’oggetto e, se puoi, il materiale. Non suggeriamo una destinazione quando i dati non bastano.";
+  }
+  elements.notFound.hidden = false;
 }
 
 function modeLabel(presentation) {
