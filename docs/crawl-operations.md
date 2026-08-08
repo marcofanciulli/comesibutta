@@ -132,6 +132,29 @@ Se il preflight trova divieti in `robots.txt`, il rapporto contiene
 `blocked_by_robots` per ogni URL. Il lotto termina prima di acquisire pagine:
 non esistono esclusioni silenziose.
 
+## Guide valide per tutto il gestore
+
+Le pagine `raccolta-differenziata` di SEI pubblicano materiali validi per
+l'intero servizio, separatamente dalle regole dei singoli comuni. Dopo aver
+conservato la pagina sorgente, la guida viene materializzata per i soli comuni
+del registro che hanno `operator_ref: sei-toscana`:
+
+```sh
+PYTHONPATH=src python3 -m dovelobutto.cli materialize-sei-guidance \
+  --html data/sources/sei-toscana/organico.html \
+  --registry outputs/sei-toscana-municipalities.jsonl \
+  --source-url https://seitoscana.it/raccolta-differenziata/organico \
+  --retrieved-at 2026-08-08T09:35:00+02:00 \
+  --output outputs/sei-toscana/operator-organico-guidance.jsonl \
+  --report outputs/sei-toscana/operator-organico-guidance-report.json
+```
+
+Il catalogo riconosce i file `*-guidance.jsonl` come acquisizioni condivise.
+Ogni fatto conserva una sola impronta della fonte ma il suo ambito territoriale
+comprende i comuni interessati. La guida non sostituisce le regole locali: ad
+esempio classifica il tappo di sughero come organico, mentre contenitore e
+sacchetto vengono dalla pagina del comune e dall'eventuale zona di raccolta.
+
 ## Lotti provinciali ATO Toscana Sud
 
 Le selezioni riproducibili sono in `config/sweep-batches/`:

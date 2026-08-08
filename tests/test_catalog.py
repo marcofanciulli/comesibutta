@@ -1,9 +1,12 @@
 from __future__ import annotations
 
 from datetime import datetime
+import json
+from pathlib import Path
+from tempfile import TemporaryDirectory
 import unittest
 
-from dovelobutto.catalog import build_waste_catalog, normalize_term
+from dovelobutto.catalog import build_catalog_from_paths, build_waste_catalog, normalize_term
 
 
 def waste(term: str, destination: str, instructions: str | None, municipality: str, url: str) -> dict:
@@ -60,6 +63,31 @@ class WasteCatalogTest(unittest.TestCase):
         )]
         catalog, _ = build_waste_catalog(records, datetime.fromisoformat("2026-08-06T21:00:00+02:00"))
         self.assertTrue(catalog["concepts"][0]["eer"]["candidates"][0]["hazardous"])
+
+    def test_reads_shared_operator_guidance_for_known_municipalities(self) -> None:
+        with TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            registry = root / "registry.jsonl"
+            registry.write_text(json.dumps({"payload": {
+                "istat_code": "053014", "source_slug": "manciano",
+            }}) + "\n", encoding="utf-8")
+            guidance = root / "operator-organico-guidance.jsonl"
+            guidance.write_text(json.dumps(waste(
+                "Tappi di sughero", "Organico", None, "053014",
+                "https://example.test/organico",
+            ) | {"payload": {
+                "municipality_ref": "istat:053014",
+                "term": "Tappi di sughero",
+                "destination_raw": "Organico",
+                "instructions_raw": None,
+            }}) + "\n", encoding="utf-8")
+            catalog, _ = build_catalog_from_paths(
+                [root], [registry], datetime.fromisoformat("2026-08-08T14:00:00+02:00"),
+            )
+        self.assertEqual(1, len(catalog["concepts"]))
+        destination = catalog["concepts"][0]["local_destinations"][0]
+        self.assertEqual("Organico", destination["label"])
+        self.assertEqual(["053014"], destination["municipality_istats"])
 
 
 if __name__ == "__main__":

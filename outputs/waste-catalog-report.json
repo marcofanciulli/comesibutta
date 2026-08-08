@@ -1,8 +1,8 @@
 {
-  "concepts": 3351,
+  "concepts": 3363,
   "concepts_with_eer": 331,
   "concepts_with_multiple_local_destinations": 598,
-  "concepts_without_eer": 3020,
+  "concepts_without_eer": 3032,
   "eer_candidates_by_register_status": {
     "active_in_target": 328,
     "not_checked": 0,
@@ -11,8 +11,8 @@
   },
   "eer_conflicts": 0,
   "eer_register_id": "eer:eu:2025-934-corrigendum-01",
-  "general_details_pending": 3351,
-  "generated_at": "2026-08-08T13:00:00+02:00",
-  "source_assertions": 5046,
-  "waste_lookup_records": 139508
+  "general_details_pending": 3363,
+  "generated_at": "2026-08-08T14:10:00+02:00",
+  "source_assertions": 5062,
+  "waste_lookup_records": 141172
 }

@@ -1,9 +1,9 @@
 {
   "alias_group_territorial_conflicts": 0,
   "alias_groups": 3,
-  "alias_members": 29,
+  "alias_members": 30,
   "approved_search_terms": 14,
-  "catalog_generated_at": "2026-08-08T13:00:00+02:00",
+  "catalog_generated_at": "2026-08-08T14:10:00+02:00",
   "channel_aliases": 26,
   "channel_destination_assertions": {
     "channel:collection-centre": 1752,
@@ -28,9 +28,9 @@
   "collection_streams": 7,
   "conflicts_by_group": {},
   "delivery_channels": 7,
-  "destination_assertions": 4343,
+  "destination_assertions": 4357,
   "destination_labels": 188,
-  "mapped_destination_assertions": 2017,
+  "mapped_destination_assertions": 2031,
   "mapped_destination_labels": 27,
   "multi_channel_destination_assertions": 821,
   "multi_channel_destination_labels": 42,

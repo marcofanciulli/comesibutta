@@ -43,7 +43,7 @@ posto dell'utente e non collega per somiglianza una regola di cassonetto.
 
 Il registro comprende:
 
-- 3 gruppi approvati e 29 concetti membri;
+- 3 gruppi approvati e 30 concetti membri;
 - 14 termini di ricerca approvati;
 - 7 flussi canonici e 34 alias di flusso;
 - 7 canali di conferimento e 26 alias di canale;

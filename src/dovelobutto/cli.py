@@ -332,6 +332,16 @@ def build_parser() -> argparse.ArgumentParser:
     curation.add_argument("--register", type=Path, required=True)
     curation.add_argument("--catalog", type=Path, required=True)
     curation.add_argument("--report", type=Path, required=True)
+    sei_guidance = subparsers.add_parser(
+        "materialize-sei-guidance",
+        help="Apply one official SEI stream guide to its managed municipalities",
+    )
+    sei_guidance.add_argument("--html", type=Path, required=True)
+    sei_guidance.add_argument("--registry", type=Path, required=True)
+    sei_guidance.add_argument("--source-url", required=True)
+    sei_guidance.add_argument("--retrieved-at", required=True)
+    sei_guidance.add_argument("--output", type=Path, required=True)
+    sei_guidance.add_argument("--report", type=Path, required=True)
     publish = subparsers.add_parser(
         "publish-data-release",
         help="Build the canonical SQLite state and signed snapshot/delta artifacts",
@@ -502,6 +512,22 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     if args.command == "validate-waste-curation":
         report = validate_waste_curation_paths(args.register, args.catalog)
+        args.report.parent.mkdir(parents=True, exist_ok=True)
+        args.report.write_text(
+            json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+        return 0
+    if args.command == "materialize-sei-guidance":
+        from .sei_guidance import extract_sei_stream_guidance
+
+        records, report = extract_sei_stream_guidance(
+            args.html.read_text(encoding="utf-8"),
+            args.registry,
+            args.source_url,
+            datetime.fromisoformat(args.retrieved_at),
+        )
+        write_jsonl(args.output, records)
         args.report.parent.mkdir(parents=True, exist_ok=True)
         args.report.write_text(
             json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n",

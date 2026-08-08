@@ -74,6 +74,20 @@ def _read_municipal_records(
             record = json.loads(line)
             if record["record_type"] == "waste_lookup":
                 records.append({**record, "municipality_istat": istat_code})
+    shared_paths = sorted({
+        path.resolve()
+        for directory in input_dirs
+        for path in directory.glob("*-guidance.jsonl")
+    })
+    for path in shared_paths:
+        for line in path.read_text(encoding="utf-8").splitlines():
+            if not line.strip():
+                continue
+            record = json.loads(line)
+            municipality_ref = (record.get("payload") or {}).get("municipality_ref", "")
+            istat_code = municipality_ref.removeprefix("istat:")
+            if record.get("record_type") == "waste_lookup" and istat_code in municipalities:
+                records.append({**record, "municipality_istat": istat_code})
     return records
 
 

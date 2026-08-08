@@ -175,7 +175,7 @@ Completamento ATO Toscana Sud:
 
 Esploratore dati:
 
-- pacchetto statico generato in modo riproducibile da 153.496 record logici;
+- pacchetto statico generato in modo riproducibile da 155.160 record logici;
 - filtri gerarchici per ATO e provincia, seguiti dall'elenco dei comuni;
 - 273 comuni censiti e 273 con almeno una fonte materializzata;
 - navigazione per comune e viste dedicate a centri, EER, regole, punti e ritiro;
@@ -185,11 +185,11 @@ Esploratore dati:
 
 Catalogo canonico corrente:
 
-- 139.508 record di rifiutario ridotti a 5.046 indicazioni sorgente distinte;
-- 3.351 concetti consultabili nell'esploratore;
+- 141.172 record di rifiutario ridotti a 5.062 indicazioni sorgente distinte;
+- 3.363 concetti consultabili nell'esploratore;
 - 331 concetti con EER concordante indicato dalla fonte e zero conflitti sui
   termini coincidenti;
-- 3.020 concetti senza EER e 598 con piu destinazioni locali osservate;
+- 3.032 concetti senza EER e 598 con piu destinazioni locali osservate;
 - materiale, condizioni, sinonimi semantici e note ambientali restano
   esplicitamente da verificare, senza riempimenti automatici.
 
@@ -300,7 +300,7 @@ Completamento dei comuni toscani in ATO extra-regionali:
   quattro lacune esplicite, non assenze silenziose;
 - l'esploratore espone cinque ATO, limitando quelli extra-regionali alle sole
   province e ai soli comuni toscani interessati;
-- il dataset conta 153.496 record logici e il catalogo 3.351 concetti, con
+- il dataset conta 155.160 record logici e il catalogo 3.363 concetti, con
   331 concetti associati a un EER concordante;
 - 151 test automatici superati.
 
@@ -393,7 +393,7 @@ Ricerca e risposta applicativa:
 
 Curatela di sinonimi e flussi:
 
-- creato il registro v1 con 3 gruppi approvati, 29 concetti membri e 14 termini
+- creato il registro v1 con 3 gruppi approvati, 30 concetti membri e 14 termini
   di ricerca per cartoni da bevande, tappi di vero sughero e bottiglie di vetro
   generiche;
 - aggiunti 7 flussi canonici e 34 alias controllati; lo stesso alias non puo
@@ -458,11 +458,16 @@ Prima verticale applicativa:
   risposte risolte, chiarimenti, conflitti, assenza di dati ed errori;
 - destinazione, preparazione, contenitore, EER, centri, ritiri, punti,
   avvertenze e fonti sono letti direttamente dal database client sincronizzato;
-- pubblicata e applicata localmente la revisione firmata `202608080001`, con
+- pubblicata e applicata localmente la revisione firmata `202608080004`, con
   tutti i 273 comuni toscani visibili all'app;
+- acquisita la guida generale SEI Toscana per l'organico: 16 materiali sono
+  collegati con evidenza unica ai 104 comuni gestiti, senza duplicare la fonte;
+- verificato `Tappo di sughero` a Manciano: la guida del gestore determina
+  l'organico e la regola comunale completa contenitore, colore e sacchetto in
+  base alla zona scelta;
 - verificato nel browser il percorso reale `Cartone del latte` a Livorno su
   schermo desktop e mobile, senza errori o scorrimento orizzontale;
-- 153 test automatici superati.
+- 157 test automatici superati.
 
 ## Limiti e questioni aperte
 

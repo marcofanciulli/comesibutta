@@ -124,7 +124,23 @@ async function resolveWaste(text, conceptId = null, zoneId = null) {
 
 function modeLabel(presentation) {
   if (!presentation) return "Non pubblicato";
-  const modes = {loose: "Sfuso", bagged: "In sacchetto", bundled: "Legato", unspecified: "Vedi indicazioni"};
+  const modes = {
+    loose: "Sfuso",
+    loose_in_container: "Sfuso nel contenitore",
+    bag: "In sacchetto",
+    bag_unspecified: "In sacchetto",
+    bag_in_container: "In sacchetto nel contenitore",
+    biodegradable_bag: "In sacchetto biodegradabile",
+    compostable_bag: "In sacchetto compostabile",
+    closed_bag: "In sacchetto ben chiuso",
+    paper_bag: "In sacchetto di carta",
+    plastic_bag: "In sacchetto di plastica",
+    container: "Nel contenitore",
+    bundle: "Legato o in fascine",
+    mixed: "Secondo le indicazioni locali",
+    source_specific: "Vedi indicazioni",
+    unspecified: "Vedi indicazioni",
+  };
   return modes[presentation.mode] || presentation.mode;
 }
 

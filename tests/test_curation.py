@@ -26,13 +26,20 @@ class WasteCurationTests(unittest.TestCase):
     def test_reviewed_register_matches_the_current_catalog(self) -> None:
         report = validate_waste_curation(self.register, self.catalog)
         self.assertEqual(3, report["alias_groups"])
-        self.assertEqual(29, report["alias_members"])
+        self.assertEqual(30, report["alias_members"])
         self.assertEqual(7, report["collection_streams"])
         self.assertEqual(7, report["delivery_channels"])
         self.assertEqual(0, report["alias_group_territorial_conflicts"])
         self.assertGreater(report["mapped_destination_assertions"], 1900)
         self.assertGreater(report["channel_mapped_destination_assertions"], 1700)
         self.assertGreater(report["multi_channel_destination_assertions"], 600)
+
+    def test_cork_group_contains_the_livorno_catalog_variant(self) -> None:
+        cork = next(
+            group for group in self.register["alias_groups"]
+            if group["group_id"] == "waste-alias:cork-stopper"
+        )
+        self.assertIn("waste:tappi-in-sughero", cork["member_concept_ids"])
 
     def test_unknown_alias_member_is_rejected(self) -> None:
         register = copy.deepcopy(self.register)
