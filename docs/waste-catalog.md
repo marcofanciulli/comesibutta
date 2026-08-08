@@ -45,13 +45,13 @@ locali, non trattate come contraddizioni globali.
 
 ## Stato corrente
 
-- 155.836 record locali di rifiutario e guide analizzati;
-- 5.203 indicazioni sorgente distinte dopo la deduplicazione;
-- 3.471 concetti canonici;
+- 157.604 record locali di rifiutario e guide analizzati;
+- 5.220 indicazioni sorgente distinte dopo la deduplicazione;
+- 3.485 concetti canonici;
 - 331 concetti con un EER concordante pubblicato dalla fonte;
 - nessun conflitto EER per i termini coincidenti;
-- 3.140 concetti senza EER pubblicato direttamente dalla fonte;
-- 615 concetti con piu destinazioni locali osservate.
+- 3.154 concetti senza EER pubblicato direttamente dalla fonte;
+- 616 concetti con piu destinazioni locali osservate.
 
 `source_consensus` significa che tutte le fonti che pubblicano un EER per quel
 termine indicano lo stesso codice. Ogni candidato e ora controllato anche

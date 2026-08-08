@@ -97,8 +97,9 @@ class SeiGuidanceTests(unittest.TestCase):
         self.assertEqual("Piccoli elettrodomestici (es. aspirapolvere, tostapane)", terms[1])
         self.assertEqual(
             ["lampade a LED", "tubi al neon", "aspirapolvere", "tostapane"],
-            terms[2:],
+            terms[2:6],
         )
+        self.assertEqual(["Sorgenti luminose", "Piccoli elettrodomestici"], terms[6:])
         self.assertEqual(2, report["source_bullets"])
-        self.assertEqual(6, report["accepted_terms"])
+        self.assertEqual(8, report["accepted_terms"])
         self.assertIn("Sorgenti luminose", records[2]["source"]["evidence"]["quote"])

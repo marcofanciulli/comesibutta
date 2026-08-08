@@ -119,7 +119,7 @@ class ExplorerDatasetTest(unittest.TestCase):
         )
         self.assertEqual(154, dataset["batch"]["municipalities_acquired"])
         self.assertEqual(25503, len(dataset["records"]))
-        self.assertEqual(3471, len(dataset["catalog"]["concepts"]))
+        self.assertEqual(3485, len(dataset["catalog"]["concepts"]))
         self.assertEqual(880, len(dataset["eer_register"]["entries"]))
         self.assertEqual("2026-12-09", dataset["eer_register"]["valid_from"])
         capoliveri = next(item for item in dataset["municipalities"] if item["name"] == "Capoliveri")

@@ -1,6 +1,9 @@
 const state = {
   municipalities: [],
   municipality: null,
+  zoneId: null,
+  zoneLabel: null,
+  datasetRevision: null,
   query: "",
   conceptId: null,
   searchTimer: null,
@@ -18,6 +21,8 @@ const elements = {
   detailTitle: $("#detail-title"), detailContent: $("#detail-content"),
   notFoundEyebrow: $("#not-found-eyebrow"), notFoundTitle: $("#not-found-title"),
   notFoundMessage: $("#not-found-message"),
+  zonePreference: $("#zone-preference"), currentZone: $("#current-zone"),
+  clearZone: $("#clear-zone"),
 };
 
 const escapeHtml = (value) => String(value ?? "").replace(/[&<>'"]/g, (char) => ({
@@ -40,7 +45,17 @@ function hideStates() {
 function chooseMunicipality(item) {
   state.municipality = item;
   localStorage.setItem("comesibutta.municipality", item.istat_code);
-  elements.currentPlace.textContent = item.name;
+  const storedZone = localStorage.getItem(`comesibutta.zone.${item.istat_code}`);
+  try {
+    const preference = storedZone ? JSON.parse(storedZone) : null;
+    const isCurrent = preference?.datasetRevision === state.datasetRevision;
+    state.zoneId = isCurrent ? preference.id : null;
+    state.zoneLabel = isCurrent ? preference.label : null;
+  } catch (_) {
+    state.zoneId = null;
+    state.zoneLabel = null;
+  }
+  updatePlaceControls();
   elements.input.disabled = false;
   elements.search.disabled = false;
   elements.placeDialog.close();
@@ -49,6 +64,28 @@ function chooseMunicipality(item) {
   elements.welcome.querySelector("h2").textContent = `Cosa devi buttare a ${item.name}?`;
   elements.welcome.querySelector("p").textContent = "Cerca un oggetto o un materiale: controlleremo le indicazioni pubblicate per questo territorio.";
   elements.input.focus();
+}
+
+function updatePlaceControls() {
+  elements.currentPlace.textContent = [state.municipality?.name, state.zoneLabel].filter(Boolean).join(" · ") || "Scegli il comune";
+  elements.zonePreference.hidden = !state.zoneId;
+  elements.currentZone.textContent = state.zoneLabel ? `Zona attiva: ${state.zoneLabel}` : "";
+}
+
+function rememberZone(id, label) {
+  state.zoneId = id;
+  state.zoneLabel = label;
+  localStorage.setItem(`comesibutta.zone.${state.municipality.istat_code}`, JSON.stringify({
+    id, label, datasetRevision: state.datasetRevision,
+  }));
+  updatePlaceControls();
+}
+
+function clearRememberedZone() {
+  if (state.municipality) localStorage.removeItem(`comesibutta.zone.${state.municipality.istat_code}`);
+  state.zoneId = null;
+  state.zoneLabel = null;
+  updatePlaceControls();
 }
 
 function renderPlaceList(filter = "") {
@@ -90,13 +127,14 @@ async function showSuggestions() {
   }
 }
 
-async function resolveWaste(text, conceptId = null, zoneId = null) {
+async function resolveWaste(text, conceptId = null, zoneId = undefined) {
   if (!state.municipality || !text.trim()) return;
   state.query = text.trim();
   state.suggestionVersion += 1;
   clearTimeout(state.searchTimer);
   if (conceptId) state.conceptId = conceptId;
-  if (!conceptId && !zoneId) state.conceptId = null;
+  if (!conceptId && zoneId === undefined) state.conceptId = null;
+  const effectiveZoneId = zoneId === undefined ? state.zoneId : zoneId;
   elements.input.value = state.query;
   elements.suggestions.hidden = true;
   hideStates();
@@ -109,7 +147,7 @@ async function resolveWaste(text, conceptId = null, zoneId = null) {
         text: state.query,
         municipality: state.municipality.istat_code,
         concept_id: conceptId || state.conceptId,
-        zone_id: zoneId,
+        zone_id: effectiveZoneId,
         user_type: "domestic",
       }),
     });
@@ -223,7 +261,7 @@ function renderQuestion(body) {
   const question = body.question || {text: "Quale rifiuto intendi?", options: []};
   elements.answer.innerHTML = `<div class="answer-band"><div class="answer-inner">
     <p class="eyebrow">Serve una precisazione</p><h2>${escapeHtml(question.text)}</h2>
-    <div class="question-options">${question.options.map((option) => `<button type="button" data-choice="${escapeHtml(option.id)}">${escapeHtml(option.label)}</button>`).join("")}</div>
+    <div class="question-options">${question.options.map((option) => `<button type="button" data-choice="${escapeHtml(option.id)}" data-choice-label="${escapeHtml(option.label)}">${escapeHtml(option.label)}</button>`).join("")}</div>
   </div></div>`;
   elements.answer.hidden = false;
   elements.answer._questionKind = question.text.toLocaleLowerCase("it").includes("zona") ? "zone" : "concept";
@@ -264,7 +302,12 @@ elements.answer.addEventListener("click", (event) => {
   const choice = event.target.closest("button[data-choice]");
   if (choice) {
     const isZone = elements.answer._questionKind === "zone";
-    resolveWaste(state.query, isZone ? null : choice.dataset.choice, isZone ? choice.dataset.choice : null);
+    if (isZone) {
+      rememberZone(choice.dataset.choice, choice.dataset.choiceLabel);
+      resolveWaste(state.query, null, choice.dataset.choice);
+    } else {
+      resolveWaste(state.query, choice.dataset.choice);
+    }
     return;
   }
   const detail = event.target.closest("button[data-detail-kind]");
@@ -277,6 +320,7 @@ elements.answer.addEventListener("click", (event) => {
   }
 });
 elements.placeSearch.addEventListener("input", () => renderPlaceList(elements.placeSearch.value));
+elements.clearZone.addEventListener("click", clearRememberedZone);
 elements.placeList.addEventListener("click", (event) => {
   const button = event.target.closest("button[data-istat]");
   if (button) chooseMunicipality(state.municipalities.find((item) => item.istat_code === button.dataset.istat));
@@ -295,6 +339,7 @@ async function initialize() {
   try {
     const body = await api("/api/municipalities");
     state.municipalities = body.municipalities;
+    state.datasetRevision = body.dataset_revision;
     const remembered = localStorage.getItem("comesibutta.municipality");
     const municipality = state.municipalities.find((item) => item.istat_code === remembered);
     if (municipality) chooseMunicipality(municipality);

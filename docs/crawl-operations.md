@@ -151,9 +151,11 @@ PYTHONPATH=src python3 -m dovelobutto.cli materialize-sei-guidance \
 
 Sono acquisite tutte le nove guide pubblicate: carta e cartone, farmaci
 scaduti, indifferenziato, multimateriale, olio alimentare esausto, organico,
-pile esauste, RAEE e vetro. Producono 16.328 fatti nei 104 comuni SEI. Gli
+pile esauste, RAEE e vetro. Producono 18.096 fatti nei 104 comuni SEI. Gli
 esempi espliciti nelle categorie, come frigoriferi o tostapane nei RAEE,
 diventano termini ricercabili ma conservano come evidenza il punto originale.
+Quando una voce termina con esempi tra parentesi, viene indicizzato anche il
+nome breve precedente: `Cellophane (es. ...)` risponde quindi a `Cellophane`.
 
 Il catalogo riconosce i file `*-guidance.jsonl` come acquisizioni condivise.
 Ogni fatto conserva una sola impronta della fonte ma il suo ambito territoriale

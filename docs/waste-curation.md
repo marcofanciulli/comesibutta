@@ -60,11 +60,11 @@ Il registro comprende:
 - organico, carta, vetro, multimateriale, residuo, plastica e metalli.
 
 La validazione sul catalogo corrente conta 191 etichette di destinazione e
-4.493 associazioni. Gli alias di flusso mappano 27 etichette e 2.124
+4.508 associazioni. Gli alias di flusso mappano 27 etichette e 2.132
 associazioni, senza conflitti territoriali nei gruppi approvati.
 
-I canali riconoscono 111 etichette e 1.947 associazioni. In 48 etichette, pari
-a 867 associazioni, la fonte pubblica piu alternative: centro di raccolta,
+I canali riconoscono 111 etichette e 1.954 associazioni. In 48 etichette, pari
+a 874 associazioni, la fonte pubblica piu alternative: centro di raccolta,
 servizio mobile, ritiro, punto di raccolta, rivenditore, operatore specializzato
 o riuso vengono restituiti separatamente insieme alla formulazione sorgente.
 

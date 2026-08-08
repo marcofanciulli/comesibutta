@@ -24,6 +24,7 @@ def _expand_search_terms(source_terms: list[str]) -> list[tuple[str, str]]:
     """Keep source bullets stable, then add searchable examples they contain."""
     expanded = [(term, term) for term in source_terms]
     seen = {term.casefold() for term in source_terms}
+    category_terms = []
     for source_term in source_terms:
         for match in _EXAMPLE_RE.finditer(source_term):
             for item in match.group(1).split(","):
@@ -33,6 +34,12 @@ def _expand_search_terms(source_terms: list[str]) -> list[tuple[str, str]]:
                     continue
                 seen.add(term.casefold())
                 expanded.append((term, source_term))
+            if match.end() == len(source_term):
+                category = clean_text(source_term[:match.start()]).strip(" .;:")
+                if category and category.casefold() not in seen:
+                    seen.add(category.casefold())
+                    category_terms.append((category, source_term))
+    expanded.extend(category_terms)
     return expanded
 
 

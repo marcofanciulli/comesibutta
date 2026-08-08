@@ -119,6 +119,12 @@ dialog::backdrop { background: #0b211cc4; }
 .dialog-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
 .icon-button { width: 40px; height: 40px; flex: 0 0 40px; border: 1px solid var(--line); border-radius: 50%; background: white; font-size: 1.5rem; line-height: 1; }
 .dialog-shell > input { width: 100%; min-height: 48px; border-radius: var(--radius); }
+.zone-preference {
+  min-height: 44px; display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; margin-top: 12px; padding: 8px 0; border-top: 1px solid var(--line);
+}
+.zone-preference span { min-width: 0; overflow-wrap: anywhere; font-weight: 700; }
+.zone-preference .text-button { flex: 0 0 auto; }
 .place-list { max-height: 52vh; overflow: auto; margin-top: 12px; border-top: 1px solid var(--line); }
 .place-list button { width: 100%; border: 0; border-bottom: 1px solid var(--line); padding: 12px 4px; background: white; text-align: left; }
 .place-list button:hover { color: var(--green-2); }
