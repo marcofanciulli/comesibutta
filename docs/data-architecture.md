@@ -123,7 +123,7 @@ sempre da una `collection_rule` valida per il territorio e il periodo.
 | `facility_access` | Comuni e tipi di utenza autorizzati, tessere e documenti |
 | `facility_acceptance` | Voce EER o raggruppamento operativo accettato |
 | `opening_period` | Intervallo stagionale e ricorrenza settimanale |
-| `collection_schedule` | Calendario ordinario, quindicinale o per date esplicite, collegato a una regola o a un punto mobile |
+| `collection_schedule` | Calendario ordinario, stagionale, quindicinale o per date esplicite, collegato a una regola o a un punto mobile |
 | `collection_point` | Punto stradale speciale o batteria di cassonetti |
 | `pickup_service` | Ritiro domiciliare, limiti e prenotazione |
 
@@ -135,6 +135,7 @@ regola applicata a territorio, servizio, utenza e periodo. Deve poter indicare:
 - volume massimo del sacco;
 - operazioni richieste: svuotare, piegare, separare, chiudere;
 - calendario ed eventuale orario di esposizione;
+- intervallo annuale di validita del singolo passaggio, per esempio dal 15 giugno al 15 settembre;
 - necessita di tessera o altra credenziale.
 
 ## 4. Provenienza e ciclo di vita

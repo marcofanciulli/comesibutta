@@ -3,22 +3,23 @@
   "istat_code": "050020",
   "municipality": "Montescudaio",
   "pages_available": 31,
-  "pages_materialized": 22,
-  "records": 247,
+  "pages_materialized": 23,
+  "records": 259,
   "records_by_type": {
-    "collection_rule": 10,
+    "collection_rule": 15,
+    "collection_schedule": 5,
     "facility": 2,
     "facility_acceptance": 37,
     "facility_access": 2,
     "opening_period": 2,
     "pickup_service": 3,
-    "service_zone": 1,
+    "service_zone": 3,
     "waste_lookup": 190
   },
   "warnings": [
     {
       "code": "calendar_pdf_coverage",
-      "detail": "9 PDF comunali unici acquisiti; 4 classificati come calendari o guide operative; 0 calendari 2026 materializzati",
+      "detail": "9 PDF comunali unici acquisiti; 4 classificati come calendari o guide operative; 1 calendari materializzati",
       "url": "https://www.reaspa.it/comuni/comune-di-montescudaio/"
     },
     {

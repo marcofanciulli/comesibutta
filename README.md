@@ -238,10 +238,10 @@ L'interfaccia permette di filtrare per ATO e provincia, distinguere comuni
 censiti da comuni acquisiti, esplorare centri e regole, consultare il
 rifiutario, cercare materiali e codici EER e risalire alla fonte di ogni fatto.
 Il pacchetto corrente contiene tutti i 273 comuni toscani censiti, ciascuno con
-almeno una fonte materializzata, e 152.734 record logici. Per i 17 comuni REA
+almeno una fonte materializzata, e 152.915 record logici. Per i 17 comuni REA
 comprende anche pagine di servizio, centri intercomunali, orari, accesso,
-ritiri, materiali accettati, quattro calendari RUR e cinque calendari
-Ecomobile 2026 strutturati;
+ritiri, materiali accettati, quattro calendari RUR, cinque calendari Ecomobile
+2026 e 12 calendari settimanali grafici strutturati;
 gli EER non pubblicati dalla fonte sono indicati esplicitamente come tali. Per
 i 25 comuni GEOFOR comprende 388 voci del rifiutario e cinque regole
 generali per comune, oltre a centri, orari e ritiri quando pubblicati. La vista
@@ -251,7 +251,7 @@ osservazioni locali.
 
 Per ATO Toscana Centro l'esploratore conserva una sola copia delle 1.722 voci
 AliaEstra condivise, continuando ad applicarle a ciascuno dei 65 comuni. Il
-bundle contiene quindi 42.490 record fisici e pesa circa 57 MB, mentre i file
+bundle contiene quindi 42.707 record fisici e pesa circa 55 MiB, mentre i file
 di acquisizione comunali restano completi e indipendenti.
 
 ## Pubblicazione e aggiornamenti

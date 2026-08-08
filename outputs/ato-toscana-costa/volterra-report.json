@@ -3,22 +3,28 @@
   "istat_code": "050039",
   "municipality": "Volterra",
   "pages_available": 15,
-  "pages_materialized": 11,
-  "records": 215,
+  "pages_materialized": 12,
+  "records": 241,
   "records_by_type": {
-    "collection_rule": 4,
+    "collection_rule": 16,
+    "collection_schedule": 12,
     "facility": 1,
     "facility_acceptance": 14,
     "facility_access": 1,
     "opening_period": 1,
     "pickup_service": 3,
-    "service_zone": 1,
+    "service_zone": 3,
     "waste_lookup": 190
   },
   "warnings": [
     {
+      "code": "weekly_calendar_text_layer_incomplete",
+      "detail": "La tabella e stata verificata visivamente, ma il livello testuale PDF e incompleto",
+      "url": "https://www.reaspa.it/wp-content/uploads/2022/05/UD-Calendario-Volterra.pdf"
+    },
+    {
       "code": "calendar_pdf_coverage",
-      "detail": "4 PDF comunali unici acquisiti; 2 classificati come calendari o guide operative; 0 calendari 2026 materializzati",
+      "detail": "4 PDF comunali unici acquisiti; 2 classificati come calendari o guide operative; 1 calendari materializzati",
       "url": "https://www.reaspa.it/comuni/comune-di-volterra/"
     },
     {

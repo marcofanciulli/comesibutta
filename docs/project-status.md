@@ -175,7 +175,7 @@ Completamento ATO Toscana Sud:
 
 Esploratore dati:
 
-- pacchetto statico generato in modo riproducibile da 152.734 record logici;
+- pacchetto statico generato in modo riproducibile da 152.915 record logici;
 - filtri gerarchici per ATO e provincia, seguiti dall'elenco dei comuni;
 - 273 comuni censiti e 273 con almeno una fonte materializzata;
 - navigazione per comune e viste dedicate a centri, EER, regole, punti e ritiro;
@@ -220,14 +220,15 @@ Completamento ATO Toscana Costa:
 - REA: 425 URL di servizi, centri e allegati controllate; 423 snapshot, 73
   riferimenti ad allegati comunali, 70 PDF unici, 11 centri, nessun blocco
   robots e due vecchi PDF oggi `404` documentati;
-- REA: 3.864 record complessivi, con 112 regole, 46 ritiri, 19 relazioni
-  comune-centro complete di orario e accesso e 368 materiali ammessi; le
+- REA: 4.045 record complessivi, con 196 regole, 99 calendari, 46 ritiri, 19
+  relazioni comune-centro complete di orario e accesso e 368 materiali ammessi; le
   descrizioni prive di EER restano marcate come codice non pubblicato;
 - REA: sette voci del rifiutario prive di destinazione restano visibili;
   quattro calendari RUR 2026 di Casale Marittimo e Guardistallo sono stati
   convertiti in 149 date strutturate; cinque calendari Ecomobile producono 15
-  fermate e 189 associazioni fermata-data; i calendari settimanali grafici
-  restano inventariati e dichiarati come copertura residua;
+  fermate e 189 associazioni fermata-data; 12 calendari settimanali grafici
+  verificati producono 17 zone, 84 regole e 80 calendari con stagionalita e
+  orari di esposizione;
 - AAMPS: 125 coppie estratte dal PDF 2017; cinque probabili continuazioni di
   colonna restano a confidenza media e sono elencate nel rapporto;
 - GEOFOR: 178 URL controllati, 176 snapshot e due `404`; 13.631 record per 25
@@ -295,7 +296,7 @@ Completamento dei comuni toscani in ATO extra-regionali:
   quattro lacune esplicite, non assenze silenziose;
 - l'esploratore espone cinque ATO, limitando quelli extra-regionali alle sole
   province e ai soli comuni toscani interessati;
-- il dataset conta 152.734 record logici e il catalogo 3.124 concetti, con
+- il dataset conta 152.915 record logici e il catalogo 3.124 concetti, con
   331 concetti associati a un EER concordante;
 - 80 test automatici superati.
 
@@ -444,14 +445,14 @@ Risoluzione degli altri canali:
 - riuso per `Assi da stiro`, uno-contro-uno per `Asciugacapelli` e operatore
   specializzato per `Bitumi` restano indicazioni `source_only` citabili;
 - tutti i fatti di servizio utilizzati entrano nella provenienza della risposta.
-- 146 test automatici superati.
+- 147 test automatici superati.
 
 ## Limiti e questioni aperte
 
 - Le pagine di ritiro ingombranti non sono collegate dall'indice generale e
   devono essere scoperte dalle pagine comunali o durante la scansione.
-- L'acquisizione PDF comprende AAMPS e i calendari RUR ed Ecomobile REA;
-  guide e calendari settimanali grafici delle altre SOL non sono ancora
+- L'acquisizione PDF comprende AAMPS e i calendari RUR, Ecomobile e settimanali
+  verificati REA; guide e calendari grafici delle altre SOL non sono ancora
   generalizzati nella pipeline.
 - Manca il livello canonico in PostgreSQL/PostGIS e la coda di revisione umana.
 - Alcuni requisiti di accesso Alia includono parti redazionali della pagina e
@@ -465,18 +466,16 @@ Risoluzione degli altri canali:
 
 ## Prossimi passi
 
-1. Estrarre e normalizzare i calendari REA settimanali basati su icone,
-   mantenendo una verifica visiva dei casi ambigui.
-2. Acquisire i dettagli dei centri ESA e cercare una guida AAMPS piu recente.
-3. Modellare l'accesso intergestore Montignoso-ERSU e approfondire i centri non
+1. Acquisire i dettagli dei centri ESA e cercare una guida AAMPS piu recente.
+2. Modellare l'accesso intergestore Montignoso-ERSU e approfondire i centri non
    pubblicati o non attribuiti esplicitamente dalle fonti.
-4. Estendere il registro alle formule ancora prive di flusso o canale solo dopo
+3. Estendere il registro alle formule ancora prive di flusso o canale solo dopo
    revisione delle relative evidenze territoriali.
-5. Ripulire i testi di accesso estratti da pagine con contenuto redazionale,
+4. Ripulire i testi di accesso estratti da pagine con contenuto redazionale,
    mantenendo il testo integrale nella provenienza.
-6. Aggiungere consolidati settimanali, mensili e annuali con conservazione e
+5. Aggiungere consolidati settimanali, mensili e annuali con conservazione e
    compattazione automatica nella finestra incrementale di cinque anni.
-7. Importare il primo lotto fotografico classificato col prontuario, annotarlo
+6. Importare il primo lotto fotografico classificato col prontuario, annotarlo
    in CVAT e fissare le soglie quantitative del primo dataset addestrabile.
 
 ## Regola di continuita

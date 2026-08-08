@@ -62,9 +62,9 @@ PYTHONPATH=src python3 -m dovelobutto.cli fetch-rea-services \
 ```
 
 `materialize-rea-services` combina queste pagine con il rifiutario. Produce
-3.864 record per i 17 comuni: 3.230 termini, 112 regole, 46 servizi di ritiro,
-17 zone, 19 relazioni comune-centro con orari e accesso e 368 descrizioni di
-materiali accettati. Quando REA non pubblica il codice EER, la descrizione
+4.045 record per i 17 comuni: 3.230 termini, 196 regole, 99 calendari, 46
+servizi di ritiro, 34 zone, 19 relazioni comune-centro con orari e accesso e
+368 descrizioni di materiali accettati. Quando REA non pubblica il codice EER, la descrizione
 resta acquisita con `eer_code_status: unmapped_description`; il codice non
 viene dedotto. I centri intercomunali restano associati a tutti i comuni
 esplicitamente serviti.
@@ -74,9 +74,8 @@ Casale Marittimo e Guardistallo: due per utenze domestiche e due per utenze non
 domestiche, per un totale di 149 date. Anno, giorno settimanale e completezza
 minima vengono verificati prima di creare il calendario; la validita resta
 limitata all'anno dichiarato. Tra i 70 PDF unici, 31 sono classificati come
-possibili calendari o guide operative. Le tabelle settimanali basate su icone
-restano inventariate ma non vengono interpretate senza un estrattore
-verificato. La copertura residua e esposta come avviso per comune, non nascosta.
+possibili calendari o guide operative. La copertura residua e esposta come
+avviso per comune, non nascosta.
 
 La seconda estrazione struttura cinque calendari Ecomobile 2026: Rosignano
 Marittimo, Orciano Pisano, Santa Luce, Montecatini Val di Cecina e Castelnuovo
@@ -85,6 +84,17 @@ requisiti di accesso e 189 associazioni fermata-data. Il calendario e collegato
 al punto mobile, non forzato dentro una regola porta a porta. Nel documento di
 Orciano la riga `27 febbraio 2025` resta esclusa dalle date 2026 e segnalata
 come anomalia testuale della fonte, senza correzione congetturale.
+
+La terza estrazione struttura 12 calendari settimanali grafici pubblicati da
+REA per Bibbona, Collesalvetti, Castellina Marittima, Montecatini Val di
+Cecina, Montescudaio, Riparbella, Santa Luce e Volterra. Le icone di utenza e
+zona sono state verificate visivamente e producono 17 zone, 84 regole e 80
+calendari. Sono conservati i periodi stagionali dei singoli passaggi, gli orari
+di esposizione, il conferimento stradale del vetro e le indicazioni su sacchi,
+mastelli e conferimento sfuso. Ogni configurazione e legata allo SHA-256 del
+PDF controllato: se REA sostituisce il file, il nuovo allegato torna in
+revisione invece di ereditare automaticamente la vecchia tabella. Il
+calendario Orciano 2023 e gli allegati annuali scaduti non sono resi attivi.
 
 ## AAMPS
 

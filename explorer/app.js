@@ -293,6 +293,10 @@
   }
 
   function scheduleSummary(schedule) {
+    const formatMonthDay = value => {
+      const [month, day] = value.split("-").map(Number);
+      return new Date(2000, month - 1, day).toLocaleDateString("it-IT", { day: "numeric", month: "long" });
+    };
     const events = schedule.payload.events.map(event => {
       if (event.dates?.length) {
         const weekdays = [...new Set(event.dates.map(value => {
@@ -302,10 +306,19 @@
         const format = value => new Date(`${value}T00:00:00`).toLocaleDateString("it-IT", { day: "numeric", month: "short" });
         return `${event.dates.length} date pubblicate · ${weekdays.join(" e ")} · ${format(event.dates[0])}-${format(event.dates.at(-1))}`;
       }
-      if (event.weekday) return weekdayLabels[event.weekday];
+      if (event.weekday) {
+        const season = event.start_month_day && event.end_month_day
+          ? `, dal ${formatMonthDay(event.start_month_day)} al ${formatMonthDay(event.end_month_day)}`
+          : "";
+        const request = event.raw === "Servizio su richiesta" ? " · su richiesta" : "";
+        return `${weekdayLabels[event.weekday]}${season}${request}`;
+      }
       return event.raw;
     }).filter(Boolean);
-    return [events.join(", "), schedule.payload.expose_by ? `entro le ${schedule.payload.expose_by}` : ""].filter(Boolean).join(" · ");
+    const exposure = schedule.payload.expose_from && schedule.payload.expose_by
+      ? `esposizione ${schedule.payload.expose_from}-${schedule.payload.expose_by}`
+      : schedule.payload.expose_by ? `entro le ${schedule.payload.expose_by}` : "";
+    return [events.join(", "), exposure].filter(Boolean).join(" · ");
   }
 
   function scheduleText(rule, schedules) {
@@ -314,9 +327,31 @@
   }
 
   function renderRules() {
-    const rules = filtered("collection_rule");
-    const zones = new Map(records("service_zone").map(record => [record.natural_key, record.payload.name]));
     const schedules = records("collection_schedule");
+    const candidates = filtered("collection_rule");
+    const verified = records("collection_rule").filter(
+      rule => rule.source.parser === "rea_weekly_icon_calendar_verified",
+    );
+    const selected = new Map();
+    candidates.filter(rule => !(
+      rule.source.parser === "rea_services_html"
+      && verified.some(candidate => (
+        candidate.payload.zone_ref === rule.payload.zone_ref
+        && candidate.payload.stream_name === rule.payload.stream_name
+        && (candidate.payload.user_type === "all" || candidate.payload.user_type === rule.payload.user_type)
+      ))
+    )).forEach(rule => {
+      const current = selected.get(rule.natural_key);
+      const score = item => (
+        (item.source.parser === "rea_weekly_icon_calendar_verified" ? 8 : 0)
+        + (schedules.some(schedule => schedule.payload.collection_rule_ref === item.natural_key) ? 4 : 0)
+        + (item.payload.presentation.instructions_raw ? 2 : 0)
+        + (item.payload.container_type ? 1 : 0)
+      );
+      if (!current || score(rule) >= score(current)) selected.set(rule.natural_key, rule);
+    });
+    const rules = [...selected.values()];
+    const zones = new Map(records("service_zone").map(record => [record.natural_key, record.payload.name]));
     return `${sectionHeading("Regole di raccolta", "Destinazione, contenitore, presentazione e calendario distinti per zona e utenza.")}${rules.length ? `<div class="table-wrap"><table class="data-table"><thead><tr><th>Frazione</th><th>Zona</th><th>Metodo</th><th>Contenitore</th><th>Come conferirla</th><th>Calendario</th><th></th></tr></thead><tbody>${rules.map(rule => `<tr><td><span class="row-title">${escapeHtml(rule.payload.stream_name)}</span><span class="row-subtitle">${escapeHtml(rule.payload.user_type)}</span></td><td>${escapeHtml(zones.get(rule.payload.zone_ref) || rule.payload.zone_ref)}</td><td><span class="chip method">${escapeHtml(methodLabels[rule.payload.collection_method] || rule.payload.collection_method)}</span></td><td>${escapeHtml([rule.payload.container_type, rule.payload.container_color].filter(Boolean).join(" · ") || "Non specificato")}</td><td>${escapeHtml(rule.payload.presentation.instructions_raw || presentationLabels[rule.payload.presentation.mode] || rule.payload.presentation.mode)}</td><td>${escapeHtml(scheduleText(rule, schedules))}</td><td><button class="detail-button" data-record="${rule.record_id}" type="button">Dettagli</button></td></tr>`).join("")}</tbody></table></div>` : `<div class="empty">Nessuna regola corrisponde alla ricerca.</div>`}`;
   }
 

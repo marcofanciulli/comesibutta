@@ -3,22 +3,23 @@
   "istat_code": "050010",
   "municipality": "Castellina Marittima",
   "pages_available": 36,
-  "pages_materialized": 28,
-  "records": 227,
+  "pages_materialized": 29,
+  "records": 244,
   "records_by_type": {
-    "collection_rule": 10,
+    "collection_rule": 18,
+    "collection_schedule": 8,
     "facility": 1,
     "facility_acceptance": 20,
     "facility_access": 1,
     "opening_period": 1,
     "pickup_service": 3,
-    "service_zone": 1,
+    "service_zone": 2,
     "waste_lookup": 190
   },
   "warnings": [
     {
       "code": "calendar_pdf_coverage",
-      "detail": "8 PDF comunali unici acquisiti; 1 classificati come calendari o guide operative; 0 calendari 2026 materializzati",
+      "detail": "8 PDF comunali unici acquisiti; 1 classificati come calendari o guide operative; 1 calendari materializzati",
       "url": "https://www.reaspa.it/comuni/comune-di-castellina-marittima/"
     },
     {

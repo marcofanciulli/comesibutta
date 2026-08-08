@@ -3,22 +3,23 @@
   "istat_code": "049008",
   "municipality": "Collesalvetti",
   "pages_available": 29,
-  "pages_materialized": 21,
-  "records": 245,
+  "pages_materialized": 24,
+  "records": 304,
   "records_by_type": {
-    "collection_rule": 5,
+    "collection_rule": 34,
+    "collection_schedule": 25,
     "facility": 2,
     "facility_acceptance": 40,
     "facility_access": 2,
     "opening_period": 2,
     "pickup_service": 3,
-    "service_zone": 1,
+    "service_zone": 6,
     "waste_lookup": 190
   },
   "warnings": [
     {
       "code": "calendar_pdf_coverage",
-      "detail": "8 PDF comunali unici acquisiti; 3 classificati come calendari o guide operative; 0 calendari 2026 materializzati",
+      "detail": "8 PDF comunali unici acquisiti; 3 classificati come calendari o guide operative; 3 calendari materializzati",
       "url": "https://www.reaspa.it/comuni/comune-di-collesalvetti/"
     },
     {

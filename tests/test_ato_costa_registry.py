@@ -20,6 +20,7 @@ from dovelobutto.rea import (
     extract_rea_collection_pages,
     extract_rea_ecomobile_calendar,
     extract_rea_rur_calendar,
+    extract_rea_weekly_calendar,
 )
 from dovelobutto.geofor import _facilities, _waste_and_rules, parse_rifiutario
 
@@ -220,6 +221,47 @@ class ReaExtractorTest(unittest.TestCase):
         self.assertEqual(
             ["2026-01-08", "2026-01-29"], records[1]["payload"]["events"][0]["dates"],
         )
+
+    def test_materializes_verified_icon_calendar_with_zone_and_season(self) -> None:
+        config = {
+            "istat": "050010", "label": "Castellina Marittima",
+            "valid_from": "2023-05-03", "expose_from": None,
+            "expose_by": "12:00",
+            "zones": {"rurale": ("Zone rurali", "Zone rurali")},
+            "rows": (
+                ("default", "all", "Rifiuti organici", ((3, None, None),)),
+                ("default", "non_domestic", "Rifiuti organici", ((1, "06-15", "09-15"),)),
+                ("rurale", "all", "Vetro", ()),
+            ),
+        }
+        page = {"number": 2, "words": [
+            {"text": "ORGANICO"}, {"text": "CARTA"},
+        ]}
+        with patch("dovelobutto.rea._pdf_bbox_words", return_value=([page], "<bbox/>")):
+            records, warnings = extract_rea_weekly_calendar(
+                MunicipalityContext("Castellina Marittima", "050010", "castellina-marittima"),
+                datetime.fromisoformat("2026-08-06T19:00:00+02:00"),
+                "https://example.test/calendario.pdf", Path("calendar.pdf"), config,
+            )
+        self.assertEqual([], warnings)
+        self.assertEqual(2, sum(item["record_type"] == "service_zone" for item in records))
+        self.assertEqual(3, sum(item["record_type"] == "collection_rule" for item in records))
+        self.assertEqual(2, sum(item["record_type"] == "collection_schedule" for item in records))
+        seasonal = next(
+            item for item in records
+            if item["record_type"] == "collection_schedule"
+            and item["payload"]["collection_rule_ref"].endswith("non_domestic:rifiuti-organici")
+        )
+        self.assertEqual("06-15", seasonal["payload"]["events"][0]["start_month_day"])
+        self.assertEqual("09-15", seasonal["payload"]["events"][0]["end_month_day"])
+        self.assertEqual("12:00", seasonal["payload"]["expose_by"])
+        street_glass = next(
+            item for item in records
+            if item["record_type"] == "collection_rule"
+            and item["payload"]["stream_name"] == "Vetro"
+        )
+        self.assertEqual("street", street_glass["payload"]["collection_method"])
+        self.assertEqual("container", street_glass["payload"]["presentation"]["mode"])
 
     def test_preserves_entries_without_a_published_destination(self) -> None:
         source = """{

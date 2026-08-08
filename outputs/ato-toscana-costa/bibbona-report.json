@@ -3,22 +3,23 @@
   "istat_code": "049001",
   "municipality": "Bibbona",
   "pages_available": 42,
-  "pages_materialized": 32,
-  "records": 222,
+  "pages_materialized": 35,
+  "records": 253,
   "records_by_type": {
-    "collection_rule": 10,
+    "collection_rule": 24,
+    "collection_schedule": 14,
     "facility": 1,
     "facility_acceptance": 15,
     "facility_access": 1,
     "opening_period": 1,
     "pickup_service": 3,
-    "service_zone": 1,
+    "service_zone": 4,
     "waste_lookup": 190
   },
   "warnings": [
     {
       "code": "calendar_pdf_coverage",
-      "detail": "10 PDF comunali unici acquisiti; 5 classificati come calendari o guide operative; 0 calendari 2026 materializzati",
+      "detail": "10 PDF comunali unici acquisiti; 5 classificati come calendari o guide operative; 3 calendari materializzati",
       "url": "https://www.reaspa.it/comuni/comune-di-bibbona/"
     },
     {

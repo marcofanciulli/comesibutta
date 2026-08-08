@@ -118,7 +118,7 @@ class ExplorerDatasetTest(unittest.TestCase):
             WORKSPACE / "outputs" / "eer-register.json",
         )
         self.assertEqual(154, dataset["batch"]["municipalities_acquired"])
-        self.assertEqual(24816, len(dataset["records"]))
+        self.assertEqual(24997, len(dataset["records"]))
         self.assertEqual(3124, len(dataset["catalog"]["concepts"]))
         self.assertEqual(880, len(dataset["eer_register"]["entries"]))
         self.assertEqual("2026-12-09", dataset["eer_register"]["valid_from"])
@@ -133,6 +133,7 @@ class ExplorerDatasetTest(unittest.TestCase):
         self.assertIn("plastica e metallo", tetrapak["payload"]["destination_raw"].lower())
         bibbona = next(item for item in dataset["municipalities"] if item["name"] == "Bibbona")
         self.assertEqual(190, bibbona["records_by_type"]["waste_lookup"])
+        self.assertEqual(14, bibbona["records_by_type"]["collection_schedule"])
         casale = next(item for item in dataset["municipalities"] if item["name"] == "Casale Marittimo")
         self.assertEqual(2, casale["records_by_type"]["collection_schedule"])
         orciano = next(item for item in dataset["municipalities"] if item["name"] == "Orciano Pisano")

@@ -3,22 +3,23 @@
   "istat_code": "050030",
   "municipality": "Riparbella",
   "pages_available": 38,
-  "pages_materialized": 33,
-  "records": 223,
+  "pages_materialized": 34,
+  "records": 235,
   "records_by_type": {
-    "collection_rule": 13,
+    "collection_rule": 18,
+    "collection_schedule": 5,
     "facility": 1,
     "facility_acceptance": 13,
     "facility_access": 1,
     "opening_period": 1,
     "pickup_service": 3,
-    "service_zone": 1,
+    "service_zone": 3,
     "waste_lookup": 190
   },
   "warnings": [
     {
       "code": "calendar_pdf_coverage",
-      "detail": "5 PDF comunali unici acquisiti; 2 classificati come calendari o guide operative; 0 calendari 2026 materializzati",
+      "detail": "5 PDF comunali unici acquisiti; 2 classificati come calendari o guide operative; 1 calendari materializzati",
       "url": "https://www.reaspa.it/comuni/comune-di-riparbella/"
     },
     {
