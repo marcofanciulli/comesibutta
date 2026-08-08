@@ -482,6 +482,19 @@ Prima verticale applicativa:
   dei gusci di molluschi: a Manciano seguono la regola locale
   dell'indifferenziato e richiedono la zona per completare contenitore e
   preparazione, senza estendere una destinazione unica a tutta la Toscana;
+- quando il comune non pubblica un oggetto ma tutte le fonti disponibili lo
+  associano allo stesso flusso o insieme di canali, l'app presenta una guida
+  generale chiaramente distinta dalla verifica locale; contenitore,
+  preparazione e servizi sono ricavati esclusivamente dai dati del comune e
+  della zona selezionati;
+- verificato `Corda` a Manciano/Marsiliana: la classificazione ufficiale
+  extra-comunale indica il residuo, mentre SEI Toscana completa cassonetto
+  grigio e sacchetto ben chiuso; l'interfaccia mostra entrambe le fonti e
+  dichiara esplicitamente la diversa base territoriale;
+- l'audit globale misura ora 951.405 coppie concetto-comune: 157.163 hanno una
+  destinazione locale, 646.962 una guida coerente extra-comunale e 147.280
+  restano senza una proiezione sicura; la matrice territoriale gia coperta
+  continua a produrre zero `not_found` su 184.110 risposte effettive;
 - l'app ricorda per comune la zona selezionata, la mostra nella barra e
   permette di rimuoverla; la preferenza scade al cambio di revisione dati;
 - le varianti generiche `Guscio dei molluschi` e `Gusci di molluschi` formano

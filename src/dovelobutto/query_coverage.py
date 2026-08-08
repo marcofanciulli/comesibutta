@@ -129,6 +129,10 @@ def audit_query_coverage(
     term_bindings = 0
     runtime_statuses: dict[str, int] = defaultdict(int)
     defined_non_resolved: list[dict[str, Any]] = []
+    local_concept_municipality_cases = 0
+    guidance_concepts: dict[str, int] = defaultdict(int)
+    guidance_cases: dict[str, int] = defaultdict(int)
+    cases_without_local_or_consistent_guidance = 0
     for concept_id in _entity_ids(connection, "waste_concept"):
         concept = read_entity_data(
             connection, "waste_concept", concept_id, include_sources=False,
@@ -137,6 +141,14 @@ def audit_query_coverage(
         coverage = _municipality_coverage(concept)
         if coverage:
             covered_concepts += 1
+        local_concept_municipality_cases += len(coverage & municipalities)
+        non_local_municipalities = municipalities - coverage
+        guidance = service._cross_territory_guidance(concept)
+        if guidance and non_local_municipalities:
+            guidance_concepts[guidance["basis"]] += 1
+            guidance_cases[guidance["basis"]] += len(non_local_municipalities)
+        else:
+            cases_without_local_or_consistent_guidance += len(non_local_municipalities)
         concept_cases += _territorial_cases(coverage, zones_by_municipality)
         term_bindings += len({
             normalize_term(term)
@@ -283,6 +295,13 @@ def audit_query_coverage(
             "alias_exact_search_checks": alias_runtime_checks,
             "runtime_answer_checks": concept_cases + alias_cases,
             "runtime_answer_statuses": dict(sorted(runtime_statuses.items())),
+            "catalog_municipality_cases": len(concepts) * len(municipalities),
+            "local_concept_municipality_cases": local_concept_municipality_cases,
+            "cross_territory_guidance_concepts": dict(sorted(guidance_concepts.items())),
+            "cross_territory_guidance_cases": dict(sorted(guidance_cases.items())),
+            "cases_without_local_or_consistent_guidance": (
+                cases_without_local_or_consistent_guidance
+            ),
             "near_duplicate_review_candidates": len(review_queue),
             "exact_semantic_review_candidates": exact_semantic_candidates,
         },

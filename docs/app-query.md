@@ -33,20 +33,26 @@ come gia previsto per le modifiche dello storage locale.
 7. Se il rifiutario locale manca, cerca un EER concordante accettato con lo
    stesso codice da un centro accessibile; in assenza di EER usa una descrizione
    del centro soltanto quando identifica un unico codice senza ambiguita.
-8. Normalizza destinazione e regola tramite il vocabolario controllato dei
+8. Se manca la classificazione locale dell'oggetto ma tutte le fonti disponibili
+   lo associano allo stesso flusso canonico o allo stesso insieme di canali,
+   presenta un'indicazione generale. Usa le fonti extra-comunali per classificare
+   l'oggetto e i dati locali soltanto per contenitore, preparazione e servizi.
+   La risposta espone sempre questa distinzione; in caso di indicazioni
+   discordanti non effettua la proiezione.
+9. Normalizza destinazione e regola tramite il vocabolario controllato dei
    flussi.
-9. Scompone gli eventuali canali di conferimento approvati e conserva il testo
+10. Scompone gli eventuali canali di conferimento approvati e conserva il testo
    originale con condizioni e alternative.
-10. Collega, quando possibile, la destinazione alla regola locale per ricavare
+11. Collega, quando possibile, la destinazione alla regola locale per ricavare
    contenitore, colore, modalita, sacchetto e istruzioni.
-11. Per il canale centro usa soltanto accessi pubblicati e verifica
+12. Per il canale centro usa soltanto accessi pubblicati e verifica
     l'accettazione tramite EER o descrizione.
-12. Collega ritiri e punti territoriali, mantenendo distinta l'esistenza del
+13. Collega ritiri e punti territoriali, mantenendo distinta l'esistenza del
     servizio dalla compatibilita col rifiuto.
-13. Conserva riuso, rivenditore e operatore specializzato come indicazioni
+14. Conserva riuso, rivenditore e operatore specializzato come indicazioni
     sorgente finche non esiste un servizio acquisito.
-14. Se regole di zone diverse producono risposte differenti chiede la zona.
-15. Restituisce fonti, data di verifica e revisione del dataset.
+15. Se regole di zone diverse producono risposte differenti chiede la zona.
+16. Restituisce fonti, data di verifica e revisione del dataset.
 
 Gli stati sono:
 

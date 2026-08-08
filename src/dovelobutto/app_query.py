@@ -293,10 +293,19 @@ class DisposalQueryService:
                     municipality_istat in destination["municipality_istats"]
                     for destination in (concept or {}).get("local_destinations", [])
                 )
+                candidate["guidance_available"] = bool(
+                    not candidate["available_in_municipality"]
+                    and self._cross_territory_guidance(concept or {})
+                )
+                candidate["answerable_in_municipality"] = bool(
+                    candidate["available_in_municipality"]
+                    or candidate["guidance_available"]
+                )
             ranked.sort(key=lambda item: (
                 -(
                     item["score"]
                     + (0.08 if item.get("available_in_municipality", False) else 0)
+                    + (0.04 if item.get("guidance_available", False) else 0)
                 ),
                 len(item["normalized_term"]),
             ))
@@ -337,6 +346,7 @@ class DisposalQueryService:
                         municipality_istat in destination["municipality_istats"]
                         for destination in selected_concept.get("local_destinations", [])
                     ),
+                    "answerable_in_municipality": True,
                     "member_concept_ids": selected_concept.get(
                         "member_concept_ids", [selected_concept["concept_id"]],
                     ),
@@ -370,16 +380,10 @@ class DisposalQueryService:
         }
         if not suggestions or suggestions[0]["score"] < 0.55:
             return base
-        selected = next(
-            (
-                candidate for candidate in suggestions
-                if candidate.get("available_in_municipality") and candidate["score"] >= 0.55
-            ),
-            suggestions[0],
-        )
+        selected = suggestions[0]
         if concept_id is None and selected["score"] < 0.88:
             local_options = [
-                item for item in suggestions if item.get("available_in_municipality")
+                item for item in suggestions if item.get("answerable_in_municipality")
             ]
             option_pool = local_options or suggestions
             base["status"] = "needs_question"
@@ -395,8 +399,8 @@ class DisposalQueryService:
             candidate for candidate in suggestions
             if candidate["concept_id"] != selected["concept_id"]
             if (
-                not selected.get("available_in_municipality")
-                or candidate.get("available_in_municipality")
+                not selected.get("answerable_in_municipality")
+                or candidate.get("answerable_in_municipality")
             )
             if candidate["score"] >= 0.72 and selected["score"] - candidate["score"] < 0.08
         ]
@@ -432,6 +436,7 @@ class DisposalQueryService:
             if municipality_istat in item.get("municipality_istats", [])
         ]
         self._set_provenance(base, evidence)
+        cross_territory_guidance = None
         if not destinations:
             fallback, fallback_sources = self._facility_fallback(
                 concept,
@@ -446,7 +451,17 @@ class DisposalQueryService:
                 self._set_provenance(base, [
                     *concept.get("evidence", []), *fallback_sources,
                 ])
-            return base
+                return base
+            cross_territory_guidance = self._cross_territory_guidance(concept)
+            if cross_territory_guidance is None:
+                return base
+            destinations = [{
+                "label": cross_territory_guidance["destination_label"],
+                "municipality_istats": [municipality_istat],
+                "source_urls": cross_territory_guidance["source_urls"],
+            }]
+            evidence = concept.get("evidence", [])
+            self._set_provenance(base, evidence)
         if len(destinations) > 1:
             base["status"] = "conflict"
             base["question"] = {
@@ -485,12 +500,83 @@ class DisposalQueryService:
             latitude=latitude,
             longitude=longitude,
         )
+        if cross_territory_guidance:
+            base["result"]["territorial_basis"] = cross_territory_guidance["basis"]
+            base["result"]["guidance_scope"] = {
+                "municipalities": cross_territory_guidance["municipalities"],
+                "publishers": cross_territory_guidance["publishers"],
+            }
+            base["result"]["warnings"].insert(
+                0,
+                "Il gestore locale non pubblica questo oggetto nel proprio rifiutario. "
+                f"L'indicazione {destination} deriva da fonti ufficiali "
+                f"per {cross_territory_guidance['municipalities']} comuni; contenitore e "
+                "preparazione oppure i servizi disponibili, quando presenti, seguono "
+                "invece i dati locali.",
+            )
         self._set_provenance(base, [
             *evidence,
             *((rule or {}).get("sources", [])),
             *facility_sources,
         ])
         return base
+
+    def _cross_territory_guidance(
+        self, concept: dict[str, Any],
+    ) -> dict[str, Any] | None:
+        destinations = concept.get("local_destinations", [])
+        if not destinations:
+            return None
+        signatures = set()
+        for destination in destinations:
+            stream_id = self._canonical_stream(destination["label"])
+            if stream_id:
+                signatures.add(("stream", stream_id))
+                continue
+            channels = tuple(sorted(
+                channel["channel_id"]
+                for channel in self._channel_matches(destination["label"])
+            ))
+            if not channels:
+                return None
+            signatures.add(("channels", *channels))
+        if len(signatures) != 1:
+            return None
+        signature = next(iter(signatures))
+        if signature[0] == "stream":
+            destination_label = self.streams[signature[1]]["preferred_label"]
+            basis = "cross_territory_stream_guidance"
+        else:
+            channels_by_id = {
+                channel["channel_id"]: channel for channel in self.delivery_channels
+            }
+            destination_label = ", ".join(
+                channels_by_id[channel_id]["preferred_label"]
+                for channel_id in signature[1:]
+            )
+            basis = "cross_territory_channel_guidance"
+        municipalities = {
+            municipality
+            for destination in destinations
+            for municipality in destination.get("municipality_istats", [])
+        }
+        publishers = {
+            evidence.get("publisher")
+            for evidence in concept.get("evidence", [])
+            if evidence.get("publisher")
+        }
+        source_urls = {
+            url
+            for destination in destinations
+            for url in destination.get("source_urls", [])
+        }
+        return {
+            "basis": basis,
+            "destination_label": destination_label,
+            "municipalities": len(municipalities),
+            "publishers": len(publishers),
+            "source_urls": sorted(source_urls),
+        }
 
     def _matching_rules(
         self,
