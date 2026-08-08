@@ -111,6 +111,15 @@ deve chiedere il dettaglio discriminante all'utente. Per esempio `Rame` puo
 ricadere in `20 01 40` come metallo domestico raccolto separatamente oppure in
 `17 04 01` se proviene da costruzione o demolizione.
 
+Le condizioni possono anche cambiare il canale senza cambiare l'identita
+lessicale dell'oggetto. I gruppi di disambiguazione revisionati pongono una
+domanda breve e collegano ogni risposta a un concetto piu specifico. I mapping
+concetto-flusso sono indipendenti dal gestore, ma diventano operativi soltanto
+quando nel comune esiste una regola locale per quel flusso. Per `Gommapiuma`,
+i piccoli pezzi seguono il residuo locale; un oggetto voluminoso usa invece
+`20 03 07` soltanto se un centro accessibile o un ritiro locale pubblicano il
+canale per gli ingombranti.
+
 Il client puo aggiungere la posizione della singola richiesta:
 
 ```sh

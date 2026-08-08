@@ -139,6 +139,8 @@ class DisposalQueryService:
         self.stream_aliases: dict[str, str] = {}
         self.delivery_channels: list[dict[str, Any]] = []
         self.eer_mappings: dict[str, list[dict[str, Any]]] = {}
+        self.stream_mappings: dict[str, dict[str, Any]] = {}
+        self.disambiguations: dict[str, dict[str, Any]] = {}
         self._concept_cache: dict[str, dict[str, Any] | None] = {}
         self._matching_rules_cache: dict[
             tuple[str, str, str | None, str], list[dict[str, Any]]
@@ -198,6 +200,7 @@ class DisposalQueryService:
                 "valid_to": None,
                 "mapping_condition": mapping.get("condition"),
                 "mapping_id": mapping["mapping_id"],
+                "mapping_delivery_channels": mapping.get("delivery_channels", []),
                 "mapping_sources": [
                     {
                         "url": url,
@@ -210,6 +213,42 @@ class DisposalQueryService:
             }
             for concept_id in mapping.get("concept_ids", []):
                 self.eer_mappings.setdefault(concept_id, []).append(candidate)
+        for row in connection.execute(
+            """SELECT entity_id FROM entities
+            WHERE entity_type = 'waste_stream_mapping' ORDER BY entity_id"""
+        ):
+            mapping = read_entity_data(
+                connection, "waste_stream_mapping", row["entity_id"],
+                include_sources=False,
+            )
+            if mapping:
+                mapping = dict(mapping)
+                mapping["sources"] = self._reviewed_mapping_sources(mapping)
+                for concept_id in mapping.get("concept_ids", []):
+                    self.stream_mappings[concept_id] = mapping
+        for row in connection.execute(
+            """SELECT entity_id FROM entities
+            WHERE entity_type = 'waste_disambiguation_group' ORDER BY entity_id"""
+        ):
+            group = read_entity_data(
+                connection, "waste_disambiguation_group", row["entity_id"],
+                include_sources=False,
+            )
+            if group:
+                for concept_id in group.get("trigger_concept_ids", []):
+                    self.disambiguations[concept_id] = group
+
+    @staticmethod
+    def _reviewed_mapping_sources(mapping: dict[str, Any]) -> list[dict[str, Any]]:
+        return [
+            {
+                "url": url,
+                "publisher": "Classificazione revisionata",
+                "retrieved_at": mapping["reviewed_at"],
+            }
+            for url in mapping.get("source_urls", [])
+            if mapping.get("reviewed_at")
+        ]
 
     def _with_curated_eer(self, concept: dict[str, Any]) -> dict[str, Any]:
         mappings = self.eer_mappings.get(concept["concept_id"], [])
@@ -426,6 +465,21 @@ class DisposalQueryService:
             "matched_concept_id": concept["concept_id"],
             "matched_label": concept["preferred_label"],
         })
+        disambiguation = self.disambiguations.get(concept["concept_id"])
+        if disambiguation is not None:
+            base["status"] = "needs_question"
+            base["question"] = {
+                "text": disambiguation["prompt"],
+                "options": [
+                    {
+                        "id": option["concept_id"],
+                        "label": option["label"],
+                        "hint": option["hint"],
+                    }
+                    for option in disambiguation["options"]
+                ],
+            }
+            return base
         destinations = []
         for destination in concept.get("local_destinations", []):
             if municipality_istat in destination["municipality_istats"]:
@@ -440,6 +494,16 @@ class DisposalQueryService:
             item for item in concept.get("evidence", [])
             if municipality_istat in item.get("municipality_istats", [])
         ]
+        stream_mapping = self.stream_mappings.get(concept["concept_id"])
+        if not destinations and stream_mapping is not None:
+            stream = self.streams.get(stream_mapping["stream_id"])
+            if stream is not None:
+                destinations.append({
+                    "label": stream["preferred_label"],
+                    "municipality_istats": [municipality_istat],
+                    "source_urls": stream_mapping.get("source_urls", []),
+                })
+                evidence.extend(stream_mapping.get("sources", []))
         self._set_provenance(base, evidence)
         if not destinations:
             fallback, fallback_sources = self._facility_fallback(
@@ -937,7 +1001,24 @@ class DisposalQueryService:
             )
         for facility in verified:
             facility.pop("_local", None)
-        channels = self._channel_matches("Centro di raccolta")
+        destination_labels = candidate_by_code.get(eer["code"], {}).get(
+            "mapping_delivery_channels", [],
+        ) or ["Centro di raccolta"]
+        source_destination = ", ".join(destination_labels)
+        channels = self._channel_matches(source_destination)
+        channel_services, unresolved_channels, service_sources = (
+            self._resolve_channel_services(
+                channels,
+                concept,
+                source_destination,
+                municipality_istat=municipality_istat,
+                zone_id=None,
+                user_type=user_type,
+                latitude=latitude,
+                longitude=longitude,
+            )
+        )
+        sources.extend(service_sources)
         eer_alternatives = []
         for code, candidate in sorted(candidate_by_code.items()):
             if code == eer["code"]:
@@ -948,11 +1029,14 @@ class DisposalQueryService:
             if alternative is not None:
                 eer_alternatives.append(alternative)
         return {
-            "destination_type": "facility",
+            "destination_type": (
+                channels[0]["destination_type"] if len(channels) == 1
+                else "special_case"
+            ),
             "stream_id": None,
             "stream": None,
-            "source_destination": f"Centro di raccolta tramite codice EER {eer['code']}",
-            "channel_relation": "single",
+            "source_destination": source_destination,
+            "channel_relation": "alternatives" if len(channels) > 1 else "single",
             "delivery_channels": channels,
             "container": None,
             "presentation": None,
@@ -962,8 +1046,8 @@ class DisposalQueryService:
             "facility_alternatives": [
                 facility for facility in verified if facility is not primary
             ],
-            "channel_services": [],
-            "unresolved_channels": [],
+            "channel_services": channel_services,
+            "unresolved_channels": unresolved_channels,
             "environmental_note": concept.get("general_details", {}).get(
                 "environmental_note"
             ),

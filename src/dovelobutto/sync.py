@@ -140,6 +140,21 @@ def _reference_candidates(entity: CanonicalEntity) -> set[tuple[str, str]]:
             ("waste_concept", concept_id)
             for concept_id in entity.data.get("concept_ids", [])
         )
+    if entity.entity_type == "waste_stream_mapping":
+        references.add(("collection_stream", entity.data["stream_id"]))
+        references.update(
+            ("waste_concept", concept_id)
+            for concept_id in entity.data.get("concept_ids", [])
+        )
+    if entity.entity_type == "waste_disambiguation_group":
+        references.update(
+            ("waste_concept", concept_id)
+            for concept_id in entity.data.get("trigger_concept_ids", [])
+        )
+        references.update(
+            ("waste_concept", option["concept_id"])
+            for option in entity.data.get("options", [])
+        )
     return references
 
 
@@ -211,6 +226,14 @@ def load_canonical_entities(
         entities.extend(
             CanonicalEntity("waste_eer_mapping", mapping["mapping_id"], mapping)
             for mapping in curation.get("eer_mappings", [])
+        )
+        entities.extend(
+            CanonicalEntity("waste_stream_mapping", mapping["mapping_id"], mapping)
+            for mapping in curation.get("stream_mappings", [])
+        )
+        entities.extend(
+            CanonicalEntity("waste_disambiguation_group", group["group_id"], group)
+            for group in curation.get("disambiguation_groups", [])
         )
     indexed = {(entity.entity_type, entity.entity_id): entity for entity in entities}
     if len(indexed) != len(entities):

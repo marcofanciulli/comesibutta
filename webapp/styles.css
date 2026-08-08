@@ -112,6 +112,8 @@ p { line-height: 1.55; }
 .revision { color: var(--muted); font-size: .82rem; margin-top: 18px; }
 .question-options { display: grid; gap: 9px; margin-top: 18px; }
 .question-options button { text-align: left; min-height: 46px; padding: 10px 14px; border: 1px solid #91aaa0; border-radius: var(--radius); background: white; color: var(--green); font-weight: 700; }
+.question-options button strong, .question-options button span { display: block; }
+.question-options button span { margin-top: 4px; color: var(--muted); font-size: .88rem; font-weight: 500; }
 
 dialog { width: min(92vw, 620px); max-height: 84vh; border: 0; border-radius: var(--radius); padding: 0; box-shadow: 0 24px 70px #07181459; }
 dialog::backdrop { background: #0b211cc4; }

@@ -1,6 +1,1616 @@
 {
-  "dataset_revision": 202608080011,
+  "dataset_revision": 202608080012,
   "defined_non_resolved": [
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "046001",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:046001:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "046002",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:046002:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "046003",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:046003:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "046004",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:046004:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "046007",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:046007:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "046011",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:046011:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "046021",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:046021:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "046022",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:046022:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "046026",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:046026:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "046034",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:046034:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "046036",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:046036:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "046037",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:046037:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "049001",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:049001:centro-storico"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "049001",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:049001:default:variant:703c8eb090de"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "049001",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:049001:default:variant:9109b098cbc0"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "049001",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:049001:siepi"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "049005",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:049005:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "049007",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:049007:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "049008",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:049008:collesalvetti-vicarello-nugola"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "049008",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:049008:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "049008",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:049008:rurale"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "049008",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:049008:rurale-stagno"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "049008",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:049008:stagno-guasticce"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "049017",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:049017:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050001",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050001:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050002",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050002:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050003",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050003:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050004",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050004:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050005",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050005:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050006",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050006:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050008",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050008:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050009",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050009:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050010",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050010:default:variant:88834d5a43d9"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050010",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050010:default:variant:c84633e1c579"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050011",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050011:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050012",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050012:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050014",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050014:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050015",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050015:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050016",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050016:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050019",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050019:default:variant:5fdac524acf5"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050019",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050019:default:variant:676773436866"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050020",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050020:default:variant:210f2821437e"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050020",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050020:default:variant:7f455f291931"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050020",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050020:non-rurale"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050021",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050021:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050022",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050022:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050023",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050023:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050024",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050024:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050025",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050025:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050026",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050026:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050027",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050027:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050028",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050028:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050029",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050029:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050030",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050030:default:variant:3c007b013f51"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050030",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050030:default:variant:8ccd93af4180"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050030",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050030:non-rurale"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050031",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050031:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050032",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050032:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050033",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050033:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050034",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050034:default:variant:91863e87672f"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050034",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050034:default:variant:baae2dcb30b3"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050035",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050035:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050036",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050036:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050037",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050037:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050038",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050038:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050039",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050039:centro-storico"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050039",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050039:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050039",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050039:extra-centro"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050040",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050040:default"
+    },
+    {
+      "entity_id": "waste:gommapiuma",
+      "entity_type": "waste_concept",
+      "label": "Gommapiuma",
+      "municipality_istat": "050041",
+      "question": {
+        "options": [
+          {
+            "hint": "Ritagli o frammenti che entrano nel contenitore dell'indifferenziato",
+            "id": "waste:gommapiuma-piccole-quantita",
+            "label": "Piccoli pezzi"
+          },
+          {
+            "hint": "Materasso, cuscino da esterno o pezzo che non entra nel contenitore",
+            "id": "waste:gommapiuma-grandi-quantita",
+            "label": "Oggetto voluminoso"
+          }
+        ],
+        "text": "Si tratta di piccoli pezzi oppure di un oggetto voluminoso?"
+      },
+      "status": "needs_question",
+      "zone_id": "service-zone:050041:default"
+    },
     {
       "entity_id": "waste:private-del-contenuto",
       "entity_type": "waste_concept",
@@ -24,7 +1634,7 @@
     }
   ],
   "failures": [],
-  "generated_at": "2026-08-08T23:00:00+02:00",
+  "generated_at": "2026-08-08T23:50:00+02:00",
   "review_queue": [
     {
       "coverage": {
@@ -2682,7 +4292,8 @@
     "runtime_answer_checks": 184110,
     "runtime_answer_statuses": {
       "conflict": 1,
-      "resolved": 184109
+      "needs_question": 70,
+      "resolved": 184039
     },
     "search_term_bindings": 3485,
     "service_zones": 417,

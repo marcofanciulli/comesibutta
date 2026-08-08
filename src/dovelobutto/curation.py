@@ -130,6 +130,44 @@ def validate_waste_curation(
                 )
             alias_owner[normalized] = stream_id
 
+    stream_mapping_ids = set()
+    stream_mapped_concepts = set()
+    for mapping in register.get("stream_mappings", []):
+        mapping_id = mapping["mapping_id"]
+        if mapping_id in stream_mapping_ids:
+            raise ValueError(f"Duplicate stream mapping {mapping_id}")
+        stream_mapping_ids.add(mapping_id)
+        if mapping.get("review_status") != "approved":
+            raise ValueError(f"Stream mapping {mapping_id} is not approved")
+        if mapping.get("stream_id") not in stream_ids:
+            raise ValueError(f"Unknown stream {mapping.get('stream_id')} in {mapping_id}")
+        for concept_id in mapping.get("concept_ids", []):
+            if concept_id not in concept_ids:
+                raise ValueError(f"Unknown concept {concept_id} in {mapping_id}")
+            if concept_id in stream_mapped_concepts:
+                raise ValueError(f"Concept {concept_id} has multiple stream mappings")
+            stream_mapped_concepts.add(concept_id)
+
+    disambiguation_ids = set()
+    disambiguation_triggers = set()
+    for group in register.get("disambiguation_groups", []):
+        group_id = group["group_id"]
+        if group_id in disambiguation_ids:
+            raise ValueError(f"Duplicate disambiguation group {group_id}")
+        disambiguation_ids.add(group_id)
+        if group.get("review_status") != "approved":
+            raise ValueError(f"Disambiguation group {group_id} is not approved")
+        option_ids = [option["concept_id"] for option in group.get("options", [])]
+        if len(option_ids) != len(set(option_ids)):
+            raise ValueError(f"Duplicate options in {group_id}")
+        for concept_id in [*group.get("trigger_concept_ids", []), *option_ids]:
+            if concept_id not in concept_ids:
+                raise ValueError(f"Unknown concept {concept_id} in {group_id}")
+        for concept_id in group.get("trigger_concept_ids", []):
+            if concept_id in disambiguation_triggers:
+                raise ValueError(f"Concept {concept_id} triggers multiple questions")
+            disambiguation_triggers.add(concept_id)
+
     channel_ids = set()
     channel_alias_owner: dict[str, str] = {}
     channels = register.get("delivery_channels", [])
@@ -219,6 +257,10 @@ def validate_waste_curation(
         "approved_search_terms": len(search_owner),
         "eer_mappings": len(mapping_ids),
         "eer_mapped_concepts": len(mapped_concepts),
+        "stream_mappings": len(stream_mapping_ids),
+        "stream_mapped_concepts": len(stream_mapped_concepts),
+        "disambiguation_groups": len(disambiguation_ids),
+        "disambiguation_triggers": len(disambiguation_triggers),
         "collection_streams": len(stream_ids),
         "stream_aliases": len(alias_owner),
         "delivery_channels": len(channel_ids),

@@ -29,8 +29,12 @@ class WasteCurationTests(unittest.TestCase):
         self.assertEqual(33, report["alias_members"])
         self.assertEqual(7, report["collection_streams"])
         self.assertEqual(7, report["delivery_channels"])
-        self.assertEqual(6, report["eer_mappings"])
-        self.assertEqual(15, report["eer_mapped_concepts"])
+        self.assertEqual(7, report["eer_mappings"])
+        self.assertEqual(16, report["eer_mapped_concepts"])
+        self.assertEqual(1, report["stream_mappings"])
+        self.assertEqual(1, report["stream_mapped_concepts"])
+        self.assertEqual(1, report["disambiguation_groups"])
+        self.assertEqual(1, report["disambiguation_triggers"])
         self.assertEqual(0, report["alias_group_territorial_conflicts"])
         self.assertGreater(report["mapped_destination_assertions"], 1900)
         self.assertGreater(report["channel_mapped_destination_assertions"], 1700)
@@ -140,6 +144,14 @@ class WasteCurationTests(unittest.TestCase):
         self.assertIn(("delivery_channel", "channel:home-pickup"), entities)
         mapping = entities[("waste_eer_mapping", "eer-map:used-cooking-oil")]
         self.assertIn(("waste_concept", "waste:olio-alimentare-esausto"), mapping.dependencies)
+        stream_mapping = entities[(
+            "waste_stream_mapping", "stream-map:small-foam-residual",
+        )]
+        self.assertIn(("collection_stream", "stream:residual"), stream_mapping.dependencies)
+        question = entities[(
+            "waste_disambiguation_group", "waste-question:foam-size",
+        )]
+        self.assertIn(("waste_concept", "waste:gommapiuma"), question.dependencies)
 
     def test_schema_and_generated_report_are_machine_readable(self) -> None:
         schema = json.loads(

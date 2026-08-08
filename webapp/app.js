@@ -261,7 +261,7 @@ function renderQuestion(body) {
   const question = body.question || {text: "Quale rifiuto intendi?", options: []};
   elements.answer.innerHTML = `<div class="answer-band"><div class="answer-inner">
     <p class="eyebrow">Serve una precisazione</p><h2>${escapeHtml(question.text)}</h2>
-    <div class="question-options">${question.options.map((option) => `<button type="button" data-choice="${escapeHtml(option.id)}" data-choice-label="${escapeHtml(option.label)}">${escapeHtml(option.label)}</button>`).join("")}</div>
+    <div class="question-options">${question.options.map((option) => `<button type="button" data-choice="${escapeHtml(option.id)}" data-choice-label="${escapeHtml(option.label)}"><strong>${escapeHtml(option.label)}</strong>${option.hint ? `<span>${escapeHtml(option.hint)}</span>` : ""}</button>`).join("")}</div>
   </div></div>`;
   elements.answer.hidden = false;
   elements.answer._questionKind = question.text.toLocaleLowerCase("it").includes("zona") ? "zone" : "concept";

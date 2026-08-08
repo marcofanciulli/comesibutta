@@ -720,6 +720,106 @@ class DisposalQueryTests(unittest.TestCase):
         self.assertEqual("facility:copper", answer["result"]["facility"]["id"])
         self.assertIn("piu classificazioni", " ".join(answer["result"]["warnings"]))
 
+    def test_foam_size_question_resolves_local_stream_centre_and_pickup(self) -> None:
+        self.connection.close()
+        writer = open_database(self.database, role="client")
+        current = read_database_entities(writer)
+        changed = dict(current)
+        generic = _concept("waste:gommapiuma", "Gommapiuma", [])
+        small = _concept(
+            "waste:gommapiuma-piccole-quantita", "Gommapiuma (piccole quantita)", [],
+        )
+        large = _concept(
+            "waste:gommapiuma-grandi-quantita", "Gommapiuma (grandi quantita)", [],
+        )
+        additions = [
+            generic, small, large,
+            CanonicalEntity("collection_stream", "stream:residual", {
+                "stream_id": "stream:residual",
+                "preferred_label": "Residuo non differenziabile",
+                "aliases": ["Residuo non differenziabile", "Indifferenziato"],
+            }),
+            CanonicalEntity("waste_stream_mapping", "stream-map:small-foam", {
+                "mapping_id": "stream-map:small-foam",
+                "stream_id": "stream:residual",
+                "concept_ids": [small.entity_id],
+                "condition": "se sono piccoli pezzi",
+                "reviewed_at": "2026-08-08T23:30:00+02:00",
+                "review_status": "approved", "rationale": "Corrispondenza revisionata",
+                "source_urls": ["https://example.test/foam"],
+            }),
+            CanonicalEntity(
+                "waste_disambiguation_group", "waste-question:foam-size", {
+                    "group_id": "waste-question:foam-size",
+                    "trigger_concept_ids": [generic.entity_id],
+                    "prompt": "Piccoli pezzi oppure un oggetto voluminoso?",
+                    "options": [
+                        {"concept_id": small.entity_id, "label": "Piccoli pezzi", "hint": "Entrano nel contenitore"},
+                        {"concept_id": large.entity_id, "label": "Voluminoso", "hint": "Non entra nel contenitore"},
+                    ],
+                    "reviewed_at": "2026-08-08T23:30:00+02:00",
+                    "review_status": "approved", "rationale": "Corrispondenza revisionata",
+                    "source_urls": ["https://example.test/foam"],
+                },
+            ),
+            _rule("rule:residual", "Indifferenziato", color="grigio"),
+            CanonicalEntity("eer_entry", "eer:200307", {
+                "entry_id": "eer:200307", "code": "200307",
+                "title": "Rifiuti ingombranti", "title_expanded": "Rifiuti ingombranti",
+                "hazardous": False,
+            }),
+            CanonicalEntity("waste_eer_mapping", "eer-map:large-foam", {
+                "mapping_id": "eer-map:large-foam", "preferred_label": "Rifiuti ingombranti",
+                "eer_code": "200307", "concept_ids": [large.entity_id],
+                "condition": "se voluminoso",
+                "delivery_channels": ["Centro di raccolta", "Ritiro ingombranti"],
+                "reviewed_at": "2026-08-08T23:30:00+02:00",
+                "review_status": "approved", "rationale": "Corrispondenza revisionata",
+                "source_urls": ["https://example.test/foam"],
+            }),
+            CanonicalEntity("delivery_channel", "channel:collection-centre", {
+                "channel_id": "channel:collection-centre", "preferred_label": "Centro di raccolta",
+                "destination_type": "facility", "aliases": ["Centro di raccolta"],
+            }),
+            CanonicalEntity("delivery_channel", "channel:home-pickup", {
+                "channel_id": "channel:home-pickup", "preferred_label": "Ritiro a domicilio",
+                "destination_type": "pickup", "aliases": ["Ritiro ingombranti"],
+            }),
+            _facility("facility:foam", "Centro ingombranti", 42.6, 11.5),
+            _facility_access("facility:foam"),
+            _facility_acceptance("facility:foam", "Rifiuti ingombranti", eer_code="200307"),
+            _pickup_service(),
+        ]
+        for entity in additions:
+            changed[(entity.entity_type, entity.entity_id)] = entity
+        apply_package(writer, build_update_package(current, changed, 1, 2, GENERATED_AT))
+        writer.close()
+        self.connection = open_query_database(self.database)
+        self.service = DisposalQueryService(self.connection)
+
+        question = self.service.answer("gommapiuma", "053014")
+        self.assertEqual("needs_question", question["status"])
+        self.assertEqual(
+            ["Piccoli pezzi", "Voluminoso"],
+            [option["label"] for option in question["question"]["options"]],
+        )
+
+        small_answer = self.service.answer(
+            "gommapiuma", "053014", concept_id=small.entity_id,
+        )
+        self.assertEqual("resolved", small_answer["status"])
+        self.assertEqual("stream:residual", small_answer["result"]["stream_id"])
+        self.assertEqual("grigio", small_answer["result"]["container"]["color"])
+
+        large_answer = self.service.answer(
+            "gommapiuma", "053014", concept_id=large.entity_id,
+        )
+        self.assertEqual("resolved", large_answer["status"])
+        self.assertEqual("200307", large_answer["result"]["eer"]["code"])
+        self.assertEqual("alternatives", large_answer["result"]["channel_relation"])
+        self.assertEqual("facility:foam", large_answer["result"]["facility"]["id"])
+        self.assertEqual("pickup", large_answer["result"]["channel_services"][0]["service_type"])
+
     def test_equivalent_single_channel_aliases_do_not_create_a_conflict(self) -> None:
         self.connection.close()
         writer = open_database(self.database, role="client")
