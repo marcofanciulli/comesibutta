@@ -66,21 +66,6 @@
         "stream_id": { "type": ["string", "null"], "pattern": "^stream:[a-z0-9-]+$" },
         "stream": { "type": ["string", "null"] },
         "source_destination": { "type": "string", "minLength": 1 },
-        "territorial_basis": {
-          "enum": [
-            "cross_territory_stream_guidance",
-            "cross_territory_channel_guidance"
-          ]
-        },
-        "guidance_scope": {
-          "type": "object",
-          "required": ["municipalities", "publishers"],
-          "properties": {
-            "municipalities": { "type": "integer", "minimum": 1 },
-            "publishers": { "type": "integer", "minimum": 1 }
-          },
-          "additionalProperties": false
-        },
         "channel_relation": {
           "type": ["string", "null"],
           "enum": ["single", "alternatives", null]

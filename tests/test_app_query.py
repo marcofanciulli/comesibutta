@@ -369,126 +369,6 @@ class DisposalQueryTests(unittest.TestCase):
         )
         self.assertEqual("not_found", invalid_choice["status"])
 
-    def test_cross_territory_stream_guidance_uses_local_preparation(self) -> None:
-        self.connection.close()
-        writer = open_database(self.database, role="client")
-        current = read_database_entities(writer)
-        changed = dict(current)
-        cord = _concept("waste:corda", "Corda", ["Residuo non differenziabile"])
-        cord.data["local_destinations"][0]["municipality_istats"] = ["048017"]
-        cord.data["coverage"]["municipalities"] = ["048017"]
-        cord.data["evidence"][0]["municipality_istats"] = ["048017"]
-        changed[(cord.entity_type, cord.entity_id)] = cord
-        local_similar = _concept(
-            "waste:corda-decorativa", "Corda decorativa", ["Carta e cartone"],
-        )
-        changed[(local_similar.entity_type, local_similar.entity_id)] = local_similar
-        changed[("collection_stream", "stream:residual")] = CanonicalEntity(
-            "collection_stream", "stream:residual", {
-                "stream_id": "stream:residual",
-                "preferred_label": "Indifferenziato",
-                "aliases": ["Indifferenziato", "Residuo non differenziabile"],
-            },
-        )
-        changed[("collection_rule", "rule:residual")] = _rule(
-            "rule:residual", "Indifferenziato", color="grigio",
-        )
-        apply_package(writer, build_update_package(current, changed, 1, 2, GENERATED_AT))
-        writer.close()
-        self.connection = open_query_database(self.database)
-        self.service = DisposalQueryService(self.connection)
-
-        answer = self.service.answer("corda", "053014")
-
-        self.assertEqual("resolved", answer["status"])
-        self.assertEqual("Indifferenziato", answer["result"]["stream"])
-        self.assertEqual("grigio", answer["result"]["container"]["color"])
-        self.assertEqual(
-            "cross_territory_stream_guidance",
-            answer["result"]["territorial_basis"],
-        )
-        self.assertEqual(
-            {"municipalities": 1, "publishers": 1},
-            answer["result"]["guidance_scope"],
-        )
-        self.assertIn("gestore locale non pubblica", answer["result"]["warnings"][0])
-
-    def test_cross_territory_guidance_rejects_disagreeing_streams(self) -> None:
-        self.connection.close()
-        writer = open_database(self.database, role="client")
-        current = read_database_entities(writer)
-        changed = dict(current)
-        disputed = _concept(
-            "waste:oggetto-discorde", "Oggetto discorde",
-            ["Residuo non differenziabile", "Carta e cartone"],
-        )
-        disputed.data["local_destinations"][0]["municipality_istats"] = ["048017"]
-        disputed.data["local_destinations"][1]["municipality_istats"] = ["050026"]
-        disputed.data["coverage"]["municipalities"] = ["048017", "050026"]
-        disputed.data["evidence"][0]["municipality_istats"] = ["048017", "050026"]
-        changed[(disputed.entity_type, disputed.entity_id)] = disputed
-        for stream_id, label, aliases in (
-            ("stream:residual", "Indifferenziato", ["Residuo non differenziabile"]),
-            ("stream:paper", "Carta e cartone", ["Carta e cartone"]),
-        ):
-            changed[("collection_stream", stream_id)] = CanonicalEntity(
-                "collection_stream", stream_id, {
-                    "stream_id": stream_id,
-                    "preferred_label": label,
-                    "aliases": aliases,
-                },
-            )
-        apply_package(writer, build_update_package(current, changed, 1, 2, GENERATED_AT))
-        writer.close()
-        self.connection = open_query_database(self.database)
-        self.service = DisposalQueryService(self.connection)
-
-        answer = self.service.answer(
-            "oggetto discorde", "053014", concept_id="waste:oggetto-discorde",
-        )
-
-        self.assertEqual("not_found", answer["status"])
-        self.assertIsNone(answer["result"])
-
-    def test_cross_territory_channel_guidance_keeps_local_acceptance_explicit(self) -> None:
-        self.connection.close()
-        writer = open_database(self.database, role="client")
-        current = read_database_entities(writer)
-        changed = dict(current)
-        furniture = _concept("waste:abat-jour", "Abat-jour", ["Ecocentro"])
-        furniture.data["local_destinations"][0]["municipality_istats"] = ["048017"]
-        furniture.data["coverage"]["municipalities"] = ["048017"]
-        furniture.data["evidence"][0]["municipality_istats"] = ["048017"]
-        changed[(furniture.entity_type, furniture.entity_id)] = furniture
-        changed[("delivery_channel", "channel:collection-centre")] = CanonicalEntity(
-            "delivery_channel", "channel:collection-centre", {
-                "channel_id": "channel:collection-centre",
-                "preferred_label": "Centro di raccolta",
-                "destination_type": "facility",
-                "aliases": ["Centro di raccolta", "Ecocentro"],
-            },
-        )
-        apply_package(writer, build_update_package(current, changed, 1, 2, GENERATED_AT))
-        writer.close()
-        self.connection = open_query_database(self.database)
-        self.service = DisposalQueryService(self.connection)
-
-        answer = self.service.answer("abat-jour", "053014")
-
-        self.assertEqual("resolved", answer["status"])
-        self.assertEqual(
-            "cross_territory_channel_guidance",
-            answer["result"]["territorial_basis"],
-        )
-        self.assertEqual(
-            ["channel:collection-centre"],
-            [item["channel_id"] for item in answer["result"]["delivery_channels"]],
-        )
-        self.assertIn(
-            "non pubblica una struttura accessibile",
-            " ".join(answer["result"]["warnings"]),
-        )
-
     def test_selected_concept_does_not_depend_on_fuzzy_search(self) -> None:
         with patch.object(
             self.service, "search", side_effect=AssertionError("search must not run"),
@@ -509,11 +389,6 @@ class DisposalQueryTests(unittest.TestCase):
         self.assertEqual(2, report["summary"]["total_guaranteed_cases"])
         self.assertEqual(2, report["summary"]["runtime_answer_checks"])
         self.assertEqual({"resolved": 2}, report["summary"]["runtime_answer_statuses"])
-        self.assertEqual(2, report["summary"]["catalog_municipality_cases"])
-        self.assertEqual(2, report["summary"]["local_concept_municipality_cases"])
-        self.assertEqual(
-            0, report["summary"]["cases_without_local_or_consistent_guidance"],
-        )
 
     def test_coverage_audit_rejects_unknown_territorial_municipality(self) -> None:
         self.connection.close()

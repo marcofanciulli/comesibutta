@@ -24,7 +24,7 @@
     }
   ],
   "failures": [],
-  "generated_at": "2026-08-08T22:00:00+02:00",
+  "generated_at": "2026-08-08T20:45:00+02:00",
   "review_queue": [
     {
       "coverage": {
@@ -2670,21 +2670,10 @@
     "alias_exact_search_checks": 25,
     "approved_alias_groups": 4,
     "approved_alias_search_terms": 25,
-    "cases_without_local_or_consistent_guidance": 147280,
-    "catalog_municipality_cases": 951405,
     "concepts": 3485,
     "concepts_with_territorial_destination": 3480,
-    "cross_territory_guidance_cases": {
-      "cross_territory_channel_guidance": 260333,
-      "cross_territory_stream_guidance": 386629
-    },
-    "cross_territory_guidance_concepts": {
-      "cross_territory_channel_guidance": 1136,
-      "cross_territory_stream_guidance": 1732
-    },
     "exact_semantic_review_candidates": 62,
     "failures": 0,
-    "local_concept_municipality_cases": 157163,
     "municipalities": 273,
     "municipalities_with_service_zones": 270,
     "near_duplicate_review_candidates": 155,

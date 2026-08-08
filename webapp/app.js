@@ -233,10 +233,9 @@ function renderAnswer(body) {
   const services = result.channel_services || [];
   const presentationInstructions = result.presentation?.instructions || [];
   const sources = body.provenance.sources || [];
-  const isGeneralGuidance = String(result.territorial_basis || "").startsWith("cross_territory_");
   elements.answer.innerHTML = `
     <div class="answer-head"><div class="answer-inner">
-      <p class="eyebrow">${isGeneralGuidance ? "Indicazione generale adattata a" : "Indicazione per"} ${escapeHtml(state.municipality.name)}</p>
+      <p class="eyebrow">Indicazione per ${escapeHtml(state.municipality.name)}</p>
       <h2>${escapeHtml(body.query.matched_label || state.query)}</h2>
       <div class="destination">
         <span class="destination-symbol" aria-hidden="true">↓</span>
