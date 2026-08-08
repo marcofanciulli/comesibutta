@@ -168,8 +168,10 @@ def build_parser() -> argparse.ArgumentParser:
         help="Extract the shared ESA collection and facility pages for Elba municipalities",
     )
     esa.add_argument("--registry", type=Path, required=True)
-    esa.add_argument("--collection-html", type=Path, required=True)
-    esa.add_argument("--facilities-html", type=Path, required=True)
+    esa.add_argument("--collection-html", type=Path)
+    esa.add_argument("--facilities-html", type=Path)
+    esa.add_argument("--manifest", type=Path)
+    esa.add_argument("--snapshot-root", type=Path)
     esa.add_argument("--retrieved-at", required=True)
     esa.add_argument("--output-dir", type=Path, required=True)
     esa.add_argument("--report", type=Path, required=True)
@@ -1075,16 +1077,29 @@ def main(argv: list[str] | None = None) -> int:
         return 0 if len(municipalities) == 17 and total_records else 1
     if args.command == "materialize-esa":
         retrieved_at = datetime.fromisoformat(args.retrieved_at)
-        pages = [
-            (
-                "https://www.esaspa.it/cittadini/raccolta-differenziata/",
-                args.collection_html.read_text(encoding="utf-8"),
-            ),
-            (
-                "https://www.esaspa.it/centri-di-raccolta/",
-                args.facilities_html.read_text(encoding="utf-8"),
-            ),
-        ]
+        manifest = None
+        if args.manifest and args.snapshot_root:
+            manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
+            pages = []
+            for page in manifest["pages"]:
+                if page["status"] not in {"snapshot", "partial_snapshot"} or not page.get("snapshot"):
+                    continue
+                path = args.snapshot_root / page["snapshot"]
+                content = path.read_bytes() if path.suffix.lower() in {".jpeg", ".jpg", ".png"} else path.read_text(encoding="utf-8", errors="replace")
+                pages.append((page.get("final_url") or page["url"], content))
+        elif args.collection_html and args.facilities_html:
+            pages = [
+                (
+                    "https://www.esaspa.it/cittadini/raccolta-differenziata/",
+                    args.collection_html.read_text(encoding="utf-8"),
+                ),
+                (
+                    "https://www.esaspa.it/centri-di-raccolta/",
+                    args.facilities_html.read_text(encoding="utf-8"),
+                ),
+            ]
+        else:
+            esa.error("specificare --manifest e --snapshot-root, oppure entrambi i file HTML legacy")
         municipalities = []
         for line in args.registry.read_text(encoding="utf-8").splitlines():
             if not line.strip():
@@ -1135,8 +1150,15 @@ def main(argv: list[str] | None = None) -> int:
             "pages_checked": len(pages),
             "pages_remaining": 0,
             "municipalities_touched": len(municipalities),
-            "pages_by_status": {"snapshot": len(pages)},
-            "pages_by_category": {"collection": 1, "facilities": 1},
+            "pages_by_status": ({
+                "snapshot": manifest["summary"]["snapshots"],
+                "blocked_by_robots": manifest["summary"]["blocked_by_robots"],
+                "error": manifest["summary"]["errors"],
+            } if manifest else {"snapshot": len(pages)}),
+            "pages_by_category": ({
+                category: sum(page["category"] == category for page in manifest["pages"])
+                for category in sorted({page["category"] for page in manifest["pages"]})
+            } if manifest else {"collection": 1, "facilities": 1}),
             "errors": [],
             "extraction": {
                 "municipalities": len(municipalities),

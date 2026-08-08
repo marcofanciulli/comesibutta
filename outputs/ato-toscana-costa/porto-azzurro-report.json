@@ -2,13 +2,15 @@
   "equivalent_pages": [],
   "istat_code": "049013",
   "municipality": "Porto Azzurro",
-  "pages_available": 2,
-  "pages_materialized": 2,
-  "records": 300,
+  "pages_available": 19,
+  "pages_materialized": 19,
+  "records": 310,
   "records_by_type": {
     "collection_rule": 5,
     "facility": 1,
+    "facility_acceptance": 9,
     "facility_access": 1,
+    "opening_period": 1,
     "service_zone": 1,
     "waste_lookup": 292
   },

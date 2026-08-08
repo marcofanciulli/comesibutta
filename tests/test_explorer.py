@@ -118,12 +118,15 @@ class ExplorerDatasetTest(unittest.TestCase):
             WORKSPACE / "outputs" / "eer-register.json",
         )
         self.assertEqual(154, dataset["batch"]["municipalities_acquired"])
-        self.assertEqual(24997, len(dataset["records"]))
+        self.assertEqual(25184, len(dataset["records"]))
         self.assertEqual(3124, len(dataset["catalog"]["concepts"]))
         self.assertEqual(880, len(dataset["eer_register"]["entries"]))
         self.assertEqual("2026-12-09", dataset["eer_register"]["valid_from"])
         capoliveri = next(item for item in dataset["municipalities"] if item["name"] == "Capoliveri")
         self.assertEqual(292, capoliveri["records_by_type"]["waste_lookup"])
+        self.assertEqual(2, capoliveri["records_by_type"]["facility"])
+        self.assertEqual(4, capoliveri["records_by_type"]["opening_period"])
+        self.assertEqual(31, capoliveri["records_by_type"]["facility_acceptance"])
         tetrapak = next(
             record for record in dataset["records"]
             if record["municipality_istat"] == "049004"

@@ -13,14 +13,15 @@ from uuid import NAMESPACE_URL, uuid5
 class SourceDocument:
     url: str
     retrieved_at: datetime
-    content: str
+    content: str | bytes
     publisher: str = "SEI Toscana"
     parser: str = "sei_toscana_html"
     parser_version: str = "0.1.0"
 
     @property
     def sha256(self) -> str:
-        return hashlib.sha256(self.content.encode("utf-8")).hexdigest()
+        body = self.content if isinstance(self.content, bytes) else self.content.encode("utf-8")
+        return hashlib.sha256(body).hexdigest()
 
     def evidence(self, kind: str, selector: str | None, quote: str | None) -> dict[str, Any]:
         return {

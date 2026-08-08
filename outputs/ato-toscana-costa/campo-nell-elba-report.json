@@ -2,13 +2,15 @@
   "equivalent_pages": [],
   "istat_code": "049003",
   "municipality": "Campo nell'Elba",
-  "pages_available": 2,
-  "pages_materialized": 2,
-  "records": 300,
+  "pages_available": 19,
+  "pages_materialized": 19,
+  "records": 330,
   "records_by_type": {
     "collection_rule": 5,
     "facility": 1,
+    "facility_acceptance": 29,
     "facility_access": 1,
+    "opening_period": 1,
     "service_zone": 1,
     "waste_lookup": 292
   },

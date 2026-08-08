@@ -2,13 +2,15 @@
   "equivalent_pages": [],
   "istat_code": "049004",
   "municipality": "Capoliveri",
-  "pages_available": 2,
-  "pages_materialized": 2,
-  "records": 302,
+  "pages_available": 19,
+  "pages_materialized": 19,
+  "records": 337,
   "records_by_type": {
     "collection_rule": 5,
     "facility": 2,
+    "facility_acceptance": 31,
     "facility_access": 2,
+    "opening_period": 4,
     "service_zone": 1,
     "waste_lookup": 292
   },

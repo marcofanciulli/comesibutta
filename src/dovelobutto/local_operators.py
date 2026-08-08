@@ -104,6 +104,17 @@ OPERATOR_CONFIGS: dict[str, dict[str, Any]] = {
             "services": "https://www.sistemaambientelucca.it/it/la-raccolta/servizi/",
         },
     },
+    "esa": {
+        "publisher": "ESA S.p.A.",
+        "root": "https://www.esaspa.it",
+        "pages": {
+            "collection": "https://www.esaspa.it/cittadini/raccolta-differenziata/",
+            "centre_index": "https://www.esaspa.it/centri-di-raccolta/",
+        },
+        "discover_facility_path_prefix": "/centri-di-raccolta/centro-",
+        "discover_facility_exclude_paths": {"/centri-di-raccolta/centro-di-raccolta"},
+        "discover_centre_signs": True,
+    },
 }
 
 
@@ -114,7 +125,13 @@ def _slug(value: str) -> str:
 
 def _snapshot(body: bytes, content_type: str, final_url: str, root: Path) -> tuple[str, str]:
     digest = hashlib.sha256(body).hexdigest()
-    extension = ".json" if content_type == "application/json" else ".pdf" if content_type == "application/pdf" or final_url.lower().endswith(".pdf") else ".html"
+    extension = (
+        ".json" if content_type == "application/json"
+        else ".pdf" if content_type == "application/pdf" or final_url.lower().endswith(".pdf")
+        else ".jpeg" if content_type in {"image/jpeg", "image/jpg"} or final_url.lower().endswith((".jpeg", ".jpg"))
+        else ".png" if content_type == "image/png" or final_url.lower().endswith(".png")
+        else ".html"
+    )
     path = root / f"{digest}{extension}"
     root.mkdir(parents=True, exist_ok=True)
     if not path.exists():
@@ -123,7 +140,7 @@ def _snapshot(body: bytes, content_type: str, final_url: str, root: Path) -> tup
 
 
 def _request(url: str, user_agent: str, data: bytes | None = None) -> tuple[bytes, str, str]:
-    headers = {"User-Agent": user_agent, "Accept": "text/html,application/json,application/pdf"}
+    headers = {"User-Agent": user_agent, "Accept": "text/html,application/json,application/pdf,image/jpeg,image/png"}
     if data is not None:
         headers["Content-Type"] = "application/x-www-form-urlencoded"
     try:
@@ -136,7 +153,13 @@ def _request(url: str, user_agent: str, data: bytes | None = None) -> tuple[byte
             ["curl", "-fsSL", "--max-time", "60", "-A", user_agent, url],
             check=True, capture_output=True,
         )
-        content_type = "application/pdf" if url.lower().endswith(".pdf") else "text/plain" if url.lower().endswith("robots.txt") else "text/html"
+        content_type = (
+            "application/pdf" if url.lower().endswith(".pdf")
+            else "image/jpeg" if url.lower().endswith((".jpeg", ".jpg"))
+            else "image/png" if url.lower().endswith(".png")
+            else "text/plain" if url.lower().endswith("robots.txt")
+            else "text/html"
+        )
         return result.stdout, content_type, url
 
 
@@ -186,16 +209,28 @@ def crawl_local_operator(
         except Exception as error:
             pages.append({**job, "status": "error", "final_url": None, "content_type": None, "snapshot": None, "sha256": None, "error": f"{type(error).__name__}: {error}"})
         time.sleep(effective_delay)
-    if config.get("discover_facility_links"):
+    if config.get("discover_facility_links") or config.get("discover_facility_path_prefix"):
         discovered: dict[str, set[str]] = {}
         for page in pages:
-            if page["category"] != "municipality" or page["status"] != "snapshot" or not page.get("snapshot"):
+            valid_source = (
+                page["category"] == "municipality"
+                or page["category"] == "centre_index" and config.get("discover_facility_path_prefix")
+            )
+            if not valid_source or page["status"] != "snapshot" or not page.get("snapshot"):
                 continue
             html = (snapshot_root / page["snapshot"]).read_text(encoding="utf-8", errors="replace")
             root = parse_html(html)
             for anchor in root.find_all(lambda node: node.tag == "a" and bool(node.attrs.get("href"))):
                 label = clean_text(anchor.text).casefold()
-                if not any(marker in label for marker in ("centro di raccolta", "isola ecologica", "impianto verde")):
+                path_prefix = config.get("discover_facility_path_prefix")
+                href_path = urlparse(urljoin(page.get("final_url") or page["url"], anchor.attrs["href"])).path
+                if href_path.rstrip("/") in config.get("discover_facility_exclude_paths", set()):
+                    continue
+                matches_label = config.get("discover_facility_links") and any(
+                    marker in label for marker in ("centro di raccolta", "isola ecologica", "impianto verde")
+                )
+                matches_path = path_prefix and href_path.startswith(path_prefix)
+                if not (matches_label or matches_path):
                     continue
                 url = urljoin(page.get("final_url") or page["url"], anchor.attrs["href"])
                 if urlparse(url).netloc != urlparse(config["root"]).netloc:
@@ -204,6 +239,29 @@ def crawl_local_operator(
         for url, municipality_istats in sorted(discovered.items()):
             job = {"category": "centre_detail", "url": url, "municipality_istats": sorted(municipality_istats)}
             if robots_status == "available" and not robots.can_fetch(user_agent, url):
+                pages.append({**job, "status": "blocked_by_robots", "final_url": None, "content_type": None, "snapshot": None, "sha256": None})
+                continue
+            try:
+                body, content_type, final_url = _request(url, user_agent)
+                snapshot, digest = _snapshot(body, content_type, final_url, snapshot_root)
+                pages.append({**job, "status": "snapshot", "final_url": final_url, "content_type": content_type, "snapshot": snapshot, "sha256": digest})
+            except Exception as error:
+                pages.append({**job, "status": "error", "final_url": None, "content_type": None, "snapshot": None, "sha256": None, "error": f"{type(error).__name__}: {error}"})
+            time.sleep(effective_delay)
+    if config.get("discover_centre_signs"):
+        discovered_signs = set()
+        for page in pages:
+            if page["category"] != "centre_detail" or page["status"] != "snapshot" or not page.get("snapshot"):
+                continue
+            html = (snapshot_root / page["snapshot"]).read_text(encoding="utf-8", errors="replace")
+            root = parse_html(html)
+            for anchor in root.find_all(lambda node: node.tag == "a" and bool(node.attrs.get("href"))):
+                url = urljoin(page.get("final_url") or page["url"], anchor.attrs["href"])
+                if urlparse(url).netloc == urlparse(config["root"]).netloc and url.lower().endswith((".jpeg", ".jpg", ".png")):
+                    discovered_signs.add(url)
+        for url in sorted(discovered_signs):
+            job = {"category": "centre_sign", "url": url, "municipality_istats": []}
+            if not robots.can_fetch(user_agent, url):
                 pages.append({**job, "status": "blocked_by_robots", "final_url": None, "content_type": None, "snapshot": None, "sha256": None})
                 continue
             try:

@@ -1,0 +1,15 @@
+{
+  "errors": [],
+  "municipalities_touched": 7,
+  "observed_at": "2026-08-08T10:30:00+02:00",
+  "operator_ref": "esa",
+  "pages_by_status": {
+    "blocked_by_robots": 0,
+    "error": 0,
+    "snapshot": 19
+  },
+  "pages_checked": 19,
+  "pages_remaining": 0,
+  "robots_status": "available",
+  "robots_url": "https://www.esaspa.it/robots.txt"
+}

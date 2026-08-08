@@ -1,10 +1,10 @@
 {
   "acquired_validation": {
-    "assertions": 6567,
+    "assertions": 6734,
     "by_status": {
-      "active_in_target": 5934,
-      "missing_or_malformed": 368,
-      "retired_in_target": 265,
+      "active_in_target": 6087,
+      "missing_or_malformed": 372,
+      "retired_in_target": 275,
       "unknown_code": 0
     },
     "issues": [
@@ -2517,6 +2517,30 @@
         "status": "retired_in_target"
       },
       {
+        "facility_ref": "facility:esa:cdr-campo-dell-elba-loc-vallone",
+        "normalized_code": "200134",
+        "official_hazardous": false,
+        "official_title": "batterie e accumulatori, diversi da quelli di cui alla voce 20 01 33",
+        "record_id": "7ff02261-3aca-5955-9a14-b784784d2ff8",
+        "source_code": "200134",
+        "source_description": "Pile e batterie",
+        "source_file": "outputs/ato-toscana-costa/campo-nell-elba-acquisition.jsonl",
+        "source_url": "https://www.esaspa.it/wp-content/uploads/2026/07/CAMPO-NELLELBA.jpeg",
+        "status": "retired_in_target"
+      },
+      {
+        "facility_ref": "facility:esa:cdr-campo-dell-elba-loc-vallone",
+        "normalized_code": "200133",
+        "official_hazardous": true,
+        "official_title": "batterie e accumulatori di cui alle voci 16 06 01, 16 06 02 e 16 06 03, nonché batterie e accumulatori non suddivisi contenenti tali batterie",
+        "record_id": "51dfa7f9-fb6a-5662-888e-76b29e0f02fa",
+        "source_code": "200133*",
+        "source_description": "Batterie e accumulatori al piombo derivanti dalla manutenzione dei veicoli ad uso privato, effettuata in proprio dalle utenze domestiche",
+        "source_file": "outputs/ato-toscana-costa/campo-nell-elba-acquisition.jsonl",
+        "source_url": "https://www.esaspa.it/wp-content/uploads/2026/07/CAMPO-NELLELBA.jpeg",
+        "status": "retired_in_target"
+      },
+      {
         "facility_ref": "geofor:facility:capannoli-cdr-via-reggina",
         "normalized_code": "200133",
         "official_hazardous": true,
@@ -2550,6 +2574,54 @@
         "source_description": "PILE ESAUSTE",
         "source_file": "outputs/ato-toscana-costa/capannoli-acquisition.jsonl",
         "source_url": "https://www.geofor.it/capannoli/centro-di-raccolta-capannoli/",
+        "status": "retired_in_target"
+      },
+      {
+        "facility_ref": "facility:esa:cdr-mobile-a-lacona-capoliveri-solo-per-le-utenze-domestiche",
+        "normalized_code": null,
+        "official_hazardous": null,
+        "official_title": null,
+        "record_id": "d4b06c63-d970-59db-834e-fbcb0e5cd018",
+        "source_code": null,
+        "source_description": "Rifiuti ingombranti",
+        "source_file": "outputs/ato-toscana-costa/capoliveri-acquisition.jsonl",
+        "source_url": "https://www.esaspa.it/centri-di-raccolta/centro-di-raccolta-mobile-a-lacona-capoliveri/",
+        "status": "missing_or_malformed"
+      },
+      {
+        "facility_ref": "facility:esa:cdr-mobile-a-lacona-capoliveri-solo-per-le-utenze-domestiche",
+        "normalized_code": null,
+        "official_hazardous": null,
+        "official_title": null,
+        "record_id": "a1dae1bb-d138-530d-9dfd-6cf10d40a846",
+        "source_code": null,
+        "source_description": "Apparecchiature elettriche ed elettroniche",
+        "source_file": "outputs/ato-toscana-costa/capoliveri-acquisition.jsonl",
+        "source_url": "https://www.esaspa.it/centri-di-raccolta/centro-di-raccolta-mobile-a-lacona-capoliveri/",
+        "status": "missing_or_malformed"
+      },
+      {
+        "facility_ref": "facility:esa:cdr-capoliveri-loc-spernaino-vigne-vecchie",
+        "normalized_code": "200134",
+        "official_hazardous": false,
+        "official_title": "batterie e accumulatori, diversi da quelli di cui alla voce 20 01 33",
+        "record_id": "ac687d1e-c259-5e5f-8acd-3e8417ee8144",
+        "source_code": "200134",
+        "source_description": "Pile e batterie",
+        "source_file": "outputs/ato-toscana-costa/capoliveri-acquisition.jsonl",
+        "source_url": "https://www.esaspa.it/wp-content/uploads/2026/07/CAPOLIVERI.jpeg",
+        "status": "retired_in_target"
+      },
+      {
+        "facility_ref": "facility:esa:cdr-capoliveri-loc-spernaino-vigne-vecchie",
+        "normalized_code": "200133",
+        "official_hazardous": true,
+        "official_title": "batterie e accumulatori di cui alle voci 16 06 01, 16 06 02 e 16 06 03, nonché batterie e accumulatori non suddivisi contenenti tali batterie",
+        "record_id": "ebed3131-19b6-533d-b605-3d0ccd9950f4",
+        "source_code": "200133*",
+        "source_description": "Batterie e accumulatori al piombo derivanti dalla manutenzione dei veicoli ad uso privato, effettuata in proprio dalle utenze domestiche",
+        "source_file": "outputs/ato-toscana-costa/capoliveri-acquisition.jsonl",
+        "source_url": "https://www.esaspa.it/wp-content/uploads/2026/07/CAPOLIVERI.jpeg",
         "status": "retired_in_target"
       },
       {
@@ -5037,6 +5109,30 @@
         "status": "missing_or_malformed"
       },
       {
+        "facility_ref": "facility:esa:cdr-marciana-loc-literno-colle-di-procchio",
+        "normalized_code": "200134",
+        "official_hazardous": false,
+        "official_title": "batterie e accumulatori, diversi da quelli di cui alla voce 20 01 33",
+        "record_id": "f7392578-4378-5490-bb5b-7961cce8c0c2",
+        "source_code": "200134",
+        "source_description": "Pile e batterie",
+        "source_file": "outputs/ato-toscana-costa/marciana-acquisition.jsonl",
+        "source_url": "https://www.esaspa.it/wp-content/uploads/2026/07/MARCIANA.jpeg",
+        "status": "retired_in_target"
+      },
+      {
+        "facility_ref": "facility:esa:cdr-marciana-loc-literno-colle-di-procchio",
+        "normalized_code": "200133",
+        "official_hazardous": true,
+        "official_title": "batterie e accumulatori di cui alle voci 16 06 01, 16 06 02 e 16 06 03, nonché batterie e accumulatori non suddivisi contenenti tali batterie",
+        "record_id": "3b0fbe2a-e0fc-5424-a247-c4c49675ddd2",
+        "source_code": "200133*",
+        "source_description": "Batterie e accumulatori al piombo derivanti dalla manutenzione dei veicoli ad uso privato, effettuata in proprio dalle utenze domestiche",
+        "source_file": "outputs/ato-toscana-costa/marciana-acquisition.jsonl",
+        "source_url": "https://www.esaspa.it/wp-content/uploads/2026/07/MARCIANA.jpeg",
+        "status": "retired_in_target"
+      },
+      {
         "facility_ref": "rea:facility:guardistallo",
         "normalized_code": null,
         "official_hazardous": null,
@@ -6621,6 +6717,78 @@
         "status": "retired_in_target"
       },
       {
+        "facility_ref": "facility:esa:cdr-portoferraio-loc-casaccia",
+        "normalized_code": "200134",
+        "official_hazardous": false,
+        "official_title": "batterie e accumulatori, diversi da quelli di cui alla voce 20 01 33",
+        "record_id": "237a07be-b2ce-555d-be97-f830bbeeb5e6",
+        "source_code": "200134",
+        "source_description": "Pile e batterie",
+        "source_file": "outputs/ato-toscana-costa/portoferraio-acquisition.jsonl",
+        "source_url": "https://www.esaspa.it/wp-content/uploads/2026/07/PORTOFERRAIO.jpeg",
+        "status": "retired_in_target"
+      },
+      {
+        "facility_ref": "facility:esa:cdr-portoferraio-loc-casaccia",
+        "normalized_code": "200133",
+        "official_hazardous": true,
+        "official_title": "batterie e accumulatori di cui alle voci 16 06 01, 16 06 02 e 16 06 03, nonché batterie e accumulatori non suddivisi contenenti tali batterie",
+        "record_id": "972a3525-19d3-5a46-b664-fb4edf7100db",
+        "source_code": "200133*",
+        "source_description": "Batterie e accumulatori al piombo derivanti dalla manutenzione dei veicoli ad uso privato, effettuata in proprio dalle utenze domestiche",
+        "source_file": "outputs/ato-toscana-costa/portoferraio-acquisition.jsonl",
+        "source_url": "https://www.esaspa.it/wp-content/uploads/2026/07/PORTOFERRAIO.jpeg",
+        "status": "retired_in_target"
+      },
+      {
+        "facility_ref": "facility:esa:cdr-mobile-a-cavo-rio",
+        "normalized_code": null,
+        "official_hazardous": null,
+        "official_title": null,
+        "record_id": "dc694342-8e9a-5007-8cb7-b50fe2617cb8",
+        "source_code": null,
+        "source_description": "Rifiuti ingombranti",
+        "source_file": "outputs/ato-toscana-costa/rio-acquisition.jsonl",
+        "source_url": "https://www.esaspa.it/centri-di-raccolta/centro-di-raccolta-mobile-a-cavo-rio/",
+        "status": "missing_or_malformed"
+      },
+      {
+        "facility_ref": "facility:esa:cdr-mobile-a-cavo-rio",
+        "normalized_code": null,
+        "official_hazardous": null,
+        "official_title": null,
+        "record_id": "1129160b-343f-5a7b-b817-e6811d199de0",
+        "source_code": null,
+        "source_description": "Apparecchiature elettriche ed elettroniche",
+        "source_file": "outputs/ato-toscana-costa/rio-acquisition.jsonl",
+        "source_url": "https://www.esaspa.it/centri-di-raccolta/centro-di-raccolta-mobile-a-cavo-rio/",
+        "status": "missing_or_malformed"
+      },
+      {
+        "facility_ref": "facility:esa:cdr-rio-loc-serrantone",
+        "normalized_code": "200134",
+        "official_hazardous": false,
+        "official_title": "batterie e accumulatori, diversi da quelli di cui alla voce 20 01 33",
+        "record_id": "0148733b-d166-5629-a908-2d44ddb17c6a",
+        "source_code": "200134",
+        "source_description": "Pile e batterie",
+        "source_file": "outputs/ato-toscana-costa/rio-acquisition.jsonl",
+        "source_url": "https://www.esaspa.it/wp-content/uploads/2026/07/RIO.jpeg",
+        "status": "retired_in_target"
+      },
+      {
+        "facility_ref": "facility:esa:cdr-rio-loc-serrantone",
+        "normalized_code": "200133",
+        "official_hazardous": true,
+        "official_title": "batterie e accumulatori di cui alle voci 16 06 01, 16 06 02 e 16 06 03, nonché batterie e accumulatori non suddivisi contenenti tali batterie",
+        "record_id": "15661439-6969-5acc-8f1d-9725cd74c3fb",
+        "source_code": "200133*",
+        "source_description": "Batterie e accumulatori al piombo derivanti dalla manutenzione dei veicoli ad uso privato, effettuata in proprio dalle utenze domestiche",
+        "source_file": "outputs/ato-toscana-costa/rio-acquisition.jsonl",
+        "source_url": "https://www.esaspa.it/wp-content/uploads/2026/07/RIO.jpeg",
+        "status": "retired_in_target"
+      },
+      {
         "facility_ref": "rea:facility:riparbella",
         "normalized_code": null,
         "official_hazardous": null,
@@ -7727,7 +7895,7 @@
   "chapters": 20,
   "entries": 880,
   "entries_with_references": 192,
-  "generated_at": "2026-08-06T22:00:00+02:00",
+  "generated_at": "2026-08-08T11:15:00+02:00",
   "hazardous_entries": 435,
   "sources": [
     {

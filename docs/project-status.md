@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Ultimo aggiornamento: 7 agosto 2026
+Ultimo aggiornamento: 8 agosto 2026
 Fase: ATO Toscana Sud, Costa e Centro acquisite
 
 Questo documento e il punto di ripartenza del progetto. Va aggiornato al termine
@@ -175,7 +175,7 @@ Completamento ATO Toscana Sud:
 
 Esploratore dati:
 
-- pacchetto statico generato in modo riproducibile da 152.915 record logici;
+- pacchetto statico generato in modo riproducibile da 153.102 record logici;
 - filtri gerarchici per ATO e provincia, seguiti dall'elenco dei comuni;
 - 273 comuni censiti e 273 con almeno una fonte materializzata;
 - navigazione per comune e viste dedicate a centri, EER, regole, punti e ritiro;
@@ -200,9 +200,9 @@ Registro ufficiale EER:
 - 880 voci future, 20 capitoli, 112 sottocapitoli e 435 voci pericolose;
 - applicabilita corretta al 9 dicembre 2026, distinta dalla pubblicazione;
 - 42 codici aggiunti, 6 modificati e 4 ritirati rispetto alla base;
-- 6.266 indicazioni dei centri controllate: nessun codice normalizzato
-  sconosciuto, 252 occorrenze di codici che saranno ritirati e 368 materiali
-  per i quali la fonte non pubblica un EER;
+- 6.734 indicazioni dei centri controllate nelle fonti SEI e ATO Costa: nessun
+  codice normalizzato sconosciuto, 275 occorrenze di codici che saranno ritirati
+  e 372 materiali per i quali la fonte non pubblica un EER;
 - un rinvio inesistente gia presente nella fonte ufficiale resta segnalato nel
   rapporto, senza correzione congetturale;
 - vista globale del registro aggiunta all'esploratore e catalogo dei nomi
@@ -214,9 +214,11 @@ Completamento ATO Toscana Costa:
 - riconciliati tutti i comuni con ISTAT: 13 LI, 33 LU, 17 MS e 37 PI;
 - conservati separatamente RetiAmbiente, SOL e stato del subentro; Porto
   Azzurro e Peccioli risultano da completare, Lucca in transizione entro 2029;
-- acquisiti tutti i 100 comuni e 31.889 record attraverso le 12 SOL;
-- ESA: 292 voci del rifiutario per comune, cinque regole generali porta a porta
-  e dieci centri complessivi associati ai comuni, 2.106 record senza avvisi;
+- acquisiti tutti i 100 comuni e 32.076 record attraverso le 12 SOL;
+- ESA: 19 fonti controllate senza blocchi o errori; 292 voci del rifiutario per
+  comune, cinque regole generali porta a porta e dieci centri complessivi con
+  indirizzi, accessi, 18 periodi di apertura e 163 associazioni EER esatte,
+  per un totale di 2.293 record senza avvisi;
 - REA: 425 URL di servizi, centri e allegati controllate; 423 snapshot, 73
   riferimenti ad allegati comunali, 70 PDF unici, 11 centri, nessun blocco
   robots e due vecchi PDF oggi `404` documentati;
@@ -296,9 +298,9 @@ Completamento dei comuni toscani in ATO extra-regionali:
   quattro lacune esplicite, non assenze silenziose;
 - l'esploratore espone cinque ATO, limitando quelli extra-regionali alle sole
   province e ai soli comuni toscani interessati;
-- il dataset conta 152.915 record logici e il catalogo 3.124 concetti, con
+- il dataset conta 153.102 record logici e il catalogo 3.124 concetti, con
   331 concetti associati a un EER concordante;
-- 80 test automatici superati.
+- 149 test automatici superati.
 
 SQLite canonico e sincronizzazione remota:
 
@@ -466,7 +468,7 @@ Risoluzione degli altri canali:
 
 ## Prossimi passi
 
-1. Acquisire i dettagli dei centri ESA e cercare una guida AAMPS piu recente.
+1. Cercare una guida AAMPS piu recente e approfondire le fonti ancora parziali.
 2. Modellare l'accesso intergestore Montignoso-ERSU e approfondire i centri non
    pubblicati o non attribuiti esplicitamente dalle fonti.
 3. Estendere il registro alle formule ancora prive di flusso o canale solo dopo

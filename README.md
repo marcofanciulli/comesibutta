@@ -238,7 +238,9 @@ L'interfaccia permette di filtrare per ATO e provincia, distinguere comuni
 censiti da comuni acquisiti, esplorare centri e regole, consultare il
 rifiutario, cercare materiali e codici EER e risalire alla fonte di ogni fatto.
 Il pacchetto corrente contiene tutti i 273 comuni toscani censiti, ciascuno con
-almeno una fonte materializzata, e 152.915 record logici. Per i 17 comuni REA
+almeno una fonte materializzata, e 153.102 record logici. Per i sette comuni
+ESA comprende anche dieci centri con indirizzi, accessi, orari e codici EER
+letti dai cartelli ufficiali verificati. Per i 17 comuni REA
 comprende anche pagine di servizio, centri intercomunali, orari, accesso,
 ritiri, materiali accettati, quattro calendari RUR, cinque calendari Ecomobile
 2026 e 12 calendari settimanali grafici strutturati;

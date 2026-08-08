@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import date, datetime, timedelta
+import hashlib
 from pathlib import Path
 import unittest
 from unittest.mock import patch
@@ -10,6 +11,7 @@ from dovelobutto.registry import (
     read_istat_municipalities,
 )
 from dovelobutto.ato_costa import (
+    ESA_SIGN_HASHES,
     MunicipalityContext,
     extract_aamps_waste_lookup,
     extract_esa_bundle,
@@ -125,6 +127,44 @@ class EsaExtractorTest(unittest.TestCase):
         )
         names = [record["payload"]["name"] for record in records if record["record_type"] == "facility"]
         self.assertEqual(["CDR Marciana Loc. San Rocco"], names)
+
+    def test_extracts_verified_sign_codes_and_seasonal_hours(self) -> None:
+        sign = b"verified Campo sign fixture"
+        pages = [
+            ("https://www.esaspa.it/cittadini/raccolta-differenziata/", '<li data-name="Vetro" data-destination="Vetro">Vetro</li>'),
+            ("https://www.esaspa.it/centri-di-raccolta/", '<p>Le utenze domestiche regolarmente iscritte a ruolo TARI possono conferire gratuitamente.</p>'),
+            ("https://www.esaspa.it/centri-di-raccolta/centro-di-raccolta-di-campo-nellelba/", '<main><h1>Centro di raccolta di Campo nell’Elba</h1><p>tutto l’anno dal lunedì al sabato aperto dalle 7:30 alle 12:30.</p></main>'),
+            ("https://www.esaspa.it/wp-content/uploads/2026/07/CAMPO-NELLELBA.jpeg", sign),
+        ]
+        with patch.dict(ESA_SIGN_HASHES, {"CAMPO-NELLELBA.jpeg": hashlib.sha256(sign).hexdigest()}):
+            records, warnings = extract_esa_bundle(
+                MunicipalityContext("Campo nell'Elba", "049003", "campo-nell-elba"),
+                datetime.fromisoformat("2026-08-08T10:00:00+02:00"), pages,
+            )
+        self.assertEqual([], warnings)
+        opening = next(record for record in records if record["record_type"] == "opening_period")
+        self.assertEqual(6, len(opening["payload"]["weekly_intervals"]))
+        accepted = [record for record in records if record["record_type"] == "facility_acceptance"]
+        self.assertEqual(29, len(accepted))
+        mercury = next(record for record in accepted if record["payload"]["eer_code_normalized"] == "200121")
+        self.assertTrue(mercury["payload"]["hazardous"])
+        self.assertEqual("image", mercury["source"]["evidence"]["kind"])
+
+    def test_preserves_mobile_stop_time_without_inventing_a_duration(self) -> None:
+        pages = [
+            ("https://www.esaspa.it/cittadini/raccolta-differenziata/", '<li data-name="Vetro" data-destination="Vetro">Vetro</li>'),
+            ("https://www.esaspa.it/centri-di-raccolta/centro-di-raccolta-mobile-a-cavo-rio/", '<main><p>dedicato alle utenze domestiche e non domestiche</p><p>Tutto l’anno, tutti i martedì e giovedì alle ore 10:00.</p></main>'),
+        ]
+        records, warnings = extract_esa_bundle(
+            MunicipalityContext("Rio", "049021", "rio"),
+            datetime.fromisoformat("2026-08-08T10:00:00+02:00"), pages,
+        )
+        self.assertEqual([], warnings)
+        opening = next(record for record in records if record["record_type"] == "opening_period")
+        self.assertEqual([], opening["payload"]["weekly_intervals"])
+        self.assertIn("10:00", opening["payload"]["exceptions_raw"])
+        self.assertEqual(2, sum(record["record_type"] == "facility_access" for record in records))
+        self.assertEqual(2, sum(record["record_type"] == "facility_acceptance" for record in records))
 
 
 class ReaExtractorTest(unittest.TestCase):

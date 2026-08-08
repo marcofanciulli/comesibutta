@@ -28,11 +28,38 @@ la denominazione ISTAT `Vagli Sotto`.
 
 ## ESA
 
-Le due pagine condivise ESA contengono 292 coppie nome-destinazione, le regole
-generali porta a porta e l'indice dei centri. Sono materializzate per i sette
-comuni dell'Elba, associando a ciascuno soltanto i propri centri. Gli snapshot
-live restano in `data/crawl/`, escluso da Git; output e rapporti sono
-riproducibili con `materialize-esa`.
+L'acquisizione ESA parte dalle pagine condivise della raccolta differenziata e
+dei centri, poi segue le dieci schede dei centri e i sette cartelli ufficiali
+collegati. La passata dell'8 agosto 2026 ha controllato 19 URL: 19 snapshot,
+nessun blocco `robots.txt` e nessun errore. I cartelli sono conservati come
+fonti immagine e la loro impronta SHA-256 deve coincidere con quella verificata:
+se ESA sostituisce un cartello, i vecchi codici EER non vengono applicati al
+nuovo documento senza revisione.
+
+```sh
+PYTHONPATH=src python3 -m dovelobutto.cli fetch-local-operator \
+  --operator esa \
+  --registry outputs/ato-toscana-costa-municipalities.jsonl \
+  --snapshot-root data/crawl/ato-toscana-costa/2026-08-08/esa \
+  --manifest data/crawl/ato-toscana-costa/2026-08-08/esa-manifest.json \
+  --report outputs/ato-toscana-costa-esa-fetch-report.json \
+  --observed-at 2026-08-08T10:30:00+02:00 \
+  --user-agent 'DoveLoButtoData/0.1 (+mailto:marcofanciulli@me.com)'
+
+PYTHONPATH=src python3 -m dovelobutto.cli materialize-esa \
+  --registry outputs/ato-toscana-costa-municipalities.jsonl \
+  --manifest data/crawl/ato-toscana-costa/2026-08-08/esa-manifest.json \
+  --snapshot-root data/crawl/ato-toscana-costa/2026-08-08/esa \
+  --retrieved-at 2026-08-08T10:30:00+02:00 \
+  --output-dir outputs/ato-toscana-costa \
+  --report outputs/ato-toscana-costa-esa-report.json
+```
+
+I sette comuni dell'Elba ricevono 292 coppie nome-destinazione e cinque regole
+generali ciascuno. I dieci centri sono associati soltanto ai comuni pertinenti,
+con indirizzi, accessi e 18 periodi di apertura. I sette cartelli producono 163
+associazioni esatte materiale/EER; per i due centri mobili restano inoltre
+quattro esempi senza codice, dichiarati come descrizioni non riconciliate.
 
 ## REA
 
@@ -172,12 +199,11 @@ resta da modellare senza duplicare la fonte.
 
 - 100 comuni censiti;
 - 100 comuni con almeno una fonte acquisita;
-- 31.889 record ATO Costa;
+- 32.076 record ATO Costa;
 - tutti i 13 comuni livornesi hanno almeno un rifiutario acquisito;
 - tutti i comuni REA hanno pagine di servizio; 14 hanno accesso ad almeno un
   centro pubblicato, mentre Capraia Isola, Orciano Pisano e Santa Luce non
   risultano collegati a un centro nella fonte acquisita.
 
-Restano l'estrazione verificata dei calendari PDF settimanali grafici, il
-collegamento intergestore di Montignoso e l'approfondimento dei centri o
-rifiutari non pubblicati nelle schede disponibili.
+Restano il collegamento intergestore di Montignoso e l'approfondimento dei
+centri o rifiutari non pubblicati nelle schede disponibili.

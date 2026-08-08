@@ -30,7 +30,7 @@ PYTHONPATH=src python3 -m dovelobutto.cli build-eer-register \
   --corrigendum-html data/sources/eer/32025D0934R01-it.html \
   --input-dir outputs/sei-toscana \
   --input-dir outputs/ato-toscana-costa \
-  --generated-at 2026-08-06T23:00:00+02:00 \
+  --generated-at 2026-08-08T11:15:00+02:00 \
   --output outputs/eer-register.json \
   --report outputs/eer-register-report.json
 ```
@@ -57,13 +57,13 @@ arbitrariamente in un altro codice.
 
 ## Confronto con i centri
 
-Sono state controllate 6.266 indicazioni di conferimento dotate o meno di EER:
+Sono state controllate 6.734 indicazioni di conferimento dotate o meno di EER:
 
-- 5.646 indicazioni usano codici presenti nell'edizione futura;
-- 252 usano `20 01 33` o `20 01 34`, validi oggi ma ritirati dal 9 dicembre;
+- 6.087 indicazioni usano codici presenti nell'edizione futura;
+- 275 usano `20 01 33` o `20 01 34`, validi oggi ma ritirati dal 9 dicembre;
 - nessun codice normalizzato risulta sconosciuto;
-- 368 indicazioni non pubblicano un codice, soprattutto nelle pagine REA, e
-  restano distinte dai codici errati.
+- 372 indicazioni non pubblicano un codice, soprattutto nelle pagine REA e nei
+  due centri mobili ESA, e restano distinte dai codici errati.
 
 Il rapporto non tratta i codici ritirati come errori attuali. Sono transizioni
 future che richiederanno una nuova acquisizione delle fonti dei gestori vicino

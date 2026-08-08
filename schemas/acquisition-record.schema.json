@@ -109,7 +109,7 @@
           "type": "object",
           "required": ["kind"],
           "properties": {
-            "kind": { "enum": ["html", "table", "pdf", "map_link", "json"] },
+            "kind": { "enum": ["html", "table", "pdf", "image", "map_link", "json"] },
             "selector": { "type": ["string", "null"] },
             "page": { "type": ["integer", "null"], "minimum": 1 },
             "quote": { "type": ["string", "null"] }

@@ -7,13 +7,15 @@
         "equivalent_pages": [],
         "istat_code": "049003",
         "municipality": "Campo nell'Elba",
-        "pages_available": 2,
-        "pages_materialized": 2,
-        "records": 300,
+        "pages_available": 19,
+        "pages_materialized": 19,
+        "records": 330,
         "records_by_type": {
           "collection_rule": 5,
           "facility": 1,
+          "facility_acceptance": 29,
           "facility_access": 1,
+          "opening_period": 1,
           "service_zone": 1,
           "waste_lookup": 292
         },
@@ -23,13 +25,15 @@
         "equivalent_pages": [],
         "istat_code": "049004",
         "municipality": "Capoliveri",
-        "pages_available": 2,
-        "pages_materialized": 2,
-        "records": 302,
+        "pages_available": 19,
+        "pages_materialized": 19,
+        "records": 337,
         "records_by_type": {
           "collection_rule": 5,
           "facility": 2,
+          "facility_acceptance": 31,
           "facility_access": 2,
+          "opening_period": 4,
           "service_zone": 1,
           "waste_lookup": 292
         },
@@ -39,13 +43,15 @@
         "equivalent_pages": [],
         "istat_code": "049010",
         "municipality": "Marciana",
-        "pages_available": 2,
-        "pages_materialized": 2,
-        "records": 302,
+        "pages_available": 19,
+        "pages_materialized": 19,
+        "records": 344,
         "records_by_type": {
           "collection_rule": 5,
           "facility": 2,
+          "facility_acceptance": 38,
           "facility_access": 2,
+          "opening_period": 4,
           "service_zone": 1,
           "waste_lookup": 292
         },
@@ -55,13 +61,14 @@
         "equivalent_pages": [],
         "istat_code": "049011",
         "municipality": "Marciana Marina",
-        "pages_available": 2,
-        "pages_materialized": 2,
-        "records": 300,
+        "pages_available": 19,
+        "pages_materialized": 19,
+        "records": 302,
         "records_by_type": {
           "collection_rule": 5,
           "facility": 1,
           "facility_access": 1,
+          "opening_period": 2,
           "service_zone": 1,
           "waste_lookup": 292
         },
@@ -71,13 +78,15 @@
         "equivalent_pages": [],
         "istat_code": "049013",
         "municipality": "Porto Azzurro",
-        "pages_available": 2,
-        "pages_materialized": 2,
-        "records": 300,
+        "pages_available": 19,
+        "pages_materialized": 19,
+        "records": 310,
         "records_by_type": {
           "collection_rule": 5,
           "facility": 1,
+          "facility_acceptance": 9,
           "facility_access": 1,
+          "opening_period": 1,
           "service_zone": 1,
           "waste_lookup": 292
         },
@@ -87,13 +96,15 @@
         "equivalent_pages": [],
         "istat_code": "049014",
         "municipality": "Portoferraio",
-        "pages_available": 2,
-        "pages_materialized": 2,
-        "records": 300,
+        "pages_available": 19,
+        "pages_materialized": 19,
+        "records": 333,
         "records_by_type": {
           "collection_rule": 5,
           "facility": 1,
-          "facility_access": 1,
+          "facility_acceptance": 29,
+          "facility_access": 2,
+          "opening_period": 3,
           "service_zone": 1,
           "waste_lookup": 292
         },
@@ -103,31 +114,37 @@
         "equivalent_pages": [],
         "istat_code": "049021",
         "municipality": "Rio",
-        "pages_available": 2,
-        "pages_materialized": 2,
-        "records": 302,
+        "pages_available": 19,
+        "pages_materialized": 19,
+        "records": 337,
         "records_by_type": {
           "collection_rule": 5,
           "facility": 2,
-          "facility_access": 2,
+          "facility_acceptance": 31,
+          "facility_access": 3,
+          "opening_period": 3,
           "service_zone": 1,
           "waste_lookup": 292
         },
         "warnings": []
       }
     ],
-    "records": 2106,
+    "records": 2293,
     "warnings": 0
   },
   "municipalities_touched": 7,
-  "observed_at": "2026-08-06T15:30:00+02:00",
+  "observed_at": "2026-08-08T10:30:00+02:00",
   "pages_by_category": {
-    "collection": 1,
-    "facilities": 1
+    "centre_detail": 10,
+    "centre_index": 1,
+    "centre_sign": 7,
+    "collection": 1
   },
   "pages_by_status": {
-    "snapshot": 2
+    "blocked_by_robots": 0,
+    "error": 0,
+    "snapshot": 19
   },
-  "pages_checked": 2,
+  "pages_checked": 19,
   "pages_remaining": 0
 }
