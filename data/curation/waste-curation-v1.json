@@ -1,7 +1,7 @@
 {
   "register_id": "waste-curation:toscana:v1",
   "version": 1,
-  "generated_at": "2026-08-08T15:30:00+02:00",
+  "generated_at": "2026-08-08T17:30:00+02:00",
   "alias_groups": [
     {
       "group_id": "waste-alias:beverage-carton",
@@ -76,6 +76,22 @@
       ],
       "review_status": "approved",
       "rationale": "Varianti generiche singolari, plurali e con condizione vuota; sono escluse bottiglie di medicinali, profumo e oggetti con residui specifici."
+    },
+    {
+      "group_id": "waste-alias:mollusc-shells",
+      "preferred_label": "Gusci di molluschi",
+      "search_terms": [
+        "Guscio dei molluschi",
+        "Guscio di mollusco",
+        "Gusci di molluschi"
+      ],
+      "member_concept_ids": [
+        "waste:gusci-di-molluschi",
+        "waste:gusci-di-molluschi-es-vongole-cozze-etc",
+        "waste:guscio-dei-molluschi"
+      ],
+      "review_status": "approved",
+      "rationale": "Varianti singolare e plurale della categoria generica dei gusci di molluschi. Ostriche, lumache e altre specie specifiche restano concetti separati; la destinazione continua a dipendere dal comune."
     }
   ],
   "eer_mappings": [

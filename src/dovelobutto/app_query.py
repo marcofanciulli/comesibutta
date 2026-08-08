@@ -291,8 +291,10 @@ class DisposalQueryService:
                     for destination in (concept or {}).get("local_destinations", [])
                 )
             ranked.sort(key=lambda item: (
-                -item["score"],
-                not item.get("available_in_municipality", False),
+                -(
+                    item["score"]
+                    + (0.08 if item.get("available_in_municipality", False) else 0)
+                ),
                 len(item["normalized_term"]),
             ))
         return ranked[:limit]

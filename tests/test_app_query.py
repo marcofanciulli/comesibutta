@@ -291,6 +291,26 @@ class DisposalQueryTests(unittest.TestCase):
         self.assertEqual("waste:bottiglia-di-vetro", results[0]["concept_id"])
         self.assertTrue(results[0]["available_in_municipality"])
 
+    def test_close_territorial_match_precedes_unavailable_exact_term(self) -> None:
+        self.connection.close()
+        writer = open_database(self.database, role="client")
+        current = read_database_entities(writer)
+        changed = dict(current)
+        unavailable = _concept("waste:guscio", "Guscio dei molluschi", [])
+        available = _concept(
+            "waste:gusci", "Gusci di molluschi", ["Indifferenziato"],
+        )
+        changed[(unavailable.entity_type, unavailable.entity_id)] = unavailable
+        changed[(available.entity_type, available.entity_id)] = available
+        apply_package(writer, build_update_package(current, changed, 1, 2, GENERATED_AT))
+        writer.close()
+        self.connection = open_query_database(self.database)
+        self.service = DisposalQueryService(self.connection)
+        results = self.service.search(
+            "Guscio dei molluschi", municipality_istat="053014",
+        )
+        self.assertEqual("waste:gusci", results[0]["concept_id"])
+
     def test_description_match_requires_the_complete_material_phrase(self) -> None:
         self.assertTrue(_description_matches_terms(
             "pneumatici fuori uso", {"pneumatico"},

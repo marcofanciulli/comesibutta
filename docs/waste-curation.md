@@ -51,12 +51,13 @@ sono mostrate nella risposta e non vengono eliminate durante la distribuzione.
 
 Il registro comprende:
 
-- 3 gruppi approvati e 30 concetti membri;
-- 14 termini di ricerca approvati;
+- 4 gruppi approvati e 33 concetti membri;
+- 17 termini di ricerca approvati;
 - 4 mappature EER approvate per 14 concetti;
 - 7 flussi canonici e 34 alias di flusso;
 - 7 canali di conferimento e 28 alias di canale;
-- cartoni per bevande, tappi di vero sughero e bottiglie di vetro generiche;
+- cartoni per bevande, tappi di vero sughero, bottiglie di vetro generiche e
+  varianti singolare/plurale dei gusci di molluschi;
 - organico, carta, vetro, multimateriale, residuo, plastica e metalli.
 
 La validazione sul catalogo corrente conta 191 etichette di destinazione e
