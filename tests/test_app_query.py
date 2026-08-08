@@ -433,6 +433,7 @@ class DisposalQueryTests(unittest.TestCase):
         answer = self.service.answer("carta colorata", "053014")
         self.assertEqual("needs_question", answer["status"])
         self.assertIsNone(answer["result"])
+        self.assertGreater(len(answer["question"]["options"]), 0)
         chosen = self.service.answer(
             "carta colorata",
             "053014",

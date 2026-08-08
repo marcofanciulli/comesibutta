@@ -3,11 +3,28 @@
   "$id": "https://dovelobutto.example/schemas/waste-curation-register.schema.json",
   "title": "Reviewed waste aliases, collection streams, and delivery channels",
   "type": "object",
-  "required": ["register_id", "version", "generated_at", "alias_groups", "eer_mappings", "stream_mappings", "disambiguation_groups", "collection_streams", "delivery_channels"],
+  "required": ["register_id", "version", "generated_at", "curated_concepts", "alias_groups", "eer_mappings", "stream_mappings", "disambiguation_groups", "collection_streams", "delivery_channels"],
   "properties": {
     "register_id": { "type": "string" },
     "version": { "type": "integer", "minimum": 1 },
     "generated_at": { "type": "string", "format": "date-time" },
+    "curated_concepts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["concept_id", "preferred_label", "search_terms", "reviewed_at", "review_status", "rationale", "source_urls"],
+        "properties": {
+          "concept_id": { "type": "string", "pattern": "^waste:[a-z0-9-]+$" },
+          "preferred_label": { "type": "string", "minLength": 1 },
+          "search_terms": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+          "reviewed_at": { "type": "string", "format": "date-time" },
+          "review_status": { "const": "approved" },
+          "rationale": { "type": "string", "minLength": 1 },
+          "source_urls": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "format": "uri" } }
+        },
+        "additionalProperties": false
+      }
+    },
     "alias_groups": {
       "type": "array",
       "items": {

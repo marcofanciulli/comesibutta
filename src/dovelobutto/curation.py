@@ -44,7 +44,28 @@ def validate_waste_curation(
     register: dict[str, Any],
     catalog: dict[str, Any],
 ) -> dict[str, Any]:
-    concept_ids = {concept["concept_id"] for concept in catalog.get("concepts", [])}
+    catalog_concept_ids = {
+        concept["concept_id"] for concept in catalog.get("concepts", [])
+    }
+    curated_concept_ids = set()
+    curated_search_terms = set()
+    for concept in register.get("curated_concepts", []):
+        concept_id = concept["concept_id"]
+        if concept_id in catalog_concept_ids:
+            raise ValueError(f"Curated concept {concept_id} already exists in the catalog")
+        if concept_id in curated_concept_ids:
+            raise ValueError(f"Duplicate curated concept {concept_id}")
+        if concept.get("review_status") != "approved":
+            raise ValueError(f"Curated concept {concept_id} is not approved")
+        if not concept.get("search_terms"):
+            raise ValueError(f"Curated concept {concept_id} requires search terms")
+        curated_concept_ids.add(concept_id)
+        for term in concept["search_terms"]:
+            normalized = normalize_term(term)
+            if not normalized:
+                raise ValueError(f"Empty search term in {concept_id}")
+            curated_search_terms.add(normalized)
+    concept_ids = catalog_concept_ids | curated_concept_ids
     group_ids = set()
     member_owner: dict[str, str] = {}
     search_owner: dict[str, str] = {}
@@ -252,6 +273,8 @@ def validate_waste_curation(
         "register_id": register["register_id"],
         "register_version": register["version"],
         "catalog_generated_at": catalog["generated_at"],
+        "curated_concepts": len(curated_concept_ids),
+        "curated_search_terms": len(curated_search_terms),
         "alias_groups": len(group_ids),
         "alias_members": len(member_owner),
         "approved_search_terms": len(search_owner),

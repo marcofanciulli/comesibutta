@@ -470,7 +470,7 @@ Prima verticale applicativa:
   risposte risolte, chiarimenti, conflitti, assenza di dati ed errori;
 - destinazione, preparazione, contenitore, EER, centri, ritiri, punti,
   avvertenze e fonti sono letti direttamente dal database client sincronizzato;
-- pubblicata e applicata localmente la revisione firmata `202608080012`, con
+- pubblicata e applicata localmente la revisione firmata `202608080013`, con
   tutti i 273 comuni toscani visibili all'app;
 - acquisite tutte le 9 guide generali SEI Toscana: 18.096 fatti territoriali
   coprono i 104 comuni gestiti; gli esempi nelle categorie diventano termini
@@ -484,6 +484,13 @@ Prima verticale applicativa:
 - verificato `Gommapiuma` a Manciano: una domanda distingue piccoli pezzi,
   collegati al residuo locale, e oggetti voluminosi, collegati a `20 03 07`,
   centro di raccolta e ritiro domiciliare fino a cinque pezzi;
+- verificati `Piombo` e `Resina` a Manciano: domande revisionate distinguono
+  forma, provenienza, pericolosita e stato; i rami accettati raggiungono il
+  centro tramite `20 01 40`, `20 01 33`, `20 01 27`, `20 01 28` e `15 01 10`,
+  mentre il piombo da edilizia conserva `17 04 03` senza attribuirlo al centro;
+- le voci EER gia destinate al ritiro dal nuovo elenco restano disponibili fino
+  alla loro effettiva data di cessazione; `20 01 33` e quindi ancora valido
+  alla data corrente e riporta `2026-12-08` come ultimo giorno di validita;
 - aggiunto il percorso inverso concetto-EER-centro per i comuni privi di
   rifiutario: a Manciano risolve quattro RAEE per codice esatto e pneumatici e
   toner tramite una descrizione associata a un solo EER;
@@ -507,7 +514,9 @@ Prima verticale applicativa:
   la risposta segue la guida SEI e indica l'indifferenziato;
 - verificato nel browser il percorso reale `Cartone del latte` a Livorno su
   schermo desktop e mobile, senza errori o scorrimento orizzontale;
-- 166 test automatici superati.
+- l'audit della revisione `202608080013` ha eseguito 184.110 risposte
+  territoriali: 184.039 risolte, 70 domande, un conflitto e nessun errore;
+- 173 test automatici superati.
 
 ## Limiti e questioni aperte
 

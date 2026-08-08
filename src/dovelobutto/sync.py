@@ -173,10 +173,14 @@ def load_canonical_entities(
     eer_codes = set()
     if eer_register_path:
         register = json.loads(eer_register_path.read_text(encoding="utf-8"))
-        eer_codes = {entry["code"] for entry in register.get("entries", [])}
+        register_entries = [
+            *register.get("entries", []),
+            *register.get("retired_entries", []),
+        ]
+        eer_codes = {entry["code"] for entry in register_entries}
         entities.extend(
             CanonicalEntity("eer_entry", entry["entry_id"], entry)
-            for entry in register.get("entries", [])
+            for entry in register_entries
         )
     catalog = None
     if catalog_path:
@@ -211,6 +215,35 @@ def load_canonical_entities(
                 "Waste curation references unknown EER codes: "
                 + ", ".join(unknown_mappings)
             )
+        from .catalog import normalize_term
+
+        entities.extend(
+            CanonicalEntity("waste_concept", concept["concept_id"], {
+                "concept_id": concept["concept_id"],
+                "preferred_label": concept["preferred_label"],
+                "normalized_term": normalize_term(concept["preferred_label"]),
+                "terms": list(dict.fromkeys([
+                    concept["preferred_label"], *concept.get("search_terms", []),
+                ])),
+                "language": "it",
+                "eer": {"status": "not_available", "candidates": []},
+                "source_categories": [],
+                "local_destinations": [],
+                "coverage": {
+                    "municipalities": [],
+                    "publishers": ["Curatela ComeSiButta"],
+                    "source_assertions": 0,
+                },
+                "general_details": {
+                    "material": None,
+                    "conditions": [],
+                    "environmental_note": None,
+                    "review_status": "approved_curation",
+                },
+                "evidence": [],
+            })
+            for concept in curation.get("curated_concepts", [])
+        )
         entities.extend(
             CanonicalEntity("waste_alias_group", group["group_id"], group)
             for group in curation.get("alias_groups", [])

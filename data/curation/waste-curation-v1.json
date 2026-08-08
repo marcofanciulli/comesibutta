@@ -1,7 +1,18 @@
 {
   "register_id": "waste-curation:toscana:v1",
   "version": 1,
-  "generated_at": "2026-08-08T23:30:00+02:00",
+  "generated_at": "2026-08-09T00:10:00+02:00",
+  "curated_concepts": [
+    {"concept_id":"waste:piombo","preferred_label":"Piombo","search_terms":["Piombo"],"reviewed_at":"2026-08-09T00:10:00+02:00","review_status":"approved","rationale":"Voce generica da distinguere per forma e provenienza.","source_urls":["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]},
+    {"concept_id":"waste:piombo-domestico","preferred_label":"Piccolo oggetto di piombo","search_terms":["Piombo domestico"],"reviewed_at":"2026-08-09T00:10:00+02:00","review_status":"approved","rationale":"Piccole quantita domestiche di metallo raccolto separatamente.","source_urls":["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]},
+    {"concept_id":"waste:batteria-o-accumulatore-al-piombo","preferred_label":"Batteria o accumulatore al piombo","search_terms":["Batteria al piombo","Accumulatore al piombo"],"reviewed_at":"2026-08-09T00:10:00+02:00","review_status":"approved","rationale":"Batterie al piombo domestiche separate dagli oggetti metallici.","source_urls":["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]},
+    {"concept_id":"waste:piombo-da-costruzione-demolizione","preferred_label":"Piombo da costruzione o demolizione","search_terms":["Piombo edile"],"reviewed_at":"2026-08-09T00:10:00+02:00","review_status":"approved","rationale":"Piombo proveniente da lavori di costruzione o demolizione.","source_urls":["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]},
+    {"concept_id":"waste:resina","preferred_label":"Resina","search_terms":["Resina","Resine"],"reviewed_at":"2026-08-09T00:10:00+02:00","review_status":"approved","rationale":"Voce generica da distinguere per stato e pericolosita.","source_urls":["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]},
+    {"concept_id":"waste:resina-pericolosa","preferred_label":"Resina con sostanze pericolose","search_terms":["Resina pericolosa"],"reviewed_at":"2026-08-09T00:10:00+02:00","review_status":"approved","rationale":"Residui di resina con pittogrammi o sostanze pericolose.","source_urls":["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]},
+    {"concept_id":"waste:resina-non-pericolosa","preferred_label":"Resina senza sostanze pericolose","search_terms":["Resina non pericolosa"],"reviewed_at":"2026-08-09T00:10:00+02:00","review_status":"approved","rationale":"Residui di resina non classificati pericolosi.","source_urls":["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]},
+    {"concept_id":"waste:imballaggio-contaminato-da-resina","preferred_label":"Contenitore con residui di resina pericolosa","search_terms":["Barattolo di resina contaminato"],"reviewed_at":"2026-08-09T00:10:00+02:00","review_status":"approved","rationale":"Imballaggio contaminato da sostanze pericolose.","source_urls":["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]},
+    {"concept_id":"waste:resina-indurita","preferred_label":"Piccolo residuo di resina completamente indurita","search_terms":["Resina indurita"],"reviewed_at":"2026-08-09T00:10:00+02:00","review_status":"approved","rationale":"Piccolo residuo solido privo di componenti separabili o pericolosi.","source_urls":["https://www.geofor.it/dove-lo-butto/"]}
+  ],
   "alias_groups": [
     {
       "group_id": "waste-alias:beverage-carton",
@@ -205,6 +216,95 @@
         "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-butto",
         "https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"
       ]
+    },
+    {
+      "mapping_id": "eer-map:household-lead-as-separated-metal",
+      "preferred_label": "Metalli",
+      "eer_code": "200140",
+      "concept_ids": ["waste:piombo-domestico"],
+      "condition": "se si tratta di una piccola quantita domestica di metallo raccolta separatamente",
+      "reviewed_at": "2026-08-09T00:10:00+02:00",
+      "delivery_channels": ["Centro di raccolta"],
+      "review_status": "approved",
+      "rationale": "La voce urbana 20 01 40 comprende i metalli raccolti separatamente; il centro di Manciano accetta questa voce.",
+      "source_urls": [
+        "https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206",
+        "https://seitoscana.it/comuni/manciano/centro-di-raccolta"
+      ]
+    },
+    {
+      "mapping_id": "eer-map:household-lead-battery",
+      "preferred_label": "Batterie e accumulatori al piombo",
+      "eer_code": "200133",
+      "concept_ids": ["waste:batteria-o-accumulatore-al-piombo"],
+      "condition": "se deriva dalla manutenzione in proprio di un veicolo a uso privato da parte di un'utenza domestica",
+      "reviewed_at": "2026-08-09T00:10:00+02:00",
+      "delivery_channels": ["Centro di raccolta"],
+      "review_status": "approved",
+      "rationale": "La voce 20 01 33 identifica le batterie al piombo nel flusso urbano; il centro di Manciano la pubblica tra i conferimenti accettati.",
+      "source_urls": [
+        "https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206",
+        "https://seitoscana.it/comuni/manciano/centro-di-raccolta"
+      ]
+    },
+    {
+      "mapping_id": "eer-map:lead-from-construction-demolition",
+      "preferred_label": "Piombo",
+      "eer_code": "170403",
+      "concept_ids": ["waste:piombo-da-costruzione-demolizione"],
+      "condition": "se deriva da attivita di costruzione o demolizione",
+      "reviewed_at": "2026-08-09T00:10:00+02:00",
+      "delivery_channels": ["Centro di raccolta"],
+      "review_status": "approved",
+      "rationale": "Nel capitolo 17 la voce 17 04 03 identifica il piombo da costruzione e demolizione; l'accettazione deve essere verificata sul singolo centro.",
+      "source_urls": [
+        "https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"
+      ]
+    },
+    {
+      "mapping_id": "eer-map:hazardous-resin",
+      "preferred_label": "Vernici, inchiostri, adesivi e resine contenenti sostanze pericolose",
+      "eer_code": "200127",
+      "concept_ids": ["waste:resina-pericolosa"],
+      "condition": "se la resina contiene sostanze pericolose, indicate dall'etichetta o dalla scheda di sicurezza",
+      "reviewed_at": "2026-08-09T00:10:00+02:00",
+      "delivery_channels": ["Centro di raccolta"],
+      "review_status": "approved",
+      "rationale": "La voce urbana 20 01 27 comprende espressamente le resine contenenti sostanze pericolose ed e accettata dal centro di Manciano.",
+      "source_urls": [
+        "https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206",
+        "https://seitoscana.it/comuni/manciano/centro-di-raccolta"
+      ]
+    },
+    {
+      "mapping_id": "eer-map:non-hazardous-resin",
+      "preferred_label": "Vernici, inchiostri, adesivi e resine non pericolosi",
+      "eer_code": "200128",
+      "concept_ids": ["waste:resina-non-pericolosa"],
+      "condition": "se la resina non contiene sostanze pericolose secondo l'etichetta o la scheda di sicurezza",
+      "reviewed_at": "2026-08-09T00:10:00+02:00",
+      "delivery_channels": ["Centro di raccolta"],
+      "review_status": "approved",
+      "rationale": "La voce urbana 20 01 28 comprende espressamente le resine diverse da quelle pericolose ed e accettata dal centro di Manciano.",
+      "source_urls": [
+        "https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206",
+        "https://seitoscana.it/comuni/manciano/centro-di-raccolta"
+      ]
+    },
+    {
+      "mapping_id": "eer-map:resin-contaminated-packaging",
+      "preferred_label": "Imballaggi contenenti residui di sostanze pericolose",
+      "eer_code": "150110",
+      "concept_ids": ["waste:imballaggio-contaminato-da-resina"],
+      "condition": "se l'imballaggio contiene residui di resina pericolosa o ne e contaminato",
+      "reviewed_at": "2026-08-09T00:10:00+02:00",
+      "delivery_channels": ["Centro di raccolta"],
+      "review_status": "approved",
+      "rationale": "La voce 15 01 10 riguarda gli imballaggi contaminati da sostanze pericolose ed e accettata dal centro di Manciano.",
+      "source_urls": [
+        "https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206",
+        "https://seitoscana.it/comuni/manciano/centro-di-raccolta"
+      ]
     }
   ],
   "stream_mappings": [
@@ -218,6 +318,18 @@
       "rationale": "Le fonti distinguono la gommapiuma in piccole quantita da quella ingombrante e classificano i piccoli pezzi nel residuo non differenziabile.",
       "source_urls": [
         "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-butto",
+        "https://www.geofor.it/dove-lo-butto/"
+      ]
+    },
+    {
+      "mapping_id": "stream-map:hardened-resin-residual",
+      "stream_id": "stream:residual",
+      "concept_ids": ["waste:resina-indurita"],
+      "condition": "solo se completamente indurita, in piccola quantita e senza residui o componenti pericolosi",
+      "reviewed_at": "2026-08-09T00:10:00+02:00",
+      "review_status": "approved",
+      "rationale": "La destinazione nel residuo e limitata a piccoli residui solidi completamente induriti; il collegamento diventa operativo solo dove esiste una regola locale per il residuo.",
+      "source_urls": [
         "https://www.geofor.it/dove-lo-butto/"
       ]
     }
@@ -244,6 +356,68 @@
       "rationale": "La dimensione cambia il canale: piccoli pezzi nel residuo, oggetti voluminosi al centro o al ritiro ingombranti.",
       "source_urls": [
         "https://aliaestra.it/ambiente/raccolta-e-pulizia-strade/dove-lo-butto",
+        "https://www.geofor.it/dove-lo-butto/"
+      ]
+    },
+    {
+      "group_id": "waste-question:lead-form",
+      "trigger_concept_ids": ["waste:piombo"],
+      "prompt": "Di quale rifiuto contenente piombo si tratta?",
+      "options": [
+        {
+          "concept_id": "waste:piombo-domestico",
+          "label": "Piccolo oggetto metallico",
+          "hint": "Piccola quantita domestica di piombo, non proveniente da lavori edili"
+        },
+        {
+          "concept_id": "waste:batteria-o-accumulatore-al-piombo",
+          "label": "Batteria o accumulatore",
+          "hint": "Per esempio una batteria di un veicolo privato sostituita in proprio"
+        },
+        {
+          "concept_id": "waste:piombo-da-costruzione-demolizione",
+          "label": "Scarto da lavori edili",
+          "hint": "Piombo da costruzione o demolizione: EER 17 04 03, da verificare sul centro"
+        }
+      ],
+      "reviewed_at": "2026-08-09T00:10:00+02:00",
+      "review_status": "approved",
+      "rationale": "La provenienza e la forma distinguono la voce urbana per metalli, quella per batterie e il capitolo dei rifiuti da costruzione e demolizione.",
+      "source_urls": [
+        "https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"
+      ]
+    },
+    {
+      "group_id": "waste-question:resin-state",
+      "trigger_concept_ids": ["waste:resina"],
+      "prompt": "In che stato si trova la resina e come e classificata?",
+      "options": [
+        {
+          "concept_id": "waste:resina-pericolosa",
+          "label": "Liquida o pastosa, pericolosa",
+          "hint": "L'etichetta o la scheda di sicurezza indica sostanze o pittogrammi di pericolo"
+        },
+        {
+          "concept_id": "waste:resina-non-pericolosa",
+          "label": "Liquida o pastosa, non pericolosa",
+          "hint": "L'etichetta o la scheda di sicurezza non la classifica come pericolosa"
+        },
+        {
+          "concept_id": "waste:imballaggio-contaminato-da-resina",
+          "label": "Contenitore contaminato",
+          "hint": "Barattolo o altro imballaggio con residui di resina pericolosa"
+        },
+        {
+          "concept_id": "waste:resina-indurita",
+          "label": "Piccolo residuo indurito",
+          "hint": "Completamente solido, in piccola quantita e senza componenti pericolosi"
+        }
+      ],
+      "reviewed_at": "2026-08-09T00:10:00+02:00",
+      "review_status": "approved",
+      "rationale": "Pericolosita, stato fisico e presenza dell'imballaggio determinano classificazioni e canali diversi.",
+      "source_urls": [
+        "https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206",
         "https://www.geofor.it/dove-lo-butto/"
       ]
     }

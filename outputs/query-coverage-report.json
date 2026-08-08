@@ -1,5 +1,5 @@
 {
-  "dataset_revision": 202608080012,
+  "dataset_revision": 202608080013,
   "defined_non_resolved": [
     {
       "entity_id": "waste:gommapiuma",
@@ -1634,7 +1634,7 @@
     }
   ],
   "failures": [],
-  "generated_at": "2026-08-08T23:50:00+02:00",
+  "generated_at": "2026-08-09T00:25:00+02:00",
   "review_queue": [
     {
       "coverage": {
@@ -4280,7 +4280,7 @@
     "alias_exact_search_checks": 25,
     "approved_alias_groups": 4,
     "approved_alias_search_terms": 25,
-    "concepts": 3485,
+    "concepts": 3494,
     "concepts_with_territorial_destination": 3480,
     "exact_semantic_review_candidates": 62,
     "failures": 0,
@@ -4295,7 +4295,7 @@
       "needs_question": 70,
       "resolved": 184039
     },
-    "search_term_bindings": 3485,
+    "search_term_bindings": 3503,
     "service_zones": 417,
     "status": "pass",
     "territorial_alias_term_zone_cases": 7482,

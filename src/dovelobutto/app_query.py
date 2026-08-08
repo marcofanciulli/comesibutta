@@ -196,8 +196,11 @@ class DisposalQueryService:
                 "hazardous": entry.get("hazardous"),
                 "official_hazardous": entry.get("hazardous"),
                 "official_title": entry.get("title"),
-                "register_status": "active_in_target" if entry else "unknown_code",
-                "valid_to": None,
+                "register_status": (
+                    "retired_in_target" if entry.get("valid_to")
+                    else "active_in_target" if entry else "unknown_code"
+                ),
+                "valid_to": entry.get("valid_to"),
                 "mapping_condition": mapping.get("condition"),
                 "mapping_id": mapping["mapping_id"],
                 "mapping_delivery_channels": mapping.get("delivery_channels", []),
@@ -427,7 +430,8 @@ class DisposalQueryService:
         )
         if concept_id is None and selected["score"] < 0.88:
             local_options = [
-                item for item in suggestions if item.get("available_in_municipality")
+                item for item in suggestions
+                if item.get("available_in_municipality") and item["score"] >= 0.55
             ]
             option_pool = local_options or suggestions
             base["status"] = "needs_question"

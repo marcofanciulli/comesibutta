@@ -29,12 +29,14 @@ class WasteCurationTests(unittest.TestCase):
         self.assertEqual(33, report["alias_members"])
         self.assertEqual(7, report["collection_streams"])
         self.assertEqual(7, report["delivery_channels"])
-        self.assertEqual(7, report["eer_mappings"])
-        self.assertEqual(16, report["eer_mapped_concepts"])
-        self.assertEqual(1, report["stream_mappings"])
-        self.assertEqual(1, report["stream_mapped_concepts"])
-        self.assertEqual(1, report["disambiguation_groups"])
-        self.assertEqual(1, report["disambiguation_triggers"])
+        self.assertEqual(9, report["curated_concepts"])
+        self.assertEqual(11, report["curated_search_terms"])
+        self.assertEqual(13, report["eer_mappings"])
+        self.assertEqual(22, report["eer_mapped_concepts"])
+        self.assertEqual(2, report["stream_mappings"])
+        self.assertEqual(2, report["stream_mapped_concepts"])
+        self.assertEqual(3, report["disambiguation_groups"])
+        self.assertEqual(3, report["disambiguation_triggers"])
         self.assertEqual(0, report["alias_group_territorial_conflicts"])
         self.assertGreater(report["mapped_destination_assertions"], 1900)
         self.assertGreater(report["channel_mapped_destination_assertions"], 1700)
@@ -56,6 +58,40 @@ class WasteCurationTests(unittest.TestCase):
         self.assertNotIn("waste:guscio-delle-ostriche", group["member_concept_ids"])
         self.assertIn("Murici", group["search_terms"])
         self.assertIn("Ostriche", group["search_terms"])
+
+    def test_lead_and_resin_questions_cover_every_reviewed_branch(self) -> None:
+        groups = {
+            group["group_id"]: group
+            for group in self.register["disambiguation_groups"]
+        }
+        self.assertEqual(
+            {
+                "waste:piombo-domestico",
+                "waste:batteria-o-accumulatore-al-piombo",
+                "waste:piombo-da-costruzione-demolizione",
+            },
+            {option["concept_id"] for option in groups["waste-question:lead-form"]["options"]},
+        )
+        self.assertEqual(
+            {
+                "waste:resina-pericolosa",
+                "waste:resina-non-pericolosa",
+                "waste:imballaggio-contaminato-da-resina",
+                "waste:resina-indurita",
+            },
+            {option["concept_id"] for option in groups["waste-question:resin-state"]["options"]},
+        )
+        mappings = {
+            mapping["concept_ids"][0]: mapping["eer_code"]
+            for mapping in self.register["eer_mappings"]
+            if len(mapping["concept_ids"]) == 1
+        }
+        self.assertEqual("200140", mappings["waste:piombo-domestico"])
+        self.assertEqual("200133", mappings["waste:batteria-o-accumulatore-al-piombo"])
+        self.assertEqual("170403", mappings["waste:piombo-da-costruzione-demolizione"])
+        self.assertEqual("200127", mappings["waste:resina-pericolosa"])
+        self.assertEqual("200128", mappings["waste:resina-non-pericolosa"])
+        self.assertEqual("150110", mappings["waste:imballaggio-contaminato-da-resina"])
 
     def test_unknown_alias_member_is_rejected(self) -> None:
         register = copy.deepcopy(self.register)
@@ -152,6 +188,11 @@ class WasteCurationTests(unittest.TestCase):
             "waste_disambiguation_group", "waste-question:foam-size",
         )]
         self.assertIn(("waste_concept", "waste:gommapiuma"), question.dependencies)
+        self.assertIn(("waste_concept", "waste:piombo"), entities)
+        lead_question = entities[(
+            "waste_disambiguation_group", "waste-question:lead-form",
+        )]
+        self.assertIn(("waste_concept", "waste:piombo"), lead_question.dependencies)
 
     def test_schema_and_generated_report_are_machine_readable(self) -> None:
         schema = json.loads(
