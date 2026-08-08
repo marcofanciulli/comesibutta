@@ -198,6 +198,15 @@ class DisposalQueryService:
                 "valid_to": None,
                 "mapping_condition": mapping.get("condition"),
                 "mapping_id": mapping["mapping_id"],
+                "mapping_sources": [
+                    {
+                        "url": url,
+                        "publisher": "Classificazione EER revisionata",
+                        "retrieved_at": mapping["reviewed_at"],
+                    }
+                    for url in mapping.get("source_urls", [])
+                    if mapping.get("reviewed_at")
+                ],
             }
             for concept_id in mapping.get("concept_ids", []):
                 self.eer_mappings.setdefault(concept_id, []).append(candidate)
@@ -444,7 +453,11 @@ class DisposalQueryService:
                 base["status"] = "resolved"
                 base["result"] = fallback
                 self._set_provenance(base, [
-                    *concept.get("evidence", []), *fallback_sources,
+                    *[
+                        item for item in concept.get("evidence", [])
+                        if municipality_istat in item.get("municipality_istats", [])
+                    ],
+                    *fallback_sources,
                 ])
             return base
         if len(destinations) > 1:
@@ -824,6 +837,11 @@ class DisposalQueryService:
         longitude: float | None,
     ) -> tuple[dict[str, Any] | None, list[dict[str, Any]]]:
         eer = self._eer_summary(concept)
+        candidate_by_code = {
+            candidate["code"]: candidate
+            for candidate in concept.get("eer", {}).get("candidates", [])
+            if candidate.get("register_status") != "unknown_code"
+        }
         facilities, sources = self._resolve_facilities(
             concept,
             "Centro di raccolta",
@@ -831,7 +849,7 @@ class DisposalQueryService:
             user_type=user_type,
             latitude=latitude,
             longitude=longitude,
-            allow_term_match=eer is None,
+            allow_term_match=not candidate_by_code,
         )
         if eer is not None:
             verified = [
@@ -839,6 +857,31 @@ class DisposalQueryService:
                 if facility["acceptance"]["status"] == "verified_eer"
             ]
             resolution_basis = "exact_eer"
+        elif candidate_by_code:
+            verified = [
+                facility for facility in facilities
+                if facility["acceptance"]["status"] == "verified_eer"
+            ]
+            accepted_codes = {
+                code for facility in verified
+                for code in facility["acceptance"]["eer_codes"]
+                if code in candidate_by_code
+            }
+            if len(accepted_codes) != 1:
+                return None, sources
+            code = next(iter(accepted_codes))
+            candidate = candidate_by_code[code]
+            eer = self._eer_from_code(
+                code, verified, condition=candidate.get("mapping_condition"),
+            )
+            if eer is None:
+                return None, sources
+            verified = [
+                facility for facility in verified
+                if code in facility["acceptance"]["eer_codes"]
+            ]
+            sources.extend(candidate.get("mapping_sources", []))
+            resolution_basis = "locally_accepted_eer"
         else:
             verified = [
                 facility for facility in facilities
@@ -873,6 +916,12 @@ class DisposalQueryService:
                 "La fonte locale non pubblica questo oggetto nel rifiutario: "
                 f"il centro \u00e8 stato individuato tramite l'accettazione esatta del codice EER {eer['code']}."
             ]
+        elif resolution_basis == "locally_accepted_eer":
+            warnings = [
+                "L'oggetto puo avere piu classificazioni EER secondo la sua origine: "
+                f"il centro locale pubblica l'accettazione del codice {eer['code']}"
+                + (f" ({eer['condition']})." if eer.get("condition") else ".")
+            ]
         else:
             warnings = [
                 "La fonte locale non pubblica un rifiutario: il collegamento deriva "
@@ -889,6 +938,15 @@ class DisposalQueryService:
         for facility in verified:
             facility.pop("_local", None)
         channels = self._channel_matches("Centro di raccolta")
+        eer_alternatives = []
+        for code, candidate in sorted(candidate_by_code.items()):
+            if code == eer["code"]:
+                continue
+            alternative = self._eer_from_code(
+                code, [], condition=candidate.get("mapping_condition"),
+            )
+            if alternative is not None:
+                eer_alternatives.append(alternative)
         return {
             "destination_type": "facility",
             "stream_id": None,
@@ -899,6 +957,7 @@ class DisposalQueryService:
             "container": None,
             "presentation": None,
             "eer": eer,
+            "eer_alternatives": eer_alternatives,
             "facility": primary,
             "facility_alternatives": [
                 facility for facility in verified if facility is not primary
@@ -912,7 +971,7 @@ class DisposalQueryService:
         }, sources
 
     def _eer_from_code(
-        self, code: str, facilities: list[dict[str, Any]],
+        self, code: str, facilities: list[dict[str, Any]], *, condition: str | None = None,
     ) -> dict[str, Any] | None:
         entry = read_entity_data(
             self.connection, "eer_entry", f"eer:{code}", include_sources=False,
@@ -928,6 +987,7 @@ class DisposalQueryService:
             "official_label": entry["title_expanded"] or entry["title"],
             "hazardous": bool(entry["hazardous"]),
             "facility_operational_label": labels[0] if labels else None,
+            "condition": condition,
         }
 
     def _resolve_facilities(

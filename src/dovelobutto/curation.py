@@ -76,7 +76,7 @@ def validate_waste_curation(
             member_owner[concept_id] = group_id
 
     mapping_ids = set()
-    mapped_concepts: dict[str, str] = {}
+    mapped_concepts: dict[str, list[dict[str, str]]] = defaultdict(list)
     for mapping in register.get("eer_mappings", []):
         mapping_id = mapping["mapping_id"]
         if mapping_id in mapping_ids:
@@ -89,12 +89,29 @@ def validate_waste_curation(
         for concept_id in mapping.get("concept_ids", []):
             if concept_id not in concept_ids:
                 raise ValueError(f"Unknown concept {concept_id} in {mapping_id}")
-            if concept_id in mapped_concepts:
+            previous = mapped_concepts[concept_id]
+            condition = normalize_term(mapping.get("condition", ""))
+            if previous and not condition:
                 raise ValueError(
-                    f"Concept {concept_id} has EER mappings in both "
-                    f"{mapped_concepts[concept_id]} and {mapping_id}"
+                    f"Concept {concept_id} requires a condition in {mapping_id} "
+                    "because it has multiple EER mappings"
                 )
-            mapped_concepts[concept_id] = mapping_id
+            if any(not item["condition"] for item in previous):
+                raise ValueError(
+                    f"Concept {concept_id} already has an unconditional EER mapping"
+                )
+            if any(
+                item["code"] == mapping["eer_code"] or item["condition"] == condition
+                for item in previous
+            ):
+                raise ValueError(
+                    f"Concept {concept_id} repeats an EER code or condition in {mapping_id}"
+                )
+            previous.append({
+                "mapping_id": mapping_id,
+                "code": mapping["eer_code"],
+                "condition": condition,
+            })
 
     stream_ids = set()
     alias_owner: dict[str, str] = {}

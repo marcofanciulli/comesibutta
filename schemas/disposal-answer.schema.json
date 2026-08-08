@@ -113,9 +113,25 @@
             "code": { "type": "string", "pattern": "^[0-9]{6}$" },
             "official_label": { "type": "string" },
             "hazardous": { "type": "boolean" },
-            "facility_operational_label": { "type": ["string", "null"] }
+            "facility_operational_label": { "type": ["string", "null"] },
+            "condition": { "type": ["string", "null"] }
           },
           "additionalProperties": false
+        },
+        "eer_alternatives": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["code", "official_label", "hazardous", "facility_operational_label", "condition"],
+            "properties": {
+              "code": { "type": "string", "pattern": "^[0-9]{6}$" },
+              "official_label": { "type": "string" },
+              "hazardous": { "type": "boolean" },
+              "facility_operational_label": { "type": ["string", "null"] },
+              "condition": { "type": ["string", "null"] }
+            },
+            "additionalProperties": false
+          }
         },
         "facility": {
           "oneOf": [{ "$ref": "#/$defs/facilityResult" }, { "type": "null" }]

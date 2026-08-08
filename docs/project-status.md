@@ -84,6 +84,10 @@ La risposta deve poter indicare:
     produce una destinazione locale. La coincidenza EER puo verificare
     l'accettazione presso un centro accessibile che pubblica quel codice, ma
     non permette di dedurre cassonetto, sacchetto o preparazione.
+26. Oggetto, materiale, origine e processo di produzione del rifiuto sono
+    dimensioni distinte. Un concetto puo avere piu EER condizionati; il motore
+    ne usa uno soltanto quando il contesto o l'accettazione locale lo rendono
+    univoco, altrimenti deve chiedere un chiarimento.
 
 ## Artefatti persistenti
 
@@ -462,7 +466,7 @@ Prima verticale applicativa:
   risposte risolte, chiarimenti, conflitti, assenza di dati ed errori;
 - destinazione, preparazione, contenitore, EER, centri, ritiri, punti,
   avvertenze e fonti sono letti direttamente dal database client sincronizzato;
-- pubblicata e applicata localmente la revisione firmata `202608080009`, con
+- pubblicata e applicata localmente la revisione firmata `202608080011`, con
   tutti i 273 comuni toscani visibili all'app;
 - acquisite tutte le 9 guide generali SEI Toscana: 18.096 fatti territoriali
   coprono i 104 comuni gestiti; gli esempi nelle categorie diventano termini
@@ -470,6 +474,9 @@ Prima verticale applicativa:
 - verificato `Tappo di sughero` a Manciano: la guida del gestore determina
   l'organico e la regola comunale completa contenitore, colore e sacchetto in
   base alla zona scelta;
+- verificato `Rame` a Manciano: il centro accetta `20 01 40 Metalli`; la
+  risposta conserva `17 04 01 Rame, bronzo, ottone` come alternativa limitata
+  ai rifiuti da costruzione o demolizione;
 - aggiunto il percorso inverso concetto-EER-centro per i comuni privi di
   rifiutario: a Manciano risolve quattro RAEE per codice esatto e pneumatici e
   toner tramite una descrizione associata a un solo EER;

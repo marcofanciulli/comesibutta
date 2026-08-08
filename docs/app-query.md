@@ -103,6 +103,14 @@ preparazione. L'EER puo invece collegare il concetto a un centro accessibile nel
 territorio quando quel centro pubblica esplicitamente l'accettazione dello
 stesso codice.
 
+Un concetto puo avere piu EER condizionati da materiale, provenienza e processo
+che ha generato il rifiuto. Se un centro locale accetta una sola delle
+classificazioni compatibili, l'app puo proporre quel centro mostrando codice e
+condizione. Se piu codici restano possibili, non ne sceglie uno implicitamente:
+deve chiedere il dettaglio discriminante all'utente. Per esempio `Rame` puo
+ricadere in `20 01 40` come metallo domestico raccolto separatamente oppure in
+`17 04 01` se proviene da costruzione o demolizione.
+
 Il client puo aggiungere la posizione della singola richiesta:
 
 ```sh

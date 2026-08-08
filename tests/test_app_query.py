@@ -659,6 +659,67 @@ class DisposalQueryTests(unittest.TestCase):
         self.assertEqual("verified_eer", answer["result"]["facility"]["acceptance"]["status"])
         self.assertIn("componenti pericolosi", " ".join(answer["result"]["warnings"]))
 
+    def test_local_centre_selects_one_of_multiple_conditional_eer_codes(self) -> None:
+        self.connection.close()
+        writer = open_database(self.database, role="client")
+        current = read_database_entities(writer)
+        changed = dict(current)
+        copper = _concept("waste:rame", "Rame", [])
+        additions = [
+            copper,
+            CanonicalEntity("eer_entry", "eer:200140", {
+                "entry_id": "eer:200140", "code": "200140",
+                "title": "Metalli", "title_expanded": "Metalli", "hazardous": False,
+            }),
+            CanonicalEntity("eer_entry", "eer:170401", {
+                "entry_id": "eer:170401", "code": "170401",
+                "title": "rame, bronzo, ottone",
+                "title_expanded": "rame, bronzo, ottone", "hazardous": False,
+            }),
+            CanonicalEntity("waste_eer_mapping", "eer-map:copper-household", {
+                "mapping_id": "eer-map:copper-household",
+                "preferred_label": "Metalli", "eer_code": "200140",
+                "concept_ids": ["waste:rame"],
+                "condition": "se e un rifiuto domestico raccolto separatamente",
+                "review_status": "approved", "rationale": "Corrispondenza revisionata",
+                "source_urls": ["https://example.test/eer"],
+            }),
+            CanonicalEntity("waste_eer_mapping", "eer-map:copper-building", {
+                "mapping_id": "eer-map:copper-building",
+                "preferred_label": "Rame, bronzo, ottone", "eer_code": "170401",
+                "concept_ids": ["waste:rame"],
+                "condition": "se deriva da costruzione o demolizione",
+                "review_status": "approved", "rationale": "Corrispondenza revisionata",
+                "source_urls": ["https://example.test/eer"],
+            }),
+            CanonicalEntity("delivery_channel", "channel:collection-centre", {
+                "channel_id": "channel:collection-centre",
+                "preferred_label": "Centro di raccolta", "destination_type": "facility",
+                "aliases": ["Centro di raccolta"],
+            }),
+            _facility("facility:copper", "Centro metalli", 42.6, 11.5),
+            _facility_access("facility:copper"),
+            _facility_acceptance("facility:copper", "Metalli", eer_code="200140"),
+        ]
+        for entity in additions:
+            changed[(entity.entity_type, entity.entity_id)] = entity
+        apply_package(writer, build_update_package(current, changed, 1, 2, GENERATED_AT))
+        writer.close()
+        self.connection = open_query_database(self.database)
+        self.service = DisposalQueryService(self.connection)
+
+        answer = self.service.answer("rame", "053014")
+
+        self.assertEqual("resolved", answer["status"])
+        self.assertEqual("200140", answer["result"]["eer"]["code"])
+        self.assertIn("rifiuto domestico", answer["result"]["eer"]["condition"])
+        self.assertEqual(
+            ["170401"],
+            [item["code"] for item in answer["result"]["eer_alternatives"]],
+        )
+        self.assertEqual("facility:copper", answer["result"]["facility"]["id"])
+        self.assertIn("piu classificazioni", " ".join(answer["result"]["warnings"]))
+
     def test_equivalent_single_channel_aliases_do_not_create_a_conflict(self) -> None:
         self.connection.close()
         writer = open_database(self.database, role="client")

@@ -246,7 +246,7 @@ function renderAnswer(body) {
       <div class="facts">
         <div class="fact"><span class="fact-label">Come conferirlo</span><strong>${escapeHtml(modeLabel(result.presentation))}</strong>${presentationInstructions.map((item) => `<p>${escapeHtml(item)}</p>`).join("")}</div>
         <div class="fact"><span class="fact-label">Contenitore</span><strong>${result.container?.color ? `<i class="swatch" style="background:${colorValue(result.container.color)}"></i>${escapeHtml(result.container.color)}` : "Non pubblicato"}</strong><p>${escapeHtml(result.container?.type || "")}</p></div>
-        <div class="fact"><span class="fact-label">Codice EER</span><strong>${escapeHtml(result.eer?.code || "Non associato")}</strong><p>${escapeHtml(result.eer?.official_label || "")}</p>${result.eer?.hazardous ? "<p><strong>Rifiuto pericoloso</strong></p>" : ""}</div>
+        <div class="fact"><span class="fact-label">Codice EER</span><strong>${escapeHtml(result.eer?.code || "Non associato")}</strong><p>${escapeHtml(result.eer?.official_label || "")}</p>${result.eer?.condition ? `<p>${escapeHtml(result.eer.condition)}</p>` : ""}${result.eer?.hazardous ? "<p><strong>Rifiuto pericoloso</strong></p>" : ""}${(result.eer_alternatives || []).length ? `<p><strong>Altri codici possibili secondo l'origine:</strong> ${result.eer_alternatives.map((item) => `${escapeHtml(item.code)} - ${escapeHtml(item.official_label)}${item.condition ? ` (${escapeHtml(item.condition)})` : ""}`).join("; ")}</p>` : ""}</div>
       </div>
       ${(result.warnings || []).length ? `<div class="warning-list">${result.warnings.map((item) => `<div class="warning">${escapeHtml(item)}</div>`).join("")}</div>` : ""}
     </div></div>

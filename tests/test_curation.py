@@ -29,8 +29,8 @@ class WasteCurationTests(unittest.TestCase):
         self.assertEqual(33, report["alias_members"])
         self.assertEqual(7, report["collection_streams"])
         self.assertEqual(7, report["delivery_channels"])
-        self.assertEqual(4, report["eer_mappings"])
-        self.assertEqual(14, report["eer_mapped_concepts"])
+        self.assertEqual(6, report["eer_mappings"])
+        self.assertEqual(15, report["eer_mapped_concepts"])
         self.assertEqual(0, report["alias_group_territorial_conflicts"])
         self.assertGreater(report["mapped_destination_assertions"], 1900)
         self.assertGreater(report["channel_mapped_destination_assertions"], 1700)
@@ -100,7 +100,7 @@ class WasteCurationTests(unittest.TestCase):
         register["eer_mappings"][1]["concept_ids"].append(
             register["eer_mappings"][0]["concept_ids"][0]
         )
-        with self.assertRaisesRegex(ValueError, "mappings in both"):
+        with self.assertRaisesRegex(ValueError, "unconditional EER mapping"):
             validate_waste_curation(register, self.catalog)
 
     def test_compound_destination_preserves_all_controlled_channels(self) -> None:

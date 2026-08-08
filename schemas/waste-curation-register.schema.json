@@ -50,6 +50,7 @@
             "items": { "type": "string", "pattern": "^waste:[a-z0-9-]+$" }
           },
           "condition": { "type": "string", "minLength": 1 },
+          "reviewed_at": { "type": "string", "format": "date-time" },
           "review_status": { "const": "approved" },
           "rationale": { "type": "string", "minLength": 1 },
           "source_urls": {
