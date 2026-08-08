@@ -516,7 +516,18 @@ Prima verticale applicativa:
   schermo desktop e mobile, senza errori o scorrimento orizzontale;
 - l'audit della revisione `202608080013` ha eseguito 184.110 risposte
   territoriali: 184.039 risolte, 70 domande, un conflitto e nessun errore;
-- 173 test automatici superati.
+- 178 test automatici superati.
+- introdotte classi EER portabili e regole di famiglia per separare la
+  classificazione del rifiuto dalla destinazione territoriale del gestore;
+- aggiunto l'audit esaustivo dei 3.494 concetti del catalogo e il blocco di
+  pubblicazione: al 9 agosto 2026 risultano 3.068 classificati, 154 parziali,
+  70 conflitti e 202 non classificati, quindi il dataset resta intenzionalmente
+  non pronto al rilascio;
+- le destinazioni osservate in un altro territorio non sono piu sufficienti a
+  dichiarare coperta una voce; servono classe, EER revisionato o domanda con
+  esiti completi;
+- aggiunte famiglie condivise per RAEE, imballaggi, metalli, plastiche, legno,
+  vetro, oli, toner, pneumatici, inerti e recipienti a pressione.
 
 ## Limiti e questioni aperte
 

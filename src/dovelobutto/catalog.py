@@ -123,7 +123,7 @@ def build_waste_catalog(
             key=lambda item: (item.casefold(), item),
         )
         eer_candidates: dict[str, dict[str, Any]] = {}
-        categories: dict[str, str] = {}
+        categories: set[str] = set()
         destination_groups: dict[str, dict[str, Any]] = {}
         evidence = []
 
@@ -137,7 +137,7 @@ def build_waste_catalog(
             category_match = CATEGORY_PATTERN.search(instructions)
             category = category_match.group(1).strip() if category_match else None
             if category:
-                categories.setdefault(normalize_term(category), category)
+                categories.add(category)
 
             eer_match = EER_PATTERN.search(instructions)
             if eer_match:
@@ -173,6 +173,7 @@ def build_waste_catalog(
                     "retrieved_at": source["retrieved_at"],
                     "municipality_istats": municipalities,
                     "destination_raw": destination,
+                    "source_category": category,
                     "instructions_raw": payload.get("instructions_raw"),
                     "quote": source["evidence"].get("quote"),
                 }
@@ -219,7 +220,7 @@ def build_waste_catalog(
                 "terms": labels,
                 "language": "it",
                 "eer": {"status": eer_status, "candidates": candidates},
-                "source_categories": sorted(categories.values(), key=lambda item: (item.casefold(), item)),
+                "source_categories": sorted(categories, key=lambda item: (item.casefold(), item)),
                 "local_destinations": local_destinations,
                 "coverage": {
                     "municipalities": sorted({record["municipality_istat"] for record in term_records}),

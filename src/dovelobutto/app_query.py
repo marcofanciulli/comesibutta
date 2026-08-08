@@ -5,11 +5,12 @@ from difflib import SequenceMatcher
 import json
 from math import asin, cos, radians, sin, sqrt
 from pathlib import Path
+import re
 import sqlite3
 from typing import Any
 
 from .catalog import normalize_term
-from .curation import matching_delivery_channels
+from .curation import matching_collection_streams, matching_delivery_channels
 from .sync import DATASET_ID, STORAGE_VERSION, read_entity_data
 
 
@@ -141,6 +142,14 @@ class DisposalQueryService:
         self.eer_mappings: dict[str, list[dict[str, Any]]] = {}
         self.stream_mappings: dict[str, dict[str, Any]] = {}
         self.disambiguations: dict[str, dict[str, Any]] = {}
+        self.waste_classes: dict[str, dict[str, Any]] = {}
+        self.family_classes: dict[str, tuple[dict[str, Any], dict[str, Any]]] = {}
+        self.family_destination_classes: dict[
+            str, tuple[dict[str, Any], dict[str, Any]]
+        ] = {}
+        self.family_mappings_by_class: dict[str, list[dict[str, Any]]] = {}
+        self.class_outcomes: dict[str, tuple[dict[str, Any], dict[str, Any]]] = {}
+        self.family_term_classes: list[tuple[dict[str, Any], dict[str, Any]]] = []
         self._concept_cache: dict[str, dict[str, Any] | None] = {}
         self._matching_rules_cache: dict[
             tuple[str, str, str | None, str], list[dict[str, Any]]
@@ -240,6 +249,40 @@ class DisposalQueryService:
             if group:
                 for concept_id in group.get("trigger_concept_ids", []):
                     self.disambiguations[concept_id] = group
+        for row in connection.execute(
+            """SELECT entity_id FROM entities
+            WHERE entity_type = 'waste_class' ORDER BY entity_id"""
+        ):
+            waste_class = read_entity_data(
+                connection, "waste_class", row["entity_id"], include_sources=False,
+            )
+            if waste_class:
+                self.waste_classes[waste_class["class_id"]] = waste_class
+                for outcome in (waste_class.get("question") or {}).get("options", []):
+                    self.class_outcomes[outcome["outcome_id"]] = (waste_class, outcome)
+        for row in connection.execute(
+            """SELECT entity_id FROM entities
+            WHERE entity_type = 'waste_family_mapping' ORDER BY entity_id"""
+        ):
+            mapping = read_entity_data(
+                connection, "waste_family_mapping", row["entity_id"],
+                include_sources=False,
+            )
+            if not mapping:
+                continue
+            waste_class = self.waste_classes.get(mapping["class_id"])
+            if waste_class:
+                self.family_mappings_by_class.setdefault(
+                    waste_class["class_id"], [],
+                ).append(mapping)
+                for category in mapping.get("source_categories", []):
+                    self.family_classes[category.strip()] = (mapping, waste_class)
+                for destination in mapping.get("destination_aliases", []):
+                    self.family_destination_classes[normalize_term(destination)] = (
+                        mapping, waste_class,
+                    )
+                if mapping.get("term_patterns"):
+                    self.family_term_classes.append((mapping, waste_class))
 
     @staticmethod
     def _reviewed_mapping_sources(mapping: dict[str, Any]) -> list[dict[str, Any]]:
@@ -266,6 +309,120 @@ class DisposalQueryService:
             "status": (
                 "source_consensus" if len(source_codes) == 1 and len(candidates) == 1
                 else "curated_mapping" if not source_codes and len(candidates) == 1
+                else "conflict" if candidates else "not_available"
+            ),
+            "candidates": [candidates[code] for code in sorted(candidates)],
+        }
+        return result
+
+    def _with_family_class(self, concept: dict[str, Any]) -> dict[str, Any]:
+        matches = {
+            waste_class["class_id"]: (mapping, waste_class)
+            for selector in [
+                *(category.strip() for category in concept.get("source_categories", [])),
+                *(
+                    normalize_term(destination.get("label", ""))
+                    for destination in concept.get("local_destinations", [])
+                ),
+            ]
+            for mapping, waste_class in [
+                self.family_classes.get(selector)
+                or self.family_destination_classes.get(selector)
+                or (None, None)
+            ]
+            if mapping is not None and waste_class is not None
+        }
+        normalized_term = concept.get("normalized_term", "")
+        for mapping, waste_class in self.family_term_classes:
+            if not any(
+                re.search(pattern, normalized_term)
+                for pattern in mapping.get("term_patterns", [])
+            ):
+                continue
+            if any(
+                re.search(pattern, normalized_term)
+                for pattern in mapping.get("excluded_term_patterns", [])
+            ):
+                continue
+            matches[waste_class["class_id"]] = (mapping, waste_class)
+        selected: dict[str, tuple[dict[str, Any], dict[str, Any]]] = {}
+        by_dimension: dict[str, list[tuple[dict[str, Any], dict[str, Any]]]] = {}
+        for mapping, waste_class in matches.values():
+            dimension = waste_class.get("dimension", waste_class["class_id"])
+            by_dimension.setdefault(dimension, []).append((mapping, waste_class))
+        for dimension_matches in by_dimension.values():
+            maximum_priority = max(
+                mapping.get("priority", 0) for mapping, _ in dimension_matches
+            )
+            winners = [
+                (mapping, waste_class)
+                for mapping, waste_class in dimension_matches
+                if mapping.get("priority", 0) == maximum_priority
+            ]
+            if len(winners) != 1:
+                return concept
+            mapping, waste_class = winners[0]
+            selected[waste_class["class_id"]] = (mapping, waste_class)
+        if sum(bool(item.get("question")) for _, item in selected.values()) > 1:
+            return concept
+        result = concept
+        for mapping, waste_class in selected.values():
+            result = self._apply_class_route(result, mapping, waste_class, waste_class)
+        return result
+
+    def _apply_class_route(
+        self,
+        concept: dict[str, Any],
+        mapping: dict[str, Any],
+        waste_class: dict[str, Any],
+        route: dict[str, Any],
+    ) -> dict[str, Any]:
+        result = dict(concept)
+        result["family_class_ids"] = sorted({
+            *result.get("family_class_ids", []), waste_class["class_id"],
+        })
+        result["family_stream_ids"] = sorted({
+            *result.get("family_stream_ids", []), *route.get("stream_ids", []),
+        })
+        result["family_sources"] = [
+            *result.get("family_sources", []), *self._reviewed_mapping_sources(mapping),
+        ]
+        if route is waste_class and waste_class.get("question"):
+            result["family_question"] = waste_class["question"]
+        candidates = {
+            candidate["code"]: candidate
+            for candidate in (concept.get("eer") or {}).get("candidates", [])
+        }
+        channel_labels = [
+            channel["preferred_label"]
+            for channel_id in route.get("delivery_channels", [])
+            for channel in self.delivery_channels
+            if channel["channel_id"] == channel_id
+        ]
+        for code in route.get("eer_codes", []):
+            entry = read_entity_data(
+                self.connection, "eer_entry", f"eer:{code}", include_sources=False,
+            ) or {}
+            candidates.setdefault(code, {
+                "code": code,
+                "source_labels": [route.get("label", waste_class["preferred_label"])],
+                "source_urls": mapping.get("source_urls", []),
+                "hazardous": entry.get("hazardous"),
+                "official_hazardous": entry.get("hazardous"),
+                "official_title": entry.get("title"),
+                "register_status": (
+                    "retired_in_target" if entry.get("valid_to")
+                    else "active_in_target" if entry else "unknown_code"
+                ),
+                "valid_to": entry.get("valid_to"),
+                "mapping_condition": None,
+                "mapping_id": mapping["mapping_id"],
+                "mapping_delivery_channels": channel_labels,
+                "mapping_sources": result["family_sources"],
+            })
+        result["eer"] = {
+            "status": (
+                "curated_mapping" if len(candidates) == 1
                 else "conflict" if candidates else "not_available"
             ),
             "candidates": [candidates[code] for code in sorted(candidates)],
@@ -484,6 +641,21 @@ class DisposalQueryService:
                 ],
             }
             return base
+        family_question = concept.get("family_question")
+        if family_question is not None:
+            base["status"] = "needs_question"
+            base["question"] = {
+                "text": family_question["prompt"],
+                "options": [
+                    {
+                        "id": option["outcome_id"],
+                        "label": option["label"],
+                        "hint": option["hint"],
+                    }
+                    for option in family_question["options"]
+                ],
+            }
+            return base
         destinations = []
         for destination in concept.get("local_destinations", []):
             if municipality_istat in destination["municipality_istats"]:
@@ -508,6 +680,22 @@ class DisposalQueryService:
                     "source_urls": stream_mapping.get("source_urls", []),
                 })
                 evidence.extend(stream_mapping.get("sources", []))
+        if not destinations and concept.get("family_stream_ids"):
+            matching_streams = []
+            for stream_id in concept["family_stream_ids"]:
+                stream = self.streams.get(stream_id)
+                if stream and self._matching_rules(
+                    stream["preferred_label"], municipality_istat,
+                    zone_id=zone_id, user_type=user_type,
+                ):
+                    matching_streams.append(stream)
+            for stream in matching_streams:
+                destinations.append({
+                    "label": stream["preferred_label"],
+                    "municipality_istats": [municipality_istat],
+                    "source_urls": [],
+                })
+            evidence.extend(concept.get("family_sources", []))
         self._set_provenance(base, evidence)
         if not destinations:
             fallback, fallback_sources = self._facility_fallback(
@@ -637,7 +825,13 @@ class DisposalQueryService:
         return (zone or {}).get("payload", {}).get("name") or zone_id
 
     def _canonical_stream(self, value: str) -> str | None:
-        return self.stream_aliases.get(normalize_term(value))
+        exact = self.stream_aliases.get(normalize_term(value))
+        if exact:
+            return exact
+        matches = matching_collection_streams(value, list(self.streams.values()))
+        if len(matches) == 1:
+            return matches[0]["stream_id"]
+        return None
 
     def _channel_matches(self, value: str) -> list[dict[str, Any]]:
         return matching_delivery_channels(value, self.delivery_channels)
@@ -657,13 +851,40 @@ class DisposalQueryService:
     def _concept_for_choice(self, choice_id: str) -> dict[str, Any] | None:
         if choice_id in self._concept_cache:
             return self._concept_cache[choice_id]
+        class_outcome = self.class_outcomes.get(choice_id)
+        if class_outcome is not None:
+            waste_class, outcome = class_outcome
+            mappings = self.family_mappings_by_class.get(waste_class["class_id"], [])
+            if not mappings:
+                return None
+            mapping = {
+                **mappings[0],
+                "mapping_id": f"family-map:outcome-{choice_id.removeprefix('waste-outcome:')}",
+                "reviewed_at": max(item["reviewed_at"] for item in mappings),
+                "source_urls": sorted({
+                    url for item in mappings for url in item.get("source_urls", [])
+                }),
+            }
+            concept = self._apply_class_route({
+                "concept_id": choice_id,
+                "preferred_label": outcome["label"],
+                "normalized_term": normalize_term(outcome["label"]),
+                "terms": [outcome["label"]],
+                "source_categories": [],
+                "local_destinations": [],
+                "evidence": [],
+                "eer": {"status": "not_available", "candidates": []},
+                "general_details": {"environmental_note": None},
+            }, mapping, waste_class, outcome)
+            self._concept_cache[choice_id] = concept
+            return concept
         group = self.alias_groups.get(choice_id)
         if group is None:
             concept = read_entity_data(
                 self.connection, "waste_concept", choice_id, include_sources=False,
             )
             if concept:
-                concept = self._with_curated_eer(concept)
+                concept = self._with_curated_eer(self._with_family_class(concept))
             self._concept_cache[choice_id] = concept
             return concept
         members = []
@@ -672,7 +893,7 @@ class DisposalQueryService:
                 self.connection, "waste_concept", concept_id, include_sources=False,
             )
             if member is not None:
-                members.append(self._with_curated_eer(member))
+                members.append(self._with_curated_eer(self._with_family_class(member)))
         destinations: dict[str, dict[str, Any]] = {}
         evidence = []
         terms = set()

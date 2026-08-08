@@ -155,6 +155,34 @@ def _reference_candidates(entity: CanonicalEntity) -> set[tuple[str, str]]:
             ("waste_concept", option["concept_id"])
             for option in entity.data.get("options", [])
         )
+    if entity.entity_type == "waste_class":
+        references.update(
+            ("collection_stream", stream_id)
+            for stream_id in entity.data.get("stream_ids", [])
+        )
+        references.update(
+            ("eer_entry", f"eer:{code}")
+            for code in entity.data.get("eer_codes", [])
+        )
+        references.update(
+            ("delivery_channel", channel_id)
+            for channel_id in entity.data.get("delivery_channels", [])
+        )
+        for outcome in (entity.data.get("question") or {}).get("options", []):
+            references.update(
+                ("collection_stream", stream_id)
+                for stream_id in outcome.get("stream_ids", [])
+            )
+            references.update(
+                ("eer_entry", f"eer:{code}")
+                for code in outcome.get("eer_codes", [])
+            )
+            references.update(
+                ("delivery_channel", channel_id)
+                for channel_id in outcome.get("delivery_channels", [])
+            )
+    if entity.entity_type == "waste_family_mapping":
+        references.add(("waste_class", entity.data["class_id"]))
     return references
 
 
@@ -267,6 +295,14 @@ def load_canonical_entities(
         entities.extend(
             CanonicalEntity("waste_disambiguation_group", group["group_id"], group)
             for group in curation.get("disambiguation_groups", [])
+        )
+        entities.extend(
+            CanonicalEntity("waste_class", item["class_id"], item)
+            for item in curation.get("waste_classes", [])
+        )
+        entities.extend(
+            CanonicalEntity("waste_family_mapping", mapping["mapping_id"], mapping)
+            for mapping in curation.get("family_mappings", [])
         )
     indexed = {(entity.entity_type, entity.entity_id): entity for entity in entities}
     if len(indexed) != len(entities):

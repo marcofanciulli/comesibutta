@@ -1,7 +1,7 @@
 # Curatela di sinonimi, EER, flussi e canali
 
 Versione: 1
-Ultimo aggiornamento: 8 agosto 2026
+Ultimo aggiornamento: 9 agosto 2026
 
 ## Scopo
 
@@ -21,6 +21,9 @@ La curatela risolve due problemi distinti:
   disponibili senza trasformarli in un flusso di materiale.
 - termini quotidiani come `tostapane` devono poter usare il codice EER del
   centro soltanto quando la corrispondenza e stata revisionata e delimitata.
+- famiglie come RAEE, imballaggi, metalli, plastiche, legno, vetro, oli e
+  inerti devono avere una classificazione portabile anche nei comuni privi di
+  rifiutario, senza ereditare il cassonetto scelto da un altro gestore.
 
 ## Regole di sicurezza
 
@@ -47,9 +50,21 @@ motivazione e stato `approved`. Un concetto non puo ricevere due mappature
 concorrenti. Le condizioni, per esempio l'assenza di componenti pericolosi,
 sono mostrate nella risposta e non vengono eliminate durante la distribuzione.
 
+Le `waste_classes` descrivono classi EER riutilizzabili. Una classe puo avere
+un unico percorso oppure una domanda con esiti EER completi. Le
+`family_mappings` collegano categorie sorgente, destinazioni controllate e
+pattern terminologici revisionati a queste classi. Le classi della stessa
+dimensione sono alternative: prevale la regola con priorita maggiore; una
+parita resta un conflitto. Dimensioni compatibili, come materiale e dimensione
+fisica, possono invece comporsi.
+
 ## Contenuto iniziale
 
-Il registro comprende:
+Il registro comprende inoltre 23 classi portabili e 31 regole di famiglia. Le
+domande condivise coprono, fra gli altri, RAEE, imballaggi contaminati o misti,
+metalli, plastiche, legno, vetro, oli, toner, inerti e recipienti a pressione.
+
+Il nucleo linguistico comprende:
 
 - 4 gruppi approvati e 33 concetti membri;
 - 17 termini di ricerca approvati;
@@ -81,13 +96,27 @@ PYTHONPATH=src python3 -m dovelobutto.cli validate-waste-curation \
 Il rapporto elenca copertura, conflitti, destinazioni con piu canali e formule
 ancora prive sia di flusso sia di canale controllato.
 
+La copertura portabile dell'intero vocabolario si verifica separatamente:
+
+```sh
+PYTHONPATH=src python3 -m dovelobutto.cli audit-routing-coverage \
+  --catalog outputs/waste-catalog.json \
+  --curation data/curation/waste-curation-v1.json \
+  --generated-at 2026-08-09T03:45:00+02:00 \
+  --output outputs/waste-routing-coverage-report.json
+```
+
+Una destinazione osservata presso un gestore non basta a superare questo audit.
+Ogni concetto deve avere una classe, un EER revisionato o una domanda completa;
+parziali, conflitti e non classificati mantengono `release_ready: false`.
+
 ## Distribuzione
 
-Gruppi, mappature EER, flussi e canali diventano normali entita canoniche,
-rispettivamente `waste_alias_group`, `waste_eer_mapping`, `collection_stream`
-e `delivery_channel`. Gruppi e mappature dipendono dai concetti e, per le
-seconde, dalla voce EER ufficiale; snapshot e delta impediscono quindi di
-pubblicare riferimenti mancanti.
+Gruppi, mappature EER, classi, regole di famiglia, flussi e canali diventano
+normali entita canoniche: `waste_alias_group`, `waste_eer_mapping`,
+`waste_class`, `waste_family_mapping`, `collection_stream` e
+`delivery_channel`. Le dipendenze verso concetti, classi e voci EER impediscono
+a snapshot e delta di pubblicare riferimenti mancanti.
 
 La pubblicazione include il registro con:
 

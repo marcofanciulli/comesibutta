@@ -3,7 +3,7 @@
   "alias_groups": 4,
   "alias_members": 33,
   "approved_search_terms": 25,
-  "catalog_generated_at": "2026-08-08T17:00:00+02:00",
+  "catalog_generated_at": "2026-08-09T01:30:00+02:00",
   "channel_aliases": 28,
   "channel_destination_assertions": {
     "channel:collection-centre": 1802,
@@ -36,20 +36,20 @@
   "disambiguation_triggers": 3,
   "eer_mapped_concepts": 22,
   "eer_mappings": 13,
-  "mapped_destination_assertions": 2132,
-  "mapped_destination_labels": 27,
+  "family_destination_aliases": 91,
+  "family_mapped_concepts": 660,
+  "family_mappings": 31,
+  "family_source_categories": 41,
+  "mapped_destination_assertions": 2221,
+  "mapped_destination_labels": 28,
   "multi_channel_destination_assertions": 874,
   "multi_channel_destination_labels": 48,
   "register_id": "waste-curation:toscana:v1",
   "register_version": 1,
-  "stream_aliases": 34,
+  "stream_aliases": 36,
   "stream_mapped_concepts": 2,
   "stream_mappings": 2,
   "top_destinations_without_stream_or_channel": [
-    {
-      "assertions": 89,
-      "label": "rifiuto indifferenziato"
-    },
     {
       "assertions": 70,
       "label": "ingombranti"
@@ -245,6 +245,10 @@
     {
       "assertions": 1,
       "label": "sacco rifiuto organico"
+    },
+    {
+      "assertions": 1,
+      "label": "sacco verde"
     }
   ],
   "top_unmapped_destinations": [
@@ -263,10 +267,6 @@
     {
       "assertions": 117,
       "label": "ecocentro"
-    },
-    {
-      "assertions": 89,
-      "label": "rifiuto indifferenziato"
     },
     {
       "assertions": 88,
@@ -447,6 +447,12 @@
     {
       "assertions": 9,
       "label": "legno centro di raccolta"
+    },
+    {
+      "assertions": 9,
+      "label": "riuso cambia il finale contenitore stradale grigio per indifferenziata dotato di cassetto apribile con carta smeraldo distribuzione materiali"
     }
-  ]
+  ],
+  "waste_class_outcomes": 45,
+  "waste_classes": 23
 }

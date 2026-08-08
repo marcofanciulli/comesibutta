@@ -109,6 +109,7 @@ PYTHONPATH=src python3 -m dovelobutto.cli publish-data-release \
   --eer-register outputs/eer-register.json \
   --packaging-material-register outputs/packaging-material-register.json \
   --waste-curation-register data/curation/waste-curation-v1.json \
+  --routing-coverage-report outputs/waste-routing-coverage-report.json \
   --database data/canonical/publisher.sqlite \
   --artifact-dir outputs/distribution \
   --manifest outputs/distribution/manifest.json \
@@ -119,6 +120,11 @@ PYTHONPATH=src python3 -m dovelobutto.cli publish-data-release \
   --base-url https://data.example.it/comesibutta/ \
   --report outputs/distribution/release-report.json
 ```
+
+`publish-data-release` ricalcola l'audit quando riceve catalogo e registro di
+curatela e interrompe la pubblicazione se esistono concetti parziali, in
+conflitto o non classificati. `--allow-incomplete-routing` e riservato alle
+revisioni locali di sviluppo e deve essere sempre esplicito.
 
 La prima pubblicazione crea uno snapshot. Le successive confrontano lo stato
 desiderato con SQLite e aggiungono un delta contenente soltanto lo stato finale

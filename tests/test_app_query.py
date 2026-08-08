@@ -821,6 +821,81 @@ class DisposalQueryTests(unittest.TestCase):
         self.assertEqual("facility:foam", large_answer["result"]["facility"]["id"])
         self.assertEqual("pickup", large_answer["result"]["channel_services"][0]["service_type"])
 
+    def test_family_question_resolves_an_unmapped_raee_by_local_eer(self) -> None:
+        self.connection.close()
+        writer = open_database(self.database, role="client")
+        current = read_database_entities(writer)
+        changed = dict(current)
+        lamp = _concept("waste:abat-jour", "Abat-jour", [])
+        lamp.data["source_categories"] = ["RAEE di piccole dimensioni"]
+        additions = [
+            lamp,
+            CanonicalEntity("eer_entry", "eer:200135", {
+                "entry_id": "eer:200135", "code": "200135",
+                "title": "RAEE contenenti componenti pericolosi",
+                "title_expanded": "RAEE contenenti componenti pericolosi",
+                "hazardous": True,
+            }),
+            CanonicalEntity("eer_entry", "eer:200136", {
+                "entry_id": "eer:200136", "code": "200136",
+                "title": "RAEE non pericolosi", "title_expanded": "RAEE non pericolosi",
+                "hazardous": False,
+            }),
+            CanonicalEntity("delivery_channel", "channel:collection-centre", {
+                "channel_id": "channel:collection-centre",
+                "preferred_label": "Centro di raccolta", "destination_type": "facility",
+                "aliases": ["Centro di raccolta"],
+            }),
+            CanonicalEntity("waste_class", "waste-class:raee", {
+                "class_id": "waste-class:raee", "preferred_label": "RAEE",
+                "stream_ids": [], "eer_codes": [], "delivery_channels": [],
+                "question": {
+                    "prompt": "Quale caratteristica ha l'apparecchiatura?",
+                    "options": [
+                        {
+                            "outcome_id": "waste-outcome:raee-hazardous-components",
+                            "label": "Componenti pericolosi", "hint": "Indicati in etichetta",
+                            "stream_ids": [], "eer_codes": ["200135"],
+                            "delivery_channels": ["channel:collection-centre"],
+                        },
+                        {
+                            "outcome_id": "waste-outcome:raee-other",
+                            "label": "Altro RAEE", "hint": "Senza componenti pericolosi",
+                            "stream_ids": [], "eer_codes": ["200136"],
+                            "delivery_channels": ["channel:collection-centre"],
+                        },
+                    ],
+                },
+            }),
+            CanonicalEntity("waste_family_mapping", "family-map:raee", {
+                "mapping_id": "family-map:raee",
+                "source_categories": ["RAEE di piccole dimensioni"],
+                "destination_aliases": [], "class_id": "waste-class:raee",
+                "reviewed_at": "2026-08-09T02:00:00+02:00",
+                "review_status": "approved", "rationale": "Famiglia revisionata",
+                "source_urls": ["https://example.test/raee"],
+            }),
+            _facility("facility:raee-family", "Centro RAEE", 42.6, 11.5),
+            _facility_access("facility:raee-family"),
+            _facility_acceptance("facility:raee-family", "RAEE", eer_code="200136"),
+        ]
+        for entity in additions:
+            changed[(entity.entity_type, entity.entity_id)] = entity
+        apply_package(writer, build_update_package(current, changed, 1, 2, GENERATED_AT))
+        writer.close()
+        self.connection = open_query_database(self.database)
+        self.service = DisposalQueryService(self.connection)
+
+        question = self.service.answer("abat-jour", "053014", concept_id=lamp.entity_id)
+        self.assertEqual("needs_question", question["status"])
+        self.assertEqual(2, len(question["question"]["options"]))
+        answer = self.service.answer(
+            "abat-jour", "053014", concept_id="waste-outcome:raee-other",
+        )
+        self.assertEqual("resolved", answer["status"])
+        self.assertEqual("200136", answer["result"]["eer"]["code"])
+        self.assertEqual("facility:raee-family", answer["result"]["facility"]["id"])
+
     def test_equivalent_single_channel_aliases_do_not_create_a_conflict(self) -> None:
         self.connection.close()
         writer = open_database(self.database, role="client")

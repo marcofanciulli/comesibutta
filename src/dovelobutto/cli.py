@@ -352,6 +352,12 @@ def build_parser() -> argparse.ArgumentParser:
     publish.add_argument("--eer-register", type=Path)
     publish.add_argument("--packaging-material-register", type=Path)
     publish.add_argument("--waste-curation-register", type=Path)
+    publish.add_argument("--routing-coverage-report", type=Path)
+    publish.add_argument(
+        "--allow-incomplete-routing",
+        action="store_true",
+        help="Allow a development-only release while canonical routing is incomplete",
+    )
     publish.add_argument("--database", type=Path, required=True)
     publish.add_argument("--artifact-dir", type=Path, required=True)
     publish.add_argument("--manifest", type=Path, required=True)
@@ -470,6 +476,14 @@ def build_parser() -> argparse.ArgumentParser:
     query_coverage.add_argument("--generated-at", required=True)
     query_coverage.add_argument("--output", type=Path, required=True)
     query_coverage.add_argument("--similarity-threshold", type=float, default=0.94)
+    routing_coverage = subparsers.add_parser(
+        "audit-routing-coverage",
+        help="Audit upstream classification of every canonical waste concept",
+    )
+    routing_coverage.add_argument("--catalog", type=Path, required=True)
+    routing_coverage.add_argument("--curation", type=Path, required=True)
+    routing_coverage.add_argument("--generated-at", required=True)
+    routing_coverage.add_argument("--output", type=Path, required=True)
     web_app = subparsers.add_parser(
         "serve-app",
         help="Serve the local ComeSiButta web application and query API",
@@ -503,6 +517,32 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     if args.command == "publish-data-release":
+        routing_report = None
+        if args.catalog and args.waste_curation_register:
+            from .routing_coverage import (
+                build_routing_coverage_paths,
+                write_routing_coverage,
+            )
+
+            routing_report = build_routing_coverage_paths(
+                args.catalog,
+                args.waste_curation_register,
+                generated_at=datetime.fromisoformat(args.generated_at),
+            )
+            routing_path = args.routing_coverage_report or args.report.with_name(
+                "waste-routing-coverage-report.json"
+            )
+            write_routing_coverage(routing_path, routing_report)
+            if (
+                not routing_report["summary"]["release_ready"]
+                and not args.allow_incomplete_routing
+            ):
+                summary = routing_report["summary"]
+                raise ValueError(
+                    "Canonical waste routing is incomplete: "
+                    f"{summary['incomplete']} of {summary['concepts']} concepts "
+                    f"require classification; see {routing_path}"
+                )
         entities = load_canonical_entities(
             args.input_dir, args.registry, args.catalog, args.eer_register,
             args.packaging_material_register, args.waste_curation_register,
@@ -512,6 +552,8 @@ def main(argv: list[str] | None = None) -> int:
             args.revision, datetime.fromisoformat(args.generated_at),
             args.private_key, args.key_id, args.base_url,
         )
+        if routing_report is not None:
+            report["routing_coverage"] = routing_report["summary"]
         args.report.parent.mkdir(parents=True, exist_ok=True)
         args.report.write_text(
             json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
@@ -807,6 +849,20 @@ def main(argv: list[str] | None = None) -> int:
             similarity_threshold=args.similarity_threshold,
         )
         write_coverage_report(args.output, report)
+        print(json.dumps(report["summary"], ensure_ascii=False))
+        return 0 if report["summary"]["status"] == "pass" else 1
+    if args.command == "audit-routing-coverage":
+        from .routing_coverage import (
+            build_routing_coverage_paths,
+            write_routing_coverage,
+        )
+
+        report = build_routing_coverage_paths(
+            args.catalog,
+            args.curation,
+            generated_at=datetime.fromisoformat(args.generated_at),
+        )
+        write_routing_coverage(args.output, report)
         print(json.dumps(report["summary"], ensure_ascii=False))
         return 0 if report["summary"]["status"] == "pass" else 1
     if args.command == "serve-app":

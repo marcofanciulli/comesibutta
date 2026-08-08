@@ -6,7 +6,11 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
 
-from dovelobutto.curation import matching_delivery_channels, validate_waste_curation
+from dovelobutto.curation import (
+    matching_collection_streams,
+    matching_delivery_channels,
+    validate_waste_curation,
+)
 from dovelobutto.sync import load_canonical_entities
 
 
@@ -37,6 +41,9 @@ class WasteCurationTests(unittest.TestCase):
         self.assertEqual(2, report["stream_mapped_concepts"])
         self.assertEqual(3, report["disambiguation_groups"])
         self.assertEqual(3, report["disambiguation_triggers"])
+        self.assertEqual(23, report["waste_classes"])
+        self.assertEqual(45, report["waste_class_outcomes"])
+        self.assertEqual(31, report["family_mappings"])
         self.assertEqual(0, report["alias_group_territorial_conflicts"])
         self.assertGreater(report["mapped_destination_assertions"], 1900)
         self.assertGreater(report["channel_mapped_destination_assertions"], 1700)
@@ -153,6 +160,20 @@ class WasteCurationTests(unittest.TestCase):
         )
         self.assertEqual([], matching_delivery_channels(
             "Centro storico", self.register["delivery_channels"],
+        ))
+
+    def test_compound_instruction_identifies_stream_not_access_card(self) -> None:
+        matches = matching_collection_streams(
+            'Contenitore grigio per indifferenziata con Carta Smeraldo',
+            self.register["collection_streams"],
+        )
+        self.assertEqual(
+            ["stream:residual"],
+            [match["stream_id"] for match in matches],
+        )
+        self.assertEqual([], matching_collection_streams(
+            "Ritiro per carta catramata, lana di vetro e vetroresina",
+            self.register["collection_streams"],
         ))
 
     def test_register_enters_the_synchronized_dataset_with_dependencies(self) -> None:

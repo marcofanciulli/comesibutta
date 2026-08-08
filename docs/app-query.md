@@ -1,7 +1,7 @@
 # Ricerca e risposta dell'app
 
 Versione: 0.1.0
-Ultimo aggiornamento: 7 agosto 2026
+Ultimo aggiornamento: 9 agosto 2026
 
 ## Scopo
 
@@ -30,23 +30,25 @@ come gia previsto per le modifiche dello storage locale.
 5. Per una corrispondenza incerta propone soltanto le interpretazioni che hanno
    una destinazione pubblicata nel territorio, se disponibili.
 6. Dopo la scelta del concetto legge la destinazione territoriale.
-7. Se il rifiutario locale manca, cerca un EER concordante accettato con lo
+7. Applica le classi portabili e le eventuali domande su materiale, origine,
+   pericolosita o dimensione.
+8. Se il rifiutario locale manca, cerca un EER concordante accettato con lo
    stesso codice da un centro accessibile; in assenza di EER usa una descrizione
    del centro soltanto quando identifica un unico codice senza ambiguita.
-8. Normalizza destinazione e regola tramite il vocabolario controllato dei
+9. Normalizza destinazione e regola tramite il vocabolario controllato dei
    flussi.
-9. Scompone gli eventuali canali di conferimento approvati e conserva il testo
+10. Scompone gli eventuali canali di conferimento approvati e conserva il testo
    originale con condizioni e alternative.
-10. Collega, quando possibile, la destinazione alla regola locale per ricavare
+11. Collega, quando possibile, la destinazione alla regola locale per ricavare
    contenitore, colore, modalita, sacchetto e istruzioni.
-11. Per il canale centro usa soltanto accessi pubblicati e verifica
+12. Per il canale centro usa soltanto accessi pubblicati e verifica
     l'accettazione tramite EER o descrizione.
-12. Collega ritiri e punti territoriali, mantenendo distinta l'esistenza del
+13. Collega ritiri e punti territoriali, mantenendo distinta l'esistenza del
     servizio dalla compatibilita col rifiuto.
-13. Conserva riuso, rivenditore e operatore specializzato come indicazioni
+14. Conserva riuso, rivenditore e operatore specializzato come indicazioni
     sorgente finche non esiste un servizio acquisito.
-14. Se regole di zone diverse producono risposte differenti chiede la zona.
-15. Restituisce fonti, data di verifica e revisione del dataset.
+15. Se regole di zone diverse producono risposte differenti chiede la zona.
+16. Restituisce fonti, data di verifica e revisione del dataset.
 
 Gli stati sono:
 
@@ -95,6 +97,13 @@ conservate con il loro contesto in `defined_non_resolved`.
 L'audit non estende una regola locale a una voce generale priva di evidenza per
 quel territorio. Una simile estensione inventerebbe una destinazione non
 pubblicata dalla fonte competente.
+
+Un secondo audit attraversa invece tutti i concetti deduplicati e verifica che
+ognuno possieda una classificazione portabile. Le destinazioni osservate sono
+evidenza locale, non una scorciatoia: da sole non rendono il concetto coperto.
+Il rapporto `outputs/waste-routing-coverage-report.json` e il relativo blocco
+di pubblicazione impediscono che un `not_found` noto venga distribuito come
+dataset di produzione.
 
 La classificazione pubblicata da un altro gestore puo alimentare soltanto una
 coda di revisione: non diventa una risposta operativa, anche quando piu gestori

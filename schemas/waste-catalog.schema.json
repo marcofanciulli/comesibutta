@@ -115,7 +115,7 @@
             "type": "object",
             "required": [
               "source_url", "publisher", "retrieved_at", "municipality_istats",
-              "destination_raw", "instructions_raw", "quote"
+              "destination_raw", "source_category", "instructions_raw", "quote"
             ],
             "properties": {
               "source_url": { "type": "string", "format": "uri" },
@@ -123,6 +123,7 @@
               "retrieved_at": { "type": "string", "format": "date-time" },
               "municipality_istats": { "type": "array", "items": { "type": "string", "pattern": "^[0-9]{6}$" } },
               "destination_raw": { "type": ["string", "null"] },
+              "source_category": { "type": ["string", "null"] },
               "instructions_raw": { "type": ["string", "null"] },
               "quote": { "type": ["string", "null"] }
             },

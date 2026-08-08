@@ -36,6 +36,59 @@ def matching_delivery_channels(
     return matches
 
 
+def matching_collection_streams(
+    value: str,
+    streams: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    normalized = normalize_term(value)
+    matches = []
+    for stream in streams:
+        aliases = sorted(
+            {
+                alias for alias in stream.get("aliases", [])
+                if normalize_term(alias)
+                and (
+                    normalized == normalize_term(alias)
+                    or (
+                        normalize_term(alias) not in _AMBIGUOUS_STREAM_ALIASES
+                        and _contains_phrase(normalized, normalize_term(alias))
+                    )
+                )
+                and not _excluded_stream_phrase(
+                    normalized, stream["stream_id"], normalize_term(alias),
+                )
+            },
+            key=lambda item: (-len(normalize_term(item)), item.casefold()),
+        )
+        if aliases:
+            matches.append({
+                "stream_id": stream["stream_id"],
+                "preferred_label": stream.get(
+                    "preferred_label", stream["stream_id"],
+                ),
+                "matched_aliases": aliases,
+            })
+    return matches
+
+
+def _excluded_stream_phrase(value: str, stream_id: str, alias: str) -> bool:
+    return (
+        stream_id == "stream:paper"
+        and alias == "carta"
+        and _contains_phrase(value, "carta smeraldo")
+    )
+
+
+_AMBIGUOUS_STREAM_ALIASES = {
+    "carta",
+    "vetro",
+    "plastica",
+    "metalli",
+    "metallo",
+    "lattine",
+}
+
+
 def _contains_phrase(value: str, phrase: str) -> bool:
     return f" {phrase} " in f" {value} "
 
@@ -211,6 +264,107 @@ def validate_waste_curation(
                 )
             channel_alias_owner[normalized] = channel_id
 
+    class_ids = set()
+    outcome_ids = set()
+    for waste_class in register.get("waste_classes", []):
+        class_id = waste_class["class_id"]
+        if class_id in class_ids:
+            raise ValueError(f"Duplicate waste class {class_id}")
+        class_ids.add(class_id)
+        unknown_streams = set(waste_class.get("stream_ids", [])) - stream_ids
+        if unknown_streams:
+            raise ValueError(f"Unknown streams in {class_id}: {sorted(unknown_streams)}")
+        unknown_channels = set(waste_class.get("delivery_channels", [])) - channel_ids
+        if unknown_channels:
+            raise ValueError(f"Unknown channels in {class_id}: {sorted(unknown_channels)}")
+        if any(
+            not _EER_CODE_RE.fullmatch(str(code))
+            for code in waste_class.get("eer_codes", [])
+        ):
+            raise ValueError(f"Invalid EER code in {class_id}")
+        for outcome in (waste_class.get("question") or {}).get("options", []):
+            outcome_id = outcome["outcome_id"]
+            if outcome_id in outcome_ids:
+                raise ValueError(f"Duplicate waste class outcome {outcome_id}")
+            outcome_ids.add(outcome_id)
+            unknown_streams = set(outcome.get("stream_ids", [])) - stream_ids
+            if unknown_streams:
+                raise ValueError(
+                    f"Unknown streams in {outcome_id}: {sorted(unknown_streams)}"
+                )
+            unknown_channels = set(outcome.get("delivery_channels", [])) - channel_ids
+            if unknown_channels:
+                raise ValueError(
+                    f"Unknown channels in {outcome_id}: {sorted(unknown_channels)}"
+                )
+            if any(
+                not _EER_CODE_RE.fullmatch(str(code))
+                for code in outcome.get("eer_codes", [])
+            ):
+                raise ValueError(f"Invalid EER code in {outcome_id}")
+            if not outcome.get("stream_ids") and not outcome.get("eer_codes"):
+                raise ValueError(f"Waste class outcome {outcome_id} has no route")
+
+    family_mapping_ids = set()
+    category_owner: dict[str, str] = {}
+    destination_family_owner: dict[str, str] = {}
+    catalog_categories = {
+        category.strip()
+        for concept in catalog.get("concepts", [])
+        for category in concept.get("source_categories", [])
+    }
+    family_mapped_concepts = set()
+    for mapping in register.get("family_mappings", []):
+        mapping_id = mapping["mapping_id"]
+        if mapping_id in family_mapping_ids:
+            raise ValueError(f"Duplicate family mapping {mapping_id}")
+        family_mapping_ids.add(mapping_id)
+        if mapping.get("review_status") != "approved":
+            raise ValueError(f"Family mapping {mapping_id} is not approved")
+        if mapping.get("class_id") not in class_ids:
+            raise ValueError(f"Unknown waste class in {mapping_id}")
+        if (
+            not mapping.get("source_categories")
+            and not mapping.get("destination_aliases")
+            and not mapping.get("term_patterns")
+        ):
+            raise ValueError(f"Family mapping {mapping_id} requires a selector")
+        for pattern in [
+            *mapping.get("term_patterns", []),
+            *mapping.get("excluded_term_patterns", []),
+        ]:
+            try:
+                re.compile(pattern)
+            except re.error as error:
+                raise ValueError(f"Invalid term pattern in {mapping_id}: {error}") from error
+        for category in mapping.get("source_categories", []):
+            normalized = category.strip()
+            if normalized not in catalog_categories:
+                raise ValueError(f"Unknown source category {category!r} in {mapping_id}")
+            if normalized in category_owner and category_owner[normalized] != mapping_id:
+                raise ValueError(
+                    f"Source category {category!r} belongs to both "
+                    f"{category_owner[normalized]} and {mapping_id}"
+                )
+            category_owner[normalized] = mapping_id
+        for destination in mapping.get("destination_aliases", []):
+            normalized = normalize_term(destination)
+            if (
+                normalized in destination_family_owner
+                and destination_family_owner[normalized] != mapping_id
+            ):
+                raise ValueError(
+                    f"Destination family {destination!r} belongs to both "
+                    f"{destination_family_owner[normalized]} and {mapping_id}"
+                )
+            destination_family_owner[normalized] = mapping_id
+    for concept in catalog.get("concepts", []):
+        if any(
+            category.strip() in category_owner
+            for category in concept.get("source_categories", [])
+        ):
+            family_mapped_concepts.add(concept["concept_id"])
+
     destination_counts = Counter(
         normalize_term(destination["label"])
         for concept in catalog.get("concepts", [])
@@ -284,6 +438,12 @@ def validate_waste_curation(
         "stream_mapped_concepts": len(stream_mapped_concepts),
         "disambiguation_groups": len(disambiguation_ids),
         "disambiguation_triggers": len(disambiguation_triggers),
+        "waste_classes": len(class_ids),
+        "waste_class_outcomes": len(outcome_ids),
+        "family_mappings": len(family_mapping_ids),
+        "family_source_categories": len(category_owner),
+        "family_destination_aliases": len(destination_family_owner),
+        "family_mapped_concepts": len(family_mapped_concepts),
         "collection_streams": len(stream_ids),
         "stream_aliases": len(alias_owner),
         "delivery_channels": len(channel_ids),
