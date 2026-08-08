@@ -43,7 +43,7 @@ locali, non trattate come contraddizioni globali.
 
 - 138.342 record locali di rifiutario analizzati;
 - 3.880 indicazioni sorgente distinte dopo la deduplicazione;
-- 3.124 concetti canonici iniziali;
+- 3.351 concetti canonici iniziali;
 - 331 concetti con un EER concordante pubblicato dalla fonte;
 - nessun conflitto EER per i termini coincidenti;
 - 2.553 concetti ancora senza EER;

@@ -11,10 +11,13 @@ from dovelobutto.registry import (
     read_istat_municipalities,
 )
 from dovelobutto.ato_costa import (
+    AAMPS_ICON_COLORS,
     ESA_SIGN_HASHES,
     MunicipalityContext,
+    _aamps_destinations,
     extract_aamps_waste_lookup,
     extract_esa_bundle,
+    extract_ersu_montignoso_supplement,
     extract_rea_waste_lookup,
 )
 from dovelobutto.rea import (
@@ -68,7 +71,7 @@ class AtoCostaRegistryTest(unittest.TestCase):
 
     def test_seeds_livorno_source_strategies(self) -> None:
         records = {record["payload"]["name"]: record["payload"] for record in self.records}
-        self.assertIn("Dove-lo-butto", records["Livorno"]["service_urls"]["collection"][0])
+        self.assertIn("Dove_lo_butto_2023", records["Livorno"]["service_urls"]["collection"][0])
         self.assertEqual("https://www.esaspa.it/centri-di-raccolta/", records["Rio"]["service_urls"]["facilities"][0])
         self.assertIn("comune-di-bibbona", records["Bibbona"]["homepage_url"])
 
@@ -363,6 +366,16 @@ class ReaExtractorTest(unittest.TestCase):
 
 
 class AampsExtractorTest(unittest.TestCase):
+    def test_recognizes_visual_destination_icons(self) -> None:
+        width, height = 482, 681
+        pixels = bytearray([255] * width * height * 3)
+        color = AAMPS_ICON_COLORS["Carta e cartone"]
+        for y in range(100, 110):
+            for x in range(320, 330):
+                offset = (y * width + x) * 3
+                pixels[offset:offset + 3] = bytes(color)
+        self.assertEqual(["Carta e cartone"], _aamps_destinations((width, height, bytes(pixels)), 100, 110))
+
     def test_pairs_pdf_columns_and_flags_wrapped_destinations(self) -> None:
         bbox = """<html xmlns="http://www.w3.org/1999/xhtml"><body><doc>
         <page width="883" height="637"><flow><block>
@@ -381,6 +394,23 @@ class AampsExtractorTest(unittest.TestCase):
         self.assertEqual("sacco giallo", records[0]["payload"]["destination_raw"])
         self.assertEqual("medium", records[1]["confidence"])
         self.assertEqual("possible_pdf_column_wrap", warnings[0]["code"])
+
+
+class ErsuMontignosoExtractorTest(unittest.TestCase):
+    @patch("dovelobutto.ato_costa.ERSU_MONTIGNOSO_SHA256", hashlib.sha256(b"fixture").hexdigest())
+    def test_extracts_shared_centres_eer_and_pickups(self) -> None:
+        records, warnings = extract_ersu_montignoso_supplement(
+            MunicipalityContext("Montignoso", "045011", "montignoso"),
+            datetime.fromisoformat("2026-08-08T12:30:00+02:00"),
+            "https://example.test/montignoso.pdf", b"fixture",
+        )
+        self.assertEqual([], warnings)
+        self.assertEqual(4, sum(record["record_type"] == "facility" for record in records))
+        self.assertEqual(58, sum(record["record_type"] == "facility_acceptance" for record in records))
+        self.assertEqual(4, sum(record["record_type"] == "pickup_service" for record in records))
+        mercury = next(record for record in records if record["record_type"] == "facility_acceptance" and record["payload"].get("eer_code_normalized") == "200121")
+        self.assertEqual("200121", mercury["payload"]["eer_code_raw"])
+        self.assertIsNone(mercury["payload"]["hazardous"])
 
 
 class GeoforExtractorTest(unittest.TestCase):

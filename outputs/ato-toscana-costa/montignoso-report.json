@@ -3,25 +3,25 @@
   "errors": [],
   "istat_code": "045011",
   "municipality": "Montignoso",
-  "observed_at": "2026-08-06T22:00:00+02:00",
-  "pages_available": 2,
-  "pages_materialized": 2,
-  "records": 7,
+  "observed_at": "2026-08-08T12:30:00+02:00",
+  "pages_available": 3,
+  "pages_materialized": 3,
+  "records": 82,
   "records_by_type": {
     "collection_rule": 6,
+    "facility": 4,
+    "facility_acceptance": 58,
+    "facility_access": 5,
+    "opening_period": 4,
+    "pickup_service": 4,
     "service_zone": 1
   },
   "slug": "montignoso",
   "warnings": [
     {
       "code": "waste_lookup_not_published_or_not_structured",
-      "detail": "Rifiutario non pubblicato o non disponibile in forma strutturata nella fonte acquisita",
-      "url": "https://www.seaambiente-spa.it/it/raccolta-porta-a-porta/come-si-fa-la-raccolta"
-    },
-    {
-      "code": "facility_page_not_published_or_not_structured",
-      "detail": "Centro di raccolta non pubblicato, non attribuito esplicitamente al comune o non disponibile in forma strutturata",
-      "url": "https://www.seaambiente-spa.it/it/raccolta-porta-a-porta/come-si-fa-la-raccolta"
+      "detail": "Rifiutario non pubblicato o non disponibile in forma strutturata nelle fonti acquisite",
+      "url": "https://ersu.it/wp-content/uploads/2021/02/Libello-ERSU-Montignoso.pdf"
     }
   ]
 }

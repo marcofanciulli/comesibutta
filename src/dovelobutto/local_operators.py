@@ -19,6 +19,14 @@ from .records import SourceDocument, make_record
 
 
 OPERATOR_CONFIGS: dict[str, dict[str, Any]] = {
+    "aamps": {
+        "publisher": "AAMPS S.p.A.",
+        "root": "https://www.aamps.livorno.it",
+        "pages": {
+            "waste_guide": "https://www.aamps.livorno.it/wp-content/uploads/2023/04/Dove_lo_butto_2023.pdf",
+            "facilities_guide": "https://www.aamps.livorno.it/wp-content/uploads/2024/07/CALENDARIO-PENTAGONO-DEF-UD.pdf",
+        },
+    },
     "ascit": {
         "publisher": "ASCIT Servizi Ambientali S.p.A.",
         "root": "https://www.ascit.it",
@@ -63,6 +71,7 @@ OPERATOR_CONFIGS: dict[str, dict[str, Any]] = {
             "centre_hours": "https://ersu.it/orari-centri-di-raccolta-2024/",
             "centre_update": "https://ersu.it/festivita-2-giugno-2026-orario-apertura-centri-di-raccolta/",
             "collection_guide": "https://ersu.it/wp-content/uploads/2021/02/Libello-ERSU-Camaiore.pdf",
+            "montignoso_guide": "https://ersu.it/wp-content/uploads/2021/02/Libello-ERSU-Montignoso.pdf",
             "quality_charter": "https://ersu.it/wp-content/uploads/2023/01/Carta_Unica_Qualita_CAMAIORE.pdf",
         },
         "municipality_path": "/territori/{slug}/",
@@ -558,6 +567,29 @@ def _pickup_records(municipality: dict[str, Any], pages: dict[str, tuple[dict[st
 
 def materialize_local_operator(operator_ref: str, municipalities: list[dict[str, Any]], manifest: dict[str, Any], snapshot_root: Path, retrieved_at: datetime) -> tuple[dict[str, list[dict[str, Any]]], list[dict[str, Any]]]:
     publisher = OPERATOR_CONFIGS[operator_ref]["publisher"]
+    if operator_ref == "aamps":
+        from .ato_costa import MunicipalityContext, extract_aamps_2023_bundle
+
+        pages = {
+            page["category"]: (page, (snapshot_root / page["snapshot"]).read_bytes())
+            for page in manifest["pages"]
+            if page["status"] in {"snapshot", "partial_snapshot"} and page.get("snapshot")
+        }
+        results: dict[str, list[dict[str, Any]]] = {}
+        reports: list[dict[str, Any]] = []
+        for municipality in municipalities:
+            records, warnings = extract_aamps_2023_bundle(
+                MunicipalityContext(municipality["name"], municipality["istat_code"], municipality["source_slug"]),
+                retrieved_at,
+                pages["waste_guide"][0].get("final_url") or pages["waste_guide"][0]["url"],
+                pages["waste_guide"][1],
+                pages["facilities_guide"][0].get("final_url") or pages["facilities_guide"][0]["url"],
+                pages["facilities_guide"][1],
+            )
+            counts = Counter(record["record_type"] for record in records)
+            results[municipality["source_slug"]] = records
+            reports.append({"municipality": municipality["name"], "istat_code": municipality["istat_code"], "slug": municipality["source_slug"], "observed_at": retrieved_at.isoformat(), "pages_available": len(pages), "pages_materialized": len(pages), "records": len(records), "records_by_type": dict(sorted(counts.items())), "warnings": warnings, "errors": [], "equivalent_pages": []})
+        return results, reports
     loaded_pages: list[tuple[dict[str, Any], str]] = []
     for page in manifest["pages"]:
         if page["status"] not in {"snapshot", "partial_snapshot"} or not page.get("snapshot"):
@@ -575,6 +607,7 @@ def materialize_local_operator(operator_ref: str, municipalities: list[dict[str,
         relevant_pages = [
             (page, content) for page, content in loaded_pages
             if not page.get("municipality_istats") or municipality["istat_code"] in page["municipality_istats"]
+            if not (operator_ref == "ersu" and page.get("category") == "montignoso_guide")
         ]
         pages = {}
         for page, content in relevant_pages:

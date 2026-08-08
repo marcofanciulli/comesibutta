@@ -3,52 +3,52 @@
   "alias_groups": 3,
   "alias_members": 29,
   "approved_search_terms": 14,
-  "catalog_generated_at": "2026-08-07T13:00:00+02:00",
+  "catalog_generated_at": "2026-08-08T13:00:00+02:00",
   "channel_aliases": 26,
   "channel_destination_assertions": {
-    "channel:collection-centre": 1595,
+    "channel:collection-centre": 1752,
     "channel:collection-point": 189,
-    "channel:home-pickup": 414,
+    "channel:home-pickup": 426,
     "channel:mobile-collection": 381,
     "channel:retailer-return": 63,
     "channel:reuse-service": 66,
-    "channel:specialist-operator": 123
+    "channel:specialist-operator": 122
   },
   "channel_destination_labels": {
-    "channel:collection-centre": 91,
+    "channel:collection-centre": 99,
     "channel:collection-point": 2,
     "channel:home-pickup": 24,
     "channel:mobile-collection": 14,
     "channel:retailer-return": 11,
     "channel:reuse-service": 8,
-    "channel:specialist-operator": 7
+    "channel:specialist-operator": 6
   },
-  "channel_mapped_destination_assertions": 1750,
-  "channel_mapped_destination_labels": 102,
+  "channel_mapped_destination_assertions": 1904,
+  "channel_mapped_destination_labels": 108,
   "collection_streams": 7,
   "conflicts_by_group": {},
   "delivery_channels": 7,
-  "destination_assertions": 4065,
-  "destination_labels": 189,
-  "mapped_destination_assertions": 1938,
-  "mapped_destination_labels": 28,
-  "multi_channel_destination_assertions": 807,
-  "multi_channel_destination_labels": 41,
+  "destination_assertions": 4343,
+  "destination_labels": 188,
+  "mapped_destination_assertions": 2017,
+  "mapped_destination_labels": 27,
+  "multi_channel_destination_assertions": 821,
+  "multi_channel_destination_labels": 42,
   "register_id": "waste-curation:toscana:v1",
   "register_version": 1,
   "stream_aliases": 34,
   "top_destinations_without_stream_or_channel": [
     {
-      "assertions": 71,
+      "assertions": 89,
+      "label": "rifiuto indifferenziato"
+    },
+    {
+      "assertions": 70,
       "label": "ingombranti"
     },
     {
       "assertions": 64,
       "label": "contenitore stradale grigio per indifferenziata dotato di cassetto apribile con carta smeraldo distribuzione materiali"
-    },
-    {
-      "assertions": 38,
-      "label": "non differenziabile contenitore grigio"
     },
     {
       "assertions": 20,
@@ -80,6 +80,10 @@
     },
     {
       "assertions": 6,
+      "label": "centri autorizzati"
+    },
+    {
+      "assertions": 6,
       "label": "sacco verde composter"
     },
     {
@@ -89,10 +93,6 @@
     {
       "assertions": 5,
       "label": "pile"
-    },
-    {
-      "assertions": 4,
-      "label": "contenitore bianco"
     },
     {
       "assertions": 4,
@@ -124,10 +124,6 @@
     },
     {
       "assertions": 3,
-      "label": "organico contenitore marrone"
-    },
-    {
-      "assertions": 3,
       "label": "rivolgiti ad alia per un preventivo o al servizio veterinario asl"
     },
     {
@@ -145,6 +141,10 @@
     {
       "assertions": 2,
       "label": "ingombranti di piccole dimensioni"
+    },
+    {
+      "assertions": 2,
+      "label": "multimateriale rifiuto indifferenziato"
     },
     {
       "assertions": 2,
@@ -180,27 +180,7 @@
     },
     {
       "assertions": 1,
-      "label": "cassonetto contenitore bianco"
-    },
-    {
-      "assertions": 1,
-      "label": "centri raccolta"
-    },
-    {
-      "assertions": 1,
-      "label": "contenitore biancocentri di raccolta o servizio"
-    },
-    {
-      "assertions": 1,
       "label": "contenitore per batterie sul territorio"
-    },
-    {
-      "assertions": 1,
-      "label": "contenitore verde"
-    },
-    {
-      "assertions": 1,
-      "label": "contenitori abiti usati"
     },
     {
       "assertions": 1,
@@ -220,10 +200,6 @@
     },
     {
       "assertions": 1,
-      "label": "indumenti contenitore abiti usati o centro raccolta"
-    },
-    {
-      "assertions": 1,
       "label": "ingombranti rur"
     },
     {
@@ -237,6 +213,30 @@
     {
       "assertions": 1,
       "label": "raccolta rifiuti urbani"
+    },
+    {
+      "assertions": 1,
+      "label": "residuo non differenziabile accessori bambini"
+    },
+    {
+      "assertions": 1,
+      "label": "rifiuto non riciclabile nei comuni senza tariffazione puntuale raccolta pannolini nei comuni a tariffazione puntuale"
+    },
+    {
+      "assertions": 1,
+      "label": "rur se sporca"
+    },
+    {
+      "assertions": 1,
+      "label": "sacco per rifiuti urbano residuo rur"
+    },
+    {
+      "assertions": 1,
+      "label": "sacco per rifiuto urbano rur"
+    },
+    {
+      "assertions": 1,
+      "label": "sacco rifiuto organico"
     }
   ],
   "top_unmapped_destinations": [
@@ -245,7 +245,7 @@
       "label": "ecocentro ecofurgone ecotappa"
     },
     {
-      "assertions": 173,
+      "assertions": 172,
       "label": "centro di raccolta"
     },
     {
@@ -257,11 +257,19 @@
       "label": "ecocentro"
     },
     {
+      "assertions": 89,
+      "label": "rifiuto indifferenziato"
+    },
+    {
+      "assertions": 88,
+      "label": "centri di raccolta"
+    },
+    {
       "assertions": 86,
       "label": "cdr"
     },
     {
-      "assertions": 71,
+      "assertions": 70,
       "label": "ingombranti"
     },
     {
@@ -289,12 +297,8 @@
       "label": "ecocentro ingombranti plus ritiro a domicilio solo con altri ingombranti"
     },
     {
-      "assertions": 42,
-      "label": "centri di raccolta"
-    },
-    {
-      "assertions": 38,
-      "label": "non differenziabile contenitore grigio"
+      "assertions": 48,
+      "label": "centri di raccolta raee"
     },
     {
       "assertions": 34,
@@ -323,6 +327,10 @@
     {
       "assertions": 29,
       "label": "stazioni ecologiche ritiro a domicilio su appuntamento"
+    },
+    {
+      "assertions": 27,
+      "label": "centri di raccolta ritiro ingombranti"
     },
     {
       "assertions": 26,
@@ -370,6 +378,10 @@
     },
     {
       "assertions": 18,
+      "label": "abiti centri di raccolta"
+    },
+    {
+      "assertions": 18,
       "label": "rifiuto non riciclabile centro di raccolta"
     },
     {
@@ -385,12 +397,12 @@
       "label": "ditte specializzate"
     },
     {
-      "assertions": 14,
-      "label": "farmaci scaduti"
+      "assertions": 15,
+      "label": "rifiuto indifferenziato centri di raccolta"
     },
     {
       "assertions": 14,
-      "label": "centri di raccolta o servizio ingombranti"
+      "label": "farmaci scaduti"
     },
     {
       "assertions": 12,
@@ -427,18 +439,6 @@
     {
       "assertions": 9,
       "label": "riuso cambia il finale contenitore stradale grigio per indifferenziata dotato di cassetto apribile con carta smeraldo distribuzione materiali"
-    },
-    {
-      "assertions": 8,
-      "label": "vetro e lattine"
-    },
-    {
-      "assertions": 7,
-      "label": "rivenditori autorizzati"
-    },
-    {
-      "assertions": 7,
-      "label": "riuso cambia il finale contenitore stradale giallo plastica lattine stazioni ecologiche"
     }
   ]
 }

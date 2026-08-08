@@ -303,7 +303,10 @@ def _ato_costa_service_urls(local_operator_ref: str, slug: str) -> dict[str, lis
     }
     if local_operator_ref == "aamps":
         urls["collection"] = [
-            "https://www.aamps.livorno.it/wp-content/uploads/2017/04/Dove-lo-butto_logo-nuovo.pdf"
+            "https://www.aamps.livorno.it/wp-content/uploads/2023/04/Dove_lo_butto_2023.pdf"
+        ]
+        urls["facilities"] = [
+            "https://www.aamps.livorno.it/wp-content/uploads/2024/07/CALENDARIO-PENTAGONO-DEF-UD.pdf"
         ]
     elif local_operator_ref == "esa":
         urls["collection"] = ["https://www.esaspa.it/cittadini/raccolta-differenziata/"]

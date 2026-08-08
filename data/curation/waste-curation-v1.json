@@ -1,7 +1,7 @@
 {
   "register_id": "waste-curation:toscana:v1",
   "version": 1,
-  "generated_at": "2026-08-07T23:30:00+02:00",
+  "generated_at": "2026-08-08T13:00:00+02:00",
   "alias_groups": [
     {
       "group_id": "waste-alias:beverage-carton",
@@ -23,13 +23,13 @@
         "waste:cartone-latte",
         "waste:cartone-tetra-pak",
         "waste:cartoni-per-alimenti-bevande-tetrapak",
+        "waste:cartoni-per-bevande-es-in-tetra-pak",
         "waste:confezione-c-pap-84-tipo-tetra-pak",
         "waste:contenitore-latte-tetrapack",
         "waste:contenitore-per-liquidi-in-tetra-pak",
         "waste:pure-pak-cartone-del-latte-del-succo-delle-bevande",
         "waste:tetra-pack",
         "waste:tetra-pak",
-        "waste:tetra-pak-per-bevande",
         "waste:tetrapack",
         "waste:tetrapak",
         "waste:tetrapak-confezione-latte-panna-brik-succo-di-frutta"

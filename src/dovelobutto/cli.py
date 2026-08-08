@@ -33,6 +33,7 @@ from .ato_costa import (
     MunicipalityContext as CostaMunicipalityContext,
     extract_aamps_waste_lookup,
     extract_esa_bundle,
+    extract_ersu_montignoso_supplement,
     extract_rea_waste_lookup,
 )
 from .html import clean_text, parse_html
@@ -304,6 +305,16 @@ def build_parser() -> argparse.ArgumentParser:
     aamps.add_argument("--retrieved-at", required=True)
     aamps.add_argument("--output-dir", type=Path, required=True)
     aamps.add_argument("--report", type=Path, required=True)
+    montignoso = subparsers.add_parser(
+        "materialize-montignoso-ersu",
+        help="Merge the ERSU Montignoso guide into the existing SEA acquisition",
+    )
+    montignoso.add_argument("--registry", type=Path, required=True)
+    montignoso.add_argument("--pdf", type=Path, required=True)
+    montignoso.add_argument("--source-url", required=True)
+    montignoso.add_argument("--retrieved-at", required=True)
+    montignoso.add_argument("--output-dir", type=Path, required=True)
+    montignoso.add_argument("--report", type=Path, required=True)
     catalog = subparsers.add_parser(
         "build-waste-catalog",
         help="Build the canonical waste vocabulary from acquired waste dictionaries",
@@ -926,6 +937,33 @@ def main(argv: list[str] | None = None) -> int:
             encoding="utf-8",
         )
         return 0 if records else 1
+    if args.command == "materialize-montignoso-ersu":
+        retrieved_at = datetime.fromisoformat(args.retrieved_at)
+        municipality = next(
+            json.loads(line)["payload"]
+            for line in args.registry.read_text(encoding="utf-8").splitlines()
+            if line.strip() and json.loads(line)["payload"].get("istat_code") == "045011"
+        )
+        path = args.output_dir / "montignoso-acquisition.jsonl"
+        existing = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()] if path.exists() else []
+        supplement, warnings = extract_ersu_montignoso_supplement(
+            CostaMunicipalityContext(municipality["name"], municipality["istat_code"], municipality["source_slug"]),
+            retrieved_at, args.source_url, args.pdf.read_bytes(),
+        )
+        by_key = {(record["record_type"], record["natural_key"]): record for record in existing}
+        by_key.update({(record["record_type"], record["natural_key"]): record for record in supplement})
+        records = sorted(by_key.values(), key=lambda record: (record["record_type"], record["natural_key"]))
+        write_jsonl(path, records)
+        counts: dict[str, int] = {}
+        for record in records:
+            counts[record["record_type"]] = counts.get(record["record_type"], 0) + 1
+        report_warnings = warnings + [{"code": "waste_lookup_not_published_or_not_structured", "detail": "Rifiutario non pubblicato o non disponibile in forma strutturata nelle fonti acquisite", "url": args.source_url}]
+        municipal_report = {"municipality": municipality["name"], "istat_code": municipality["istat_code"], "slug": municipality["source_slug"], "observed_at": retrieved_at.isoformat(), "pages_available": 3, "pages_materialized": 3, "records": len(records), "records_by_type": dict(sorted(counts.items())), "warnings": report_warnings, "errors": [], "equivalent_pages": []}
+        (args.output_dir / "montignoso-report.json").write_text(json.dumps(municipal_report, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        report = {"observed_at": retrieved_at.isoformat(), "operator_ref": "ersu-montignoso-supplement", "pages_checked": 1, "pages_remaining": 0, "municipalities_touched": 1, "pages_by_status": {"snapshot": 1, "blocked_by_robots": 0, "error": 0}, "errors": [], "extraction": {"municipalities": 1, "records": len(records), "supplemental_records": len(supplement), "warnings": len(report_warnings), "municipality_reports": [municipal_report]}}
+        args.report.parent.mkdir(parents=True, exist_ok=True)
+        args.report.write_text(json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        return 0 if supplement and not warnings else 1
     if args.command == "fetch-rea-rifiutario":
         endpoint = "https://www.reaspa.it/wp-admin/admin-ajax.php"
         robots_url = "https://www.reaspa.it/robots.txt"

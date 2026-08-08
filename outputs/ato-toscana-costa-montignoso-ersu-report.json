@@ -1,0 +1,48 @@
+{
+  "errors": [],
+  "extraction": {
+    "municipalities": 1,
+    "municipality_reports": [
+      {
+        "equivalent_pages": [],
+        "errors": [],
+        "istat_code": "045011",
+        "municipality": "Montignoso",
+        "observed_at": "2026-08-08T12:30:00+02:00",
+        "pages_available": 3,
+        "pages_materialized": 3,
+        "records": 82,
+        "records_by_type": {
+          "collection_rule": 6,
+          "facility": 4,
+          "facility_acceptance": 58,
+          "facility_access": 5,
+          "opening_period": 4,
+          "pickup_service": 4,
+          "service_zone": 1
+        },
+        "slug": "montignoso",
+        "warnings": [
+          {
+            "code": "waste_lookup_not_published_or_not_structured",
+            "detail": "Rifiutario non pubblicato o non disponibile in forma strutturata nelle fonti acquisite",
+            "url": "https://ersu.it/wp-content/uploads/2021/02/Libello-ERSU-Montignoso.pdf"
+          }
+        ]
+      }
+    ],
+    "records": 82,
+    "supplemental_records": 75,
+    "warnings": 1
+  },
+  "municipalities_touched": 1,
+  "observed_at": "2026-08-08T12:30:00+02:00",
+  "operator_ref": "ersu-montignoso-supplement",
+  "pages_by_status": {
+    "blocked_by_robots": 0,
+    "error": 0,
+    "snapshot": 1
+  },
+  "pages_checked": 1,
+  "pages_remaining": 0
+}

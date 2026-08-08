@@ -175,7 +175,7 @@ Completamento ATO Toscana Sud:
 
 Esploratore dati:
 
-- pacchetto statico generato in modo riproducibile da 153.102 record logici;
+- pacchetto statico generato in modo riproducibile da 153.496 record logici;
 - filtri gerarchici per ATO e provincia, seguiti dall'elenco dei comuni;
 - 273 comuni censiti e 273 con almeno una fonte materializzata;
 - navigazione per comune e viste dedicate a centri, EER, regole, punti e ritiro;
@@ -185,11 +185,11 @@ Esploratore dati:
 
 Catalogo canonico corrente:
 
-- 138.342 record di rifiutario ridotti a 3.880 indicazioni sorgente distinte;
-- 3.124 concetti consultabili nell'esploratore;
+- 139.508 record di rifiutario ridotti a 5.046 indicazioni sorgente distinte;
+- 3.351 concetti consultabili nell'esploratore;
 - 331 concetti con EER concordante indicato dalla fonte e zero conflitti sui
   termini coincidenti;
-- 2.553 concetti senza EER e 411 con piu destinazioni locali osservate;
+- 3.020 concetti senza EER e 598 con piu destinazioni locali osservate;
 - materiale, condizioni, sinonimi semantici e note ambientali restano
   esplicitamente da verificare, senza riempimenti automatici.
 
@@ -231,8 +231,10 @@ Completamento ATO Toscana Costa:
   fermate e 189 associazioni fermata-data; 12 calendari settimanali grafici
   verificati producono 17 zone, 84 regole e 80 calendari con stagionalita e
   orari di esposizione;
-- AAMPS: 125 coppie estratte dal PDF 2017; cinque probabili continuazioni di
-  colonna restano a confidenza media e sono elencate nel rapporto;
+- AAMPS: 408 voci estratte dalla guida visuale 2023, due centri, sei isole
+  mobili, nove punti oli e un centro del riuso;
+- Montignoso: regole SEA integrate con quattro strutture ERSU accessibili,
+  58 associazioni centro-EER e quattro servizi di ritiro a domicilio;
 - GEOFOR: 178 URL controllati, 176 snapshot e due `404`; 13.631 record per 25
   comuni, inclusi 9.700 termini del rifiutario, 125 regole, 24 centri, 3.672
   associazioni centro-EER e 37 servizi di ritiro;
@@ -298,9 +300,9 @@ Completamento dei comuni toscani in ATO extra-regionali:
   quattro lacune esplicite, non assenze silenziose;
 - l'esploratore espone cinque ATO, limitando quelli extra-regionali alle sole
   province e ai soli comuni toscani interessati;
-- il dataset conta 153.102 record logici e il catalogo 3.124 concetti, con
+- il dataset conta 153.496 record logici e il catalogo 3.351 concetti, con
   331 concetti associati a un EER concordante;
-- 149 test automatici superati.
+- 151 test automatici superati.
 
 SQLite canonico e sincronizzazione remota:
 

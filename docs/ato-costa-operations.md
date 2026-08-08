@@ -125,15 +125,34 @@ calendario Orciano 2023 e gli allegati annuali scaduti non sono resi attivi.
 
 ## AAMPS
 
-La guida AAMPS di Livorno e un PDF del 2017 a due colonne. Il comando esterno:
+La pipeline ordinaria `fetch-local-operator --operator aamps` acquisisce la
+guida visuale 2023 e il calendario operativo AAMPS 2024, dopo avere verificato
+`robots.txt`. L'estrattore legge testo e simboli colorati dal PDF, vincolato
+allo SHA-256 verificato: una sostituzione del documento richiede una nuova
+revisione visiva. Sono materializzate 408 voci del rifiutario, due centri con
+orari e accesso, sei isole ecologiche mobili, nove punti itineranti per gli oli
+vegetali e il centro del riuso. Il calendario Pentagono resta una fonte zonale
+e non viene esteso all'intero comune.
 
 ```sh
-pdftotext -bbox-layout dove-lo-butto.pdf dove-lo-butto-bbox.html
-```
+PYTHONPATH=src python3 -m dovelobutto.cli fetch-local-operator \
+  --operator aamps \
+  --registry outputs/ato-toscana-costa-municipalities.jsonl \
+  --snapshot-root data/crawl/ato-toscana-costa/2026-08-08/aamps \
+  --manifest data/crawl/ato-toscana-costa/2026-08-08/aamps-manifest.json \
+  --report outputs/ato-toscana-costa-aamps-fetch-report.json \
+  --observed-at 2026-08-08T12:00:00+02:00 \
+  --user-agent 'DoveLoButtoData/0.1 (+mailto:marcofanciulli@me.com)'
 
-preserva le coordinate necessarie. `materialize-aamps-rifiutario` ricostruisce
-125 coppie. Cinque righe con probabili continuazioni di colonna restano a
-confidenza media e sono elencate nel rapporto; non vengono corrette a mano.
+PYTHONPATH=src python3 -m dovelobutto.cli materialize-local-operator \
+  --operator aamps \
+  --registry outputs/ato-toscana-costa-municipalities.jsonl \
+  --manifest data/crawl/ato-toscana-costa/2026-08-08/aamps-manifest.json \
+  --snapshot-root data/crawl/ato-toscana-costa/2026-08-08/aamps \
+  --retrieved-at 2026-08-08T12:00:00+02:00 \
+  --output-dir outputs/ato-toscana-costa \
+  --report outputs/ato-toscana-costa-aamps-report.json
+```
 
 ## GEOFOR
 
@@ -173,7 +192,7 @@ rifiutario condiviso ma mantiene l'avviso per la scheda comunale assente.
 
 ## Restanti SOL
 
-Il comando generico `fetch-local-operator` acquisisce ASCIT, ASMIU, ERSU, GEA,
+Il comando generico `fetch-local-operator` acquisisce AAMPS, ASCIT, ASMIU, ERSU, GEA,
 Lunigiana Ambiente, RetiAmbiente Carrara, SEA Ambiente e Sistema Ambiente. Usa
 una configurazione per dominio, consulta `robots.txt`, salva un manifesto con
 ogni tentativo e non elimina URL bloccate o in errore. Il comando
@@ -188,22 +207,32 @@ accesso, orari e codici EER. Le fonti meno strutturate restano utili per regole,
 contatti e centri, ma producono avvisi quando rifiutario o dettaglio non sono
 pubblicati.
 
+Montignoso conserva le regole di raccolta SEA Ambiente, ma la guida ufficiale
+ERSU documenta l'accesso dei residenti ai centri Piedimonte, Olmi e Ciocche e
+al centro verde di Pietrasanta. Il supplemento SHA-locked aggiunge quattro
+strutture, accessi e orari, 58 associazioni centro-EER e quattro servizi a
+domicilio senza attribuire questi centri agli altri comuni SEA.
+
+La guida entra nel manifesto ERSU come `montignoso_guide`. Dopo la
+materializzazione SEA, `materialize-montignoso-ersu` la unisce al file del
+comune; il percorso del PDF e quello SHA-256 riportato nel manifesto.
+
 Le relazioni centro-comune sono conservatrici: ASCIT usa le attribuzioni
 comunali e i due Salanetti dichiarati per tutti; Boceda e intercomunale per i
 14 comuni Lunigiana, mentre Novoleto e associato al solo Pontremoli. I centri
-di Viareggio non vengono attribuiti a Montignoso. La scheda ERSU di Ciocche
-dichiara l'accesso dei residenti di Montignoso, ma questa relazione tra due SOL
-resta da modellare senza duplicare la fonte.
+di Viareggio non vengono attribuiti a Montignoso. Le relazioni ERSU verso
+Montignoso sono invece modellate come accessi intergestore, senza duplicare le
+fonti o cambiare il gestore della raccolta comunale.
 
 ## Copertura corrente
 
 - 100 comuni censiti;
 - 100 comuni con almeno una fonte acquisita;
-- 32.076 record ATO Costa;
+- 32.651 record ATO Costa;
 - tutti i 13 comuni livornesi hanno almeno un rifiutario acquisito;
 - tutti i comuni REA hanno pagine di servizio; 14 hanno accesso ad almeno un
   centro pubblicato, mentre Capraia Isola, Orciano Pisano e Santa Luce non
   risultano collegati a un centro nella fonte acquisita.
 
-Restano il collegamento intergestore di Montignoso e l'approfondimento dei
-centri o rifiutari non pubblicati nelle schede disponibili.
+Restano da approfondire i centri o rifiutari non pubblicati nelle schede
+disponibili.

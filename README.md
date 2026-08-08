@@ -191,7 +191,7 @@ PYTHONPATH=src python3 -m dovelobutto.cli build-waste-catalog \
   --registry outputs/ato-toscana-centro-municipalities.jsonl \
   --registry outputs/toscana-boundary-municipalities.jsonl \
   --eer-register outputs/eer-register.json \
-  --generated-at 2026-08-07T13:00:00+02:00 \
+  --generated-at 2026-08-08T13:00:00+02:00 \
   --output outputs/waste-catalog.json \
   --report outputs/waste-catalog-report.json
 ```
@@ -222,6 +222,7 @@ PYTHONPATH=src python3 -m dovelobutto.explorer \
   --batch-report outputs/ato-toscana-costa-retiambiente-carrara-report.json \
   --batch-report outputs/ato-toscana-costa-sea-ambiente-report.json \
   --batch-report outputs/ato-toscana-costa-sistema-ambiente-report.json \
+  --batch-report outputs/ato-toscana-costa-montignoso-ersu-report.json \
   --batch-report outputs/ato-toscana-centro-report.json \
   --batch-report outputs/toscana-boundary-report.json \
   --registry outputs/sei-toscana-municipalities.jsonl \
@@ -230,7 +231,7 @@ PYTHONPATH=src python3 -m dovelobutto.explorer \
   --registry outputs/toscana-boundary-municipalities.jsonl \
   --catalog outputs/waste-catalog.json \
   --eer-register outputs/eer-register.json \
-  --generated-at 2026-08-07T13:00:00+02:00 \
+  --generated-at 2026-08-08T13:00:00+02:00 \
   --output explorer/data.js
 ```
 
@@ -238,7 +239,7 @@ L'interfaccia permette di filtrare per ATO e provincia, distinguere comuni
 censiti da comuni acquisiti, esplorare centri e regole, consultare il
 rifiutario, cercare materiali e codici EER e risalire alla fonte di ogni fatto.
 Il pacchetto corrente contiene tutti i 273 comuni toscani censiti, ciascuno con
-almeno una fonte materializzata, e 153.102 record logici. Per i sette comuni
+almeno una fonte materializzata, e 153.496 record logici. Per i sette comuni
 ESA comprende anche dieci centri con indirizzi, accessi, orari e codici EER
 letti dai cartelli ufficiali verificati. Per i 17 comuni REA
 comprende anche pagine di servizio, centri intercomunali, orari, accesso,
@@ -247,9 +248,14 @@ ritiri, materiali accettati, quattro calendari RUR, cinque calendari Ecomobile
 gli EER non pubblicati dalla fonte sono indicati esplicitamente come tali. Per
 i 25 comuni GEOFOR comprende 388 voci del rifiutario e cinque regole
 generali per comune, oltre a centri, orari e ritiri quando pubblicati. La vista
-"Catalogo" espone 3.124 concetti trasversali, 331 dei quali hanno un
+"Catalogo" espone 3.351 concetti trasversali, 331 dei quali hanno un
 EER concordante indicato dalle fonti; le destinazioni restano marcate come
 osservazioni locali.
+
+Per Livorno sono disponibili 408 voci AAMPS 2023, due centri, isole mobili,
+punti oli e centro del riuso. Per Montignoso le regole SEA sono integrate con
+i quattro centri accessibili documentati da ERSU, 58 associazioni centro-EER e
+quattro servizi di ritiro a domicilio.
 
 Per ATO Toscana Centro l'esploratore conserva una sola copia delle 1.722 voci
 AliaEstra condivise, continuando ad applicarle a ciascuno dei 65 comuni. Il
