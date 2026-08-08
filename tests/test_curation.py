@@ -50,6 +50,8 @@ class WasteCurationTests(unittest.TestCase):
         )
         self.assertIn("waste:guscio-dei-molluschi", group["member_concept_ids"])
         self.assertNotIn("waste:guscio-delle-ostriche", group["member_concept_ids"])
+        self.assertIn("Murici", group["search_terms"])
+        self.assertIn("Ostriche", group["search_terms"])
 
     def test_unknown_alias_member_is_rejected(self) -> None:
         register = copy.deepcopy(self.register)

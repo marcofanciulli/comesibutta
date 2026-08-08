@@ -83,7 +83,15 @@
       "search_terms": [
         "Guscio dei molluschi",
         "Guscio di mollusco",
-        "Gusci di molluschi"
+        "Gusci di molluschi",
+        "Guscio di murice",
+        "Gusci di murici",
+        "Murice",
+        "Murici",
+        "Guscio di ostrica",
+        "Gusci di ostriche",
+        "Ostrica",
+        "Ostriche"
       ],
       "member_concept_ids": [
         "waste:gusci-di-molluschi",
@@ -91,7 +99,7 @@
         "waste:guscio-dei-molluschi"
       ],
       "review_status": "approved",
-      "rationale": "Varianti singolare e plurale della categoria generica dei gusci di molluschi. Ostriche, lumache e altre specie specifiche restano concetti separati; la destinazione continua a dipendere dal comune."
+      "rationale": "Varianti singolare e plurale della categoria generica dei gusci di molluschi, con murici e ostriche come termini di ricerca tassonomici. I concetti specifici pubblicati dalle fonti restano separati; la destinazione continua a dipendere dal comune."
     }
   ],
   "eer_mappings": [

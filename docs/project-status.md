@@ -458,7 +458,7 @@ Prima verticale applicativa:
   risposte risolte, chiarimenti, conflitti, assenza di dati ed errori;
 - destinazione, preparazione, contenitore, EER, centri, ritiri, punti,
   avvertenze e fonti sono letti direttamente dal database client sincronizzato;
-- pubblicata e applicata localmente la revisione firmata `202608080008`, con
+- pubblicata e applicata localmente la revisione firmata `202608080009`, con
   tutti i 273 comuni toscani visibili all'app;
 - acquisite tutte le 9 guide generali SEI Toscana: 18.096 fatti territoriali
   coprono i 104 comuni gestiti; gli esempi nelle categorie diventano termini
@@ -478,6 +478,10 @@ Prima verticale applicativa:
   del centro confermata per codice e indicazione alternativa del rivenditore;
 - i nomi brevi delle categorie con esempi sono ricercabili direttamente:
   `Cellophane` a Manciano conduce al multimateriale senza conferma semantica;
+- `Murici` e `Ostriche` sono termini tassonomici revisionati della categoria
+  dei gusci di molluschi: a Manciano seguono la regola locale
+  dell'indifferenziato e richiedono la zona per completare contenitore e
+  preparazione, senza estendere una destinazione unica a tutta la Toscana;
 - l'app ricorda per comune la zona selezionata, la mostra nella barra e
   permette di rimuoverla; la preferenza scade al cambio di revisione dati;
 - le varianti generiche `Guscio dei molluschi` e `Gusci di molluschi` formano

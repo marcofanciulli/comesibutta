@@ -1,5 +1,5 @@
 {
-  "dataset_revision": 202608080008,
+  "dataset_revision": 202608080009,
   "defined_non_resolved": [
     {
       "entity_id": "waste:private-del-contenuto",
@@ -24,7 +24,7 @@
     }
   ],
   "failures": [],
-  "generated_at": "2026-08-08T19:30:00+02:00",
+  "generated_at": "2026-08-08T20:45:00+02:00",
   "review_queue": [
     {
       "coverage": {
@@ -2667,9 +2667,9 @@
     "guarantee": "Every published territorial concept and approved alias has a defined destination path for every covered municipality and registered service zone."
   },
   "summary": {
-    "alias_exact_search_checks": 17,
+    "alias_exact_search_checks": 25,
     "approved_alias_groups": 4,
-    "approved_alias_search_terms": 17,
+    "approved_alias_search_terms": 25,
     "concepts": 3485,
     "concepts_with_territorial_destination": 3480,
     "exact_semantic_review_candidates": 62,
@@ -2687,9 +2687,9 @@
     "search_term_bindings": 3485,
     "service_zones": 417,
     "status": "pass",
-    "territorial_alias_term_zone_cases": 4890,
+    "territorial_alias_term_zone_cases": 7482,
     "territorial_alias_zone_cases": 1225,
     "territorial_concept_zone_cases": 182885,
-    "total_guaranteed_cases": 189000
+    "total_guaranteed_cases": 191592
   }
 }
