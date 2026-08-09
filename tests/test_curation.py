@@ -33,17 +33,18 @@ class WasteCurationTests(unittest.TestCase):
         self.assertEqual(48, report["alias_members"])
         self.assertEqual(7, report["collection_streams"])
         self.assertEqual(9, report["delivery_channels"])
-        self.assertEqual(9, report["curated_concepts"])
-        self.assertEqual(11, report["curated_search_terms"])
+        self.assertEqual(5, report["hazard_material_profiles"])
+        self.assertEqual(11, report["curated_concepts"])
+        self.assertEqual(13, report["curated_search_terms"])
         self.assertEqual(13, report["eer_mappings"])
         self.assertEqual(22, report["eer_mapped_concepts"])
         self.assertEqual(2, report["stream_mappings"])
         self.assertEqual(2, report["stream_mapped_concepts"])
         self.assertEqual(3, report["disambiguation_groups"])
         self.assertEqual(3, report["disambiguation_triggers"])
-        self.assertEqual(37, report["waste_classes"])
+        self.assertEqual(38, report["waste_classes"])
         self.assertEqual(81, report["waste_class_outcomes"])
-        self.assertEqual(60, report["family_mappings"])
+        self.assertEqual(61, report["family_mappings"])
         self.assertEqual(0, report["alias_group_territorial_conflicts"])
         self.assertGreater(report["mapped_destination_assertions"], 1900)
         self.assertGreater(report["channel_mapped_destination_assertions"], 1700)
@@ -76,6 +77,8 @@ class WasteCurationTests(unittest.TestCase):
                 "waste:piombo-domestico",
                 "waste:batteria-o-accumulatore-al-piombo",
                 "waste:piombo-da-costruzione-demolizione",
+                "waste:piombo-contaminato-pericoloso",
+                "waste:residuo-metallurgia-piombo",
             },
             {option["concept_id"] for option in groups["waste-question:lead-form"]["options"]},
         )
@@ -93,9 +96,11 @@ class WasteCurationTests(unittest.TestCase):
             for mapping in self.register["eer_mappings"]
             if len(mapping["concept_ids"]) == 1
         }
-        self.assertEqual("200140", mappings["waste:piombo-domestico"])
+        self.assertNotIn("waste:piombo-domestico", mappings)
         self.assertEqual("200133", mappings["waste:batteria-o-accumulatore-al-piombo"])
-        self.assertEqual("170403", mappings["waste:piombo-da-costruzione-demolizione"])
+        self.assertNotIn("waste:piombo-da-costruzione-demolizione", mappings)
+        self.assertEqual("170409", mappings["waste:piombo-contaminato-pericoloso"])
+        self.assertEqual("100402", mappings["waste:residuo-metallurgia-piombo"])
         self.assertEqual("200127", mappings["waste:resina-pericolosa"])
         self.assertEqual("200128", mappings["waste:resina-non-pericolosa"])
         self.assertEqual("150110", mappings["waste:imballaggio-contaminato-da-resina"])

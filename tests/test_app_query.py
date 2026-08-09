@@ -487,6 +487,63 @@ class DisposalQueryTests(unittest.TestCase):
             [source["url"] for source in answer["provenance"]["sources"]],
         )
 
+    def test_hazard_profile_blocks_generic_non_hazardous_stream(self) -> None:
+        self.connection.close()
+        writer = open_database(self.database, role="client")
+        current = read_database_entities(writer)
+        changed = dict(current)
+        concept = _concept(
+            "waste:termometro-mercurio", "Termometro a mercurio", ["Metalli"],
+        )
+        concept.data["eer"] = {
+            "status": "source_consensus",
+            "candidates": [{
+                "code": "200121",
+                "official_hazardous": True,
+                "register_status": "active_in_target",
+                "source_urls": ["https://example.test/eer"],
+            }],
+        }
+        additions = [
+            concept,
+            _rule("rule:metalli", "Metalli"),
+            CanonicalEntity("collection_stream", "stream:metals", {
+                "stream_id": "stream:metals",
+                "preferred_label": "Metalli",
+                "aliases": ["Metalli"],
+            }),
+            CanonicalEntity("eer_entry", "eer:200121", {
+                "code": "200121",
+                "title": "Tubi fluorescenti ed altri rifiuti contenenti mercurio",
+                "hazardous": True,
+            }),
+            CanonicalEntity("hazard_material_profile", "hazard-profile:mercury", {
+                "profile_id": "hazard-profile:mercury",
+                "preferred_label": "Mercurio",
+                "term_patterns": [r"\bmercurio\b"],
+                "excluded_term_patterns": [r"\bsenza mercurio\b"],
+                "hazardous_eer_codes": ["200121"],
+                "reviewed_at": GENERATED_AT.isoformat(),
+                "source_urls": ["https://example.test/eer"],
+            }),
+        ]
+        for item in additions:
+            changed[(item.entity_type, item.entity_id)] = item
+        apply_package(writer, build_update_package(current, changed, 1, 2, GENERATED_AT))
+        writer.close()
+        self.connection = open_query_database(self.database)
+        self.service = DisposalQueryService(self.connection)
+
+        answer = self.service.answer("Termometro a mercurio", "053014")
+
+        self.assertEqual("resolved", answer["status"])
+        self.assertEqual("separate_handling_required", answer["result"]["hazard_status"])
+        self.assertIsNone(answer["result"]["stream_id"])
+        self.assertIsNone(answer["result"]["container"])
+        self.assertEqual("200121", answer["result"]["eer"]["code"])
+        self.assertTrue(answer["result"]["eer"]["hazardous"])
+        self.assertNotEqual("Metalli", answer["result"]["source_destination"])
+
     def test_highest_priority_mapping_wins_within_the_same_class(self) -> None:
         self.connection.close()
         writer = open_database(self.database, role="client")

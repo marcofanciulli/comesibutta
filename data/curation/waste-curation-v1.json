@@ -1,12 +1,71 @@
 {
   "register_id": "waste-curation:toscana:v1",
   "version": 1,
-  "generated_at": "2026-08-09T09:45:00+02:00",
+  "generated_at": "2026-08-09T11:15:00+02:00",
+  "hazard_material_profiles": [
+    {
+      "profile_id": "hazard-profile:lead",
+      "preferred_label": "Piombo",
+      "term_patterns": ["\\bpiomb[oi]\\b"],
+      "excluded_term_patterns": ["\\b(no|senza|privo di|priva di) piomb[oi]\\b"],
+      "hazardous_eer_codes": ["100402", "160601", "160622", "170409", "200133"],
+      "reviewed_at": "2026-08-09T11:15:00+02:00",
+      "review_status": "approved",
+      "rationale": "La presenza di piombo impedisce l'assimilazione automatica ai metalli generici non pericolosi; soltanto un mapping specialistico revisionato puo risolvere una forma non pericolosa specifica.",
+      "source_urls": ["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]
+    },
+    {
+      "profile_id": "hazard-profile:mercury",
+      "preferred_label": "Mercurio",
+      "term_patterns": ["\\bmercurio\\b"],
+      "excluded_term_patterns": ["\\b(no|senza|privo di|priva di) mercurio\\b"],
+      "hazardous_eer_codes": ["050701", "060404", "060703", "101401", "160108", "160307", "160603", "170901", "190308", "200121"],
+      "reviewed_at": "2026-08-09T11:15:00+02:00",
+      "review_status": "approved",
+      "rationale": "Il mercurio e i rifiuti che lo contengono non possono essere ricondotti a un flusso generico non pericoloso in base al solo materiale.",
+      "source_urls": ["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]
+    },
+    {
+      "profile_id": "hazard-profile:asbestos",
+      "preferred_label": "Amianto",
+      "term_patterns": ["\\b(amianto|asbesto|eternit)\\b"],
+      "excluded_term_patterns": ["\\b(no|senza|privo di|priva di) (amianto|asbesto|eternit)\\b"],
+      "hazardous_eer_codes": ["060701", "061304", "101309", "150111", "160111", "160212", "170601", "170605"],
+      "reviewed_at": "2026-08-09T11:15:00+02:00",
+      "review_status": "approved",
+      "rationale": "I materiali contenenti amianto richiedono una classificazione pericolosa specifica e non possono ereditare classi generiche di inerti o materiali da costruzione.",
+      "source_urls": ["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]
+    },
+    {
+      "profile_id": "hazard-profile:cadmium",
+      "preferred_label": "Cadmio",
+      "term_patterns": ["\\bcadmio\\b"],
+      "excluded_term_patterns": ["\\b(no|senza|privo di|priva di) cadmio\\b"],
+      "hazardous_eer_codes": ["160602"],
+      "reviewed_at": "2026-08-09T11:15:00+02:00",
+      "review_status": "approved",
+      "rationale": "Il cadmio impedisce l'assimilazione automatica a batterie o metalli generici non pericolosi.",
+      "source_urls": ["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]
+    },
+    {
+      "profile_id": "hazard-profile:batteries",
+      "preferred_label": "Pile e batterie",
+      "term_patterns": ["\\b(pila|pile|batteria|batterie|accumulatore|accumulatori)\\b"],
+      "excluded_term_patterns": ["\\b(no|senza|privo di|priva di) (pila|pile|batteria|batterie|accumulatore|accumulatori)\\b"],
+      "hazardous_eer_codes": ["160601", "160602", "160603", "200133"],
+      "reviewed_at": "2026-08-09T11:15:00+02:00",
+      "review_status": "approved",
+      "rationale": "Pile e batterie richiedono sempre raccolta separata; una formulazione generica non viene assegnata automaticamente a una voce EER non pericolosa.",
+      "source_urls": ["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]
+    }
+  ],
   "curated_concepts": [
     {"concept_id":"waste:piombo","preferred_label":"Piombo","search_terms":["Piombo"],"reviewed_at":"2026-08-09T00:10:00+02:00","review_status":"approved","rationale":"Voce generica da distinguere per forma e provenienza.","source_urls":["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]},
-    {"concept_id":"waste:piombo-domestico","preferred_label":"Piccolo oggetto di piombo","search_terms":["Piombo domestico"],"reviewed_at":"2026-08-09T00:10:00+02:00","review_status":"approved","rationale":"Piccole quantita domestiche di metallo raccolto separatamente.","source_urls":["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]},
+    {"concept_id":"waste:piombo-domestico","preferred_label":"Oggetto domestico contenente piombo","search_terms":["Piombo domestico"],"reviewed_at":"2026-08-09T11:15:00+02:00","review_status":"approved","rationale":"Il piombo non viene assimilato ai metalli urbani non pericolosi: senza una voce specifica pubblicata dal gestore, codice e accettazione devono essere verificati separatamente.","source_urls":["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]},
     {"concept_id":"waste:batteria-o-accumulatore-al-piombo","preferred_label":"Batteria o accumulatore al piombo","search_terms":["Batteria al piombo","Accumulatore al piombo"],"reviewed_at":"2026-08-09T00:10:00+02:00","review_status":"approved","rationale":"Batterie al piombo domestiche separate dagli oggetti metallici.","source_urls":["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]},
-    {"concept_id":"waste:piombo-da-costruzione-demolizione","preferred_label":"Piombo da costruzione o demolizione","search_terms":["Piombo edile"],"reviewed_at":"2026-08-09T00:10:00+02:00","review_status":"approved","rationale":"Piombo proveniente da lavori di costruzione o demolizione.","source_urls":["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]},
+    {"concept_id":"waste:piombo-da-costruzione-demolizione","preferred_label":"Piombo da costruzione o demolizione","search_terms":["Piombo edile"],"reviewed_at":"2026-08-09T11:15:00+02:00","review_status":"approved","rationale":"Il profilo di pericolosita del piombo prevale sulla classe merceologica: il sistema non assegna automaticamente una voce EER non pericolosa e richiede gestione separata.","source_urls":["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]},
+    {"concept_id":"waste:piombo-contaminato-pericoloso","preferred_label":"Rifiuto metallico di piombo contaminato da sostanze pericolose","search_terms":["Piombo contaminato"],"reviewed_at":"2026-08-09T11:15:00+02:00","review_status":"approved","rationale":"Rifiuto metallico da costruzione o demolizione contaminato da sostanze pericolose, classificato nella corrispondente voce pericolosa.","source_urls":["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]},
+    {"concept_id":"waste:residuo-metallurgia-piombo","preferred_label":"Scoria o schiumatura della metallurgia del piombo","search_terms":["Residuo metallurgia piombo"],"reviewed_at":"2026-08-09T11:15:00+02:00","review_status":"approved","rationale":"Residuo della produzione primaria o secondaria del piombo, estraneo al circuito domestico e destinato a gestione professionale.","source_urls":["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]},
     {"concept_id":"waste:resina","preferred_label":"Resina","search_terms":["Resina","Resine"],"reviewed_at":"2026-08-09T00:10:00+02:00","review_status":"approved","rationale":"Voce generica da distinguere per stato e pericolosita.","source_urls":["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]},
     {"concept_id":"waste:resina-pericolosa","preferred_label":"Resina con sostanze pericolose","search_terms":["Resina pericolosa"],"reviewed_at":"2026-08-09T00:10:00+02:00","review_status":"approved","rationale":"Residui di resina con pittogrammi o sostanze pericolose.","source_urls":["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]},
     {"concept_id":"waste:resina-non-pericolosa","preferred_label":"Resina senza sostanze pericolose","search_terms":["Resina non pericolosa"],"reviewed_at":"2026-08-09T00:10:00+02:00","review_status":"approved","rationale":"Residui di resina non classificati pericolosi.","source_urls":["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]},
@@ -297,21 +356,6 @@
       ]
     },
     {
-      "mapping_id": "eer-map:household-lead-as-separated-metal",
-      "preferred_label": "Metalli",
-      "eer_code": "200140",
-      "concept_ids": ["waste:piombo-domestico"],
-      "condition": "se si tratta di una piccola quantita domestica di metallo raccolta separatamente",
-      "reviewed_at": "2026-08-09T00:10:00+02:00",
-      "delivery_channels": ["Centro di raccolta"],
-      "review_status": "approved",
-      "rationale": "La voce urbana 20 01 40 comprende i metalli raccolti separatamente; il centro di Manciano accetta questa voce.",
-      "source_urls": [
-        "https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206",
-        "https://seitoscana.it/comuni/manciano/centro-di-raccolta"
-      ]
-    },
-    {
       "mapping_id": "eer-map:household-lead-battery",
       "preferred_label": "Batterie e accumulatori al piombo",
       "eer_code": "200133",
@@ -327,15 +371,29 @@
       ]
     },
     {
-      "mapping_id": "eer-map:lead-from-construction-demolition",
-      "preferred_label": "Piombo",
-      "eer_code": "170403",
-      "concept_ids": ["waste:piombo-da-costruzione-demolizione"],
-      "condition": "se deriva da attivita di costruzione o demolizione",
-      "reviewed_at": "2026-08-09T00:10:00+02:00",
-      "delivery_channels": ["Centro di raccolta"],
+      "mapping_id": "eer-map:hazardous-contaminated-lead-metal",
+      "preferred_label": "Rifiuti metallici contaminati da sostanze pericolose",
+      "eer_code": "170409",
+      "concept_ids": ["waste:piombo-contaminato-pericoloso"],
+      "condition": "se il rifiuto metallico da costruzione o demolizione e contaminato da sostanze pericolose",
+      "reviewed_at": "2026-08-09T11:15:00+02:00",
+      "delivery_channels": ["Operatore specializzato"],
       "review_status": "approved",
-      "rationale": "Nel capitolo 17 la voce 17 04 03 identifica il piombo da costruzione e demolizione; l'accettazione deve essere verificata sul singolo centro.",
+      "rationale": "La voce pericolosa 17 04 09 riguarda i rifiuti metallici da costruzione o demolizione contaminati da sostanze pericolose; non viene attribuita al normale flusso dei metalli.",
+      "source_urls": [
+        "https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"
+      ]
+    },
+    {
+      "mapping_id": "eer-map:lead-metallurgy-residue",
+      "preferred_label": "Scorie e schiumature della produzione primaria e secondaria del piombo",
+      "eer_code": "100402",
+      "concept_ids": ["waste:residuo-metallurgia-piombo"],
+      "condition": "se deriva dalla produzione metallurgica primaria o secondaria del piombo",
+      "reviewed_at": "2026-08-09T11:15:00+02:00",
+      "delivery_channels": ["Operatore specializzato"],
+      "review_status": "approved",
+      "rationale": "La voce pericolosa 10 04 02 riguarda uno specifico residuo metallurgico professionale e non un rifiuto domestico.",
       "source_urls": [
         "https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"
       ]
@@ -445,8 +503,8 @@
       "options": [
         {
           "concept_id": "waste:piombo-domestico",
-          "label": "Piccolo oggetto metallico",
-          "hint": "Piccola quantita domestica di piombo, non proveniente da lavori edili"
+          "label": "Oggetto domestico contenente piombo",
+          "hint": "Da gestire separatamente: codice e accettazione devono essere verificati con il gestore"
         },
         {
           "concept_id": "waste:batteria-o-accumulatore-al-piombo",
@@ -456,12 +514,22 @@
         {
           "concept_id": "waste:piombo-da-costruzione-demolizione",
           "label": "Scarto da lavori edili",
-          "hint": "Piombo da costruzione o demolizione: EER 17 04 03, da verificare sul centro"
+          "hint": "Piombo da costruzione o demolizione: gestione separata, senza assegnazione automatica a una voce non pericolosa"
+        },
+        {
+          "concept_id": "waste:piombo-contaminato-pericoloso",
+          "label": "Metallo contaminato da sostanze pericolose",
+          "hint": "Rifiuto pericoloso da costruzione o demolizione: EER 17 04 09*"
+        },
+        {
+          "concept_id": "waste:residuo-metallurgia-piombo",
+          "label": "Scoria o schiumatura metallurgica",
+          "hint": "Residuo professionale della metallurgia del piombo: EER 10 04 02*"
         }
       ],
-      "reviewed_at": "2026-08-09T00:10:00+02:00",
+      "reviewed_at": "2026-08-09T11:15:00+02:00",
       "review_status": "approved",
-      "rationale": "La provenienza e la forma distinguono la voce urbana per metalli, quella per batterie e il capitolo dei rifiuti da costruzione e demolizione.",
+      "rationale": "Il piombo non viene assimilato ai metalli urbani generici. Provenienza, contaminazione e forma distinguono batterie, rifiuti da costruzione e residui metallurgici; un oggetto domestico privo di voce specifica richiede verifica separata.",
       "source_urls": [
         "https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"
       ]
@@ -626,6 +694,15 @@
       "stream_ids": [],
       "eer_codes": ["200133"],
       "delivery_channels": ["channel:collection-centre"]
+    },
+    {
+      "class_id": "waste-class:hazardous-material-unspecified",
+      "dimension": "primary-classification",
+      "preferred_label": "Materiale pericoloso da gestire separatamente",
+      "stream_ids": [],
+      "eer_codes": [],
+      "delivery_channels": ["channel:collection-centre", "channel:specialist-operator"],
+      "hazard_compatible": true
     },
     {
       "class_id": "waste-class:household-hazardous-chemical",
@@ -1797,6 +1874,19 @@
       ]
     },
     {
+      "mapping_id": "family-map:hazardous-material-unspecified",
+      "source_categories": [],
+      "destination_aliases": [],
+      "term_patterns": ["\\b(piomb[oi]|mercurio|cadmio|amianto|asbesto|eternit)\\b"],
+      "excluded_term_patterns": ["\\b(no|senza|privo di|priva di) (piomb[oi]|mercurio|cadmio|amianto|asbesto|eternit)\\b"],
+      "class_id": "waste-class:hazardous-material-unspecified",
+      "priority": 250,
+      "reviewed_at": "2026-08-09T11:15:00+02:00",
+      "review_status": "approved",
+      "rationale": "Un materiale riconosciuto come pericoloso resta separato dalle classi generiche: nessun EER o flusso non pericoloso viene assegnato, anche quando il materiale corrisponde lessicalmente alla classe.",
+      "source_urls": ["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]
+    },
+    {
       "mapping_id": "family-map:household-battery-terms",
       "source_categories": [],
       "destination_aliases": [],
@@ -1906,7 +1996,7 @@
       "source_categories": ["Inerti", "inerti"],
       "destination_aliases": [],
       "term_patterns": ["\\b(amianto|asbesto|eternit|asfalto|bitume|bitumi|catrame|catrami|calce|calce idraulica|calcinacci|macerie|detriti|inerti|demolizione|edilizia|cemento|fibrocemento|argilla espansa|marmo|marmi|pietra|pietre|rocci.*lavich[ae]|terra da scavo|terreno da scavo|terra grandi quantita|mattoni|mattonelle|piastrelle|ceramica|terracotta|porcellana|coccio|cocci|sanitari|bidet|cartongesso|controsoffitto|contro soffitto|pavimento|battiscopa|laminato|laminati|linoleum|stucchi|guaina bituminosa|guaina catramata|guaina per rivestimenti|lana di vetro|lana di roccia|fibra di vetro|materiale edile|materiali edili|materiale da edilizia|vetroresina)\\b"],
-      "excluded_term_patterns": [],
+      "excluded_term_patterns": ["\\bpiomb[oi]\\b"],
       "class_id": "waste-class:construction-mineral",
       "priority": 70,
       "reviewed_at": "2026-08-09T03:25:00+02:00",

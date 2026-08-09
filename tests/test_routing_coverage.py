@@ -30,8 +30,8 @@ class RoutingCoverageTests(unittest.TestCase):
             catalog, curation, generated_at=GENERATED_AT,
         )
 
-        self.assertEqual(3493, report["summary"]["concepts"])
-        self.assertEqual(3493, report["summary"]["classified"])
+        self.assertEqual(3495, report["summary"]["concepts"])
+        self.assertEqual(3495, report["summary"]["classified"])
         self.assertEqual(10, report["summary"]["alias_groups"])
         self.assertEqual(10, report["summary"]["classified_alias_groups"])
         self.assertEqual(0, report["summary"]["incomplete"])

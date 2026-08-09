@@ -242,6 +242,44 @@ def audit_query_coverage(
                         entity_id=entity_id, municipality_istat=municipality,
                         zone_id=zone_id, fields=invented_fields,
                     )
+            matched_id = (answer.get("query") or {}).get("matched_concept_id")
+            matched_concept = (
+                service._concept_for_choice(matched_id) if matched_id else None
+            )
+            if (
+                result
+                and matched_concept
+                and service._hazard_requires_separate_handling(matched_concept)
+            ):
+                ordinary_fields = [
+                    field for field in ("stream_id", "stream", "container", "presentation")
+                    if result.get(field)
+                ]
+                eer_options = [
+                    item for item in [
+                        result.get("eer"),
+                        *(result.get("eer_alternatives") or []),
+                    ]
+                    if item is not None
+                ]
+                non_hazardous_codes = [
+                    item.get("code") for item in eer_options
+                    if not item.get("hazardous")
+                ]
+                if (
+                    result.get("hazard_status") != "separate_handling_required"
+                    or ordinary_fields
+                    or non_hazardous_codes
+                ):
+                    add_failure(
+                        "hazardous_material_in_non_hazardous_route",
+                        entity_type=entity_type,
+                        entity_id=entity_id,
+                        municipality_istat=municipality,
+                        zone_id=zone_id,
+                        fields=ordinary_fields,
+                        eer_codes=non_hazardous_codes,
+                    )
             return
         if status == "needs_question":
             question = answer.get("question") or {}

@@ -100,6 +100,33 @@ def validate_waste_curation(
     catalog_concept_ids = {
         concept["concept_id"] for concept in catalog.get("concepts", [])
     }
+    hazard_profile_ids = set()
+    for profile in register.get("hazard_material_profiles", []):
+        profile_id = profile["profile_id"]
+        if profile_id in hazard_profile_ids:
+            raise ValueError(f"Duplicate hazard material profile {profile_id}")
+        hazard_profile_ids.add(profile_id)
+        if profile.get("review_status") != "approved":
+            raise ValueError(f"Hazard material profile {profile_id} is not approved")
+        if not profile.get("term_patterns") or not profile.get("hazardous_eer_codes"):
+            raise ValueError(
+                f"Hazard material profile {profile_id} requires terms and EER codes"
+            )
+        for pattern in [
+            *profile.get("term_patterns", []),
+            *profile.get("excluded_term_patterns", []),
+        ]:
+            try:
+                re.compile(pattern)
+            except re.error as error:
+                raise ValueError(
+                    f"Invalid hazard pattern in {profile_id}: {error}"
+                ) from error
+        if any(
+            not _EER_CODE_RE.fullmatch(str(code))
+            for code in profile.get("hazardous_eer_codes", [])
+        ):
+            raise ValueError(f"Invalid EER code in {profile_id}")
     curated_concept_ids = set()
     curated_search_terms = set()
     for concept in register.get("curated_concepts", []):
@@ -435,6 +462,7 @@ def validate_waste_curation(
         "register_id": register["register_id"],
         "register_version": register["version"],
         "catalog_generated_at": catalog["generated_at"],
+        "hazard_material_profiles": len(hazard_profile_ids),
         "curated_concepts": len(curated_concept_ids),
         "curated_search_terms": len(curated_search_terms),
         "alias_groups": len(group_ids),

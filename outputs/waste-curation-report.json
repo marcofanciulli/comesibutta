@@ -31,8 +31,8 @@
   "channel_mapped_destination_labels": 119,
   "collection_streams": 7,
   "conflicts_by_group": {},
-  "curated_concepts": 9,
-  "curated_search_terms": 11,
+  "curated_concepts": 11,
+  "curated_search_terms": 13,
   "delivery_channels": 9,
   "destination_assertions": 4506,
   "destination_labels": 191,
@@ -42,8 +42,9 @@
   "eer_mappings": 13,
   "family_destination_aliases": 98,
   "family_mapped_concepts": 664,
-  "family_mappings": 60,
+  "family_mappings": 61,
   "family_source_categories": 43,
+  "hazard_material_profiles": 5,
   "mapped_destination_assertions": 2229,
   "mapped_destination_labels": 29,
   "multi_channel_destination_assertions": 877,
@@ -430,5 +431,5 @@
     }
   ],
   "waste_class_outcomes": 81,
-  "waste_classes": 37
+  "waste_classes": 38
 }

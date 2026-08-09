@@ -169,6 +169,7 @@ class DisposalQueryService:
         self.stream_mappings: dict[str, dict[str, Any]] = {}
         self.disambiguations: dict[str, dict[str, Any]] = {}
         self.waste_classes: dict[str, dict[str, Any]] = {}
+        self.hazard_material_profiles: list[dict[str, Any]] = []
         self.family_classes: dict[str, tuple[dict[str, Any], dict[str, Any]]] = {}
         self.family_destination_classes: dict[
             str, tuple[dict[str, Any], dict[str, Any]]
@@ -295,6 +296,16 @@ class DisposalQueryService:
                     self.disambiguations[concept_id] = group
         for row in connection.execute(
             """SELECT entity_id FROM entities
+            WHERE entity_type = 'hazard_material_profile' ORDER BY entity_id"""
+        ):
+            profile = read_entity_data(
+                connection, "hazard_material_profile", row["entity_id"],
+                include_sources=False,
+            )
+            if profile:
+                self.hazard_material_profiles.append(profile)
+        for row in connection.execute(
+            """SELECT entity_id FROM entities
             WHERE entity_type = 'waste_class' ORDER BY entity_id"""
         ):
             waste_class = read_entity_data(
@@ -343,7 +354,7 @@ class DisposalQueryService:
     def _with_curated_eer(self, concept: dict[str, Any]) -> dict[str, Any]:
         mappings = self.eer_mappings.get(concept["concept_id"], [])
         if not mappings:
-            return concept
+            return self._with_hazard_eer_precedence(concept)
         source_candidates = concept.get("eer", {}).get("candidates", [])
         candidates = {candidate["code"]: candidate for candidate in mappings}
         candidates.update({candidate["code"]: candidate for candidate in source_candidates})
@@ -357,7 +368,106 @@ class DisposalQueryService:
             ),
             "candidates": [candidates[code] for code in sorted(candidates)],
         }
+        return self._with_hazard_eer_precedence(result)
+
+    def _with_hazard_eer_precedence(
+        self, concept: dict[str, Any],
+    ) -> dict[str, Any]:
+        candidates = (concept.get("eer") or {}).get("candidates", [])
+        hazardous = [
+            candidate for candidate in candidates
+            if self._candidate_is_hazardous(candidate)
+        ]
+        if not concept.get("hazard_profile_ids") and not hazardous:
+            return concept
+        suppressed = [
+            candidate for candidate in candidates if candidate not in hazardous
+        ]
+        result = dict(concept)
+        result["suppressed_non_hazardous_eer_codes"] = sorted({
+            *result.get("suppressed_non_hazardous_eer_codes", []),
+            *(candidate["code"] for candidate in suppressed),
+        })
+        result["eer"] = {
+            "status": (
+                "curated_mapping" if len(hazardous) == 1
+                else "conflict" if hazardous else "not_available"
+            ),
+            "candidates": sorted(hazardous, key=lambda item: item["code"]),
+        }
         return result
+
+    def _with_hazard_profiles(self, concept: dict[str, Any]) -> dict[str, Any]:
+        terms = [
+            concept.get("normalized_term", ""),
+            *(normalize_term(term) for term in concept.get("terms", [])),
+        ]
+        matched = [
+            profile for profile in self.hazard_material_profiles
+            if any(
+                re.search(pattern, term)
+                for pattern in profile.get("term_patterns", [])
+                for term in terms
+            )
+            and not any(
+                re.search(pattern, term)
+                for pattern in profile.get("excluded_term_patterns", [])
+                for term in terms
+            )
+        ]
+        if not matched:
+            return concept
+        result = dict(concept)
+        result["hazard_profile_ids"] = sorted({
+            profile["profile_id"] for profile in matched
+        })
+        result["hazard_sources"] = [
+            source
+            for profile in matched
+            for source in self._reviewed_mapping_sources(profile)
+        ]
+        return result
+
+    def _hazard_requires_separate_handling(self, concept: dict[str, Any]) -> bool:
+        candidates = (concept.get("eer") or {}).get("candidates", [])
+        return bool(
+            concept.get("hazard_profile_ids")
+            or any(self._candidate_is_hazardous(candidate) for candidate in candidates)
+            or (not candidates and any(
+                "pericolos" in normalize_term(category)
+                for category in concept.get("source_categories", [])
+            ))
+        )
+
+    def _hazard_metadata(self, concept: dict[str, Any]) -> dict[str, Any]:
+        required = self._hazard_requires_separate_handling(concept)
+        return {
+            "hazard_status": "separate_handling_required" if required else None,
+            "hazard_profile_ids": concept.get("hazard_profile_ids", []),
+            "suppressed_non_hazardous_eer_codes": concept.get(
+                "suppressed_non_hazardous_eer_codes", []
+            ),
+        }
+
+    def _hazard_compatible_destination(self, destination: str) -> bool:
+        return bool(self._channel_matches(destination)) and not self._canonical_stream(
+            destination
+        )
+
+    def _class_is_hazard_compatible(self, waste_class: dict[str, Any]) -> bool:
+        if waste_class.get("hazard_compatible"):
+            return True
+        routes = [
+            waste_class,
+            *((waste_class.get("question") or {}).get("options", [])),
+        ]
+        codes = [code for route in routes for code in route.get("eer_codes", [])]
+        if not codes or any(route.get("stream_ids") for route in routes):
+            return False
+        return all(
+            bool((self._eer_entry(code) or {}).get("hazardous"))
+            for code in codes
+        )
 
     def _with_family_class(self, concept: dict[str, Any]) -> dict[str, Any]:
         matches: dict[str, tuple[dict[str, Any], dict[str, Any]]] = {}
@@ -419,8 +529,13 @@ class DisposalQueryService:
             return concept
         result = concept
         for mapping, waste_class in selected.values():
+            if (
+                self._hazard_requires_separate_handling(result)
+                and not self._class_is_hazard_compatible(waste_class)
+            ):
+                continue
             result = self._apply_class_route(result, mapping, waste_class, waste_class)
-        return result
+        return self._with_hazard_eer_precedence(result)
 
     def _apply_class_route(
         self,
@@ -491,6 +606,11 @@ class DisposalQueryService:
         waste_class = self.waste_classes.get(class_id)
         mappings = self.family_mappings_by_class.get(class_id, [])
         if waste_class is None or not mappings:
+            return concept
+        if (
+            self._hazard_requires_separate_handling(concept)
+            and not self._class_is_hazard_compatible(waste_class)
+        ):
             return concept
         mapping = {
             **mappings[0],
@@ -719,9 +839,14 @@ class DisposalQueryService:
                 ],
             }
             return base
+        hazard_restricted = self._hazard_requires_separate_handling(concept)
         destinations = []
         for destination in concept.get("local_destinations", []):
             if municipality_istat in destination["municipality_istats"]:
+                if hazard_restricted and not self._hazard_compatible_destination(
+                    destination["label"]
+                ):
+                    continue
                 key = self._canonical_destination_key(destination["label"])
                 existing_keys = {
                     self._canonical_destination_key(item["label"])
@@ -734,7 +859,7 @@ class DisposalQueryService:
             if municipality_istat in item.get("municipality_istats", [])
         ]
         stream_mapping = self.stream_mappings.get(concept["concept_id"])
-        if not destinations and stream_mapping is not None:
+        if not hazard_restricted and not destinations and stream_mapping is not None:
             stream = self.streams.get(stream_mapping["stream_id"])
             if stream is not None:
                 destinations.append({
@@ -744,7 +869,11 @@ class DisposalQueryService:
                 })
                 evidence.extend(stream_mapping.get("sources", []))
         family_destinations_added = False
-        if not destinations and concept.get("family_stream_ids"):
+        if (
+            not hazard_restricted
+            and not destinations
+            and concept.get("family_stream_ids")
+        ):
             matching_streams = []
             for stream_id in concept["family_stream_ids"]:
                 stream = self.streams.get(stream_id)
@@ -1035,7 +1164,9 @@ class DisposalQueryService:
                 self.connection, "waste_concept", choice_id, include_sources=False,
             )
             if concept:
-                concept = self._with_curated_eer(self._with_family_class(concept))
+                concept = self._with_hazard_profiles(concept)
+                concept = self._with_curated_eer(concept)
+                concept = self._with_family_class(concept)
             self._concept_cache[choice_id] = concept
             return concept
         members = []
@@ -1044,11 +1175,15 @@ class DisposalQueryService:
                 self.connection, "waste_concept", concept_id, include_sources=False,
             )
             if member is not None:
-                members.append(self._with_curated_eer(self._with_family_class(member)))
+                member = self._with_hazard_profiles(member)
+                member = self._with_curated_eer(member)
+                members.append(self._with_family_class(member))
         destinations: dict[str, dict[str, Any]] = {}
         evidence = []
         terms = set()
         eer_candidates: dict[str, dict[str, Any]] = {}
+        hazard_profile_ids = set()
+        hazard_sources = []
         for member in members:
             terms.update(member.get("terms", []))
             for destination in member.get("local_destinations", []):
@@ -1063,6 +1198,8 @@ class DisposalQueryService:
             evidence.extend(member.get("evidence", []))
             for candidate in member.get("eer", {}).get("candidates", []):
                 eer_candidates.setdefault(candidate["code"], candidate)
+            hazard_profile_ids.update(member.get("hazard_profile_ids", []))
+            hazard_sources.extend(member.get("hazard_sources", []))
         candidates = [eer_candidates[code] for code in sorted(eer_candidates)]
         concept = {
             "concept_id": group["group_id"],
@@ -1093,6 +1230,8 @@ class DisposalQueryService:
                     if member.get("general_details", {}).get("environmental_note")
                 ), None),
             },
+            "hazard_profile_ids": sorted(hazard_profile_ids),
+            "hazard_sources": hazard_sources,
         }
         if group.get("waste_class_id"):
             concept = self._with_explicit_family_class(
@@ -1120,6 +1259,12 @@ class DisposalQueryService:
             instructions.append(presentation["instructions_raw"])
         eer = self._eer_summary(concept)
         warnings = []
+        hazard_restricted = self._hazard_requires_separate_handling(concept)
+        if hazard_restricted:
+            warnings.append(
+                "Il materiale richiede gestione separata: non conferirlo nelle "
+                "raccolte generiche e verifica le condizioni del gestore."
+            )
         if eer and eer.get("condition"):
             warnings.append(f"Il codice EER vale {eer['condition']}.")
         channels = self._channel_matches(destination)
@@ -1202,14 +1347,17 @@ class DisposalQueryService:
                     f"Il servizio {channel['preferred_label'].casefold()} e pubblicato, "
                     "ma i dati non confermano che accetti questo rifiuto."
                 )
-        stream_id = self._canonical_stream(payload.get("stream_name") or destination)
+        stream_id = (
+            None if hazard_restricted
+            else self._canonical_stream(payload.get("stream_name") or destination)
+        )
         if channels:
             destination_type = (
                 channels[0]["destination_type"] if len(channels) == 1 else "special_case"
             )
         else:
             destination_type = _destination_type(destination)
-        stream = payload.get("stream_name")
+        stream = None if hazard_restricted else payload.get("stream_name")
         if stream is None and stream_id:
             stream = self.streams[stream_id]["preferred_label"]
         if stream is None and not channels:
@@ -1229,11 +1377,11 @@ class DisposalQueryService:
                     "color": payload.get("container_color"),
                     "access_credential": payload.get("access_credential"),
                 }
-                if rule else None
+                if rule and not hazard_restricted else None
             ),
             "presentation": (
                 {"mode": presentation.get("mode") or "unspecified", "instructions": instructions}
-                if presentation else None
+                if presentation and not hazard_restricted else None
             ),
             "eer": eer,
             "facility": primary,
@@ -1244,11 +1392,11 @@ class DisposalQueryService:
             "unresolved_channels": unresolved_channels,
             "environmental_note": concept.get("general_details", {}).get("environmental_note"),
             "warnings": warnings,
+            **self._hazard_metadata(concept),
         }
         return result, [*facility_sources, *service_sources]
 
-    @staticmethod
-    def _eer_summary(concept: dict[str, Any]) -> dict[str, Any] | None:
+    def _eer_summary(self, concept: dict[str, Any]) -> dict[str, Any] | None:
         candidates = concept.get("eer", {}).get("candidates", [])
         if concept.get("eer", {}).get("status") not in {
             "source_consensus", "curated_mapping",
@@ -1264,9 +1412,7 @@ class DisposalQueryService:
                 candidate.get("official_title")
                 or (source_labels[0] if source_labels else candidate["code"])
             ),
-            "hazardous": bool(
-                candidate.get("official_hazardous") or candidate.get("hazardous")
-            ),
+            "hazardous": self._candidate_is_hazardous(candidate),
             "facility_operational_label": source_labels[0] if source_labels else None,
             "condition": candidate.get("mapping_condition"),
         }
@@ -1299,6 +1445,7 @@ class DisposalQueryService:
     def _portable_route_fallback(
         self, concept: dict[str, Any],
     ) -> dict[str, Any] | None:
+        hazard_restricted = self._hazard_requires_separate_handling(concept)
         streams = [
             {
                 "stream_id": stream_id,
@@ -1306,8 +1453,12 @@ class DisposalQueryService:
             }
             for stream_id in concept.get("family_stream_ids", [])
             if stream_id in self.streams
-        ]
+        ] if not hazard_restricted else []
         channel_ids = set(concept.get("family_delivery_channel_ids", []))
+        if hazard_restricted and not channel_ids:
+            channel_ids = {
+                "channel:collection-centre", "channel:specialist-operator",
+            }
         channels = [
             {
                 "channel_id": channel["channel_id"],
@@ -1335,6 +1486,9 @@ class DisposalQueryService:
         if not streams and not channels and not eer_options:
             return None
         warning = (
+            "Il materiale richiede gestione separata: non conferirlo nelle raccolte "
+            "generiche e verifica le condizioni del gestore."
+            if hazard_restricted else
             "La classificazione del rifiuto e definita, ma la fonte locale non "
             "pubblica una regola sufficiente per indicare contenitore, sacchetto "
             "o servizio. Verifica le istruzioni del gestore prima del conferimento."
@@ -1369,16 +1523,21 @@ class DisposalQueryService:
                 "environmental_note"
             ),
             "warnings": [warning],
+            **self._hazard_metadata(concept),
         }
 
-    @staticmethod
-    def _portable_route_sources(concept: dict[str, Any]) -> list[dict[str, Any]]:
+    def _portable_route_sources(self, concept: dict[str, Any]) -> list[dict[str, Any]]:
         candidates = concept.get("eer", {}).get("candidates", [])
         candidate_urls = {
             url for candidate in candidates for url in candidate.get("source_urls", [])
         }
         return [
             *concept.get("family_sources", []),
+            *concept.get("hazard_sources", []),
+            *(
+                concept.get("evidence", [])
+                if self._hazard_requires_separate_handling(concept) else []
+            ),
             *[
                 source
                 for candidate in candidates
@@ -1473,6 +1632,18 @@ class DisposalQueryService:
             if eer is None:
                 return None, sources
             resolution_basis = "facility_description"
+        if (
+            eer is not None
+            and self._hazard_requires_separate_handling(concept)
+            and not eer.get("hazardous")
+        ):
+            return self._special_channel_fallback(
+                concept, None, sources,
+                municipality_istat=municipality_istat,
+                user_type=user_type,
+                latitude=latitude,
+                longitude=longitude,
+            )
         if not verified:
             return self._special_channel_fallback(
                 concept, eer, sources,
@@ -1515,6 +1686,12 @@ class DisposalQueryService:
         elif primary is None:
             warnings.append(
                 "Sono disponibili piu centri compatibili: usa la posizione per ordinare quelli piu vicini."
+            )
+        if self._hazard_requires_separate_handling(concept):
+            warnings.insert(
+                0,
+                "Il materiale richiede gestione separata: non conferirlo nelle "
+                "raccolte generiche.",
             )
         for facility in verified:
             facility.pop("_local", None)
@@ -1569,6 +1746,7 @@ class DisposalQueryService:
                 "environmental_note"
             ),
             "warnings": warnings,
+            **self._hazard_metadata(concept),
         }, sources
 
     def _special_channel_fallback(
@@ -1626,6 +1804,12 @@ class DisposalQueryService:
             "Nessun centro accessibile pubblica l'accettazione di questo codice EER. "
             "Segui il canale speciale indicato e verifica preventivamente le condizioni."
         ]
+        if self._hazard_requires_separate_handling(concept):
+            warnings.insert(
+                0,
+                "Il materiale richiede gestione separata: non conferirlo nelle "
+                "raccolte generiche.",
+            )
         return {
             "destination_type": "special_case",
             "stream_id": None,
@@ -1645,17 +1829,18 @@ class DisposalQueryService:
                 "environmental_note"
             ),
             "warnings": warnings,
-        }, [*sources, *concept.get("family_sources", []), *service_sources]
+            **self._hazard_metadata(concept),
+        }, [
+            *sources,
+            *concept.get("family_sources", []),
+            *concept.get("hazard_sources", []),
+            *service_sources,
+        ]
 
     def _eer_from_code(
         self, code: str, facilities: list[dict[str, Any]], *, condition: str | None = None,
     ) -> dict[str, Any] | None:
-        if code not in self._eer_entry_cache:
-            self._eer_entry_cache[code] = read_entity_data(
-                self.connection, "eer_entry", f"eer:{code}",
-                include_sources=False,
-            )
-        entry = self._eer_entry_cache[code]
+        entry = self._eer_entry(code)
         if entry is None:
             return None
         labels = sorted({
@@ -1669,6 +1854,22 @@ class DisposalQueryService:
             "facility_operational_label": labels[0] if labels else None,
             "condition": condition,
         }
+
+    def _eer_entry(self, code: str) -> dict[str, Any] | None:
+        if code not in self._eer_entry_cache:
+            self._eer_entry_cache[code] = read_entity_data(
+                self.connection, "eer_entry", f"eer:{code}",
+                include_sources=False,
+            )
+        return self._eer_entry_cache[code]
+
+    def _candidate_is_hazardous(self, candidate: dict[str, Any]) -> bool:
+        entry = self._eer_entry(candidate["code"])
+        if entry is not None and entry.get("hazardous") is not None:
+            return bool(entry["hazardous"])
+        if candidate.get("official_hazardous") is not None:
+            return bool(candidate["official_hazardous"])
+        return bool(candidate.get("hazardous"))
 
     def _resolve_facilities(
         self,

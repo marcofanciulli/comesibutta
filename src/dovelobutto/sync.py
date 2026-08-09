@@ -183,6 +183,11 @@ def _reference_candidates(entity: CanonicalEntity) -> set[tuple[str, str]]:
             )
     if entity.entity_type == "waste_family_mapping":
         references.add(("waste_class", entity.data["class_id"]))
+    if entity.entity_type == "hazard_material_profile":
+        references.update(
+            ("eer_entry", f"eer:{code}")
+            for code in entity.data.get("hazardous_eer_codes", [])
+        )
     return references
 
 
@@ -199,6 +204,7 @@ def load_canonical_entities(
     records = _read_jsonl([*acquisition_paths, *registry_paths])
     entities = _merge_acquisition_records(records)
     eer_codes = set()
+    eer_hazardous: dict[str, bool] = {}
     if eer_register_path:
         register = json.loads(eer_register_path.read_text(encoding="utf-8"))
         register_entries = [
@@ -206,6 +212,10 @@ def load_canonical_entities(
             *register.get("retired_entries", []),
         ]
         eer_codes = {entry["code"] for entry in register_entries}
+        eer_hazardous = {
+            entry["code"]: bool(entry.get("hazardous"))
+            for entry in register_entries
+        }
         entities.extend(
             CanonicalEntity("eer_entry", entry["entry_id"], entry)
             for entry in register_entries
@@ -243,6 +253,21 @@ def load_canonical_entities(
                 "Waste curation references unknown EER codes: "
                 + ", ".join(unknown_mappings)
             )
+        hazard_codes = {
+            code
+            for profile in curation.get("hazard_material_profiles", [])
+            for code in profile.get("hazardous_eer_codes", [])
+        }
+        unknown_hazard_codes = sorted(hazard_codes - eer_codes) if eer_codes else []
+        non_hazardous_profile_codes = sorted(
+            code for code in hazard_codes
+            if eer_hazardous and not eer_hazardous.get(code, False)
+        )
+        if unknown_hazard_codes or non_hazardous_profile_codes:
+            raise ValueError(
+                "Hazard profiles require known hazardous EER codes: "
+                + ", ".join([*unknown_hazard_codes, *non_hazardous_profile_codes])
+            )
         from .catalog import normalize_term
 
         entities.extend(
@@ -271,6 +296,10 @@ def load_canonical_entities(
                 "evidence": [],
             })
             for concept in curation.get("curated_concepts", [])
+        )
+        entities.extend(
+            CanonicalEntity("hazard_material_profile", profile["profile_id"], profile)
+            for profile in curation.get("hazard_material_profiles", [])
         )
         entities.extend(
             CanonicalEntity("waste_alias_group", group["group_id"], group)

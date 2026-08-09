@@ -62,11 +62,23 @@
       "type": ["object", "null"],
       "properties": {
         "destination_type": {
-          "enum": ["collection_stream", "facility", "collection_point", "pickup", "special_case"]
+          "enum": ["collection_stream", "facility", "collection_point", "pickup", "special_case", "portable_route"]
         },
         "stream_id": { "type": ["string", "null"], "pattern": "^stream:[a-z0-9-]+$" },
         "stream": { "type": ["string", "null"] },
-        "source_destination": { "type": "string", "minLength": 1 },
+        "source_destination": { "type": ["string", "null"] },
+        "hazard_status": {
+          "type": ["string", "null"],
+          "enum": ["separate_handling_required", null]
+        },
+        "hazard_profile_ids": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^hazard-profile:[a-z0-9-]+$" }
+        },
+        "suppressed_non_hazardous_eer_codes": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^[0-9]{6}$" }
+        },
         "channel_relation": {
           "type": ["string", "null"],
           "enum": ["single", "alternatives", null]

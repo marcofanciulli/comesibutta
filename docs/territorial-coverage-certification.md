@@ -1,7 +1,7 @@
 # Certificazione della copertura territoriale
 
-Revisione dataset: `202608090007`  
-Data del controllo: 9 agosto 2026, ore 10:45 CEST  
+Revisione dataset: `202608090008`
+Data del controllo: 9 agosto 2026, ore 12:00 CEST
 Esito: `pass` e `release_ready: true`
 
 ## Perimetro certificato
@@ -9,7 +9,7 @@ Esito: `pass` e `release_ready: true`
 Il controllo usa lo stesso motore di risposta dell'app e attraversa l'intero
 prodotto cartesiano tra:
 
-- 3.493 concetti canonici di rifiuto;
+- 3.495 concetti canonici di rifiuto;
 - 10 gruppi di alias approvati;
 - 81 esiti delle domande condizionali;
 - 273 comuni toscani;
@@ -17,7 +17,7 @@ prodotto cartesiano tra:
 
 Livorno, Caprese Michelangelo e Sestino non hanno una suddivisione in zone
 pubblicata nel dataset e sono quindi controllati a livello comunale. Il totale
-e di 420 contesti territoriali e 1.505.280 risposte eseguite.
+e di 420 contesti territoriali e 1.506.120 risposte eseguite.
 
 Nessun concetto canonico, comune toscano o zona registrata e escluso.
 
@@ -25,15 +25,16 @@ Nessun concetto canonico, comune toscano o zona registrata e escluso.
 
 | Controllo | Esito |
 | --- | ---: |
-| Risposte eseguite | 1.505.280 |
-| Risposte risolte | 774.120 |
-| Domande definite | 731.160 |
+| Risposte eseguite | 1.506.120 |
+| Risposte risolte | 783.125 |
+| Domande definite | 722.995 |
 | `not_found` per concetti noti | 0 |
 | Conflitti | 0 |
 | Domande incomplete | 0 |
 | Errori strutturali | 0 |
 | Risposte risolte senza fonte | 0 |
 | Percorsi portabili con dettagli locali inventati | 0 |
+| Materiali pericolosi instradati verso flussi o EER non pericolosi | 0 |
 | Duplicati in attesa di decisione | 0 |
 
 Una domanda e considerata definita soltanto se presenta opzioni non vuote con
@@ -43,7 +44,7 @@ quindi un ramo privo di risposta.
 
 3.479 concetti hanno almeno una destinazione territoriale osservata. I restanti
 14 hanno una classificazione portabile revisionata. Complessivamente 184.704
-casi riguardano un concetto con evidenza nel territorio selezionato e 1.320.576
+casi riguardano un concetto con evidenza nel territorio selezionato e 1.321.416
 casi un concetto che non possiede evidenza specifica in quel territorio.
 
 Il percorso portabile puo indicare flusso, EER e canali compatibili, ma non
@@ -51,13 +52,18 @@ inventa contenitore, colore, sacchetto, centro o servizio locale. Se questi
 dettagli non sono pubblicati, la risposta li dichiara non verificati e invita a
 controllare le istruzioni del gestore.
 
+Cinque profili trasversali coprono piombo, mercurio, amianto, cadmio, pile e
+batterie. Quando uno di essi si attiva, flussi, contenitori ed EER non
+pericolosi vengono soppressi. Se non resta un EER pericoloso verificato, la
+risposta conserva soltanto la gestione separata e non assegna alcun codice.
+
 ## Deduplicazione
 
 Il confronto lessicale ha esaminato 246 coppie candidate:
 
-- 193 hanno lo stesso percorso portabile e sono registrate come varianti
+- 187 hanno lo stesso percorso portabile e sono registrate come varianti
   equivalenti, senza produrre risposte incompatibili;
-- 53 sono soltanto simili nel nome e restano concetti distinti;
+- 59 sono soltanto simili nel nome e restano concetti distinti;
 - 0 richiedono una decisione manuale.
 
 I 10 gruppi di alias comprendono 40 termini di ricerca approvati. Tutti i 40
@@ -78,15 +84,15 @@ database autorevole e del manifest.
 ## Artefatti verificabili
 
 - `outputs/query-coverage-report.json`  
-  SHA-256 `c1fd7955b76b8eca0fc56859fe2a07b1e96809a396d3c4b15d14f4897e39fa2c`
+  SHA-256 `4a31572f801b29f3426e3b4931b5d58e9656d3a4efc5fd885a4749ac11174327`
 - `outputs/waste-routing-coverage-report.json`  
-  SHA-256 `e2238613909fb3c1d5ae44e630b6ed53a7ebb6a3fca850451639f4eaed8ba0bb`
+  SHA-256 `a00145c5eda450842411589efca9f0c6e7972840dced65b1f532918fedde5823`
 - `outputs/distribution/release-report.json`  
-  SHA-256 `e706eb475f28696d1177e497a88fa8d77bb189c66153d873dd8538556fe00d28`
+  SHA-256 `615887e5a8922e06007a01e94b037567ed33b0d0b4f3bc2080a22bb3ed2471b1`
 
-Lo snapshot firmato della revisione contiene 157.354 entita. Il client locale
-ha applicato con successo il delta firmato da `202608090006` a
-`202608090007`.
+Lo snapshot firmato della revisione contiene 157.363 entita. Il client locale
+ha applicato con successo il delta firmato da `202608090007` a
+`202608090008`.
 
 ## Limiti della certificazione
 

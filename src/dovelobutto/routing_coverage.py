@@ -44,6 +44,43 @@ def build_routing_coverage(
         waste_class["class_id"]: waste_class
         for waste_class in curation.get("waste_classes", [])
     }
+    hazard_profiles = curation.get("hazard_material_profiles", [])
+    hazardous_profile_codes = {
+        code for profile in hazard_profiles
+        for code in profile.get("hazardous_eer_codes", [])
+    }
+
+    def hazard_profiles_for(concept: dict[str, Any]) -> list[dict[str, Any]]:
+        terms = [
+            normalize_term(concept.get("preferred_label", "")),
+            normalize_term(concept.get("normalized_term", "")),
+            *(normalize_term(term) for term in concept.get("terms", [])),
+        ]
+        return [
+            profile for profile in hazard_profiles
+            if any(
+                re.search(pattern, term)
+                for pattern in profile.get("term_patterns", [])
+                for term in terms
+            )
+            and not any(
+                re.search(pattern, term)
+                for pattern in profile.get("excluded_term_patterns", [])
+                for term in terms
+            )
+        ]
+
+    def class_is_hazard_compatible(waste_class: dict[str, Any]) -> bool:
+        if waste_class.get("hazard_compatible"):
+            return True
+        routes = [
+            waste_class,
+            *((waste_class.get("question") or {}).get("options", [])),
+        ]
+        codes = [code for route in routes for code in route.get("eer_codes", [])]
+        return bool(codes) and not any(
+            route.get("stream_ids") for route in routes
+        ) and all(code in hazardous_profile_codes for code in codes)
 
     concepts = [
         *catalog.get("concepts", []),
@@ -96,6 +133,17 @@ def build_routing_coverage(
         reviewed_streams = sorted({
             mapping["stream_id"] for mapping in curated_stream.get(concept_id, [])
         })
+        matched_hazard_profiles = hazard_profiles_for(concept)
+        hazard_restricted = bool(matched_hazard_profiles)
+        if hazard_restricted:
+            reviewed_eer = [
+                code for code in reviewed_eer if code in hazardous_profile_codes
+            ]
+            source_eer = [
+                code for code in source_eer if code in hazardous_profile_codes
+            ]
+            reviewed_streams = []
+        safe_observed_channels = observed_channels if hazard_restricted else []
         has_question = concept_id in questions
         source_categories = sorted(set(concept.get("source_categories", [])))
         matched_family_mappings = [
@@ -139,7 +187,11 @@ def build_routing_coverage(
             }
             if len(winners) > 1:
                 family_dimension_conflict = True
-            selected_family_mappings.extend(winners.values())
+            selected_family_mappings.extend(
+                mapping for mapping in winners.values()
+                if not hazard_restricted
+                or class_is_hazard_compatible(classes_by_id[mapping["class_id"]])
+            )
         family_class_ids = sorted({
             mapping["class_id"] for mapping in selected_family_mappings
         })
@@ -159,7 +211,8 @@ def build_routing_coverage(
 
         portable_classification = bool(
             has_question or reviewed_eer or reviewed_streams
-            or source_eer or family_class_ids
+            or source_eer or family_class_ids or safe_observed_channels
+            or hazard_restricted
         )
         if conflicts:
             status = "conflict"
@@ -193,6 +246,15 @@ def build_routing_coverage(
                 if evidence.get("source_url")
             }),
             "conflicts": conflicts,
+            "hazard_profile_ids": sorted(
+                profile["profile_id"] for profile in matched_hazard_profiles
+            ),
+            "hazard_status": (
+                "separate_handling_required" if hazard_restricted else None
+            ),
+            "suppressed_observed_stream_ids": (
+                observed_streams if hazard_restricted else []
+            ),
         })
 
     alias_entries = []
@@ -256,6 +318,8 @@ def _curated_concept_stub(concept: dict[str, Any]) -> dict[str, Any]:
     return {
         "concept_id": concept["concept_id"],
         "preferred_label": concept["preferred_label"],
+        "normalized_term": normalize_term(concept["preferred_label"]),
+        "terms": [concept["preferred_label"], *concept.get("search_terms", [])],
         "eer": {"candidates": []},
         "local_destinations": [],
     }

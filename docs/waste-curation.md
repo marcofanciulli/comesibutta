@@ -60,7 +60,7 @@ fisica, possono invece comporsi.
 
 ## Contenuto iniziale
 
-Il registro comprende inoltre 37 classi portabili e 60 regole di famiglia. Le
+Il registro comprende inoltre 38 classi portabili e 61 regole di famiglia. Le
 domande condivise coprono, fra gli altri, RAEE, imballaggi contaminati o misti,
 metalli, plastiche, legno, vetro, oli, toner, inerti e recipienti a pressione.
 
@@ -110,7 +110,16 @@ Una destinazione osservata presso un gestore non basta a superare questo audit.
 Ogni concetto deve avere una classe, un EER revisionato o una domanda completa;
 parziali, conflitti e non classificati mantengono `release_ready: false`.
 
-Sul catalogo corrente l'audit copre 3.493 concetti e i 10 gruppi canonici di
+`hazard_material_profiles` e un vincolo trasversale, non una lista di esempi.
+Ogni profilo dichiara pattern, negazioni e sole voci EER pericolose ammesse.
+Quando un concetto corrisponde, le famiglie con flussi ordinari e le mappature
+EER non pericolose vengono soppresse; resta una classe compatibile soltanto se
+non contiene flussi e conduce a un canale separato o a voci EER pericolose.
+L'audit territoriale verifica la stessa invariante su ogni comune e zona e
+blocca la pubblicazione se trova contenitore, sacchetto, flusso o EER non
+pericoloso in una risposta soggetta al profilo.
+
+Sul catalogo corrente l'audit copre 3.495 concetti e i 10 gruppi canonici di
 alias: tutti sono classificati, senza parziali o conflitti, e `release_ready`
 e vero. L'aggiunta futura di un concetto o di un gruppo deduplicato privo di
 percorso fa fallire sia la suite automatica sia la pubblicazione.

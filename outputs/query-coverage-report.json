@@ -1,5 +1,5 @@
 {
-  "dataset_revision": 202608090007,
+  "dataset_revision": 202608090008,
   "defined_non_resolved": [
     {
       "cases": 317,
@@ -2573,234 +2573,6 @@
       "status": "needs_question"
     },
     {
-      "cases": 263,
-      "entity_id": "waste:amianto",
-      "entity_type": "waste_concept",
-      "examples": [
-        {
-          "municipality_istat": "045003",
-          "zone_id": "service-zone:045003:default"
-        },
-        {
-          "municipality_istat": "045010",
-          "zone_id": "service-zone:045010:default"
-        },
-        {
-          "municipality_istat": "045011",
-          "zone_id": "service-zone:045011:default"
-        }
-      ],
-      "label": "Amianto",
-      "question": {
-        "options": [
-          {
-            "hint": "Piccolo intervento eseguito direttamente nell'abitazione",
-            "id": "waste-outcome:small-mixed-household-construction",
-            "label": "Misto da piccolo lavoro domestico"
-          },
-          {
-            "hint": "Rifiuto costituito da cemento separato",
-            "id": "waste-outcome:construction-concrete",
-            "label": "Cemento"
-          },
-          {
-            "hint": "Rifiuto costituito da mattoni separati",
-            "id": "waste-outcome:construction-bricks",
-            "label": "Mattoni"
-          },
-          {
-            "hint": "Piastrelle, sanitari o ceramiche da lavori edili",
-            "id": "waste-outcome:construction-tiles-ceramics",
-            "label": "Mattonelle e ceramiche"
-          },
-          {
-            "hint": "Cartongesso o altro materiale a base di gesso non pericoloso",
-            "id": "waste-outcome:construction-gypsum",
-            "label": "Materiale a base di gesso"
-          },
-          {
-            "hint": "Lana di vetro, lana di roccia o isolante non contenente amianto",
-            "id": "waste-outcome:construction-insulation",
-            "label": "Materiale isolante non pericoloso"
-          },
-          {
-            "hint": "Asfalto o materiale bituminoso non contenente catrame di carbone",
-            "id": "waste-outcome:construction-bituminous",
-            "label": "Miscela bituminosa non pericolosa"
-          },
-          {
-            "hint": "Eternit, cemento-amianto o altro materiale contenente amianto",
-            "id": "waste-outcome:construction-asbestos",
-            "label": "Materiale contenente amianto"
-          },
-          {
-            "hint": "Analisi o documentazione indicano contaminazione pericolosa",
-            "id": "waste-outcome:construction-soil-hazardous",
-            "label": "Terra o rocce contenenti sostanze pericolose"
-          },
-          {
-            "hint": "Terra e rocce non contenenti sostanze pericolose",
-            "id": "waste-outcome:construction-soil-other",
-            "label": "Terra o rocce non pericolose"
-          }
-        ],
-        "text": "Di quale materiale e composto e proviene da un piccolo lavoro domestico?"
-      },
-      "status": "needs_question"
-    },
-    {
-      "cases": 417,
-      "entity_id": "waste:amianto-cemento-eternit",
-      "entity_type": "waste_concept",
-      "examples": [
-        {
-          "municipality_istat": "045001",
-          "zone_id": "service-zone:045001:default"
-        },
-        {
-          "municipality_istat": "045002",
-          "zone_id": "service-zone:045002:default"
-        },
-        {
-          "municipality_istat": "045003",
-          "zone_id": "service-zone:045003:default"
-        }
-      ],
-      "label": "Amianto - Cemento (eternit)",
-      "question": {
-        "options": [
-          {
-            "hint": "Piccolo intervento eseguito direttamente nell'abitazione",
-            "id": "waste-outcome:small-mixed-household-construction",
-            "label": "Misto da piccolo lavoro domestico"
-          },
-          {
-            "hint": "Rifiuto costituito da cemento separato",
-            "id": "waste-outcome:construction-concrete",
-            "label": "Cemento"
-          },
-          {
-            "hint": "Rifiuto costituito da mattoni separati",
-            "id": "waste-outcome:construction-bricks",
-            "label": "Mattoni"
-          },
-          {
-            "hint": "Piastrelle, sanitari o ceramiche da lavori edili",
-            "id": "waste-outcome:construction-tiles-ceramics",
-            "label": "Mattonelle e ceramiche"
-          },
-          {
-            "hint": "Cartongesso o altro materiale a base di gesso non pericoloso",
-            "id": "waste-outcome:construction-gypsum",
-            "label": "Materiale a base di gesso"
-          },
-          {
-            "hint": "Lana di vetro, lana di roccia o isolante non contenente amianto",
-            "id": "waste-outcome:construction-insulation",
-            "label": "Materiale isolante non pericoloso"
-          },
-          {
-            "hint": "Asfalto o materiale bituminoso non contenente catrame di carbone",
-            "id": "waste-outcome:construction-bituminous",
-            "label": "Miscela bituminosa non pericolosa"
-          },
-          {
-            "hint": "Eternit, cemento-amianto o altro materiale contenente amianto",
-            "id": "waste-outcome:construction-asbestos",
-            "label": "Materiale contenente amianto"
-          },
-          {
-            "hint": "Analisi o documentazione indicano contaminazione pericolosa",
-            "id": "waste-outcome:construction-soil-hazardous",
-            "label": "Terra o rocce contenenti sostanze pericolose"
-          },
-          {
-            "hint": "Terra e rocce non contenenti sostanze pericolose",
-            "id": "waste-outcome:construction-soil-other",
-            "label": "Terra o rocce non pericolose"
-          }
-        ],
-        "text": "Di quale materiale e composto e proviene da un piccolo lavoro domestico?"
-      },
-      "status": "needs_question"
-    },
-    {
-      "cases": 355,
-      "entity_id": "waste:amianto-in-lastre",
-      "entity_type": "waste_concept",
-      "examples": [
-        {
-          "municipality_istat": "045001",
-          "zone_id": "service-zone:045001:default"
-        },
-        {
-          "municipality_istat": "045002",
-          "zone_id": "service-zone:045002:default"
-        },
-        {
-          "municipality_istat": "045003",
-          "zone_id": "service-zone:045003:default"
-        }
-      ],
-      "label": "Amianto in lastre",
-      "question": {
-        "options": [
-          {
-            "hint": "Piccolo intervento eseguito direttamente nell'abitazione",
-            "id": "waste-outcome:small-mixed-household-construction",
-            "label": "Misto da piccolo lavoro domestico"
-          },
-          {
-            "hint": "Rifiuto costituito da cemento separato",
-            "id": "waste-outcome:construction-concrete",
-            "label": "Cemento"
-          },
-          {
-            "hint": "Rifiuto costituito da mattoni separati",
-            "id": "waste-outcome:construction-bricks",
-            "label": "Mattoni"
-          },
-          {
-            "hint": "Piastrelle, sanitari o ceramiche da lavori edili",
-            "id": "waste-outcome:construction-tiles-ceramics",
-            "label": "Mattonelle e ceramiche"
-          },
-          {
-            "hint": "Cartongesso o altro materiale a base di gesso non pericoloso",
-            "id": "waste-outcome:construction-gypsum",
-            "label": "Materiale a base di gesso"
-          },
-          {
-            "hint": "Lana di vetro, lana di roccia o isolante non contenente amianto",
-            "id": "waste-outcome:construction-insulation",
-            "label": "Materiale isolante non pericoloso"
-          },
-          {
-            "hint": "Asfalto o materiale bituminoso non contenente catrame di carbone",
-            "id": "waste-outcome:construction-bituminous",
-            "label": "Miscela bituminosa non pericolosa"
-          },
-          {
-            "hint": "Eternit, cemento-amianto o altro materiale contenente amianto",
-            "id": "waste-outcome:construction-asbestos",
-            "label": "Materiale contenente amianto"
-          },
-          {
-            "hint": "Analisi o documentazione indicano contaminazione pericolosa",
-            "id": "waste-outcome:construction-soil-hazardous",
-            "label": "Terra o rocce contenenti sostanze pericolose"
-          },
-          {
-            "hint": "Terra e rocce non contenenti sostanze pericolose",
-            "id": "waste-outcome:construction-soil-other",
-            "label": "Terra o rocce non pericolose"
-          }
-        ],
-        "text": "Di quale materiale e composto e proviene da un piccolo lavoro domestico?"
-      },
-      "status": "needs_question"
-    },
-    {
       "cases": 355,
       "entity_id": "waste:ammoniaca",
       "entity_type": "waste_concept",
@@ -4955,82 +4727,6 @@
     },
     {
       "cases": 355,
-      "entity_id": "waste:asbesto",
-      "entity_type": "waste_concept",
-      "examples": [
-        {
-          "municipality_istat": "045001",
-          "zone_id": "service-zone:045001:default"
-        },
-        {
-          "municipality_istat": "045002",
-          "zone_id": "service-zone:045002:default"
-        },
-        {
-          "municipality_istat": "045003",
-          "zone_id": "service-zone:045003:default"
-        }
-      ],
-      "label": "Asbesto",
-      "question": {
-        "options": [
-          {
-            "hint": "Piccolo intervento eseguito direttamente nell'abitazione",
-            "id": "waste-outcome:small-mixed-household-construction",
-            "label": "Misto da piccolo lavoro domestico"
-          },
-          {
-            "hint": "Rifiuto costituito da cemento separato",
-            "id": "waste-outcome:construction-concrete",
-            "label": "Cemento"
-          },
-          {
-            "hint": "Rifiuto costituito da mattoni separati",
-            "id": "waste-outcome:construction-bricks",
-            "label": "Mattoni"
-          },
-          {
-            "hint": "Piastrelle, sanitari o ceramiche da lavori edili",
-            "id": "waste-outcome:construction-tiles-ceramics",
-            "label": "Mattonelle e ceramiche"
-          },
-          {
-            "hint": "Cartongesso o altro materiale a base di gesso non pericoloso",
-            "id": "waste-outcome:construction-gypsum",
-            "label": "Materiale a base di gesso"
-          },
-          {
-            "hint": "Lana di vetro, lana di roccia o isolante non contenente amianto",
-            "id": "waste-outcome:construction-insulation",
-            "label": "Materiale isolante non pericoloso"
-          },
-          {
-            "hint": "Asfalto o materiale bituminoso non contenente catrame di carbone",
-            "id": "waste-outcome:construction-bituminous",
-            "label": "Miscela bituminosa non pericolosa"
-          },
-          {
-            "hint": "Eternit, cemento-amianto o altro materiale contenente amianto",
-            "id": "waste-outcome:construction-asbestos",
-            "label": "Materiale contenente amianto"
-          },
-          {
-            "hint": "Analisi o documentazione indicano contaminazione pericolosa",
-            "id": "waste-outcome:construction-soil-hazardous",
-            "label": "Terra o rocce contenenti sostanze pericolose"
-          },
-          {
-            "hint": "Terra e rocce non contenenti sostanze pericolose",
-            "id": "waste-outcome:construction-soil-other",
-            "label": "Terra o rocce non pericolose"
-          }
-        ],
-        "text": "Di quale materiale e composto e proviene da un piccolo lavoro domestico?"
-      },
-      "status": "needs_question"
-    },
-    {
-      "cases": 355,
       "entity_id": "waste:asciuga-tutto-imbevuto-di-sostanze-inorganiche-detergenti-cosmetici-colori",
       "entity_type": "waste_concept",
       "examples": [
@@ -7146,62 +6842,6 @@
       "status": "needs_question"
     },
     {
-      "cases": 395,
-      "entity_id": "waste:barattoli-etichettati-con-incendiabile-pericoloso-o-tossico-solo-vuoti",
-      "entity_type": "waste_concept",
-      "examples": [
-        {
-          "municipality_istat": "045001",
-          "zone_id": "service-zone:045001:default"
-        },
-        {
-          "municipality_istat": "045002",
-          "zone_id": "service-zone:045002:default"
-        },
-        {
-          "municipality_istat": "045003",
-          "zone_id": "service-zone:045003:default"
-        }
-      ],
-      "label": "BARATTOLI ETICHETTATI CON INCENDIABILE, PERICOLOSO O TOSSICO (solo vuoti)",
-      "question": {
-        "options": [
-          {
-            "hint": "Imballaggio vuoto prevalentemente in plastica",
-            "id": "waste-outcome:plastic-packaging",
-            "label": "Plastica"
-          },
-          {
-            "hint": "Lattina, barattolo o altro imballaggio metallico vuoto",
-            "id": "waste-outcome:metal-packaging",
-            "label": "Metallo"
-          },
-          {
-            "hint": "Bottiglia, vasetto o altro imballaggio di vetro vuoto",
-            "id": "waste-outcome:glass-packaging",
-            "label": "Vetro"
-          },
-          {
-            "hint": "Materiali diversi non separabili, come alcuni cartoni per bevande",
-            "id": "waste-outcome:composite-packaging",
-            "label": "Composito"
-          },
-          {
-            "hint": "Imballaggio misto non classificabile come composito specifico",
-            "id": "waste-outcome:mixed-packaging",
-            "label": "Materiali misti non separabili"
-          },
-          {
-            "hint": "Contiene residui o reca indicazioni di pericolo pertinenti al contenuto",
-            "id": "waste-outcome:hazardous-contaminated-packaging",
-            "label": "Contaminato da sostanze pericolose"
-          }
-        ],
-        "text": "Qual e il materiale principale e l'imballaggio e contaminato da sostanze pericolose?"
-      },
-      "status": "needs_question"
-    },
-    {
       "cases": 408,
       "entity_id": "waste:barattoli-fitofarmaci",
       "entity_type": "waste_concept",
@@ -7729,62 +7369,6 @@
         }
       ],
       "label": "barattoli vetro",
-      "question": {
-        "options": [
-          {
-            "hint": "Imballaggio vuoto prevalentemente in plastica",
-            "id": "waste-outcome:plastic-packaging",
-            "label": "Plastica"
-          },
-          {
-            "hint": "Lattina, barattolo o altro imballaggio metallico vuoto",
-            "id": "waste-outcome:metal-packaging",
-            "label": "Metallo"
-          },
-          {
-            "hint": "Bottiglia, vasetto o altro imballaggio di vetro vuoto",
-            "id": "waste-outcome:glass-packaging",
-            "label": "Vetro"
-          },
-          {
-            "hint": "Materiali diversi non separabili, come alcuni cartoni per bevande",
-            "id": "waste-outcome:composite-packaging",
-            "label": "Composito"
-          },
-          {
-            "hint": "Imballaggio misto non classificabile come composito specifico",
-            "id": "waste-outcome:mixed-packaging",
-            "label": "Materiali misti non separabili"
-          },
-          {
-            "hint": "Contiene residui o reca indicazioni di pericolo pertinenti al contenuto",
-            "id": "waste-outcome:hazardous-contaminated-packaging",
-            "label": "Contaminato da sostanze pericolose"
-          }
-        ],
-        "text": "Qual e il materiale principale e l'imballaggio e contaminato da sostanze pericolose?"
-      },
-      "status": "needs_question"
-    },
-    {
-      "cases": 399,
-      "entity_id": "waste:barattoli-vuoti-etichettati-con-simbolo-incendiabile-tossico",
-      "entity_type": "waste_concept",
-      "examples": [
-        {
-          "municipality_istat": "045003",
-          "zone_id": "service-zone:045003:default"
-        },
-        {
-          "municipality_istat": "045010",
-          "zone_id": "service-zone:045010:default"
-        },
-        {
-          "municipality_istat": "045011",
-          "zone_id": "service-zone:045011:default"
-        }
-      ],
-      "label": "Barattoli vuoti etichettati con simbolo incendiabile, tossico",
       "question": {
         "options": [
           {
@@ -15355,118 +14939,6 @@
           }
         ],
         "text": "Il recipiente contiene ancora gas o sostanze pericolose?"
-      },
-      "status": "needs_question"
-    },
-    {
-      "cases": 395,
-      "entity_id": "waste:bombolette-spray-contenenti-gas-infiammabile",
-      "entity_type": "waste_concept",
-      "examples": [
-        {
-          "municipality_istat": "045001",
-          "zone_id": "service-zone:045001:default"
-        },
-        {
-          "municipality_istat": "045002",
-          "zone_id": "service-zone:045002:default"
-        },
-        {
-          "municipality_istat": "045003",
-          "zone_id": "service-zone:045003:default"
-        }
-      ],
-      "label": "Bombolette spray contenenti gas infiammabile",
-      "question": {
-        "options": [
-          {
-            "hint": "Imballaggio vuoto prevalentemente in plastica",
-            "id": "waste-outcome:plastic-packaging",
-            "label": "Plastica"
-          },
-          {
-            "hint": "Lattina, barattolo o altro imballaggio metallico vuoto",
-            "id": "waste-outcome:metal-packaging",
-            "label": "Metallo"
-          },
-          {
-            "hint": "Bottiglia, vasetto o altro imballaggio di vetro vuoto",
-            "id": "waste-outcome:glass-packaging",
-            "label": "Vetro"
-          },
-          {
-            "hint": "Materiali diversi non separabili, come alcuni cartoni per bevande",
-            "id": "waste-outcome:composite-packaging",
-            "label": "Composito"
-          },
-          {
-            "hint": "Imballaggio misto non classificabile come composito specifico",
-            "id": "waste-outcome:mixed-packaging",
-            "label": "Materiali misti non separabili"
-          },
-          {
-            "hint": "Contiene residui o reca indicazioni di pericolo pertinenti al contenuto",
-            "id": "waste-outcome:hazardous-contaminated-packaging",
-            "label": "Contaminato da sostanze pericolose"
-          }
-        ],
-        "text": "Qual e il materiale principale e l'imballaggio e contaminato da sostanze pericolose?"
-      },
-      "status": "needs_question"
-    },
-    {
-      "cases": 387,
-      "entity_id": "waste:bombolette-spray-contenenti-gas-infiammabili",
-      "entity_type": "waste_concept",
-      "examples": [
-        {
-          "municipality_istat": "045001",
-          "zone_id": "service-zone:045001:default"
-        },
-        {
-          "municipality_istat": "045002",
-          "zone_id": "service-zone:045002:default"
-        },
-        {
-          "municipality_istat": "045003",
-          "zone_id": "service-zone:045003:default"
-        }
-      ],
-      "label": "Bombolette spray contenenti gas infiammabili",
-      "question": {
-        "options": [
-          {
-            "hint": "Imballaggio vuoto prevalentemente in plastica",
-            "id": "waste-outcome:plastic-packaging",
-            "label": "Plastica"
-          },
-          {
-            "hint": "Lattina, barattolo o altro imballaggio metallico vuoto",
-            "id": "waste-outcome:metal-packaging",
-            "label": "Metallo"
-          },
-          {
-            "hint": "Bottiglia, vasetto o altro imballaggio di vetro vuoto",
-            "id": "waste-outcome:glass-packaging",
-            "label": "Vetro"
-          },
-          {
-            "hint": "Materiali diversi non separabili, come alcuni cartoni per bevande",
-            "id": "waste-outcome:composite-packaging",
-            "label": "Composito"
-          },
-          {
-            "hint": "Imballaggio misto non classificabile come composito specifico",
-            "id": "waste-outcome:mixed-packaging",
-            "label": "Materiali misti non separabili"
-          },
-          {
-            "hint": "Contiene residui o reca indicazioni di pericolo pertinenti al contenuto",
-            "id": "waste-outcome:hazardous-contaminated-packaging",
-            "label": "Contaminato da sostanze pericolose"
-          }
-        ],
-        "text": "Qual e il materiale principale e l'imballaggio e contaminato da sostanze pericolose?"
       },
       "status": "needs_question"
     },
@@ -28900,82 +28372,6 @@
       "status": "needs_question"
     },
     {
-      "cases": 343,
-      "entity_id": "waste:cemento-amianto",
-      "entity_type": "waste_concept",
-      "examples": [
-        {
-          "municipality_istat": "045001",
-          "zone_id": "service-zone:045001:default"
-        },
-        {
-          "municipality_istat": "045002",
-          "zone_id": "service-zone:045002:default"
-        },
-        {
-          "municipality_istat": "045003",
-          "zone_id": "service-zone:045003:default"
-        }
-      ],
-      "label": "cemento amianto",
-      "question": {
-        "options": [
-          {
-            "hint": "Piccolo intervento eseguito direttamente nell'abitazione",
-            "id": "waste-outcome:small-mixed-household-construction",
-            "label": "Misto da piccolo lavoro domestico"
-          },
-          {
-            "hint": "Rifiuto costituito da cemento separato",
-            "id": "waste-outcome:construction-concrete",
-            "label": "Cemento"
-          },
-          {
-            "hint": "Rifiuto costituito da mattoni separati",
-            "id": "waste-outcome:construction-bricks",
-            "label": "Mattoni"
-          },
-          {
-            "hint": "Piastrelle, sanitari o ceramiche da lavori edili",
-            "id": "waste-outcome:construction-tiles-ceramics",
-            "label": "Mattonelle e ceramiche"
-          },
-          {
-            "hint": "Cartongesso o altro materiale a base di gesso non pericoloso",
-            "id": "waste-outcome:construction-gypsum",
-            "label": "Materiale a base di gesso"
-          },
-          {
-            "hint": "Lana di vetro, lana di roccia o isolante non contenente amianto",
-            "id": "waste-outcome:construction-insulation",
-            "label": "Materiale isolante non pericoloso"
-          },
-          {
-            "hint": "Asfalto o materiale bituminoso non contenente catrame di carbone",
-            "id": "waste-outcome:construction-bituminous",
-            "label": "Miscela bituminosa non pericolosa"
-          },
-          {
-            "hint": "Eternit, cemento-amianto o altro materiale contenente amianto",
-            "id": "waste-outcome:construction-asbestos",
-            "label": "Materiale contenente amianto"
-          },
-          {
-            "hint": "Analisi o documentazione indicano contaminazione pericolosa",
-            "id": "waste-outcome:construction-soil-hazardous",
-            "label": "Terra o rocce contenenti sostanze pericolose"
-          },
-          {
-            "hint": "Terra e rocce non contenenti sostanze pericolose",
-            "id": "waste-outcome:construction-soil-other",
-            "label": "Terra o rocce non pericolose"
-          }
-        ],
-        "text": "Di quale materiale e composto e proviene da un piccolo lavoro domestico?"
-      },
-      "status": "needs_question"
-    },
-    {
       "cases": 413,
       "entity_id": "waste:cemento-in-piccole-quantita-provenienti-da-utenze-domestiche-ud",
       "entity_type": "waste_concept",
@@ -36732,82 +36128,6 @@
     },
     {
       "cases": 355,
-      "entity_id": "waste:copertura-in-cemento-amianto-eternit",
-      "entity_type": "waste_concept",
-      "examples": [
-        {
-          "municipality_istat": "045001",
-          "zone_id": "service-zone:045001:default"
-        },
-        {
-          "municipality_istat": "045002",
-          "zone_id": "service-zone:045002:default"
-        },
-        {
-          "municipality_istat": "045003",
-          "zone_id": "service-zone:045003:default"
-        }
-      ],
-      "label": "Copertura in cemento/amianto-eternit",
-      "question": {
-        "options": [
-          {
-            "hint": "Piccolo intervento eseguito direttamente nell'abitazione",
-            "id": "waste-outcome:small-mixed-household-construction",
-            "label": "Misto da piccolo lavoro domestico"
-          },
-          {
-            "hint": "Rifiuto costituito da cemento separato",
-            "id": "waste-outcome:construction-concrete",
-            "label": "Cemento"
-          },
-          {
-            "hint": "Rifiuto costituito da mattoni separati",
-            "id": "waste-outcome:construction-bricks",
-            "label": "Mattoni"
-          },
-          {
-            "hint": "Piastrelle, sanitari o ceramiche da lavori edili",
-            "id": "waste-outcome:construction-tiles-ceramics",
-            "label": "Mattonelle e ceramiche"
-          },
-          {
-            "hint": "Cartongesso o altro materiale a base di gesso non pericoloso",
-            "id": "waste-outcome:construction-gypsum",
-            "label": "Materiale a base di gesso"
-          },
-          {
-            "hint": "Lana di vetro, lana di roccia o isolante non contenente amianto",
-            "id": "waste-outcome:construction-insulation",
-            "label": "Materiale isolante non pericoloso"
-          },
-          {
-            "hint": "Asfalto o materiale bituminoso non contenente catrame di carbone",
-            "id": "waste-outcome:construction-bituminous",
-            "label": "Miscela bituminosa non pericolosa"
-          },
-          {
-            "hint": "Eternit, cemento-amianto o altro materiale contenente amianto",
-            "id": "waste-outcome:construction-asbestos",
-            "label": "Materiale contenente amianto"
-          },
-          {
-            "hint": "Analisi o documentazione indicano contaminazione pericolosa",
-            "id": "waste-outcome:construction-soil-hazardous",
-            "label": "Terra o rocce contenenti sostanze pericolose"
-          },
-          {
-            "hint": "Terra e rocce non contenenti sostanze pericolose",
-            "id": "waste-outcome:construction-soil-other",
-            "label": "Terra o rocce non pericolose"
-          }
-        ],
-        "text": "Di quale materiale e composto e proviene da un piccolo lavoro domestico?"
-      },
-      "status": "needs_question"
-    },
-    {
-      "cases": 355,
       "entity_id": "waste:coppa-in-pyrex-cocci",
       "entity_type": "waste_concept",
       "examples": [
@@ -40709,21 +40029,21 @@
       "status": "needs_question"
     },
     {
-      "cases": 396,
+      "cases": 410,
       "entity_id": "waste:disinfettante",
       "entity_type": "waste_concept",
       "examples": [
         {
+          "municipality_istat": "045001",
+          "zone_id": "service-zone:045001:default"
+        },
+        {
+          "municipality_istat": "045002",
+          "zone_id": "service-zone:045002:default"
+        },
+        {
           "municipality_istat": "045003",
           "zone_id": "service-zone:045003:default"
-        },
-        {
-          "municipality_istat": "045010",
-          "zone_id": "service-zone:045010:default"
-        },
-        {
-          "municipality_istat": "045011",
-          "zone_id": "service-zone:045011:default"
         }
       ],
       "label": "Disinfettante",
@@ -42227,82 +41547,6 @@
           }
         ],
         "text": "Il recipiente contiene ancora gas o sostanze pericolose?"
-      },
-      "status": "needs_question"
-    },
-    {
-      "cases": 300,
-      "entity_id": "waste:eternit",
-      "entity_type": "waste_concept",
-      "examples": [
-        {
-          "municipality_istat": "045003",
-          "zone_id": "service-zone:045003:default"
-        },
-        {
-          "municipality_istat": "045010",
-          "zone_id": "service-zone:045010:default"
-        },
-        {
-          "municipality_istat": "045011",
-          "zone_id": "service-zone:045011:default"
-        }
-      ],
-      "label": "Eternit",
-      "question": {
-        "options": [
-          {
-            "hint": "Piccolo intervento eseguito direttamente nell'abitazione",
-            "id": "waste-outcome:small-mixed-household-construction",
-            "label": "Misto da piccolo lavoro domestico"
-          },
-          {
-            "hint": "Rifiuto costituito da cemento separato",
-            "id": "waste-outcome:construction-concrete",
-            "label": "Cemento"
-          },
-          {
-            "hint": "Rifiuto costituito da mattoni separati",
-            "id": "waste-outcome:construction-bricks",
-            "label": "Mattoni"
-          },
-          {
-            "hint": "Piastrelle, sanitari o ceramiche da lavori edili",
-            "id": "waste-outcome:construction-tiles-ceramics",
-            "label": "Mattonelle e ceramiche"
-          },
-          {
-            "hint": "Cartongesso o altro materiale a base di gesso non pericoloso",
-            "id": "waste-outcome:construction-gypsum",
-            "label": "Materiale a base di gesso"
-          },
-          {
-            "hint": "Lana di vetro, lana di roccia o isolante non contenente amianto",
-            "id": "waste-outcome:construction-insulation",
-            "label": "Materiale isolante non pericoloso"
-          },
-          {
-            "hint": "Asfalto o materiale bituminoso non contenente catrame di carbone",
-            "id": "waste-outcome:construction-bituminous",
-            "label": "Miscela bituminosa non pericolosa"
-          },
-          {
-            "hint": "Eternit, cemento-amianto o altro materiale contenente amianto",
-            "id": "waste-outcome:construction-asbestos",
-            "label": "Materiale contenente amianto"
-          },
-          {
-            "hint": "Analisi o documentazione indicano contaminazione pericolosa",
-            "id": "waste-outcome:construction-soil-hazardous",
-            "label": "Terra o rocce contenenti sostanze pericolose"
-          },
-          {
-            "hint": "Terra e rocce non contenenti sostanze pericolose",
-            "id": "waste-outcome:construction-soil-other",
-            "label": "Terra o rocce non pericolose"
-          }
-        ],
-        "text": "Di quale materiale e composto e proviene da un piccolo lavoro domestico?"
       },
       "status": "needs_question"
     },
@@ -46768,52 +46012,6 @@
         }
       ],
       "label": "Frigoriferi, congelatori, condizionatori - RAEE",
-      "question": {
-        "options": [
-          {
-            "hint": "Lampada o tubo dichiarato contenente mercurio",
-            "id": "waste-outcome:raee-mercury-light",
-            "label": "Tubo fluorescente o sorgente con mercurio"
-          },
-          {
-            "hint": "Frigorifero, congelatore, condizionatore o altro apparecchio con CFC",
-            "id": "waste-outcome:raee-refrigerating",
-            "label": "Apparecchio refrigerante"
-          },
-          {
-            "hint": "L'etichetta o la documentazione segnala componenti pericolosi",
-            "id": "waste-outcome:raee-hazardous-components",
-            "label": "Contiene componenti pericolosi"
-          },
-          {
-            "hint": "Apparecchio diverso dai casi precedenti e senza componenti pericolosi noti",
-            "id": "waste-outcome:raee-other",
-            "label": "Altro RAEE"
-          }
-        ],
-        "text": "Quale caratteristica ha l'apparecchiatura?"
-      },
-      "status": "needs_question"
-    },
-    {
-      "cases": 297,
-      "entity_id": "waste:frigorifero",
-      "entity_type": "waste_concept",
-      "examples": [
-        {
-          "municipality_istat": "045003",
-          "zone_id": "service-zone:045003:default"
-        },
-        {
-          "municipality_istat": "045010",
-          "zone_id": "service-zone:045010:default"
-        },
-        {
-          "municipality_istat": "045011",
-          "zone_id": "service-zone:045011:default"
-        }
-      ],
-      "label": "Frigorifero",
       "question": {
         "options": [
           {
@@ -55701,52 +54899,6 @@
     },
     {
       "cases": 395,
-      "entity_id": "waste:lampadine-a-risparmio-energetico",
-      "entity_type": "waste_concept",
-      "examples": [
-        {
-          "municipality_istat": "045001",
-          "zone_id": "service-zone:045001:default"
-        },
-        {
-          "municipality_istat": "045002",
-          "zone_id": "service-zone:045002:default"
-        },
-        {
-          "municipality_istat": "045003",
-          "zone_id": "service-zone:045003:default"
-        }
-      ],
-      "label": "Lampadine a risparmio energetico",
-      "question": {
-        "options": [
-          {
-            "hint": "Lampada o tubo dichiarato contenente mercurio",
-            "id": "waste-outcome:raee-mercury-light",
-            "label": "Tubo fluorescente o sorgente con mercurio"
-          },
-          {
-            "hint": "Frigorifero, congelatore, condizionatore o altro apparecchio con CFC",
-            "id": "waste-outcome:raee-refrigerating",
-            "label": "Apparecchio refrigerante"
-          },
-          {
-            "hint": "L'etichetta o la documentazione segnala componenti pericolosi",
-            "id": "waste-outcome:raee-hazardous-components",
-            "label": "Contiene componenti pericolosi"
-          },
-          {
-            "hint": "Apparecchio diverso dai casi precedenti e senza componenti pericolosi noti",
-            "id": "waste-outcome:raee-other",
-            "label": "Altro RAEE"
-          }
-        ],
-        "text": "Quale caratteristica ha l'apparecchiatura?"
-      },
-      "status": "needs_question"
-    },
-    {
-      "cases": 395,
       "entity_id": "waste:lampadine-ad-incadescenza",
       "entity_type": "waste_concept",
       "examples": [
@@ -61243,52 +60395,6 @@
       "status": "needs_question"
     },
     {
-      "cases": 362,
-      "entity_id": "waste:monitor",
-      "entity_type": "waste_concept",
-      "examples": [
-        {
-          "municipality_istat": "045003",
-          "zone_id": "service-zone:045003:default"
-        },
-        {
-          "municipality_istat": "045010",
-          "zone_id": "service-zone:045010:default"
-        },
-        {
-          "municipality_istat": "045011",
-          "zone_id": "service-zone:045011:default"
-        }
-      ],
-      "label": "Monitor",
-      "question": {
-        "options": [
-          {
-            "hint": "Lampada o tubo dichiarato contenente mercurio",
-            "id": "waste-outcome:raee-mercury-light",
-            "label": "Tubo fluorescente o sorgente con mercurio"
-          },
-          {
-            "hint": "Frigorifero, congelatore, condizionatore o altro apparecchio con CFC",
-            "id": "waste-outcome:raee-refrigerating",
-            "label": "Apparecchio refrigerante"
-          },
-          {
-            "hint": "L'etichetta o la documentazione segnala componenti pericolosi",
-            "id": "waste-outcome:raee-hazardous-components",
-            "label": "Contiene componenti pericolosi"
-          },
-          {
-            "hint": "Apparecchio diverso dai casi precedenti e senza componenti pericolosi noti",
-            "id": "waste-outcome:raee-other",
-            "label": "Altro RAEE"
-          }
-        ],
-        "text": "Quale caratteristica ha l'apparecchiatura?"
-      },
-      "status": "needs_question"
-    },
-    {
       "cases": 355,
       "entity_id": "waste:monopattino-elettrico",
       "entity_type": "waste_concept",
@@ -62379,52 +61485,6 @@
       "status": "needs_question"
     },
     {
-      "cases": 328,
-      "entity_id": "waste:neon",
-      "entity_type": "waste_concept",
-      "examples": [
-        {
-          "municipality_istat": "045003",
-          "zone_id": "service-zone:045003:default"
-        },
-        {
-          "municipality_istat": "045010",
-          "zone_id": "service-zone:045010:default"
-        },
-        {
-          "municipality_istat": "045011",
-          "zone_id": "service-zone:045011:default"
-        }
-      ],
-      "label": "Neon",
-      "question": {
-        "options": [
-          {
-            "hint": "Lampada o tubo dichiarato contenente mercurio",
-            "id": "waste-outcome:raee-mercury-light",
-            "label": "Tubo fluorescente o sorgente con mercurio"
-          },
-          {
-            "hint": "Frigorifero, congelatore, condizionatore o altro apparecchio con CFC",
-            "id": "waste-outcome:raee-refrigerating",
-            "label": "Apparecchio refrigerante"
-          },
-          {
-            "hint": "L'etichetta o la documentazione segnala componenti pericolosi",
-            "id": "waste-outcome:raee-hazardous-components",
-            "label": "Contiene componenti pericolosi"
-          },
-          {
-            "hint": "Apparecchio diverso dai casi precedenti e senza componenti pericolosi noti",
-            "id": "waste-outcome:raee-other",
-            "label": "Altro RAEE"
-          }
-        ],
-        "text": "Quale caratteristica ha l'apparecchiatura?"
-      },
-      "status": "needs_question"
-    },
-    {
       "cases": 399,
       "entity_id": "waste:nintendo",
       "entity_type": "waste_concept",
@@ -63266,42 +62326,6 @@
         }
       ],
       "label": "Oli minerali (da motore)",
-      "question": {
-        "options": [
-          {
-            "hint": "Olio di frittura, conserve o altro olio da cucina",
-            "id": "waste-outcome:edible-oil",
-            "label": "Olio o grasso commestibile"
-          },
-          {
-            "hint": "Olio motore o lubrificante da manutenzione domestica",
-            "id": "waste-outcome:household-mineral-oil",
-            "label": "Olio minerale domestico"
-          }
-        ],
-        "text": "L'olio proviene dalla cucina oppure da motori e lubrificazione?"
-      },
-      "status": "needs_question"
-    },
-    {
-      "cases": 395,
-      "entity_id": "waste:oli-minerali-esausti",
-      "entity_type": "waste_concept",
-      "examples": [
-        {
-          "municipality_istat": "045001",
-          "zone_id": "service-zone:045001:default"
-        },
-        {
-          "municipality_istat": "045002",
-          "zone_id": "service-zone:045002:default"
-        },
-        {
-          "municipality_istat": "045003",
-          "zone_id": "service-zone:045003:default"
-        }
-      ],
-      "label": "Oli minerali esausti",
       "question": {
         "options": [
           {
@@ -70013,9 +69037,9 @@
       "question": {
         "options": [
           {
-            "hint": "Piccola quantita domestica di piombo, non proveniente da lavori edili",
+            "hint": "Da gestire separatamente: codice e accettazione devono essere verificati con il gestore",
             "id": "waste:piombo-domestico",
-            "label": "Piccolo oggetto metallico"
+            "label": "Oggetto domestico contenente piombo"
           },
           {
             "hint": "Per esempio una batteria di un veicolo privato sostituita in proprio",
@@ -70023,88 +69047,22 @@
             "label": "Batteria o accumulatore"
           },
           {
-            "hint": "Piombo da costruzione o demolizione: EER 17 04 03, da verificare sul centro",
+            "hint": "Piombo da costruzione o demolizione: gestione separata, senza assegnazione automatica a una voce non pericolosa",
             "id": "waste:piombo-da-costruzione-demolizione",
             "label": "Scarto da lavori edili"
+          },
+          {
+            "hint": "Rifiuto pericoloso da costruzione o demolizione: EER 17 04 09*",
+            "id": "waste:piombo-contaminato-pericoloso",
+            "label": "Metallo contaminato da sostanze pericolose"
+          },
+          {
+            "hint": "Residuo professionale della metallurgia del piombo: EER 10 04 02*",
+            "id": "waste:residuo-metallurgia-piombo",
+            "label": "Scoria o schiumatura metallurgica"
           }
         ],
         "text": "Di quale rifiuto contenente piombo si tratta?"
-      },
-      "status": "needs_question"
-    },
-    {
-      "cases": 420,
-      "entity_id": "waste:piombo-da-costruzione-demolizione",
-      "entity_type": "waste_concept",
-      "examples": [
-        {
-          "municipality_istat": "045001",
-          "zone_id": "service-zone:045001:default"
-        },
-        {
-          "municipality_istat": "045002",
-          "zone_id": "service-zone:045002:default"
-        },
-        {
-          "municipality_istat": "045003",
-          "zone_id": "service-zone:045003:default"
-        }
-      ],
-      "label": "Piombo da costruzione o demolizione",
-      "question": {
-        "options": [
-          {
-            "hint": "Piccolo intervento eseguito direttamente nell'abitazione",
-            "id": "waste-outcome:small-mixed-household-construction",
-            "label": "Misto da piccolo lavoro domestico"
-          },
-          {
-            "hint": "Rifiuto costituito da cemento separato",
-            "id": "waste-outcome:construction-concrete",
-            "label": "Cemento"
-          },
-          {
-            "hint": "Rifiuto costituito da mattoni separati",
-            "id": "waste-outcome:construction-bricks",
-            "label": "Mattoni"
-          },
-          {
-            "hint": "Piastrelle, sanitari o ceramiche da lavori edili",
-            "id": "waste-outcome:construction-tiles-ceramics",
-            "label": "Mattonelle e ceramiche"
-          },
-          {
-            "hint": "Cartongesso o altro materiale a base di gesso non pericoloso",
-            "id": "waste-outcome:construction-gypsum",
-            "label": "Materiale a base di gesso"
-          },
-          {
-            "hint": "Lana di vetro, lana di roccia o isolante non contenente amianto",
-            "id": "waste-outcome:construction-insulation",
-            "label": "Materiale isolante non pericoloso"
-          },
-          {
-            "hint": "Asfalto o materiale bituminoso non contenente catrame di carbone",
-            "id": "waste-outcome:construction-bituminous",
-            "label": "Miscela bituminosa non pericolosa"
-          },
-          {
-            "hint": "Eternit, cemento-amianto o altro materiale contenente amianto",
-            "id": "waste-outcome:construction-asbestos",
-            "label": "Materiale contenente amianto"
-          },
-          {
-            "hint": "Analisi o documentazione indicano contaminazione pericolosa",
-            "id": "waste-outcome:construction-soil-hazardous",
-            "label": "Terra o rocce contenenti sostanze pericolose"
-          },
-          {
-            "hint": "Terra e rocce non contenenti sostanze pericolose",
-            "id": "waste-outcome:construction-soil-other",
-            "label": "Terra o rocce non pericolose"
-          }
-        ],
-        "text": "Di quale materiale e composto e proviene da un piccolo lavoro domestico?"
       },
       "status": "needs_question"
     },
@@ -81122,82 +80080,6 @@
     },
     {
       "cases": 355,
-      "entity_id": "waste:serbatoio-in-amianto",
-      "entity_type": "waste_concept",
-      "examples": [
-        {
-          "municipality_istat": "045001",
-          "zone_id": "service-zone:045001:default"
-        },
-        {
-          "municipality_istat": "045002",
-          "zone_id": "service-zone:045002:default"
-        },
-        {
-          "municipality_istat": "045003",
-          "zone_id": "service-zone:045003:default"
-        }
-      ],
-      "label": "Serbatoio in amianto",
-      "question": {
-        "options": [
-          {
-            "hint": "Piccolo intervento eseguito direttamente nell'abitazione",
-            "id": "waste-outcome:small-mixed-household-construction",
-            "label": "Misto da piccolo lavoro domestico"
-          },
-          {
-            "hint": "Rifiuto costituito da cemento separato",
-            "id": "waste-outcome:construction-concrete",
-            "label": "Cemento"
-          },
-          {
-            "hint": "Rifiuto costituito da mattoni separati",
-            "id": "waste-outcome:construction-bricks",
-            "label": "Mattoni"
-          },
-          {
-            "hint": "Piastrelle, sanitari o ceramiche da lavori edili",
-            "id": "waste-outcome:construction-tiles-ceramics",
-            "label": "Mattonelle e ceramiche"
-          },
-          {
-            "hint": "Cartongesso o altro materiale a base di gesso non pericoloso",
-            "id": "waste-outcome:construction-gypsum",
-            "label": "Materiale a base di gesso"
-          },
-          {
-            "hint": "Lana di vetro, lana di roccia o isolante non contenente amianto",
-            "id": "waste-outcome:construction-insulation",
-            "label": "Materiale isolante non pericoloso"
-          },
-          {
-            "hint": "Asfalto o materiale bituminoso non contenente catrame di carbone",
-            "id": "waste-outcome:construction-bituminous",
-            "label": "Miscela bituminosa non pericolosa"
-          },
-          {
-            "hint": "Eternit, cemento-amianto o altro materiale contenente amianto",
-            "id": "waste-outcome:construction-asbestos",
-            "label": "Materiale contenente amianto"
-          },
-          {
-            "hint": "Analisi o documentazione indicano contaminazione pericolosa",
-            "id": "waste-outcome:construction-soil-hazardous",
-            "label": "Terra o rocce contenenti sostanze pericolose"
-          },
-          {
-            "hint": "Terra e rocce non contenenti sostanze pericolose",
-            "id": "waste-outcome:construction-soil-other",
-            "label": "Terra o rocce non pericolose"
-          }
-        ],
-        "text": "Di quale materiale e composto e proviene da un piccolo lavoro domestico?"
-      },
-      "status": "needs_question"
-    },
-    {
-      "cases": 355,
       "entity_id": "waste:serbatoio-per-acqua-plastica",
       "entity_type": "waste_concept",
       "examples": [
@@ -88279,52 +87161,6 @@
       "status": "needs_question"
     },
     {
-      "cases": 297,
-      "entity_id": "waste:televisore",
-      "entity_type": "waste_concept",
-      "examples": [
-        {
-          "municipality_istat": "045003",
-          "zone_id": "service-zone:045003:default"
-        },
-        {
-          "municipality_istat": "045010",
-          "zone_id": "service-zone:045010:default"
-        },
-        {
-          "municipality_istat": "045011",
-          "zone_id": "service-zone:045011:default"
-        }
-      ],
-      "label": "Televisore",
-      "question": {
-        "options": [
-          {
-            "hint": "Lampada o tubo dichiarato contenente mercurio",
-            "id": "waste-outcome:raee-mercury-light",
-            "label": "Tubo fluorescente o sorgente con mercurio"
-          },
-          {
-            "hint": "Frigorifero, congelatore, condizionatore o altro apparecchio con CFC",
-            "id": "waste-outcome:raee-refrigerating",
-            "label": "Apparecchio refrigerante"
-          },
-          {
-            "hint": "L'etichetta o la documentazione segnala componenti pericolosi",
-            "id": "waste-outcome:raee-hazardous-components",
-            "label": "Contiene componenti pericolosi"
-          },
-          {
-            "hint": "Apparecchio diverso dai casi precedenti e senza componenti pericolosi noti",
-            "id": "waste-outcome:raee-other",
-            "label": "Altro RAEE"
-          }
-        ],
-        "text": "Quale caratteristica ha l'apparecchiatura?"
-      },
-      "status": "needs_question"
-    },
-    {
       "cases": 355,
       "entity_id": "waste:televisore-al-plasma",
       "entity_type": "waste_concept",
@@ -89029,67 +87865,6 @@
         }
       ],
       "label": "Termometro",
-      "question": {
-        "options": [
-          {
-            "hint": "Acetone, acquaragia, diluente o altro solvente",
-            "id": "waste-outcome:household-solvent",
-            "label": "Solvente"
-          },
-          {
-            "hint": "Acido o soluzione acida",
-            "id": "waste-outcome:household-acid",
-            "label": "Acido"
-          },
-          {
-            "hint": "Ammoniaca, soda o altra soluzione alcalina",
-            "id": "waste-outcome:household-alkali",
-            "label": "Sostanza alcalina"
-          },
-          {
-            "hint": "Liquido o prodotto usato nello sviluppo fotografico",
-            "id": "waste-outcome:household-photochemical",
-            "label": "Prodotto fotochimico"
-          },
-          {
-            "hint": "Diserbante, erbicida, fungicida, topicida o prodotto simile",
-            "id": "waste-outcome:household-pesticide",
-            "label": "Pesticida o antiparassitario"
-          },
-          {
-            "hint": "Etichettata come contenente sostanze pericolose",
-            "id": "waste-outcome:hazardous-paint-adhesive-resin",
-            "label": "Vernice, adesivo o resina pericolosa"
-          },
-          {
-            "hint": "Detergente o detersivo con classificazione di pericolo",
-            "id": "waste-outcome:hazardous-detergent",
-            "label": "Detergente pericoloso"
-          }
-        ],
-        "text": "Quale tipo di sostanza contiene il rifiuto?"
-      },
-      "status": "needs_question"
-    },
-    {
-      "cases": 399,
-      "entity_id": "waste:termometro-a-mercurio",
-      "entity_type": "waste_concept",
-      "examples": [
-        {
-          "municipality_istat": "045003",
-          "zone_id": "service-zone:045003:default"
-        },
-        {
-          "municipality_istat": "045010",
-          "zone_id": "service-zone:045010:default"
-        },
-        {
-          "municipality_istat": "045011",
-          "zone_id": "service-zone:045011:default"
-        }
-      ],
-      "label": "Termometro a mercurio",
       "question": {
         "options": [
           {
@@ -90060,42 +88835,6 @@
       "status": "needs_question"
     },
     {
-      "cases": 387,
-      "entity_id": "waste:toner-e-cartucce-per-stampanti-solo-utenze-domestiche",
-      "entity_type": "waste_concept",
-      "examples": [
-        {
-          "municipality_istat": "045001",
-          "zone_id": "service-zone:045001:default"
-        },
-        {
-          "municipality_istat": "045002",
-          "zone_id": "service-zone:045002:default"
-        },
-        {
-          "municipality_istat": "045003",
-          "zone_id": "service-zone:045003:default"
-        }
-      ],
-      "label": "Toner e cartucce per stampanti (solo utenze domestiche)",
-      "question": {
-        "options": [
-          {
-            "hint": "Toner o cartuccia domestica senza indicazioni di pericolo",
-            "id": "waste-outcome:non-hazardous-toner",
-            "label": "Non contiene sostanze pericolose"
-          },
-          {
-            "hint": "L'etichetta o la scheda segnala sostanze pericolose",
-            "id": "waste-outcome:hazardous-toner",
-            "label": "Contiene sostanze pericolose"
-          }
-        ],
-        "text": "Il toner o la cartuccia contiene sostanze classificate pericolose?"
-      },
-      "status": "needs_question"
-    },
-    {
       "cases": 419,
       "entity_id": "waste:toner-in-nastri-cartucce-per-stampanti-e-fotocopiatrici",
       "entity_type": "waste_concept",
@@ -91020,57 +89759,6 @@
       "status": "needs_question"
     },
     {
-      "cases": 395,
-      "entity_id": "waste:tubetti-vuoti-in-plastica-o-alluminio-che-contenevano-sostanze-chimiche",
-      "entity_type": "waste_concept",
-      "examples": [
-        {
-          "municipality_istat": "045001",
-          "zone_id": "service-zone:045001:default"
-        },
-        {
-          "municipality_istat": "045002",
-          "zone_id": "service-zone:045002:default"
-        },
-        {
-          "municipality_istat": "045003",
-          "zone_id": "service-zone:045003:default"
-        }
-      ],
-      "label": "Tubetti vuoti in plastica o alluminio che contenevano sostanze chimiche",
-      "question": {
-        "options": [
-          {
-            "hint": "Oggetto domestico prevalentemente metallico, non imballaggio",
-            "id": "waste-outcome:mixed-object-household-metal",
-            "label": "Metallo prevalente"
-          },
-          {
-            "hint": "Oggetto domestico prevalentemente in plastica, non imballaggio",
-            "id": "waste-outcome:mixed-object-household-plastic",
-            "label": "Plastica prevalente"
-          },
-          {
-            "hint": "Oggetto domestico prevalentemente in legno non pericoloso",
-            "id": "waste-outcome:mixed-object-household-wood",
-            "label": "Legno prevalente"
-          },
-          {
-            "hint": "Piccolo oggetto non pericoloso privo di parti elettriche",
-            "id": "waste-outcome:mixed-object-small-residual",
-            "label": "Materiali inseparabili, oggetto piccolo"
-          },
-          {
-            "hint": "Non entra normalmente nel contenitore del residuo",
-            "id": "waste-outcome:mixed-object-bulky",
-            "label": "Oggetto voluminoso"
-          }
-        ],
-        "text": "Qual e il materiale prevalente separabile oppure l'oggetto e voluminoso?"
-      },
-      "status": "needs_question"
-    },
-    {
       "cases": 399,
       "entity_id": "waste:tubetti-vuoti-per-alimenti",
       "entity_type": "waste_concept",
@@ -91877,52 +90565,6 @@
           }
         ],
         "text": "Qual e il materiale prevalente separabile oppure l'oggetto e voluminoso?"
-      },
-      "status": "needs_question"
-    },
-    {
-      "cases": 185,
-      "entity_id": "waste:tubi-e-lampade-al-neon",
-      "entity_type": "waste_concept",
-      "examples": [
-        {
-          "municipality_istat": "045001",
-          "zone_id": "service-zone:045001:default"
-        },
-        {
-          "municipality_istat": "045002",
-          "zone_id": "service-zone:045002:default"
-        },
-        {
-          "municipality_istat": "045003",
-          "zone_id": "service-zone:045003:default"
-        }
-      ],
-      "label": "tubi e lampade al neon",
-      "question": {
-        "options": [
-          {
-            "hint": "Lampada o tubo dichiarato contenente mercurio",
-            "id": "waste-outcome:raee-mercury-light",
-            "label": "Tubo fluorescente o sorgente con mercurio"
-          },
-          {
-            "hint": "Frigorifero, congelatore, condizionatore o altro apparecchio con CFC",
-            "id": "waste-outcome:raee-refrigerating",
-            "label": "Apparecchio refrigerante"
-          },
-          {
-            "hint": "L'etichetta o la documentazione segnala componenti pericolosi",
-            "id": "waste-outcome:raee-hazardous-components",
-            "label": "Contiene componenti pericolosi"
-          },
-          {
-            "hint": "Apparecchio diverso dai casi precedenti e senza componenti pericolosi noti",
-            "id": "waste-outcome:raee-other",
-            "label": "Altro RAEE"
-          }
-        ],
-        "text": "Quale caratteristica ha l'apparecchiatura?"
       },
       "status": "needs_question"
     },
@@ -97020,7 +95662,7 @@
   ],
   "failure_groups": [],
   "failures": [],
-  "generated_at": "2026-08-09T10:45:00+02:00",
+  "generated_at": "2026-08-09T12:00:00+02:00",
   "lexical_similarity_candidates": [
     {
       "coverage": {
@@ -97053,6 +95695,42 @@
       "right": {
         "concept_id": "waste:giocattoli-dipiccole-dimensioni",
         "label": "Giocattoli dipiccole dimensioni"
+      },
+      "similarity": 0.984127
+    },
+    {
+      "coverage": {
+        "left_municipalities": 3,
+        "right_municipalities": 25,
+        "symmetric_difference": 28
+      },
+      "decision": "lexical_similarity_only",
+      "left": {
+        "concept_id": "waste:lampade-e-lampadine-a-risparmio-energetico",
+        "label": "Lampade e lampadine a risparmio energetico"
+      },
+      "portable_routes": {
+        "equivalent": false,
+        "left": {
+          "family_class_ids": [
+            "waste-class:raee"
+          ],
+          "question_id": null
+        },
+        "right": {
+          "eer_codes": [
+            "200121"
+          ],
+          "family_class_ids": [],
+          "family_delivery_channel_ids": [],
+          "family_stream_ids": [],
+          "question_id": null
+        }
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:lampadine-a-risparmio-energetico",
+        "label": "Lampadine a risparmio energetico"
       },
       "similarity": 0.984127
     },
@@ -97320,6 +95998,43 @@
       "right": {
         "concept_id": "waste:biscotto",
         "label": "Biscotto"
+      },
+      "similarity": 0.98
+    },
+    {
+      "coverage": {
+        "left_municipalities": 25,
+        "right_municipalities": 17,
+        "symmetric_difference": 42
+      },
+      "decision": "lexical_similarity_only",
+      "left": {
+        "concept_id": "waste:bombolette-spray-contenenti-gas-infiammabile",
+        "label": "Bombolette spray contenenti gas infiammabile"
+      },
+      "portable_routes": {
+        "equivalent": false,
+        "left": {
+          "eer_codes": [
+            "150111"
+          ],
+          "family_class_ids": [],
+          "family_delivery_channel_ids": [],
+          "family_stream_ids": [],
+          "question_id": null
+        },
+        "right": {
+          "eer_codes": [],
+          "family_class_ids": [],
+          "family_delivery_channel_ids": [],
+          "family_stream_ids": [],
+          "question_id": null
+        }
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:bombolette-spray-contenenti-gas-infiammabili",
+        "label": "Bombolette spray contenenti gas infiammabili"
       },
       "similarity": 0.98
     },
@@ -97664,6 +96379,43 @@
     },
     {
       "coverage": {
+        "left_municipalities": 105,
+        "right_municipalities": 123,
+        "symmetric_difference": 228
+      },
+      "decision": "lexical_similarity_only",
+      "left": {
+        "concept_id": "waste:frigoriferi",
+        "label": "Frigoriferi"
+      },
+      "portable_routes": {
+        "equivalent": false,
+        "left": {
+          "family_class_ids": [
+            "waste-class:bulky",
+            "waste-class:raee"
+          ],
+          "question_id": null
+        },
+        "right": {
+          "eer_codes": [
+            "200123"
+          ],
+          "family_class_ids": [],
+          "family_delivery_channel_ids": [],
+          "family_stream_ids": [],
+          "question_id": null
+        }
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:frigorifero",
+        "label": "Frigorifero"
+      },
+      "similarity": 0.98
+    },
+    {
+      "coverage": {
         "left_municipalities": 98,
         "right_municipalities": 105,
         "symmetric_difference": 203
@@ -97693,6 +96445,42 @@
       "right": {
         "concept_id": "waste:frullatori",
         "label": "Frullatori"
+      },
+      "similarity": 0.98
+    },
+    {
+      "coverage": {
+        "left_municipalities": 65,
+        "right_municipalities": 25,
+        "symmetric_difference": 90
+      },
+      "decision": "lexical_similarity_only",
+      "left": {
+        "concept_id": "waste:lampadina-a-risparmio-energetico",
+        "label": "Lampadina a risparmio energetico"
+      },
+      "portable_routes": {
+        "equivalent": false,
+        "left": {
+          "family_class_ids": [
+            "waste-class:raee"
+          ],
+          "question_id": null
+        },
+        "right": {
+          "eer_codes": [
+            "200121"
+          ],
+          "family_class_ids": [],
+          "family_delivery_channel_ids": [],
+          "family_stream_ids": [],
+          "question_id": null
+        }
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:lampadine-a-risparmio-energetico",
+        "label": "Lampadine a risparmio energetico"
       },
       "similarity": 0.98
     },
@@ -98105,6 +96893,43 @@
     },
     {
       "coverage": {
+        "left_municipalities": 123,
+        "right_municipalities": 1,
+        "symmetric_difference": 124
+      },
+      "decision": "lexical_similarity_only",
+      "left": {
+        "concept_id": "waste:televisore",
+        "label": "Televisore"
+      },
+      "portable_routes": {
+        "equivalent": false,
+        "left": {
+          "eer_codes": [
+            "200135"
+          ],
+          "family_class_ids": [],
+          "family_delivery_channel_ids": [],
+          "family_stream_ids": [],
+          "question_id": null
+        },
+        "right": {
+          "family_class_ids": [
+            "waste-class:bulky",
+            "waste-class:raee"
+          ],
+          "question_id": null
+        }
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:televisori",
+        "label": "Televisori"
+      },
+      "similarity": 0.98
+    },
+    {
+      "coverage": {
         "left_municipalities": 21,
         "right_municipalities": 2,
         "symmetric_difference": 23
@@ -98343,6 +97168,42 @@
     },
     {
       "coverage": {
+        "left_municipalities": 104,
+        "right_municipalities": 25,
+        "symmetric_difference": 129
+      },
+      "decision": "lexical_similarity_only",
+      "left": {
+        "concept_id": "waste:lampade-a-risparmio-energetico",
+        "label": "lampade a risparmio energetico"
+      },
+      "portable_routes": {
+        "equivalent": false,
+        "left": {
+          "family_class_ids": [
+            "waste-class:raee"
+          ],
+          "question_id": null
+        },
+        "right": {
+          "eer_codes": [
+            "200121"
+          ],
+          "family_class_ids": [],
+          "family_delivery_channel_ids": [],
+          "family_stream_ids": [],
+          "question_id": null
+        }
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:lampadine-a-risparmio-energetico",
+        "label": "Lampadine a risparmio energetico"
+      },
+      "similarity": 0.967742
+    },
+    {
+      "coverage": {
         "left_municipalities": 14,
         "right_municipalities": 7,
         "symmetric_difference": 21
@@ -98446,39 +97307,6 @@
     },
     {
       "coverage": {
-        "left_municipalities": 1,
-        "right_municipalities": 21,
-        "symmetric_difference": 22
-      },
-      "decision": "lexical_similarity_only",
-      "left": {
-        "concept_id": "waste:termometri-al-mercurio",
-        "label": "Termometri al mercurio"
-      },
-      "portable_routes": {
-        "equivalent": false,
-        "left": {
-          "family_class_ids": [
-            "waste-class:mercury-household-item"
-          ],
-          "question_id": null
-        },
-        "right": {
-          "family_class_ids": [
-            "waste-class:household-hazardous-chemical"
-          ],
-          "question_id": null
-        }
-      },
-      "review_reason": "Termini molto simili con copertura territoriale diversa",
-      "right": {
-        "concept_id": "waste:termometro-a-mercurio",
-        "label": "Termometro a mercurio"
-      },
-      "similarity": 0.95
-    },
-    {
-      "coverage": {
         "left_municipalities": 25,
         "right_municipalities": 38,
         "symmetric_difference": 63
@@ -98510,6 +97338,43 @@
         "label": "Damigiana senza veste"
       },
       "similarity": 0.947368
+    },
+    {
+      "coverage": {
+        "left_municipalities": 1,
+        "right_municipalities": 25,
+        "symmetric_difference": 26
+      },
+      "decision": "lexical_similarity_only",
+      "left": {
+        "concept_id": "waste:batterie-cellulare",
+        "label": "Batterie cellulare"
+      },
+      "portable_routes": {
+        "equivalent": false,
+        "left": {
+          "eer_codes": [],
+          "family_class_ids": [],
+          "family_delivery_channel_ids": [],
+          "family_stream_ids": [],
+          "question_id": null
+        },
+        "right": {
+          "eer_codes": [
+            "200133"
+          ],
+          "family_class_ids": [],
+          "family_delivery_channel_ids": [],
+          "family_stream_ids": [],
+          "question_id": null
+        }
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:batterie-per-cellulari",
+        "label": "Batterie per cellulari"
+      },
+      "similarity": 0.944444
     },
     {
       "coverage": {
@@ -99487,15 +98352,17 @@
       "portable_routes": {
         "equivalent": true,
         "left": {
-          "family_class_ids": [
-            "waste-class:household-batteries"
-          ],
+          "eer_codes": [],
+          "family_class_ids": [],
+          "family_delivery_channel_ids": [],
+          "family_stream_ids": [],
           "question_id": null
         },
         "right": {
-          "family_class_ids": [
-            "waste-class:household-batteries"
-          ],
+          "eer_codes": [],
+          "family_class_ids": [],
+          "family_delivery_channel_ids": [],
+          "family_stream_ids": [],
           "question_id": null
         }
       },
@@ -100762,39 +99629,6 @@
     },
     {
       "coverage": {
-        "left_municipalities": 3,
-        "right_municipalities": 25,
-        "symmetric_difference": 28
-      },
-      "decision": "equivalent_portable_route",
-      "left": {
-        "concept_id": "waste:lampade-e-lampadine-a-risparmio-energetico",
-        "label": "Lampade e lampadine a risparmio energetico"
-      },
-      "portable_routes": {
-        "equivalent": true,
-        "left": {
-          "family_class_ids": [
-            "waste-class:raee"
-          ],
-          "question_id": null
-        },
-        "right": {
-          "family_class_ids": [
-            "waste-class:raee"
-          ],
-          "question_id": null
-        }
-      },
-      "review_reason": "Termini molto simili con copertura territoriale diversa",
-      "right": {
-        "concept_id": "waste:lampadine-a-risparmio-energetico",
-        "label": "Lampadine a risparmio energetico"
-      },
-      "similarity": 0.984127
-    },
-    {
-      "coverage": {
         "left_municipalities": 130,
         "right_municipalities": 3,
         "symmetric_difference": 133
@@ -101120,39 +99954,6 @@
       "right": {
         "concept_id": "waste:bitumi",
         "label": "Bitumi"
-      },
-      "similarity": 0.98
-    },
-    {
-      "coverage": {
-        "left_municipalities": 25,
-        "right_municipalities": 17,
-        "symmetric_difference": 42
-      },
-      "decision": "equivalent_portable_route",
-      "left": {
-        "concept_id": "waste:bombolette-spray-contenenti-gas-infiammabile",
-        "label": "Bombolette spray contenenti gas infiammabile"
-      },
-      "portable_routes": {
-        "equivalent": true,
-        "left": {
-          "family_class_ids": [
-            "waste-class:packaging-by-material"
-          ],
-          "question_id": null
-        },
-        "right": {
-          "family_class_ids": [
-            "waste-class:packaging-by-material"
-          ],
-          "question_id": null
-        }
-      },
-      "review_reason": "Termini molto simili con copertura territoriale diversa",
-      "right": {
-        "concept_id": "waste:bombolette-spray-contenenti-gas-infiammabili",
-        "label": "Bombolette spray contenenti gas infiammabili"
       },
       "similarity": 0.98
     },
@@ -101917,41 +100718,6 @@
     },
     {
       "coverage": {
-        "left_municipalities": 105,
-        "right_municipalities": 123,
-        "symmetric_difference": 228
-      },
-      "decision": "equivalent_portable_route",
-      "left": {
-        "concept_id": "waste:frigoriferi",
-        "label": "Frigoriferi"
-      },
-      "portable_routes": {
-        "equivalent": true,
-        "left": {
-          "family_class_ids": [
-            "waste-class:bulky",
-            "waste-class:raee"
-          ],
-          "question_id": null
-        },
-        "right": {
-          "family_class_ids": [
-            "waste-class:bulky",
-            "waste-class:raee"
-          ],
-          "question_id": null
-        }
-      },
-      "review_reason": "Termini molto simili con copertura territoriale diversa",
-      "right": {
-        "concept_id": "waste:frigorifero",
-        "label": "Frigorifero"
-      },
-      "similarity": 0.98
-    },
-    {
-      "coverage": {
         "left_municipalities": 65,
         "right_municipalities": 116,
         "symmetric_difference": 181
@@ -102310,39 +101076,6 @@
       "right": {
         "concept_id": "waste:lampadine-a-incandescenza",
         "label": "Lampadine a incandescenza"
-      },
-      "similarity": 0.98
-    },
-    {
-      "coverage": {
-        "left_municipalities": 65,
-        "right_municipalities": 25,
-        "symmetric_difference": 90
-      },
-      "decision": "equivalent_portable_route",
-      "left": {
-        "concept_id": "waste:lampadina-a-risparmio-energetico",
-        "label": "Lampadina a risparmio energetico"
-      },
-      "portable_routes": {
-        "equivalent": true,
-        "left": {
-          "family_class_ids": [
-            "waste-class:raee"
-          ],
-          "question_id": null
-        },
-        "right": {
-          "family_class_ids": [
-            "waste-class:raee"
-          ],
-          "question_id": null
-        }
-      },
-      "review_reason": "Termini molto simili con copertura territoriale diversa",
-      "right": {
-        "concept_id": "waste:lampadine-a-risparmio-energetico",
-        "label": "Lampadine a risparmio energetico"
       },
       "similarity": 0.98
     },
@@ -103571,41 +102304,6 @@
     },
     {
       "coverage": {
-        "left_municipalities": 123,
-        "right_municipalities": 1,
-        "symmetric_difference": 124
-      },
-      "decision": "equivalent_portable_route",
-      "left": {
-        "concept_id": "waste:televisore",
-        "label": "Televisore"
-      },
-      "portable_routes": {
-        "equivalent": true,
-        "left": {
-          "family_class_ids": [
-            "waste-class:bulky",
-            "waste-class:raee"
-          ],
-          "question_id": null
-        },
-        "right": {
-          "family_class_ids": [
-            "waste-class:bulky",
-            "waste-class:raee"
-          ],
-          "question_id": null
-        }
-      },
-      "review_reason": "Termini molto simili con copertura territoriale diversa",
-      "right": {
-        "concept_id": "waste:televisori",
-        "label": "Televisori"
-      },
-      "similarity": 0.98
-    },
-    {
-      "coverage": {
         "left_municipalities": 21,
         "right_municipalities": 12,
         "symmetric_difference": 33
@@ -104171,39 +102869,6 @@
     },
     {
       "coverage": {
-        "left_municipalities": 104,
-        "right_municipalities": 25,
-        "symmetric_difference": 129
-      },
-      "decision": "equivalent_portable_route",
-      "left": {
-        "concept_id": "waste:lampade-a-risparmio-energetico",
-        "label": "lampade a risparmio energetico"
-      },
-      "portable_routes": {
-        "equivalent": true,
-        "left": {
-          "family_class_ids": [
-            "waste-class:raee"
-          ],
-          "question_id": null
-        },
-        "right": {
-          "family_class_ids": [
-            "waste-class:raee"
-          ],
-          "question_id": null
-        }
-      },
-      "review_reason": "Termini molto simili con copertura territoriale diversa",
-      "right": {
-        "concept_id": "waste:lampadine-a-risparmio-energetico",
-        "label": "Lampadine a risparmio energetico"
-      },
-      "similarity": 0.967742
-    },
-    {
-      "coverage": {
         "left_municipalities": 65,
         "right_municipalities": 104,
         "symmetric_difference": 169
@@ -104432,6 +103097,39 @@
       "right": {
         "concept_id": "waste:sveglia-elettronica",
         "label": "Sveglia elettronica"
+      },
+      "similarity": 0.95
+    },
+    {
+      "coverage": {
+        "left_municipalities": 1,
+        "right_municipalities": 21,
+        "symmetric_difference": 22
+      },
+      "decision": "equivalent_portable_route",
+      "left": {
+        "concept_id": "waste:termometri-al-mercurio",
+        "label": "Termometri al mercurio"
+      },
+      "portable_routes": {
+        "equivalent": true,
+        "left": {
+          "family_class_ids": [
+            "waste-class:hazardous-material-unspecified"
+          ],
+          "question_id": null
+        },
+        "right": {
+          "family_class_ids": [
+            "waste-class:hazardous-material-unspecified"
+          ],
+          "question_id": null
+        }
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:termometro-a-mercurio",
+        "label": "Termometro a mercurio"
       },
       "similarity": 0.95
     },
@@ -104696,39 +103394,6 @@
       "right": {
         "concept_id": "waste:barattolo-di-vetro",
         "label": "Barattolo di vetro"
-      },
-      "similarity": 0.944444
-    },
-    {
-      "coverage": {
-        "left_municipalities": 1,
-        "right_municipalities": 25,
-        "symmetric_difference": 26
-      },
-      "decision": "equivalent_portable_route",
-      "left": {
-        "concept_id": "waste:batterie-cellulare",
-        "label": "Batterie cellulare"
-      },
-      "portable_routes": {
-        "equivalent": true,
-        "left": {
-          "family_class_ids": [
-            "waste-class:household-batteries"
-          ],
-          "question_id": null
-        },
-        "right": {
-          "family_class_ids": [
-            "waste-class:household-batteries"
-          ],
-          "question_id": null
-        }
-      },
-      "review_reason": "Termini molto simili con copertura territoriale diversa",
-      "right": {
-        "concept_id": "waste:batterie-per-cellulari",
-        "label": "Batterie per cellulari"
       },
       "similarity": 0.944444
     },
@@ -105204,18 +103869,18 @@
     "alias_term_context_bindings": 16800,
     "approved_alias_groups": 10,
     "approved_alias_search_terms": 40,
-    "checks_per_second": 7173.0,
-    "concepts": 3493,
+    "checks_per_second": 6594.3,
+    "concepts": 3495,
     "concepts_with_territorial_destination": 3479,
     "conditional_outcome_zone_cases": 34020,
     "conditional_outcomes": 81,
     "contexts_with_territorial_evidence": 184704,
-    "contexts_without_territorial_evidence": 1320576,
-    "duration_seconds": 209.853,
+    "contexts_without_territorial_evidence": 1321416,
+    "duration_seconds": 228.396,
     "exact_semantic_review_candidates": 57,
     "failure_counts": {},
     "failures": 0,
-    "lexical_similarity_candidates": 53,
+    "lexical_similarity_candidates": 59,
     "municipalities": 273,
     "municipalities_with_service_zones": 270,
     "municipalities_without_service_zones": 3,
@@ -105224,17 +103889,17 @@
     "near_duplicate_review_candidates": 0,
     "release_ready": true,
     "review_status": "complete",
-    "route_equivalent_duplicate_candidates": 193,
-    "runtime_answer_checks": 1505280,
+    "route_equivalent_duplicate_candidates": 187,
+    "runtime_answer_checks": 1506120,
     "runtime_answer_statuses": {
-      "needs_question": 731160,
-      "resolved": 774120
+      "needs_question": 722995,
+      "resolved": 783125
     },
-    "search_term_bindings": 3502,
+    "search_term_bindings": 3506,
     "service_zones": 417,
     "status": "pass",
     "territorial_alias_zone_cases": 4200,
-    "territorial_concept_zone_cases": 1467060,
-    "total_guaranteed_cases": 1505280
+    "territorial_concept_zone_cases": 1467900,
+    "total_guaranteed_cases": 1506120
   }
 }

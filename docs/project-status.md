@@ -521,14 +521,14 @@ Prima verticale applicativa:
   la risposta segue la guida SEI e indica l'indifferenziato;
 - verificato nel browser il percorso reale `Cartone del latte` a Livorno su
   schermo desktop e mobile, senza errori o scorrimento orizzontale;
-- l'audit della revisione `202608090007` ha eseguito 1.505.280 risposte su
-  3.493 concetti, 10 alias, 81 esiti condizionali e 420 contesti territoriali:
-  774.120 risolte, 731.160 domande definite, zero `not_found`, zero conflitti e
+- l'audit della revisione `202608090008` ha eseguito 1.506.120 risposte su
+  3.495 concetti, 10 alias, 81 esiti condizionali e 420 contesti territoriali:
+  783.125 risolte, 722.995 domande definite, zero `not_found`, zero conflitti e
   zero errori;
-- 190 test automatici superati;
+- 191 test automatici superati;
 - introdotte classi EER portabili e regole di famiglia per separare la
   classificazione del rifiuto dalla destinazione territoriale del gestore;
-- aggiunto l'audit esaustivo dei 3.493 concetti del catalogo e dei 10 gruppi
+- aggiunto l'audit esaustivo dei 3.495 concetti del catalogo e dei 10 gruppi
   canonici deduplicati, con blocco di pubblicazione: al 9 agosto 2026 tutti
   risultano classificati, senza parziali o conflitti, e il dataset supera il
   gate di instradamento;
@@ -539,9 +539,13 @@ Prima verticale applicativa:
   vetro, oli, toner, pneumatici, inerti e recipienti a pressione.
 - aggiunte domande condivise per dimensione, componenti auto, compostabilita,
   oggetti multimateriale, contenuto o confezione, fotovoltaico, combustibili,
-  ceramiche e rifiuti sanitari; il registro conta 37 classi, 81 esiti e 60
+  ceramiche e rifiuti sanitari; il registro conta 38 classi, 81 esiti e 61
   regole di famiglia;
-- pubblicata e applicata la revisione firmata `202608090007`: le regole locali
+- introdotta la precedenza generale di pericolosita: piombo, mercurio, amianto,
+  cadmio, pile e batterie non possono ereditare flussi o EER non pericolosi;
+  l'audit blocca qualsiasi risposta che esponga flusso, contenitore, sacchetto
+  o EER non pericoloso dopo l'attivazione del profilo;
+- pubblicata e applicata la revisione firmata `202608090008`: le regole locali
   hanno precedenza e le classi portabili intervengono quando il comune non
   pubblica una destinazione per il concetto cercato;
 - l'audit copre 273 comuni, 417 zone registrate e tre contesti comunali senza

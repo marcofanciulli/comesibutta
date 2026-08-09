@@ -115,11 +115,20 @@ preparazione. L'EER puo invece collegare il concetto a un centro accessibile nel
 territorio quando quel centro pubblica esplicitamente l'accettazione dello
 stesso codice.
 
-Un concetto puo avere piu EER condizionati da materiale, provenienza e processo
+La pericolosita ha precedenza sulla somiglianza merceologica. Il registro
+definisce profili revisionati per materiali pericolosi e relativi sinonimi e
+negazioni. Quando un profilo si attiva, il motore elimina flussi, contenitori e
+voci EER non pericolose anche se il materiale vi corrisponderebbe in astratto:
+il mercurio non diventa `Metalli` e il piombo non diventa `20 01 40`. La
+risposta puo conservare soltanto un EER pericoloso verificato o un canale di
+gestione separata; in mancanza del primo non assegna alcun codice.
+
+Un concetto non pericoloso puo avere piu EER condizionati da materiale, provenienza e processo
 che ha generato il rifiuto. Se un centro locale accetta una sola delle
 classificazioni compatibili, l'app puo proporre quel centro mostrando codice e
 condizione. Se piu codici restano possibili, non ne sceglie uno implicitamente:
-deve chiedere il dettaglio discriminante all'utente. Per esempio `Rame` puo
+deve chiedere il dettaglio discriminante all'utente. Per esempio `Rame`, quando
+non contaminato, puo
 ricadere in `20 01 40` come metallo domestico raccolto separatamente oppure in
 `17 04 01` se proviene da costruzione o demolizione.
 
