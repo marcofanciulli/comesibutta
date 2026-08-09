@@ -4,10 +4,10 @@
   "municipality": "Montecatini Val di Cecina",
   "pages_available": 13,
   "pages_materialized": 11,
-  "records": 259,
+  "records": 258,
   "records_by_type": {
     "collection_point": 4,
-    "collection_rule": 7,
+    "collection_rule": 6,
     "collection_schedule": 10,
     "facility": 2,
     "facility_acceptance": 37,

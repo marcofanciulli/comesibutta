@@ -347,6 +347,75 @@ class ReaExtractorTest(unittest.TestCase):
         self.assertEqual("marrone", organic["payload"]["container_color"])
         self.assertEqual(1, sum(record["record_type"] == "pickup_service" for record in records))
 
+    def test_extracts_each_rea_stream_from_its_own_section(self) -> None:
+        collection = """<main class="zui-content"><h1>Raccolta stradale</h1>
+        <p>La raccolta consiste nella collocazione dei rifiuti in sacchetti chiusi
+        in specifici cassonetti situati in strada.</p>
+        <p><strong>Imballaggi in Carta e cartone</strong></p>
+        <ul><li>Raccolta stradale da cassonetti bianchi<br>
+        Raccomandazioni: schiacciare i cartoni.</li></ul>
+        <p><strong>Imballaggi in Multimateriale pesante (imballaggi in plastica,
+        acciaio, alluminio, vetro e poliaccoppiato)</strong></p>
+        <ul><li>Raccolta stradale da cassonetti blu<br>
+        Raccomandazioni: schiacciare le bottiglie.</li></ul></main>"""
+        records, warnings = extract_rea_collection_pages(
+            MunicipalityContext("Cecina", "049007", "cecina"),
+            datetime.fromisoformat("2026-08-06T18:00:00+02:00"),
+            [("https://www.reaspa.it/servizi/raccolta-stradale/?utenza=domestica", collection)],
+        )
+        self.assertEqual([], warnings)
+        rules = {
+            record["payload"]["stream_name"]: record["payload"]
+            for record in records if record["record_type"] == "collection_rule"
+        }
+        paper = rules["Carta e cartone"]
+        self.assertEqual("cassonetto", paper["container_type"])
+        self.assertEqual("bianco", paper["container_color"])
+        self.assertNotIn("multimateriale", paper["presentation"]["instructions_raw"].casefold())
+        multimaterial = rules["Imballaggi in multimateriale"]
+        self.assertEqual("cassonetto", multimaterial["container_type"])
+        self.assertEqual("blu", multimaterial["container_color"])
+        self.assertEqual("bag_unspecified", multimaterial["presentation"]["mode"])
+        self.assertIn("poliaccoppiato", multimaterial["included_materials_raw"])
+        self.assertLess(len(multimaterial["presentation"]["instructions_raw"]), 200)
+
+    def test_phone_green_is_not_a_container_color(self) -> None:
+        collection = """<main><h1>Raccolta stradale</h1>
+        <p><strong>Carta e cartone</strong></p>
+        <p>Servizio porta a porta su richiesta al numero verde.</p>
+        <p><strong>Imballaggi in Carta e cartone</strong></p>
+        <ul><li>Raccolta stradale da cassonetti bianchi.</li></ul></main>"""
+        records, _ = extract_rea_collection_pages(
+            MunicipalityContext("Cecina", "049007", "cecina"),
+            datetime.fromisoformat("2026-08-06T18:00:00+02:00"),
+            [("https://www.reaspa.it/servizi/raccolta-stradale/?utenza=non-domestica", collection)],
+        )
+        rules = [
+            record["payload"] for record in records
+            if record["record_type"] == "collection_rule"
+        ]
+        requested = next(
+            rule for rule in rules if rule["collection_method"] == "door_to_door"
+        )
+        self.assertIsNone(requested["container_color"])
+        street = next(
+            rule for rule in rules if rule["collection_method"] == "street"
+        )
+        self.assertEqual("bianco", street["container_color"])
+        self.assertEqual("all", street["user_type"])
+
+    def test_does_not_invent_collection_rules_from_other_service_pages(self) -> None:
+        compost = """<main><h1>Compostaggio domestico</h1>
+        <p>Il contenitore accoglie la frazione organica.</p></main>"""
+        records, warnings = extract_rea_collection_pages(
+            MunicipalityContext("Cecina", "049007", "cecina"),
+            datetime.fromisoformat("2026-08-06T18:00:00+02:00"),
+            [("https://www.reaspa.it/servizi/compostaggio-domestico/", compost)],
+        )
+        self.assertEqual([], [
+            record for record in records if record["record_type"] == "collection_rule"
+        ])
+
     def test_preserves_centre_materials_without_inventing_eer_codes(self) -> None:
         html = """<main class="zui-content"><h1>Cecina</h1>
         <p>Quando: lunedi 8:00-12:00</p><p>Dove siamo: Cecina, Via Pasubio 130</p>

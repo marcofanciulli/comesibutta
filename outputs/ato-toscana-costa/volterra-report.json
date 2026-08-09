@@ -4,9 +4,9 @@
   "municipality": "Volterra",
   "pages_available": 15,
   "pages_materialized": 12,
-  "records": 241,
+  "records": 237,
   "records_by_type": {
-    "collection_rule": 16,
+    "collection_rule": 12,
     "collection_schedule": 12,
     "facility": 1,
     "facility_acceptance": 14,

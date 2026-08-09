@@ -4,9 +4,9 @@
   "municipality": "Bibbona",
   "pages_available": 42,
   "pages_materialized": 35,
-  "records": 253,
+  "records": 250,
   "records_by_type": {
-    "collection_rule": 24,
+    "collection_rule": 21,
     "collection_schedule": 14,
     "facility": 1,
     "facility_acceptance": 15,

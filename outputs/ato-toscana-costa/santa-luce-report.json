@@ -4,10 +4,10 @@
   "municipality": "Santa Luce",
   "pages_available": 28,
   "pages_materialized": 26,
-  "records": 223,
+  "records": 218,
   "records_by_type": {
     "collection_point": 4,
-    "collection_rule": 15,
+    "collection_rule": 10,
     "collection_schedule": 9,
     "pickup_service": 3,
     "service_zone": 2,

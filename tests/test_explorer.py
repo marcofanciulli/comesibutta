@@ -118,7 +118,7 @@ class ExplorerDatasetTest(unittest.TestCase):
             WORKSPACE / "outputs" / "eer-register.json",
         )
         self.assertEqual(154, dataset["batch"]["municipalities_acquired"])
-        self.assertEqual(25501, len(dataset["records"]))
+        self.assertEqual(25438, len(dataset["records"]))
         self.assertEqual(3484, len(dataset["catalog"]["concepts"]))
         self.assertEqual(880, len(dataset["eer_register"]["entries"]))
         self.assertEqual("2026-12-09", dataset["eer_register"]["valid_from"])

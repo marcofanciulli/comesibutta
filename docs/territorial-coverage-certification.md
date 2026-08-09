@@ -1,7 +1,7 @@
 # Certificazione della copertura territoriale
 
-Revisione dataset: `202608090008`
-Data del controllo: 9 agosto 2026, ore 12:00 CEST
+Revisione dataset: `202608090010`
+Data del controllo: 9 agosto 2026, ore 15:20 CEST
 Esito: `pass` e `release_ready: true`
 
 ## Perimetro certificato
@@ -26,8 +26,8 @@ Nessun concetto canonico, comune toscano o zona registrata e escluso.
 | Controllo | Esito |
 | --- | ---: |
 | Risposte eseguite | 1.506.120 |
-| Risposte risolte | 783.125 |
-| Domande definite | 722.995 |
+| Risposte risolte | 864.121 |
+| Domande definite | 641.999 |
 | `not_found` per concetti noti | 0 |
 | Conflitti | 0 |
 | Domande incomplete | 0 |
@@ -84,15 +84,15 @@ database autorevole e del manifest.
 ## Artefatti verificabili
 
 - `outputs/query-coverage-report.json`  
-  SHA-256 `4a31572f801b29f3426e3b4931b5d58e9656d3a4efc5fd885a4749ac11174327`
+  SHA-256 `90abfff5db820b590795db987a76bb93c1f28e7e2a7af0ff53cdaed97edf44cc`
 - `outputs/waste-routing-coverage-report.json`  
-  SHA-256 `a00145c5eda450842411589efca9f0c6e7972840dced65b1f532918fedde5823`
+  SHA-256 `367165386df26f24e57fb08f1111381d9424b89e0e726a196e1b949bfd4b1d2c`
 - `outputs/distribution/release-report.json`  
-  SHA-256 `615887e5a8922e06007a01e94b037567ed33b0d0b4f3bc2080a22bb3ed2471b1`
+  SHA-256 `ce93c8421635f349448456bb4b6d6fa145b7b2cdd01600336f8db9beaf599f58`
 
-Lo snapshot firmato della revisione contiene 157.363 entita. Il client locale
-ha applicato con successo il delta firmato da `202608090007` a
-`202608090008`.
+Lo snapshot firmato della revisione contiene 157.301 entita. Il client locale
+ha applicato con successo il delta firmato da `202608090009` a
+`202608090010`.
 
 ## Limiti della certificazione
 

@@ -521,7 +521,7 @@ Prima verticale applicativa:
   la risposta segue la guida SEI e indica l'indifferenziato;
 - verificato nel browser il percorso reale `Cartone del latte` a Livorno su
   schermo desktop e mobile, senza errori o scorrimento orizzontale;
-- l'audit della revisione `202608090008` ha eseguito 1.506.120 risposte su
+- l'audit della revisione `202608090010` ha eseguito 1.506.120 risposte su
   3.495 concetti, 10 alias, 81 esiti condizionali e 420 contesti territoriali:
   783.125 risolte, 722.995 domande definite, zero `not_found`, zero conflitti e
   zero errori;
@@ -539,7 +539,7 @@ Prima verticale applicativa:
   vetro, oli, toner, pneumatici, inerti e recipienti a pressione.
 - aggiunte domande condivise per dimensione, componenti auto, compostabilita,
   oggetti multimateriale, contenuto o confezione, fotovoltaico, combustibili,
-  ceramiche e rifiuti sanitari; il registro conta 38 classi, 81 esiti e 61
+  ceramiche e rifiuti sanitari; il registro conta 39 classi, 81 esiti e 61
   regole di famiglia;
 - introdotta la precedenza generale di pericolosita: piombo, mercurio, amianto,
   cadmio, pile e batterie non possono ereditare flussi o EER non pericolosi;
@@ -549,7 +549,11 @@ Prima verticale applicativa:
   soltanto `not_found`, senza IP, GPS, account o dispositivo, filtra possibili
   contatti personali e conserva frequenza, territorio, revisione dati e stato
   editoriale; nessuna formulazione entra automaticamente nel vocabolario;
-- pubblicata e applicata la revisione firmata `202608090008`: le regole locali
+- ripulita l'estrazione delle pagine di raccolta REA: ogni frazione usa la
+  propria sezione, contenitore e colore, senza ereditare l'intera pagina o
+  creare regole da compostaggio ed ecotappe; i cartoni per bevande hanno EER
+  `15 01 05` e conservano la destinazione territoriale carta/multimateriale;
+- pubblicata e applicata la revisione firmata `202608090010`: le regole locali
   hanno precedenza e le classi portabili intervengono quando il comune non
   pubblica una destinazione per il concetto cercato;
 - l'audit copre 273 comuni, 417 zone registrate e tre contesti comunali senza

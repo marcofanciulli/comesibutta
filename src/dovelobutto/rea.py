@@ -420,7 +420,10 @@ def crawl_rea_services(
 
 
 def _source(url: str, retrieved_at: datetime, html: str, parser: str) -> SourceDocument:
-    return SourceDocument(url, retrieved_at, html, publisher="REA S.p.A.", parser=parser, parser_version="0.2.0")
+    return SourceDocument(
+        url, retrieved_at, html, publisher="REA S.p.A.", parser=parser,
+        parser_version="0.3.0",
+    )
 
 
 def _pdf_bbox_words(path: Path) -> tuple[list[dict[str, Any]], str]:
@@ -986,6 +989,94 @@ def _accepted_descriptions(content: Element) -> list[str]:
     return descriptions
 
 
+def _stream_from_heading(value: str) -> tuple[str, str] | None:
+    normalized = clean_text(value).casefold()
+    headings = (
+        ("secco residuo", "Rifiuto residuo"),
+        ("indifferenziato", "Rifiuto residuo"),
+        ("carta e cartone", "Carta e cartone"),
+        ("multimateriale", "Imballaggi in multimateriale"),
+        ("organico", "Rifiuti organici"),
+        ("vetro", "Vetro"),
+    )
+    return next(
+        ((token, stream) for token, stream in headings if token in normalized),
+        None,
+    )
+
+
+def _section_after_heading(heading: Element) -> str:
+    anchor = heading.parent if heading.tag == "strong" and heading.parent else heading
+    if anchor.parent is None:
+        return clean_text(anchor.text)
+    siblings = anchor.parent.children
+    start = next(
+        (index for index, sibling in enumerate(siblings) if sibling is anchor),
+        None,
+    )
+    if start is None:
+        return clean_text(anchor.text)
+    parts = [anchor.text]
+    for sibling in siblings[start + 1:]:
+        if isinstance(sibling, str):
+            if clean_text(sibling):
+                parts.append(sibling)
+            continue
+        is_heading = sibling.tag in {"h2", "h3", "h4", "h5"} or bool(
+            sibling.find_first(lambda item: item.tag == "strong")
+        )
+        if is_heading:
+            break
+        parts.append(sibling.text)
+    return clean_text(" ".join(parts))
+
+
+def _collection_sections(content: Element) -> list[tuple[str, str, str]]:
+    sections: list[tuple[str, str, str]] = []
+    for heading in content.find_all(
+        lambda item: item.tag in {"h2", "h3", "h4", "h5", "strong"}
+    ):
+        matched = _stream_from_heading(heading.text)
+        if matched is None:
+            continue
+        _, stream = matched
+        section = _section_after_heading(heading)
+        sections.append((stream, clean_text(heading.text), section))
+    return sections
+
+
+def _collection_container(section: str) -> tuple[str | None, str | None]:
+    lowered = section.casefold()
+    container = next((
+        value for marker, value in (
+            ("cassonett", "cassonetto"),
+            ("campana", "campana"),
+            ("bidone", "bidone"),
+            ("contenitor", "contenitore"),
+        ) if marker in lowered
+    ), None)
+    color_markers = (
+        ("giall", "giallo"),
+        ("grigi", "grigio"),
+        ("marron", "marrone"),
+        ("blu", "blu"),
+        ("verd", "verde"),
+        ("bianc", "bianco"),
+    )
+    color_context = ""
+    context_match = re.search(
+        r"(?:cassonett\w*|campan\w*|bidon\w*|contenitor\w*|colore)"
+        r".{0,80}",
+        lowered,
+    )
+    if context_match:
+        color_context = context_match.group(0)
+    color = next((
+        value for marker, value in color_markers if marker in color_context
+    ), None)
+    return container, color
+
+
 def extract_rea_collection_pages(
     context: MunicipalityContext,
     retrieved_at: datetime,
@@ -1021,25 +1112,77 @@ def extract_rea_collection_pages(
                 methods.append({"method": "phone", "value": phone.attrs["href"].removeprefix("tel:"), "hours_raw": None})
             records.append(make_record(record_type="pickup_service", natural_key=natural_key, payload={"municipality_ref": context.municipality_ref, "zone_ref": None, "user_type": "domestic", "accepted_waste_raw": accepted, "booking_methods": methods, "max_items": None, "quantity_limit_raw": None, "placement_instructions_raw": text[:4000], "booking_required": True}, source=source, evidence_selector="main", evidence_quote=text[:1000]))
             continue
-        method = "street" if "stradale" in path else "door_to_door" if "porta" in lowered else "other"
-        user_type = "all" if "utenze non domestiche" in lowered and "utenze domestiche" in lowered else "non_domestic" if "utenze non domestiche" in lowered else "domestic" if "utenze domestiche" in lowered else "all"
-        for token, stream in _STREAMS:
-            position = lowered.find(token)
-            if position < 0:
-                continue
-            key = f"{method}:{user_type}:{_slug(stream)}"
+        if not any(marker in path for marker in ("raccolta-stradale", "porta-a-porta")):
+            continue
+        page_method = "street" if "stradale" in path else "door_to_door"
+        query = dict(parse_qsl(urlparse(url).query))
+        user_type = {
+            "domestica": "domestic",
+            "non-domestica": "non_domestic",
+        }.get(query.get("utenza", ""), "all")
+        general_bag_rule = bool(re.search(
+            r"collocazione dei rifiuti in sacchetti chiusi.{0,120}cassonetti",
+            lowered,
+        ))
+        for stream, heading, section in _collection_sections(_main(root)):
+            section_lowered = section.casefold()
+            method = (
+                "door_to_door" if "porta a porta" in section_lowered
+                else page_method
+            )
+            generic_heading = clean_text(heading).casefold().startswith(
+                ("imballaggi", "secco residuo")
+            ) or "solo dove attiva" in section_lowered
+            section_user_type = (
+                "non_domestic" if "utenze non domestiche" in section_lowered
+                else "domestic" if "utenze domestiche" in section_lowered
+                else "all" if generic_heading
+                else user_type
+            )
+            key = f"{method}:{section_user_type}:{_slug(stream)}"
             if key in seen:
                 continue
             seen.add(key)
-            window = lowered[max(0, position - 100):position + 700]
-            container = None
-            mode = "unspecified"
-            if "compostabil" in window:
-                container, mode = "sacco compostabile", "compostable_bag"
-            elif "sacco" in window or "sacchet" in window:
-                container, mode = "sacco", "bag_unspecified"
-            color = next((candidate for candidate in ("giallo", "grigio", "marrone", "blu", "verde", "bianco") if candidate in window), None)
-            records.append(make_record(record_type="collection_rule", natural_key=f"collection-rule:{context.istat_code}:default:{key}", payload={"municipality_ref": context.municipality_ref, "zone_ref": zone_ref, "user_type": user_type, "collection_method": method, "stream_name": stream, "included_materials_raw": None, "container_type": container, "container_color": color, "access_credential": None, "presentation": {"mode": mode, "max_volume_l": None, "instructions_raw": text[:3000]}, "schedule_raw": None}, source=source, evidence_selector="main", evidence_quote=text[:1000], confidence="medium"))
+            container, color = _collection_container(section)
+            if "compostabil" in section_lowered:
+                mode = "compostable_bag"
+            elif "sacco" in section_lowered or "sacchet" in section_lowered or general_bag_rule:
+                mode = "bag_unspecified"
+            else:
+                mode = "unspecified"
+            materials_match = re.search(r"\(([^()]*(?:imballagg|plastic|accia|allumin|vetr|poliacc)[^()]*)\)", heading, re.IGNORECASE)
+            instructions = re.sub(
+                r"^.*?raccolta\s+(?:stradale|porta\s+a\s+porta)\s*",
+                "Raccolta ", section, count=1, flags=re.IGNORECASE,
+            )
+            records.append(make_record(
+                record_type="collection_rule",
+                natural_key=f"collection-rule:{context.istat_code}:default:{key}",
+                payload={
+                    "municipality_ref": context.municipality_ref,
+                    "zone_ref": zone_ref,
+                    "user_type": section_user_type,
+                    "collection_method": method,
+                    "stream_name": stream,
+                    "included_materials_raw": (
+                        clean_text(materials_match.group(1))
+                        if materials_match else None
+                    ),
+                    "container_type": container,
+                    "container_color": color,
+                    "access_credential": None,
+                    "presentation": {
+                        "mode": mode,
+                        "max_volume_l": None,
+                        "instructions_raw": clean_text(instructions),
+                    },
+                    "schedule_raw": None,
+                },
+                source=source,
+                evidence_selector="main",
+                evidence_quote=section[:1000],
+                confidence="medium",
+            ))
     if not zone_added:
         warnings.append({"code": "collection_rules_missing", "detail": "Nessuna regola di raccolta estraibile dalle pagine REA acquisite", "url": ""})
     return records, warnings

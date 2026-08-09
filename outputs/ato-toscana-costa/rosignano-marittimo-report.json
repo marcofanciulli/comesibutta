@@ -4,10 +4,10 @@
   "municipality": "Rosignano Marittimo",
   "pages_available": 34,
   "pages_materialized": 25,
-  "records": 230,
+  "records": 229,
   "records_by_type": {
     "collection_point": 3,
-    "collection_rule": 7,
+    "collection_rule": 6,
     "collection_schedule": 3,
     "facility": 1,
     "facility_acceptance": 20,

@@ -4,9 +4,8 @@
   "municipality": "Monteverdi Marittimo",
   "pages_available": 12,
   "pages_materialized": 10,
-  "records": 213,
+  "records": 209,
   "records_by_type": {
-    "collection_rule": 4,
     "facility": 1,
     "facility_acceptance": 13,
     "facility_access": 1,

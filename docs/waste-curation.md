@@ -60,7 +60,7 @@ fisica, possono invece comporsi.
 
 ## Contenuto iniziale
 
-Il registro comprende inoltre 38 classi portabili e 61 regole di famiglia. Le
+Il registro comprende inoltre 39 classi portabili e 61 regole di famiglia. Le
 domande condivise coprono, fra gli altri, RAEE, imballaggi contaminati o misti,
 metalli, plastiche, legno, vetro, oli, toner, inerti e recipienti a pressione.
 

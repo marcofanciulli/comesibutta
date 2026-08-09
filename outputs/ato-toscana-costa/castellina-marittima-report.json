@@ -4,9 +4,9 @@
   "municipality": "Castellina Marittima",
   "pages_available": 36,
   "pages_materialized": 29,
-  "records": 244,
+  "records": 239,
   "records_by_type": {
-    "collection_rule": 18,
+    "collection_rule": 13,
     "collection_schedule": 8,
     "facility": 1,
     "facility_acceptance": 20,

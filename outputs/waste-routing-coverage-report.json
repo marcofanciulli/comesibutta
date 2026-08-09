@@ -36,7 +36,7 @@
       "portable_classification": true,
       "preferred_label": "Cartone per bevande (Tetra Pak)",
       "status": "classified",
-      "waste_class_id": "waste-class:packaging-by-material"
+      "waste_class_id": "waste-class:beverage-carton"
     },
     {
       "group_id": "waste-alias:cork-stopper",
@@ -1496,7 +1496,7 @@
       "concept_id": "waste:acquaragia-contenitore-vuoto",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -4709,7 +4709,7 @@
       "concept_id": "waste:antiruggine-contenitore-vuoto",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -8813,7 +8813,7 @@
       "concept_id": "waste:banda-stagnata",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -8923,7 +8923,7 @@
       "concept_id": "waste:barattolame",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -8956,7 +8956,7 @@
       "concept_id": "waste:barattolame-per-alimenti-sia-per-l-uomo-che-per-gli-animali",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -8989,7 +8989,7 @@
       "concept_id": "waste:barattolame-per-alimenti-sia-per-l-uomo-che-per-gli-animali-es-pomodoro-tonno-sardine-carne-caffe-etc",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -9259,7 +9259,7 @@
       "concept_id": "waste:barattoli-latta",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -10012,7 +10012,7 @@
       "concept_id": "waste:barattolo-di-latta",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -10650,7 +10650,7 @@
       "concept_id": "waste:barattolo-rivestito-internamente",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -10837,7 +10837,7 @@
       "concept_id": "waste:barbecue-usa-e-getta",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -14679,7 +14679,7 @@
       "concept_id": "waste:big-bag-sacco-in-polipropilene",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -16410,7 +16410,7 @@
       "concept_id": "waste:blister-e-contenitori-rigidi-sagomati",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -16478,7 +16478,7 @@
       "concept_id": "waste:blister-lenti-a-contatto-usa-e-getta",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -16581,7 +16581,7 @@
       "concept_id": "waste:blister-medicinali-vuoti",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -16649,7 +16649,7 @@
       "concept_id": "waste:blister-vuoto",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -17024,7 +17024,7 @@
       "concept_id": "waste:boccione-per-acqua-per-ufficio",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -17100,7 +17100,7 @@
       "concept_id": "waste:bolle-di-sapone-barattolino",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -17437,7 +17437,7 @@
       "concept_id": "waste:bomboletta-deodorante-esaurita",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -17570,7 +17570,7 @@
       "concept_id": "waste:bomboletta-lacca-esaurita",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -17636,7 +17636,7 @@
       "concept_id": "waste:bomboletta-profumo-esaurita",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -17669,7 +17669,7 @@
       "concept_id": "waste:bomboletta-schiuma-da-barba-esaurita",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -17809,7 +17809,7 @@
       "concept_id": "waste:bomboletta-spuma-per-capelli-esaurita",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -17842,7 +17842,7 @@
       "concept_id": "waste:bomboletta-stelle-filanti-esaurita",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -18940,7 +18940,7 @@
       "concept_id": "waste:borsa-riutilizzabile-per-la-spesa",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -19043,7 +19043,7 @@
       "concept_id": "waste:borsa-termica-per-surgelati-supermercato",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -20614,7 +20614,7 @@
       "concept_id": "waste:brick-c-pap-84-tetra-pak",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -20647,7 +20647,7 @@
       "concept_id": "waste:brick-latte",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -20680,7 +20680,7 @@
       "concept_id": "waste:brick-succo",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -20713,7 +20713,7 @@
       "concept_id": "waste:brick-vino",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -20746,7 +20746,7 @@
       "concept_id": "waste:brik-del-latte-o-dei-succhi-di-frutta-etc",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -20779,7 +20779,7 @@
       "concept_id": "waste:brik-es-contenitori-del-latte",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -20812,7 +20812,7 @@
       "concept_id": "waste:brik-tipo-tetra-pak",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -20845,7 +20845,7 @@
       "concept_id": "waste:brik-vpack",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -21669,7 +21669,7 @@
       "concept_id": "waste:burro-di-cacao-stick",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -21737,7 +21737,7 @@
       "concept_id": "waste:burrocacao-stick",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -21770,7 +21770,7 @@
       "concept_id": "waste:bussolotto-sopresa-per-ovetti-di-cioccolato",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -21902,7 +21902,7 @@
       "concept_id": "waste:busta-caffe-sottovuoto",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -21935,7 +21935,7 @@
       "concept_id": "waste:busta-cialde-caffe-o-the",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -21968,7 +21968,7 @@
       "concept_id": "waste:busta-cibo-secco-per-cani-o-gatti",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -22001,7 +22001,7 @@
       "concept_id": "waste:busta-cibo-umido-per-cani-o-gatti",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -22067,7 +22067,7 @@
       "concept_id": "waste:busta-copri-abiti-trasparente-tintoria",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -22232,7 +22232,7 @@
       "concept_id": "waste:busta-del-tabacco",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -22265,7 +22265,7 @@
       "concept_id": "waste:busta-delle-mozzarella",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -22463,7 +22463,7 @@
       "concept_id": "waste:busta-di-zampone-o-cotechino",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -22496,7 +22496,7 @@
       "concept_id": "waste:busta-formaggio-grattugiato",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -22595,7 +22595,7 @@
       "concept_id": "waste:busta-nere-della-spazzatura",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -22628,7 +22628,7 @@
       "concept_id": "waste:busta-patatine",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -22730,7 +22730,7 @@
       "concept_id": "waste:busta-proteggiabiti-lavanderia",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -22862,7 +22862,7 @@
       "concept_id": "waste:busta-surgelati",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -22895,7 +22895,7 @@
       "concept_id": "waste:busta-termica-per-surgelati",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -23177,7 +23177,7 @@
       "concept_id": "waste:buste-per-il-confezionamento-di-capi-di-abbigliamento",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -23276,7 +23276,7 @@
       "concept_id": "waste:bustina-campioncino-cosmetico-vuota",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -23408,7 +23408,7 @@
       "concept_id": "waste:bustina-della-cialda-del-caffe",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -23474,7 +23474,7 @@
       "concept_id": "waste:bustina-delle-salse-monoporzione",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -23639,7 +23639,7 @@
       "concept_id": "waste:bustine-del-ketchup-monoporzione",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -23672,7 +23672,7 @@
       "concept_id": "waste:bustine-del-miele-monoporzione",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -23705,7 +23705,7 @@
       "concept_id": "waste:bustine-della-maionese-monoporzione",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -23802,7 +23802,7 @@
       "concept_id": "waste:bustine-salsa-bbq-monoporzione",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -24037,7 +24037,7 @@
       "concept_id": "waste:caffe",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -26743,7 +26743,7 @@
       "concept_id": "waste:capsula-ovetto-cioccolato",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -26978,7 +26978,7 @@
       "concept_id": "waste:capsule-del-caffe-se-vuotata-del-caffe",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -27116,7 +27116,7 @@
       "concept_id": "waste:capsule-per-bottiglie",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -27149,7 +27149,7 @@
       "concept_id": "waste:capsule-per-sistemi-erogatori-di-bevande-caffe-cioccolata-etc-svuotate-dopo-l-uso",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -28808,7 +28808,7 @@
       "concept_id": "waste:carta-caramella",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -28841,7 +28841,7 @@
       "concept_id": "waste:carta-caramelle-plastificata",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -29921,7 +29921,7 @@
       "concept_id": "waste:carta-dell-uovo-di-pasqua-plastificata",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -29954,7 +29954,7 @@
       "concept_id": "waste:carta-della-caramella",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -29987,7 +29987,7 @@
       "concept_id": "waste:carta-delle-caramelle",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -30885,7 +30885,7 @@
       "concept_id": "waste:carta-regalo-plastificata",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -31054,7 +31054,7 @@
       "concept_id": "waste:carta-stagnola",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -31360,7 +31360,7 @@
       "concept_id": "waste:carta-uovo-di-pasqua",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -31393,7 +31393,7 @@
       "concept_id": "waste:carta-uovo-pasquale",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -32082,7 +32082,7 @@
       "concept_id": "waste:cartone-del-latte-tetra-pak",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -32356,7 +32356,7 @@
       "concept_id": "waste:cartone-latte",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -32466,7 +32466,7 @@
       "concept_id": "waste:cartone-per-bevande",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -32668,7 +32668,7 @@
       "concept_id": "waste:cartone-tetra-pak",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -32983,7 +32983,7 @@
       "concept_id": "waste:cartoni-per-alimenti-bevande-tetrapak",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -33056,7 +33056,7 @@
       "concept_id": "waste:cartoni-per-bevande-es-in-tetra-pak",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -33165,7 +33165,7 @@
       "concept_id": "waste:cartuccia-aria-compressa",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -35735,7 +35735,7 @@
       "concept_id": "waste:cellophane-delle-riviste",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -35768,7 +35768,7 @@
       "concept_id": "waste:cellophane-es-sacchetti-di-pasta-e-delle-merendine",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -35801,7 +35801,7 @@
       "concept_id": "waste:cellophane-pellicola",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -37881,8 +37881,8 @@
       "concept_id": "waste:chiavi",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:bulky",
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton",
+        "waste-class:bulky"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -38246,7 +38246,7 @@
       "concept_id": "waste:chiusura-metallizzata-yogurt",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -39505,7 +39505,7 @@
       "concept_id": "waste:cioccolatini",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -41291,7 +41291,7 @@
       "concept_id": "waste:confezione-c-pap-84-tipo-tetra-pak",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -41456,7 +41456,7 @@
       "concept_id": "waste:confezione-patatine",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -41489,7 +41489,7 @@
       "concept_id": "waste:confezione-tipo-purina-cibo-cani",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -41522,7 +41522,7 @@
       "concept_id": "waste:confezione-wurstel",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -41660,7 +41660,7 @@
       "concept_id": "waste:confezioni-per-alimenti-imballaggi-in-multimateriale",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -41695,7 +41695,7 @@
       "concept_id": "waste:confezioni-rigide-flessibili-per-alimenti-in-genere-es-affettati-formaggi-frutta-e-verdura-etc",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -42177,7 +42177,7 @@
       "concept_id": "waste:contenitore-ceretta-depilatoria",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -42343,7 +42343,7 @@
       "concept_id": "waste:contenitore-latte-tetrapack",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -42442,7 +42442,7 @@
       "concept_id": "waste:contenitore-per-liquidi-in-tetra-pak",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -42677,7 +42677,7 @@
       "concept_id": "waste:contenitore-succhi",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -42776,7 +42776,7 @@
       "concept_id": "waste:contenitori-di-articoli-da-cancelleria",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -42842,7 +42842,7 @@
       "concept_id": "waste:contenitori-di-prodotti-per-igiene-personale",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -42945,7 +42945,7 @@
       "concept_id": "waste:contenitori-filo-interdentale",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -43052,7 +43052,7 @@
       "concept_id": "waste:contenitori-per-bevande-ed-alimenti-in-c-pap-84-es-tetra-pak-pure-pak",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -43187,7 +43187,7 @@
       "concept_id": "waste:contenitori-per-yogurt-e-dessert",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -43220,7 +43220,7 @@
       "concept_id": "waste:contenitori-vuoti-di-prodotti-per-l-igiene-personale-e-della-casa",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -43321,8 +43321,8 @@
       "concept_id": "waste:coperchi",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:bulky",
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton",
+        "waste-class:bulky"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -43608,7 +43608,7 @@
       "concept_id": "waste:coperchi-vasetti-yogurt-in-carta-stagnata",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -43674,7 +43674,7 @@
       "concept_id": "waste:coperchio-yogurt",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -47551,7 +47551,7 @@
       "concept_id": "waste:custodie-cd",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -47619,7 +47619,7 @@
       "concept_id": "waste:custodie-videocassette",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -48317,7 +48317,7 @@
       "concept_id": "waste:dentifricio-tubetto-vuotato",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -48350,7 +48350,7 @@
       "concept_id": "waste:deodorante",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -48449,7 +48449,7 @@
       "concept_id": "waste:deodorante-liquido-per-ambienti-vuoto",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -48548,7 +48548,7 @@
       "concept_id": "waste:deodorante-spray",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -48581,7 +48581,7 @@
       "concept_id": "waste:deodorante-spray-alu",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -48957,7 +48957,7 @@
       "concept_id": "waste:di-prodotti-informatici",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -49769,7 +49769,7 @@
       "concept_id": "waste:dispenser-ed-erogatori-di-prodotti-cosmetici-e-per-la-casa",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -51327,7 +51327,7 @@
       "concept_id": "waste:eps-polistirene-espanso-sinterizzato-solo-imballaggi",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -51945,7 +51945,7 @@
       "concept_id": "waste:estensibile-per-imballaggi",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -52617,7 +52617,7 @@
       "concept_id": "waste:fascetta-per-imballaggio",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -53635,7 +53635,7 @@
       "concept_id": "waste:ferretto-per-chiusura-sacchetti",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -54722,7 +54722,7 @@
       "concept_id": "waste:film-e-pellicole",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -54755,7 +54755,7 @@
       "concept_id": "waste:film-e-pellicole-per-imballaggi",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -55065,7 +55065,7 @@
       "concept_id": "waste:filo-interdentale-contenitore-vuoto",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -57022,7 +57022,7 @@
       "concept_id": "waste:flacone-sapone-liquido",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -57088,7 +57088,7 @@
       "concept_id": "waste:flaconi-e-tappi-in-polietilene-a-bassa-densita-ldpe",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -57121,7 +57121,7 @@
       "concept_id": "waste:flaconi-e-tappi-in-polietilene-ad-alta-densita",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -57334,7 +57334,7 @@
       "concept_id": "waste:flaconi-pulizia-e-igiene-personale",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -57367,7 +57367,7 @@
       "concept_id": "waste:flaconi-shampoo",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -60305,7 +60305,7 @@
       "concept_id": "waste:gabbietta-profumatore-wc-vuota",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -60338,7 +60338,7 @@
       "concept_id": "waste:gabbietta-tappo-spumante",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -60371,7 +60371,7 @@
       "concept_id": "waste:gabbietta-water-igienizzante",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -62658,7 +62658,7 @@
       "concept_id": "waste:graffette",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -63041,7 +63041,7 @@
       "concept_id": "waste:grattuge",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -63260,7 +63260,7 @@
       "concept_id": "waste:grucce-appendiabiti",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -65931,7 +65931,7 @@
       "concept_id": "waste:imballaggi-di-carta-cartone-e-tetrapak",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -65999,7 +65999,7 @@
       "concept_id": "waste:imballaggi-di-prodotti-surgelati",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -66664,8 +66664,8 @@
       "concept_id": "waste:imbuto",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:bulky",
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton",
+        "waste-class:bulky"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -66904,7 +66904,7 @@
       "concept_id": "waste:incarti-delle-merendine",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -67077,7 +67077,7 @@
       "concept_id": "waste:incarto-della-caramella",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -67110,7 +67110,7 @@
       "concept_id": "waste:incarto-della-merendina",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -67143,7 +67143,7 @@
       "concept_id": "waste:incarto-formaggini",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -67176,7 +67176,7 @@
       "concept_id": "waste:incarto-uovo-di-pasqua",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -68095,7 +68095,7 @@
       "concept_id": "waste:insetticidi-contenitori-vuoti",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -68267,7 +68267,7 @@
       "concept_id": "waste:involucro-barrette-dietetiche",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -68465,7 +68465,7 @@
       "concept_id": "waste:involucro-della-merendina",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -68597,7 +68597,7 @@
       "concept_id": "waste:involucro-mozzarelle-plastificato",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -68630,7 +68630,7 @@
       "concept_id": "waste:involucro-sottilette",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -68663,7 +68663,7 @@
       "concept_id": "waste:involucro-uovo-di-pasqua",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -68933,7 +68933,7 @@
       "concept_id": "waste:lacca",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -71410,7 +71410,7 @@
       "concept_id": "waste:latta",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -71478,7 +71478,7 @@
       "concept_id": "waste:lattina",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -71549,7 +71549,7 @@
       "concept_id": "waste:lattina-di-cibo-per-animali",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -71582,7 +71582,7 @@
       "concept_id": "waste:lattina-pelati",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -71615,7 +71615,7 @@
       "concept_id": "waste:lattine",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -75104,7 +75104,7 @@
       "concept_id": "waste:mascara-esaurito",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -77068,7 +77068,7 @@
       "concept_id": "waste:misurino",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -81878,7 +81878,7 @@
       "concept_id": "waste:pacchetto-di-caffe-sottovuoto",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -81944,7 +81944,7 @@
       "concept_id": "waste:pacchetto-patatine",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -82010,7 +82010,7 @@
       "concept_id": "waste:pacco-wurstel",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -83156,7 +83156,7 @@
       "concept_id": "waste:panna",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -85246,7 +85246,7 @@
       "concept_id": "waste:pellicola-e-sacchetto-in-polipropilene",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -85279,7 +85279,7 @@
       "concept_id": "waste:pellicola-in-polipropilene-pp5",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -85312,7 +85312,7 @@
       "concept_id": "waste:pellicola-trasparente",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -85345,7 +85345,7 @@
       "concept_id": "waste:pellicole-alimenti-senza-residui-di-cibo",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -85378,7 +85378,7 @@
       "concept_id": "waste:pellicole-di-cellophane",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -85477,7 +85477,7 @@
       "concept_id": "waste:pellicole-imballaggio",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -88922,7 +88922,7 @@
       "concept_id": "waste:pinze",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -90185,7 +90185,7 @@
       "concept_id": "waste:pluriball",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -90218,7 +90218,7 @@
       "concept_id": "waste:pluriball-e-simili",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -90497,7 +90497,7 @@
       "concept_id": "waste:polietilene-a-bassa-densita-flaconi-e-tappi",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -90530,7 +90530,7 @@
       "concept_id": "waste:polietilene-ad-alta-densita-flaconi-e-tappi",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -91376,7 +91376,7 @@
       "concept_id": "waste:pomodoro",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -92328,7 +92328,7 @@
       "concept_id": "waste:posate",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -92952,7 +92952,7 @@
       "concept_id": "waste:pp-05-pellicole-e-sacchetti",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -93742,7 +93742,7 @@
       "concept_id": "waste:pure-pack-imballaggio",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -93775,7 +93775,7 @@
       "concept_id": "waste:pure-pak-cartone-del-latte-del-succo-delle-bevande",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -95362,7 +95362,7 @@
       "concept_id": "waste:reggette",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -95823,7 +95823,7 @@
       "concept_id": "waste:reti-della-frutta",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -96016,7 +96016,7 @@
       "concept_id": "waste:retina-frutta-e-verdura",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -96095,7 +96095,7 @@
       "concept_id": "waste:retine-per-verdure",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -96260,7 +96260,7 @@
       "concept_id": "waste:ricarica-antizanzare-vuota",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -96359,7 +96359,7 @@
       "concept_id": "waste:ricarica-inalatore-per-l-asma-esaurita",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -96948,7 +96948,7 @@
       "concept_id": "waste:rimmel-esaurito",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -98251,7 +98251,7 @@
       "concept_id": "waste:sacchetti-di-pasta-e-delle-merendine",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -98284,7 +98284,7 @@
       "concept_id": "waste:sacchetti-di-patatine",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -98455,7 +98455,7 @@
       "concept_id": "waste:sacchetto-alimento-secco-animali",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -98524,7 +98524,7 @@
       "concept_id": "waste:sacchetto-dei-surgelati",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -98557,7 +98557,7 @@
       "concept_id": "waste:sacchetto-del-caffe-sottovuoto",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -98623,7 +98623,7 @@
       "concept_id": "waste:sacchetto-del-riso-sottovuoto",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -98953,7 +98953,7 @@
       "concept_id": "waste:sacchetto-termico-per-surgelati-supermercato",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -99052,7 +99052,7 @@
       "concept_id": "waste:sacchi-pellet-vuoti",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -99858,7 +99858,7 @@
       "concept_id": "waste:saponi",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -99891,7 +99891,7 @@
       "concept_id": "waste:sardine",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -101331,7 +101331,7 @@
       "concept_id": "waste:scatoletta-di-tonno-senza-residui",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -101364,7 +101364,7 @@
       "concept_id": "waste:scatolette-di-cibo-per-animali-vuote",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -101399,7 +101399,7 @@
       "concept_id": "waste:scatolette-di-pomodoro-tonno-etc",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -101467,7 +101467,7 @@
       "concept_id": "waste:scatolette-vuote-del-tonno",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -101698,7 +101698,7 @@
       "concept_id": "waste:schiume",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -103694,7 +103694,7 @@
       "concept_id": "waste:seghetti",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -106447,7 +106447,7 @@
       "concept_id": "waste:spina-di-contenimento-per-i-cd-o-dvd",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -106480,7 +106480,7 @@
       "concept_id": "waste:spindle-per-cd-o-dvd",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -106900,7 +106900,7 @@
       "concept_id": "waste:stagnola",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -109478,8 +109478,8 @@
       "concept_id": "waste:tanica",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:bulky",
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton",
+        "waste-class:bulky"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -110103,7 +110103,7 @@
       "concept_id": "waste:tappi-a-corona",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -110173,7 +110173,7 @@
       "concept_id": "waste:tappi-barattoli",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -110206,7 +110206,7 @@
       "concept_id": "waste:tappi-birra",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -110776,7 +110776,7 @@
       "concept_id": "waste:tappo-a-corona",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -110809,7 +110809,7 @@
       "concept_id": "waste:tappo-del-vino-in-gomma",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -110842,7 +110842,7 @@
       "concept_id": "waste:tappo-del-vino-sintetico",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -110875,7 +110875,7 @@
       "concept_id": "waste:tappo-della-birra",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -110974,7 +110974,7 @@
       "concept_id": "waste:tappo-di-sughero-finto",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -111483,7 +111483,7 @@
       "concept_id": "waste:tavoletta-per-wc-igienizzante",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -111516,7 +111516,7 @@
       "concept_id": "waste:tavoletta-water-igienizzante",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -114218,7 +114218,7 @@
       "concept_id": "waste:tetra-pack",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -114251,7 +114251,7 @@
       "concept_id": "waste:tetra-pak",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -114286,7 +114286,7 @@
       "concept_id": "waste:tetra-pak-e-altri-materiali-compositi",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -114319,7 +114319,7 @@
       "concept_id": "waste:tetrapack",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -114352,7 +114352,7 @@
       "concept_id": "waste:tetrapak",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -114393,7 +114393,7 @@
       "concept_id": "waste:tetrapak-confezione-latte-panna-brik-succo-di-frutta",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -114910,7 +114910,7 @@
       "concept_id": "waste:tonno",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -116127,7 +116127,7 @@
       "concept_id": "waste:tubetti-di-dentifricio-vuoti",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -116160,7 +116160,7 @@
       "concept_id": "waste:tubetti-per-uso-alimentare-vuoti",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -116193,7 +116193,7 @@
       "concept_id": "waste:tubetti-vuoti-alimentari-e-cosmetici",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -116226,7 +116226,7 @@
       "concept_id": "waste:tubetti-vuoti-alimenti-dentifricio",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -116298,7 +116298,7 @@
       "concept_id": "waste:tubetti-vuoti-per-alimenti",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -116535,7 +116535,7 @@
       "concept_id": "waste:tubetto-dentifricio",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -116568,7 +116568,7 @@
       "concept_id": "waste:tubetto-dentifricio-vuoto",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -116634,7 +116634,7 @@
       "concept_id": "waste:tubetto-di-dentifricio",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -118157,7 +118157,7 @@
       "concept_id": "waste:vaschetta-affettati",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -118193,7 +118193,7 @@
       "concept_id": "waste:vaschetta-alimenti",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -118630,7 +118630,7 @@
       "concept_id": "waste:vaschette-per-alimenti",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -118733,7 +118733,7 @@
       "concept_id": "waste:vasetti-dello-yogurt",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -118900,7 +118900,7 @@
       "concept_id": "waste:vasetti-yogurt",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -118972,7 +118972,7 @@
       "concept_id": "waste:vasetto-yogurt",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -119071,7 +119071,7 @@
       "concept_id": "waste:vasi-dei-vivai",
       "conflicts": [],
       "family_class_ids": [
-        "waste-class:packaging-by-material"
+        "waste-class:beverage-carton"
       ],
       "hazard_profile_ids": [],
       "hazard_status": null,
@@ -122319,7 +122319,7 @@
       "unmapped_destinations": []
     }
   ],
-  "generated_at": "2026-08-09T12:00:00+02:00",
+  "generated_at": "2026-08-09T15:20:00+02:00",
   "report_id": "waste-routing-coverage:toscana",
   "review_queue": [],
   "summary": {

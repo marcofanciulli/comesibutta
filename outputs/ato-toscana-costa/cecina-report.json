@@ -4,9 +4,9 @@
   "municipality": "Cecina",
   "pages_available": 24,
   "pages_materialized": 15,
-  "records": 223,
+  "records": 222,
   "records_by_type": {
-    "collection_rule": 7,
+    "collection_rule": 6,
     "facility": 1,
     "facility_acceptance": 19,
     "facility_access": 1,

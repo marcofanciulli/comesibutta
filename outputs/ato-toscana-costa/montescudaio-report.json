@@ -4,9 +4,9 @@
   "municipality": "Montescudaio",
   "pages_available": 31,
   "pages_materialized": 23,
-  "records": 259,
+  "records": 254,
   "records_by_type": {
-    "collection_rule": 15,
+    "collection_rule": 10,
     "collection_schedule": 5,
     "facility": 2,
     "facility_acceptance": 37,

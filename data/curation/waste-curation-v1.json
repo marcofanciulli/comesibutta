@@ -76,7 +76,7 @@
     {
       "group_id": "waste-alias:beverage-carton",
       "preferred_label": "Cartone per bevande (Tetra Pak)",
-      "waste_class_id": "waste-class:packaging-by-material",
+      "waste_class_id": "waste-class:beverage-carton",
       "search_terms": [
         "Cartone del latte",
         "Confezione del latte",
@@ -855,6 +855,14 @@
           }
         ]
       }
+    },
+    {
+      "class_id": "waste-class:beverage-carton",
+      "dimension": "primary-classification",
+      "preferred_label": "Imballaggio composito per bevande",
+      "stream_ids": ["stream:paper", "stream:mixed-packaging"],
+      "eer_codes": ["150105"],
+      "delivery_channels": []
     },
     {
       "class_id": "waste-class:metal-by-origin",
@@ -1801,7 +1809,7 @@
         "Ecocentro, Imballaggi e contenitori",
         "Azzurro-Contenitore Multimateriale/Cdr"
       ],
-      "class_id": "waste-class:packaging-by-material",
+      "class_id": "waste-class:beverage-carton",
       "reviewed_at": "2026-08-09T02:40:00+02:00",
       "review_status": "approved",
       "rationale": "Multimateriale descrive il flusso operativo e non il materiale: la domanda separa plastica, metallo, vetro e composito prima di applicare la regola locale.",
@@ -2352,7 +2360,7 @@
       "destination_aliases": [],
       "term_patterns": ["\\b(imballaggi di carta cartone e tetrapak|tetrapak|tetra pak|tetrapack)\\b"],
       "excluded_term_patterns": [],
-      "class_id": "waste-class:packaging-by-material",
+      "class_id": "waste-class:beverage-carton",
       "priority": 120,
       "reviewed_at": "2026-08-09T05:00:00+02:00",
       "review_status": "approved",

@@ -42,7 +42,7 @@ class WasteCurationTests(unittest.TestCase):
         self.assertEqual(2, report["stream_mapped_concepts"])
         self.assertEqual(3, report["disambiguation_groups"])
         self.assertEqual(3, report["disambiguation_triggers"])
-        self.assertEqual(38, report["waste_classes"])
+        self.assertEqual(39, report["waste_classes"])
         self.assertEqual(81, report["waste_class_outcomes"])
         self.assertEqual(61, report["family_mappings"])
         self.assertEqual(0, report["alias_group_territorial_conflicts"])

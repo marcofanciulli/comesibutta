@@ -4,9 +4,9 @@
   "municipality": "Collesalvetti",
   "pages_available": 29,
   "pages_materialized": 24,
-  "records": 304,
+  "records": 299,
   "records_by_type": {
-    "collection_rule": 34,
+    "collection_rule": 29,
     "collection_schedule": 25,
     "facility": 2,
     "facility_acceptance": 40,

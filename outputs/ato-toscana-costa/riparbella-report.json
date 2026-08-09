@@ -4,9 +4,9 @@
   "municipality": "Riparbella",
   "pages_available": 38,
   "pages_materialized": 34,
-  "records": 235,
+  "records": 226,
   "records_by_type": {
-    "collection_rule": 18,
+    "collection_rule": 9,
     "collection_schedule": 5,
     "facility": 1,
     "facility_acceptance": 13,

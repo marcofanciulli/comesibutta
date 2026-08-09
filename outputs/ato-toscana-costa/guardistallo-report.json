@@ -4,9 +4,9 @@
   "municipality": "Guardistallo",
   "pages_available": 30,
   "pages_materialized": 25,
-  "records": 245,
+  "records": 240,
   "records_by_type": {
-    "collection_rule": 6,
+    "collection_rule": 1,
     "collection_schedule": 2,
     "facility": 2,
     "facility_acceptance": 37,

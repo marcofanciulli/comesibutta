@@ -4,10 +4,9 @@
   "municipality": "Orciano Pisano",
   "pages_available": 26,
   "pages_materialized": 23,
-  "records": 201,
+  "records": 196,
   "records_by_type": {
     "collection_point": 1,
-    "collection_rule": 5,
     "collection_schedule": 1,
     "pickup_service": 3,
     "service_zone": 1,
