@@ -17,6 +17,20 @@ class WebAppTests(unittest.TestCase):
         self.assertIn('data-location-choice="true"', script)
         self.assertNotIn("localStorage.setItem(\"comesibutta.location", script)
 
+    def test_territorial_views_share_one_verified_api(self) -> None:
+        html = (WORKSPACE / "webapp" / "index.html").read_text(encoding="utf-8")
+        script = (WORKSPACE / "webapp" / "app.js").read_text(encoding="utf-8")
+        for view in ("search", "rules", "centres"):
+            self.assertIn(f'data-view="{view}"', html)
+        self.assertIn('id="rules-zone"', html)
+        self.assertIn('id="rules-stream"', html)
+        self.assertIn('id="rules-preparation"', html)
+        self.assertIn('data-service-view="facilities"', html)
+        self.assertIn('api("/api/territory"', script)
+        self.assertIn("body: JSON.stringify", script)
+        self.assertNotIn("/api/territory?", script)
+        self.assertIn("accepted_waste", script)
+
 
 if __name__ == "__main__":
     unittest.main()

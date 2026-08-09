@@ -576,6 +576,16 @@ Prima verticale applicativa:
   zone pubblicate; la coda di deduplicazione manuale e vuota;
 - il gate territoriale costruisce e verifica il database candidato prima di
   aggiornare database autorevole, snapshot, delta e manifest.
+- completata la prima interfaccia territoriale: dalla stessa navigazione si
+  accede alla ricerca, alle regole filtrabili per zona, frazione e preparazione,
+  e all'elenco di centri, punti di raccolta e ritiri;
+- il dettaglio dei centri espone stato, distanza, accesso, prenotazione,
+  contatti, orari e accettazioni EER complete, distinguendo il titolo ufficiale
+  dalla formulazione pubblicata dal gestore;
+- la posizione opzionale resta in memoria e viene trasmessa soltanto nel corpo
+  di richieste `POST`, senza essere inserita negli URL;
+- 208 test automatici superati, inclusa la costruzione dell'intero repertorio
+  territoriale usato dalle nuove viste.
 
 ## Limiti e questioni aperte
 
@@ -596,8 +606,9 @@ Prima verticale applicativa:
 
 ## Prossimi passi
 
-1. Collaudare con utenti la prima verticale web `Dove lo butto?` e correggere
-   lessico, priorita informative e casi di disambiguazione emersi.
+1. Collaudare con utenti i tre percorsi web `Cerca`, `Regole` e `Centri e
+   servizi`, correggendo lessico, priorita informative e casi di
+   disambiguazione emersi.
 2. Definire autenticazione opzionale e sincronizzazione delle preferenze senza
    rendere obbligatoria la registrazione.
 3. Revisionare periodicamente la coda delle ricerche senza risposta e inserire

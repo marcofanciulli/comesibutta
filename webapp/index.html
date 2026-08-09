@@ -19,8 +19,17 @@
     </button>
   </header>
 
+  <nav class="view-nav" aria-label="Sezioni principali">
+    <div class="view-nav-inner" role="tablist">
+      <button type="button" role="tab" aria-selected="true" data-view="search">Cerca</button>
+      <button type="button" role="tab" aria-selected="false" data-view="rules">Regole</button>
+      <button type="button" role="tab" aria-selected="false" data-view="centres">Centri e servizi</button>
+    </div>
+  </nav>
+
   <main>
-    <section class="search-band" aria-labelledby="page-title">
+    <div id="search-view">
+    <section class="search-band search-view" aria-labelledby="page-title">
       <div class="search-inner">
         <p class="eyebrow">Raccolta differenziata in Toscana</p>
         <h1 id="page-title">Dove lo butto?</h1>
@@ -41,7 +50,7 @@
       </div>
     </section>
 
-    <section id="welcome" class="welcome-band">
+    <section id="welcome" class="welcome-band search-view">
       <div class="content-column">
         <div class="empty-illustration" aria-hidden="true">
           <span>?</span>
@@ -54,16 +63,16 @@
       </div>
     </section>
 
-    <section id="loading" class="state-band" hidden aria-live="polite">
+    <section id="loading" class="state-band search-view" hidden aria-live="polite">
       <div class="content-column compact">
         <span class="spinner" aria-hidden="true"></span>
         <p>Sto controllando le regole locali…</p>
       </div>
     </section>
 
-    <section id="answer" class="answer" hidden aria-live="polite"></section>
+    <section id="answer" class="answer search-view" hidden aria-live="polite"></section>
 
-    <section id="not-found" class="state-band" hidden aria-live="polite">
+    <section id="not-found" class="state-band search-view" hidden aria-live="polite">
       <div class="content-column">
         <div class="status-symbol">?</div>
         <div>
@@ -74,10 +83,55 @@
       </div>
     </section>
 
-    <section id="error" class="state-band error-band" hidden role="alert">
+    <section id="error" class="state-band error-band search-view" hidden role="alert">
       <div class="content-column compact">
         <strong>Non riesco a consultare i dati.</strong>
         <span id="error-message">Riprova tra poco.</span>
+      </div>
+    </section>
+    </div>
+
+    <section id="rules-view" class="territory-view" hidden aria-labelledby="rules-title">
+      <div class="territory-inner">
+        <header class="territory-head">
+          <div>
+            <p class="eyebrow">Raccolta locale</p>
+            <h1 id="rules-title">Regole del comune</h1>
+            <p id="rules-intro" class="section-intro"></p>
+          </div>
+          <button class="secondary" type="button" data-change-place>Scegli comune</button>
+        </header>
+        <div class="filters" id="rules-filters" hidden>
+          <label>Zona
+            <select id="rules-zone"></select>
+          </label>
+          <label>Frazione
+            <select id="rules-stream"></select>
+          </label>
+          <label>Preparazione
+            <select id="rules-preparation"></select>
+          </label>
+        </div>
+        <div id="rules-content" class="territory-content" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section id="centres-view" class="territory-view" hidden aria-labelledby="centres-title">
+      <div class="territory-inner">
+        <header class="territory-head">
+          <div>
+            <p class="eyebrow">Conferimento e ritiro</p>
+            <h1 id="centres-title">Centri e servizi</h1>
+            <p id="centres-intro" class="section-intro"></p>
+          </div>
+          <button class="secondary" type="button" data-change-place>Scegli comune</button>
+        </header>
+        <div class="service-tabs" role="tablist" aria-label="Tipi di servizio">
+          <button type="button" role="tab" aria-selected="true" data-service-view="facilities">Centri <span id="facility-count">0</span></button>
+          <button type="button" role="tab" aria-selected="false" data-service-view="points">Punti <span id="point-count">0</span></button>
+          <button type="button" role="tab" aria-selected="false" data-service-view="pickups">Ritiri <span id="pickup-count">0</span></button>
+        </div>
+        <div id="centres-content" class="territory-content" aria-live="polite"></div>
       </div>
     </section>
   </main>

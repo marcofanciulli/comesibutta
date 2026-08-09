@@ -348,6 +348,41 @@ class DisposalQueryTests(unittest.TestCase):
         self.assertEqual("resolved", answer["status"])
         self.assertEqual("Vetro", answer["result"]["stream"])
 
+    def test_web_api_exposes_structured_territorial_directory(self) -> None:
+        self.connection.close()
+        writer = open_database(self.database, role="client")
+        current = read_database_entities(writer)
+        changed = dict(current)
+        pickup = _pickup_service()
+        pickup.data["payload"]["booking_methods"][0]["hours_raw"] = "pagina " * 80
+        additions = [
+            _facility("facility:directory", "Centro comunale", 42.6, 11.5),
+            _facility_access("facility:directory"),
+            _facility_acceptance("facility:directory", "Metalli"),
+            _opening_period("facility:directory"),
+            _collection_point("point:mobile", "Ecomobile", 42.61, 11.51),
+            pickup,
+        ]
+        for entity in additions:
+            changed[(entity.entity_type, entity.entity_id)] = entity
+        apply_package(writer, build_update_package(current, changed, 1, 2, GENERATED_AT))
+        writer.close()
+
+        directory = DisposalApi(self.database).territory(
+            "053014", latitude=42.6, longitude=11.5,
+        )
+
+        self.assertEqual("Manciano", directory["municipality"]["name"])
+        self.assertEqual(1, directory["summary"]["facilities"])
+        self.assertEqual(1, directory["summary"]["collection_points"])
+        self.assertEqual(1, directory["summary"]["pickup_services"])
+        self.assertEqual("Metalli", directory["facilities"][0]["accepted_waste"][0]["label"])
+        self.assertEqual(0.0, directory["facilities"][0]["distance_km"])
+        self.assertEqual("Conferire sfuso", directory["rules"][0]["instructions"])
+        self.assertIsNone(
+            directory["pickup_services"][0]["booking_methods"][0]["hours_raw"]
+        )
+
     def test_web_api_locates_a_municipality_without_storing_the_position(self) -> None:
         self.connection.close()
         writer = open_database(self.database, role="client")
@@ -388,6 +423,12 @@ class DisposalQueryTests(unittest.TestCase):
             api.answer({"text": "", "municipality": "053014"})
         with self.assertRaisesRegex(ValueError, "Municipality is required"):
             api.answer({"text": "vetro"})
+        with self.assertRaisesRegex(ValueError, "Municipality ISTAT"):
+            api.territory(None)  # type: ignore[arg-type]
+        with self.assertRaisesRegex(ValueError, "provided together"):
+            api.territory("053014", latitude=42.6)
+        with self.assertRaisesRegex(ValueError, "Latitude"):
+            api.territory("053014", latitude=True, longitude=11.5)
 
     def test_web_api_records_only_unanswered_searches(self) -> None:
         feedback_database = Path(self.temporary.name) / "feedback.sqlite"

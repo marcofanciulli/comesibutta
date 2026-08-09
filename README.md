@@ -21,7 +21,9 @@ scelto e, soltanto su richiesta, puo individuarlo dalla posizione corrente. Le
 coordinate restano in memoria per la sessione, non sono salvate, e ordinano i
 servizi compatibili per distanza. L'utente puo sempre correggere il comune a
 mano. La risposta mostra destinazione, preparazione, contenitore, codice EER,
-servizi, avvertenze e fonti territoriali.
+servizi, avvertenze e fonti territoriali. Le sezioni `Regole` e `Centri e
+servizi` permettono anche di esplorare direttamente raccolte, preparazioni,
+centri, punti di raccolta e ritiri disponibili nel territorio selezionato.
 
 Il perimetro censito comprende i 104 comuni di ATO Toscana Sud, i 100 comuni
 di ATO Toscana Costa, i 65 comuni di ATO Toscana Centro e i quattro comuni

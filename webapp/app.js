@@ -9,6 +9,10 @@ const state = {
   conceptId: null,
   searchTimer: null,
   suggestionVersion: 0,
+  view: "search",
+  serviceView: "facilities",
+  territory: null,
+  territoryVersion: 0,
 };
 
 const $ = (selector) => document.querySelector(selector);
@@ -26,6 +30,14 @@ const elements = {
   clearZone: $("#clear-zone"),
   detectPlace: $("#detect-place"), locationStatus: $("#location-status"),
   positionPreference: $("#position-preference"), clearPosition: $("#clear-position"),
+  searchView: $("#search-view"), rulesView: $("#rules-view"),
+  centresView: $("#centres-view"), rulesContent: $("#rules-content"),
+  centresContent: $("#centres-content"), rulesIntro: $("#rules-intro"),
+  centresIntro: $("#centres-intro"), rulesFilters: $("#rules-filters"),
+  rulesZone: $("#rules-zone"), rulesStream: $("#rules-stream"),
+  rulesPreparation: $("#rules-preparation"),
+  facilityCount: $("#facility-count"), pointCount: $("#point-count"),
+  pickupCount: $("#pickup-count"),
 };
 
 const escapeHtml = (value) => String(value ?? "").replace(/[&<>'"]/g, (char) => ({
@@ -67,7 +79,9 @@ function chooseMunicipality(item, {preserveLocation = false} = {}) {
   elements.welcome.hidden = false;
   elements.welcome.querySelector("h2").textContent = `Cosa devi buttare a ${item.name}?`;
   elements.welcome.querySelector("p").textContent = "Cerca un oggetto o un materiale: controlleremo le indicazioni pubblicate per questo territorio.";
-  elements.input.focus();
+  if (state.view === "search") elements.input.focus();
+  state.territory = null;
+  if (state.view !== "search") loadTerritory();
 }
 
 function updatePlaceControls() {
@@ -81,6 +95,8 @@ function clearLocation() {
   state.location = null;
   elements.locationStatus.textContent = "";
   updatePlaceControls();
+  state.territory = null;
+  if (state.view !== "search") loadTerritory();
 }
 
 function locateMunicipality() {
@@ -145,6 +161,7 @@ function rememberZone(id, label) {
   localStorage.setItem(`comesibutta.zone.${state.municipality.istat_code}`, JSON.stringify({
     id, label, datasetRevision: state.datasetRevision,
   }));
+  state.territory = null;
   updatePlaceControls();
 }
 
@@ -153,6 +170,8 @@ function clearRememberedZone() {
   state.zoneId = null;
   state.zoneLabel = null;
   updatePlaceControls();
+  state.territory = null;
+  if (state.view !== "search") loadTerritory();
 }
 
 function renderPlaceList(filter = "") {
@@ -163,6 +182,233 @@ function renderPlaceList(filter = "") {
       <strong>${escapeHtml(item.name)}</strong>
       <small>${escapeHtml([item.province_code, item.operator].filter(Boolean).join(" · "))}</small>
     </button>`).join("") || "<p>Nessun comune trovato.</p>";
+}
+
+function safeUrl(value) {
+  if (typeof value !== "string" || !value) return null;
+  try {
+    const url = new URL(value, window.location.origin);
+    return ["http:", "https:", "tel:", "mailto:"].includes(url.protocol) ? value : null;
+  } catch (_) {
+    return null;
+  }
+}
+
+function sourceLink(url, label = "Fonte ufficiale") {
+  const safe = safeUrl(url);
+  return safe ? `<a class="source-link" href="${escapeHtml(safe)}" target="_blank" rel="noopener">${escapeHtml(label)}</a>` : "";
+}
+
+function setView(view, {updateHistory = true} = {}) {
+  state.view = ["search", "rules", "centres"].includes(view) ? view : "search";
+  elements.searchView.hidden = state.view !== "search";
+  elements.rulesView.hidden = state.view !== "rules";
+  elements.centresView.hidden = state.view !== "centres";
+  for (const button of document.querySelectorAll("[data-view]")) {
+    button.setAttribute("aria-selected", String(button.dataset.view === state.view));
+  }
+  if (updateHistory) history.replaceState(null, "", `#view=${state.view}`);
+  if (state.view !== "search") loadTerritory();
+}
+
+function territoryRequest() {
+  return api("/api/territory", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      municipality: state.municipality.istat_code,
+      user_type: "domestic",
+      zone_id: state.zoneId,
+      latitude: state.location?.latitude,
+      longitude: state.location?.longitude,
+    }),
+  });
+}
+
+function territoryLoading(target) {
+  target.innerHTML = '<p class="territory-loading">Caricamento delle informazioni pubblicate…</p>';
+}
+
+function preparationLabel(mode) {
+  const labels = {
+    loose: "Sfuso", loose_in_container: "Sfuso nel contenitore",
+    bag: "In sacchetto", bag_unspecified: "In sacchetto",
+    bag_in_container: "In sacchetto nel contenitore",
+    biodegradable_bag: "Sacchetto biodegradabile",
+    compostable_bag: "Sacchetto compostabile", closed_bag: "Sacchetto chiuso",
+    paper_bag: "Sacchetto di carta", plastic_bag: "Sacchetto di plastica",
+    container: "Nel contenitore", mixed: "Indicazioni diverse",
+    source_specific: "Istruzioni del gestore", unspecified: "Non pubblicato",
+  };
+  return labels[mode] || "Non pubblicato";
+}
+
+function methodLabel(method) {
+  const labels = {
+    door_to_door: "Porta a porta", roadside: "Raccolta stradale", street: "Raccolta stradale",
+    collection_centre: "Centro di raccolta", collection_point: "Punto di raccolta",
+    other: "Modalità del gestore",
+  };
+  return labels[method] || method || "Modalità non pubblicata";
+}
+
+function accessCredentialLabel(value) {
+  const labels = {
+    not_currently_required: "Nessuna credenziale richiesta",
+    "6Card": "6Card",
+    "RFID tag": "Chiave o tessera RFID",
+  };
+  return labels[value] || value;
+}
+
+function renderRules(data) {
+  elements.rulesIntro.textContent = `Indicazioni pubblicate per ${data.municipality.name}${data.municipality.operator ? ` da ${data.municipality.operator}` : ""}.`;
+  const zoneValue = state.zoneId || "";
+  elements.rulesZone.innerHTML = [
+    '<option value="">Tutte le zone</option>',
+    ...data.zones.map((zone) => `<option value="${escapeHtml(zone.id)}">${escapeHtml(zone.name)}</option>`),
+  ].join("");
+  elements.rulesZone.value = zoneValue;
+  const streams = [...new Set(data.rules.map((rule) => rule.stream).filter(Boolean))]
+    .sort((left, right) => left.localeCompare(right, "it"));
+  const previousStream = elements.rulesStream.value;
+  elements.rulesStream.innerHTML = [
+    '<option value="">Tutte le frazioni</option>',
+    ...streams.map((stream) => `<option value="${escapeHtml(stream)}">${escapeHtml(stream)}</option>`),
+  ].join("");
+  if (streams.includes(previousStream)) elements.rulesStream.value = previousStream;
+  const modes = [...new Set(data.rules.map((rule) => rule.presentation_mode).filter(Boolean))]
+    .sort((left, right) => preparationLabel(left).localeCompare(preparationLabel(right), "it"));
+  const previousMode = elements.rulesPreparation.value;
+  elements.rulesPreparation.innerHTML = [
+    '<option value="">Tutte le preparazioni</option>',
+    ...modes.map((mode) => `<option value="${escapeHtml(mode)}">${escapeHtml(preparationLabel(mode))}</option>`),
+  ].join("");
+  if (modes.includes(previousMode)) elements.rulesPreparation.value = previousMode;
+  elements.rulesFilters.hidden = data.zones.length === 0 && streams.length < 2 && modes.length < 2;
+  renderRuleRows(data);
+}
+
+function renderRuleRows(data) {
+  const streamFilter = elements.rulesStream.value;
+  const preparationFilter = elements.rulesPreparation.value;
+  const rules = data.rules.filter((rule) => (
+    (!streamFilter || rule.stream === streamFilter)
+    && (!preparationFilter || rule.presentation_mode === preparationFilter)
+  ));
+  if (!rules.length) {
+    elements.rulesContent.innerHTML = '<p class="territory-empty">La fonte non pubblica regole compatibili con i filtri selezionati.</p>';
+    return;
+  }
+  const groups = new Map();
+  for (const rule of rules) {
+    const group = rule.zone_name || (data.zones.length > 1 ? "Regole comuni a tutte le zone" : "Raccolte disponibili");
+    if (!groups.has(group)) groups.set(group, []);
+    groups.get(group).push(rule);
+  }
+  elements.rulesContent.innerHTML = [...groups.entries()].map(([group, items]) => `
+    <section class="rule-group">
+      <h2>${escapeHtml(group)}</h2>
+      ${items.map((rule) => {
+        const container = [rule.container_type, rule.container_color].filter(Boolean).join(" · ");
+        const source = rule.source_urls?.[0];
+        return `<article class="rule-row">
+          <div>
+            <h3>${escapeHtml(rule.stream || "Frazione non specificata")}</h3>
+            <div class="rule-meta">
+              <span>${escapeHtml(methodLabel(rule.collection_method))}</span>
+              ${container ? `<span>${escapeHtml(container)}</span>` : ""}
+              <span>${escapeHtml(preparationLabel(rule.presentation_mode))}</span>
+            </div>
+          </div>
+          <div class="rule-details">
+            ${rule.instructions ? `<p><strong>Come conferirlo</strong><br>${escapeHtml(rule.instructions)}</p>` : ""}
+            ${rule.schedule ? `<p><strong>Quando</strong><br>${escapeHtml(rule.schedule)}</p>` : ""}
+            ${rule.access_credential ? `<p><strong>Accesso</strong><br>${escapeHtml(accessCredentialLabel(rule.access_credential))}</p>` : ""}
+            ${sourceLink(source)}
+          </div>
+        </article>`;
+      }).join("")}
+    </section>`).join("");
+}
+
+function statusLabelCompact(status) {
+  const labels = {
+    open: "Aperto", active: "Attivo", closed: "Chiuso",
+    temporarily_closed: "Chiuso temporaneamente", unknown: "Stato non pubblicato",
+  };
+  return labels[status] || "Stato non pubblicato";
+}
+
+function directoryCard(item, kind, index) {
+  const status = kind === "facility" ? item.operational_status : null;
+  const acceptedCount = kind === "facility"
+    ? item.accepted_waste.length
+    : kind === "point" ? (item.accepted_waste || []).length : 0;
+  const subtitle = item.address || item.zone_name || (kind === "pickup" ? item.accepted_waste : "") || "";
+  return `<article class="directory-card">
+    <div class="directory-card-head">
+      <h2>${escapeHtml(item.name || (kind === "pickup" ? "Ritiro a domicilio" : "Punto di raccolta"))}</h2>
+      ${status ? `<span class="status-badge ${escapeHtml(status)}">${escapeHtml(statusLabelCompact(status))}</span>` : ""}
+    </div>
+    ${subtitle ? `<p>${escapeHtml(subtitle)}</p>` : ""}
+    <div class="service-facts">
+      ${item.distance_km !== null && item.distance_km !== undefined ? `<span>${escapeHtml(item.distance_km)} km</span>` : ""}
+      ${acceptedCount ? `<span>${acceptedCount} ${acceptedCount === 1 ? "materiale" : "materiali"}</span>` : ""}
+      ${item.schedule ? `<span>${escapeHtml(item.schedule)}</span>` : ""}
+      ${kind === "pickup" && item.booking_required ? "<span>Prenotazione richiesta</span>" : ""}
+    </div>
+    <button class="text-button" type="button" data-territory-kind="${kind}" data-territory-index="${index}">Dettagli</button>
+  </article>`;
+}
+
+function renderCentres(data) {
+  elements.centresIntro.textContent = `Servizi accessibili alle utenze domestiche di ${data.municipality.name}.`;
+  elements.facilityCount.textContent = data.facilities.length;
+  elements.pointCount.textContent = data.collection_points.length;
+  elements.pickupCount.textContent = data.pickup_services.length;
+  elements.centresView._data = data;
+  renderServiceDirectory();
+}
+
+function renderServiceDirectory() {
+  const data = elements.centresView._data;
+  if (!data) return;
+  const views = {
+    facilities: [data.facilities, "facility", "La fonte non pubblica centri accessibili per questo comune."],
+    points: [data.collection_points, "point", "La fonte non pubblica punti di raccolta per questo comune."],
+    pickups: [data.pickup_services, "pickup", "La fonte non pubblica servizi di ritiro per questo comune."],
+  };
+  const [items, kind, empty] = views[state.serviceView];
+  elements.centresContent.innerHTML = items.length
+    ? `<div class="directory-list">${items.map((item, index) => directoryCard(item, kind, index)).join("")}</div>`
+    : `<p class="territory-empty">${escapeHtml(empty)}</p>`;
+}
+
+async function loadTerritory() {
+  if (!state.municipality) {
+    const target = state.view === "rules" ? elements.rulesContent : elements.centresContent;
+    target.innerHTML = '<p class="territory-empty">Seleziona un comune per consultarne le informazioni.</p>';
+    return;
+  }
+  if (state.territory) {
+    renderRules(state.territory);
+    renderCentres(state.territory);
+    return;
+  }
+  const version = ++state.territoryVersion;
+  const target = state.view === "rules" ? elements.rulesContent : elements.centresContent;
+  territoryLoading(target);
+  try {
+    const data = await territoryRequest();
+    if (version !== state.territoryVersion) return;
+    state.territory = data;
+    renderRules(data);
+    renderCentres(data);
+  } catch (error) {
+    if (version !== state.territoryVersion) return;
+    target.innerHTML = `<p class="territory-empty">${escapeHtml(error.message)}</p>`;
+  }
 }
 
 function openPlaceDialog() {
@@ -347,20 +593,54 @@ function detailRows(service) {
   add("Prenotazione", service.booking_required === true ? "Obbligatoria" : service.booking_required === false ? "Non richiesta" : null);
   add("Telefono", service.phone);
   add("Email", service.email);
+  add("Distanza", service.distance_km !== null && service.distance_km !== undefined ? `${service.distance_km} km` : null);
   for (const method of service.booking_methods || []) {
     const labels = {phone: "Prenota per telefono", web: "Prenota online", email: "Prenota via email"};
-    add(labels[method.method] || "Prenotazione", [method.value, method.hours_raw].filter(Boolean).join(" · "));
+    const value = [method.value, method.hours_raw].filter(Boolean).join(" · ");
+    const url = method.method === "web" ? safeUrl(method.value) : null;
+    if (url) rows.push(`<div class="detail-row"><span>${escapeHtml(labels[method.method] || "Prenotazione")}</span>${sourceLink(url, "Apri la prenotazione")}</div>`);
+    else add(labels[method.method] || "Prenotazione", value);
   }
   add("Limite", service.quantity_limit || (service.max_items ? `${service.max_items} pezzi` : null));
   add("Istruzioni", service.instructions);
+  add("Orari", service.schedule);
+  add("Materiali accettati", typeof service.accepted_waste === "string" ? service.accepted_waste : null);
   if (service.acceptance) add("Accettazione", acceptanceLabel(service.acceptance.status));
   for (const period of service.opening_periods || []) {
     const intervals = (period.weekly_intervals || []).map((item) => `${["Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"][item.weekday - 1] || item.weekday} ${item.opens}–${item.closes}`).join(", ");
     add(period.period_label || "Orari", intervals || period.exceptions);
   }
-  const urls = service.information_urls || [];
-  if (urls.length) rows.push(`<div class="detail-row"><span>Informazioni ufficiali</span>${urls.map((url) => `<a href="${escapeHtml(url)}" target="_blank" rel="noopener">Apri la pagina</a>`).join(" · ")}</div>`);
+  if (Array.isArray(service.accepted_waste) && service.accepted_waste.length && !service.acceptance_status) {
+    rows.push(`<div class="detail-row"><span>Materiali accettati</span>${service.accepted_waste.map((item) => escapeHtml(item)).join(" · ")}</div>`);
+  }
+  if (Array.isArray(service.accepted_waste) && service.acceptance_status === "published") {
+    rows.push(`<div class="detail-row"><span>Materiali ed EER pubblicati</span><div class="acceptance-list">${service.accepted_waste.map((item) => {
+      const label = item.official_label || item.label || item.eer_code || "Materiale non specificato";
+      const metadata = [item.eer_code ? `EER ${item.eer_code}` : null, item.hazardous ? "Pericoloso" : null, item.quantity_limit, item.notes].filter(Boolean).join(" · ");
+      const sourceLabel = item.official_label && item.label && item.official_label.toLocaleLowerCase("it") !== item.label.toLocaleLowerCase("it")
+        ? `Descrizione del centro: ${item.label}` : null;
+      return `<div class="acceptance-item"><strong>${escapeHtml(label)}</strong>${metadata ? `<span>${escapeHtml(metadata)}</span>` : ""}${sourceLabel ? `<span>${escapeHtml(sourceLabel)}</span>` : ""}</div>`;
+    }).join("")}</div></div>`);
+  }
+  if (service.acceptance_status === "not_published") add("Materiali accettati", "Elenco non pubblicato");
+  const urls = [...new Set([...(service.information_urls || []), ...(service.source_urls || [])])];
+  if (urls.length) rows.push(`<div class="detail-row"><span>Informazioni ufficiali</span>${urls.map((url) => sourceLink(url, "Apri la fonte")).filter(Boolean).join(" · ")}</div>`);
   return rows.join("") || "<p>Nessun altro dettaglio pubblicato.</p>";
+}
+
+function openTerritoryDetail(kind, index) {
+  const data = elements.centresView._data;
+  if (!data) return;
+  const collections = {
+    facility: data.facilities,
+    point: data.collection_points,
+    pickup: data.pickup_services,
+  };
+  const service = collections[kind]?.[index];
+  if (!service) return;
+  elements.detailTitle.textContent = service.name || (kind === "pickup" ? "Ritiro a domicilio" : "Dettagli del servizio");
+  elements.detailContent.innerHTML = detailRows(service);
+  elements.detailDialog.showModal();
 }
 
 elements.form.addEventListener("submit", (event) => { event.preventDefault(); resolveWaste(elements.input.value); });
@@ -394,6 +674,40 @@ elements.placeSearch.addEventListener("input", () => renderPlaceList(elements.pl
 elements.clearZone.addEventListener("click", clearRememberedZone);
 elements.detectPlace.addEventListener("click", locateMunicipality);
 elements.clearPosition.addEventListener("click", clearLocation);
+for (const button of document.querySelectorAll("[data-view]")) {
+  button.addEventListener("click", () => setView(button.dataset.view));
+}
+elements.rulesZone.addEventListener("change", () => {
+  const zone = state.territory?.zones.find((item) => item.id === elements.rulesZone.value);
+  if (zone) {
+    rememberZone(zone.id, zone.name);
+    state.territory = null;
+    loadTerritory();
+  } else {
+    clearRememberedZone();
+  }
+});
+elements.rulesStream.addEventListener("change", () => {
+  if (state.territory) renderRuleRows(state.territory);
+});
+elements.rulesPreparation.addEventListener("change", () => {
+  if (state.territory) renderRuleRows(state.territory);
+});
+for (const button of document.querySelectorAll("[data-service-view]")) {
+  button.addEventListener("click", () => {
+    state.serviceView = button.dataset.serviceView;
+    for (const candidate of document.querySelectorAll("[data-service-view]")) {
+      candidate.setAttribute("aria-selected", String(candidate === button));
+    }
+    renderServiceDirectory();
+  });
+}
+elements.centresContent.addEventListener("click", (event) => {
+  const button = event.target.closest("button[data-territory-kind]");
+  if (button) openTerritoryDetail(
+    button.dataset.territoryKind, Number(button.dataset.territoryIndex),
+  );
+});
 elements.placeList.addEventListener("click", (event) => {
   const button = event.target.closest("button[data-istat]");
   if (button) chooseMunicipality(
@@ -401,7 +715,7 @@ elements.placeList.addEventListener("click", (event) => {
     {preserveLocation: button.dataset.locationChoice === "true"},
   );
 });
-for (const button of document.querySelectorAll("#change-place, #choose-place")) button.addEventListener("click", openPlaceDialog);
+for (const button of document.querySelectorAll("#change-place, #choose-place, [data-change-place]")) button.addEventListener("click", openPlaceDialog);
 for (const button of document.querySelectorAll("[data-query]")) button.addEventListener("click", () => {
   if (!state.municipality) return openPlaceDialog();
   elements.input.value = button.dataset.query;
@@ -419,6 +733,8 @@ async function initialize() {
     const remembered = localStorage.getItem("comesibutta.municipality");
     const municipality = state.municipalities.find((item) => item.istat_code === remembered);
     if (municipality) chooseMunicipality(municipality);
+    const requestedView = new URLSearchParams(location.hash.slice(1)).get("view");
+    setView(requestedView || "search", {updateHistory: false});
   } catch (error) {
     hideStates();
     elements.errorMessage.textContent = error.message;
