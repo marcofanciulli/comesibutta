@@ -562,6 +562,16 @@ Prima verticale applicativa:
   di Via Pasubio 130 tramite la voce ufficiale `Accumulatori esausti (solo da
   utenze domestiche)` e conservano l'EER `20 01 33` come classificazione
   revisionata, senza attribuire il codice alla fonte locale che non lo espone;
+- pubblicata e applicata la revisione firmata `202608090012`: contiene i 273
+  confini comunali ISTAT al 1 gennaio 2026, abilita la selezione GPS del comune
+  con correzione manuale e ordina i servizi verificati per distanza;
+- aggiunto l'audit qualitativo delle destinazioni: confronta ogni risposta con
+  i centri accessibili e blocca la release se omette un'accettazione EER o una
+  descrizione completa pubblicata; la revisione corrente ha zero omissioni
+  bloccanti;
+- i centri che pubblicano un materiale senza EER possono essere mostrati come
+  destinazione verificata senza attribuire loro un codice; quando accettano piu
+  EER plausibili, il centro resta visibile e i codici rimangono alternative;
 - l'audit copre 273 comuni, 417 zone registrate e tre contesti comunali senza
   zone pubblicate; la coda di deduplicazione manuale e vuota;
 - il gate territoriale costruisce e verifica il database candidato prima di
@@ -588,15 +598,13 @@ Prima verticale applicativa:
 
 1. Collaudare con utenti la prima verticale web `Dove lo butto?` e correggere
    lessico, priorita informative e casi di disambiguazione emersi.
-2. Aggiungere la localizzazione del comune, con consenso esplicito e possibilita
-   di correzione manuale, riusando le coordinate per ordinare i servizi vicini.
-3. Definire autenticazione opzionale e sincronizzazione delle preferenze senza
+2. Definire autenticazione opzionale e sincronizzazione delle preferenze senza
    rendere obbligatoria la registrazione.
-4. Revisionare periodicamente la coda delle ricerche senza risposta e inserire
+3. Revisionare periodicamente la coda delle ricerche senza risposta e inserire
    sinonimi o concetti soltanto dopo verifica di liceita, EER ed evidenze.
-5. Aggiungere consolidati settimanali, mensili e annuali con conservazione e
+4. Aggiungere consolidati settimanali, mensili e annuali con conservazione e
    compattazione automatica nella finestra incrementale di cinque anni.
-6. Importare il primo lotto fotografico classificato col prontuario, annotarlo
+5. Importare il primo lotto fotografico classificato col prontuario, annotarlo
    in CVAT e fissare le soglie quantitative del primo dataset addestrabile.
 
 ## Regola di continuita

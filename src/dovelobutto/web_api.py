@@ -12,6 +12,7 @@ from urllib.parse import parse_qs, urlparse
 
 from .app_query import DisposalQueryService, open_query_database
 from .missing_queries import MissingQueryStore
+from .municipality_boundaries import geometry_contains
 from .sync import read_entity_data
 
 
@@ -72,6 +73,82 @@ class DisposalApi:
                 "results": DisposalQueryService(connection).search(
                     text, municipality_istat=municipality, limit=max(1, min(limit, 20)),
                 )
+            }
+        finally:
+            connection.close()
+
+    def locate(self, request: dict[str, Any]) -> dict[str, Any]:
+        latitude = request.get("latitude")
+        longitude = request.get("longitude")
+        accuracy = request.get("accuracy")
+        if (
+            isinstance(latitude, bool) or not isinstance(latitude, (int, float))
+            or not -90 <= latitude <= 90
+        ):
+            raise ValueError("Latitude must be a number between -90 and 90")
+        if (
+            isinstance(longitude, bool) or not isinstance(longitude, (int, float))
+            or not -180 <= longitude <= 180
+        ):
+            raise ValueError("Longitude must be a number between -180 and 180")
+        if accuracy is not None and (
+            isinstance(accuracy, bool)
+            or not isinstance(accuracy, (int, float))
+            or accuracy < 0
+        ):
+            raise ValueError("Accuracy must be a non-negative number")
+        connection = open_query_database(self.database)
+        try:
+            matches = []
+            for row in connection.execute(
+                """SELECT entity_id FROM entities
+                WHERE entity_type = 'municipality_boundary' ORDER BY entity_id"""
+            ):
+                boundary = read_entity_data(
+                    connection, "municipality_boundary", row["entity_id"],
+                    include_sources=False,
+                ) or {}
+                payload = boundary.get("payload") or {}
+                bbox = payload.get("bbox") or []
+                if len(bbox) != 4 or not (
+                    bbox[0] <= longitude <= bbox[2]
+                    and bbox[1] <= latitude <= bbox[3]
+                ):
+                    continue
+                if not geometry_contains(
+                    payload.get("geometry_geojson") or {}, longitude, latitude,
+                ):
+                    continue
+                municipality_ref = payload.get("municipality_ref") or ""
+                code = municipality_ref.removeprefix("istat:")
+                municipality = read_entity_data(
+                    connection, "municipality", municipality_ref,
+                    include_sources=False,
+                ) or {}
+                municipality_payload = municipality.get("payload") or municipality
+                matches.append({
+                    "istat_code": code,
+                    "name": municipality_payload.get("name") or payload.get("name"),
+                    "province_code": municipality_payload.get("province_code"),
+                    "ato": municipality_payload.get("ato_ref"),
+                    "operator": (
+                        municipality_payload.get("local_operator_name")
+                        or municipality_payload.get("operator_name")
+                    ),
+                })
+            revision = int(dict(connection.execute(
+                "SELECT key, value FROM metadata"
+            )).get("revision", 0))
+            return {
+                "status": (
+                    "resolved" if len(matches) == 1
+                    else "boundary_ambiguous" if matches
+                    else "outside_supported_area"
+                ),
+                "municipalities": matches,
+                "accuracy_m": accuracy,
+                "dataset_revision": revision,
+                "position_stored": False,
             }
         finally:
             connection.close()
@@ -159,7 +236,8 @@ def _handler(api: DisposalApi, static_root: Path) -> type[BaseHTTPRequestHandler
 
         def do_POST(self) -> None:  # noqa: N802
             try:
-                if urlparse(self.path).path != "/api/answer":
+                path = urlparse(self.path).path
+                if path not in {"/api/answer", "/api/locate"}:
                     self._json({"error": "Not found"}, HTTPStatus.NOT_FOUND)
                     return
                 length = int(self.headers.get("Content-Length", "0"))
@@ -168,7 +246,10 @@ def _handler(api: DisposalApi, static_root: Path) -> type[BaseHTTPRequestHandler
                 request = json.loads(self.rfile.read(length))
                 if not isinstance(request, dict):
                     raise ValueError("The request body must be an object")
-                self._json(api.answer(request))
+                self._json(
+                    api.locate(request) if path == "/api/locate"
+                    else api.answer(request)
+                )
             except (ValueError, KeyError, TypeError, json.JSONDecodeError) as error:
                 self._json({"error": str(error)}, HTTPStatus.BAD_REQUEST)
             except (FileNotFoundError, sqlite3.DatabaseError):

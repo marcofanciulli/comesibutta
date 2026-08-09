@@ -348,6 +348,40 @@ class DisposalQueryTests(unittest.TestCase):
         self.assertEqual("resolved", answer["status"])
         self.assertEqual("Vetro", answer["result"]["stream"])
 
+    def test_web_api_locates_a_municipality_without_storing_the_position(self) -> None:
+        self.connection.close()
+        writer = open_database(self.database, role="client")
+        current = read_database_entities(writer)
+        changed = dict(current)
+        boundary = CanonicalEntity("municipality_boundary", "boundary:manciano", {
+            "payload": {
+                "municipality_ref": "istat:053014",
+                "name": "Manciano",
+                "bbox": [10.0, 42.0, 12.0, 44.0],
+                "reference_date": "2026-01-01",
+                "geometry_geojson": {
+                    "type": "Polygon",
+                    "coordinates": [[
+                        [10.0, 42.0], [12.0, 42.0], [12.0, 44.0],
+                        [10.0, 44.0], [10.0, 42.0],
+                    ]],
+                },
+            },
+        }, (("municipality", "istat:053014"),))
+        changed[(boundary.entity_type, boundary.entity_id)] = boundary
+        apply_package(writer, build_update_package(current, changed, 1, 2, GENERATED_AT))
+        writer.close()
+
+        api = DisposalApi(self.database)
+        located = api.locate({
+            "latitude": 43.0, "longitude": 11.0, "accuracy": 25.0,
+        })
+
+        self.assertEqual("resolved", located["status"])
+        self.assertEqual("053014", located["municipalities"][0]["istat_code"])
+        self.assertEqual(25.0, located["accuracy_m"])
+        self.assertFalse(located["position_stored"])
+
     def test_web_api_rejects_incomplete_requests(self) -> None:
         api = DisposalApi(self.database)
         with self.assertRaisesRegex(ValueError, "Waste text is required"):
@@ -437,6 +471,7 @@ class DisposalQueryTests(unittest.TestCase):
         self.assertEqual(2, report["summary"]["total_guaranteed_cases"])
         self.assertEqual(2, report["summary"]["runtime_answer_checks"])
         self.assertEqual({"resolved": 2}, report["summary"]["runtime_answer_statuses"])
+        self.assertTrue(report["destination_quality"]["summary"]["release_ready"])
 
     def test_coverage_audit_includes_municipalities_without_observed_concepts(self) -> None:
         self.connection.close()

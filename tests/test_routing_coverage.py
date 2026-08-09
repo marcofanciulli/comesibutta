@@ -231,6 +231,12 @@ class RoutingCoverageTests(unittest.TestCase):
                     "failures": 1,
                     "near_duplicate_review_candidates": 0,
                 },
+                "dataset_revision": 1,
+                "destination_quality": {
+                    "summary": {"release_ready": True, "blocking_issues": 0},
+                    "method": {}, "categories": {}, "territories": [],
+                    "blocking_issues": [],
+                },
             }
             with (
                 patch(

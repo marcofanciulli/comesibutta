@@ -93,6 +93,15 @@
       </div>
       <label for="place-search">Cerca per nome</label>
       <input id="place-search" type="search" autocomplete="off" placeholder="Es. Livorno">
+      <button id="detect-place" class="location-button" type="button">
+        <span aria-hidden="true">⌖</span>
+        <span>Usa la mia posizione</span>
+      </button>
+      <p id="location-status" class="location-status" aria-live="polite"></p>
+      <div id="position-preference" class="zone-preference" hidden>
+        <span>Posizione attiva per ordinare i servizi</span>
+        <button id="clear-position" class="text-button" type="button">Rimuovi</button>
+      </div>
       <div id="zone-preference" class="zone-preference" hidden>
         <span id="current-zone"></span>
         <button id="clear-zone" class="text-button" type="button">Rimuovi zona</button>

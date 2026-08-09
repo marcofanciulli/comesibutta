@@ -15,6 +15,7 @@
     "record_type": {
       "enum": [
         "municipality",
+        "municipality_boundary",
         "waste_lookup",
         "service_zone",
         "collection_rule",
@@ -41,6 +42,10 @@
     {
       "if": { "properties": { "record_type": { "const": "municipality" } } },
       "then": { "properties": { "payload": { "$ref": "#/$defs/municipality" } } }
+    },
+    {
+      "if": { "properties": { "record_type": { "const": "municipality_boundary" } } },
+      "then": { "properties": { "payload": { "$ref": "#/$defs/municipalityBoundary" } } }
     },
     {
       "if": { "properties": { "record_type": { "const": "waste_lookup" } } },
@@ -161,6 +166,33 @@
           },
           "additionalProperties": false
         }
+      },
+      "additionalProperties": false
+    },
+    "municipalityBoundary": {
+      "type": "object",
+      "required": [
+        "municipality_ref", "name", "geometry_geojson", "bbox", "reference_date"
+      ],
+      "properties": {
+        "municipality_ref": { "type": "string", "pattern": "^istat:[0-9]{6}$" },
+        "name": { "type": "string" },
+        "geometry_geojson": {
+          "type": "object",
+          "required": ["type", "coordinates"],
+          "properties": {
+            "type": { "enum": ["Polygon", "MultiPolygon"] },
+            "coordinates": { "type": "array" }
+          },
+          "additionalProperties": false
+        },
+        "bbox": {
+          "type": "array",
+          "items": { "type": "number" },
+          "minItems": 4,
+          "maxItems": 4
+        },
+        "reference_date": { "type": "string", "format": "date" }
       },
       "additionalProperties": false
     },

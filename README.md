@@ -17,8 +17,11 @@ PYTHONPATH=src python3 -m dovelobutto.cli serve-app \
 ```
 
 L'app e disponibile su `http://127.0.0.1:8780`. Ricorda localmente il comune
-scelto e mostra destinazione, preparazione, contenitore, codice EER, servizi,
-avvertenze e fonti della risposta territoriale.
+scelto e, soltanto su richiesta, puo individuarlo dalla posizione corrente. Le
+coordinate restano in memoria per la sessione, non sono salvate, e ordinano i
+servizi compatibili per distanza. L'utente puo sempre correggere il comune a
+mano. La risposta mostra destinazione, preparazione, contenitore, codice EER,
+servizi, avvertenze e fonti territoriali.
 
 Il perimetro censito comprende i 104 comuni di ATO Toscana Sud, i 100 comuni
 di ATO Toscana Costa, i 65 comuni di ATO Toscana Centro e i quattro comuni

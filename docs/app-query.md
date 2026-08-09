@@ -123,14 +123,24 @@ il mercurio non diventa `Metalli` e il piombo non diventa `20 01 40`. La
 risposta puo conservare soltanto un EER pericoloso verificato o un canale di
 gestione separata; in mancanza del primo non assegna alcun codice.
 
-Un concetto non pericoloso puo avere piu EER condizionati da materiale, provenienza e processo
-che ha generato il rifiuto. Se un centro locale accetta una sola delle
-classificazioni compatibili, l'app puo proporre quel centro mostrando codice e
-condizione. Se piu codici restano possibili, non ne sceglie uno implicitamente:
-deve chiedere il dettaglio discriminante all'utente. Per esempio `Rame`, quando
+Un concetto non pericoloso puo avere piu EER condizionati da materiale,
+provenienza e processo che ha generato il rifiuto. Se un centro locale accetta
+una sola delle classificazioni compatibili, l'app puo proporre quel centro
+mostrando codice e condizione. Se il centro accetta piu codici possibili, puo
+essere mostrato senza sceglierne uno: i codici restano alternative esplicite e
+la risposta spiega quale dettaglio li distingue. Quando quel dettaglio cambia
+anche il canale, il motore pone invece una domanda. Per esempio `Rame`, quando
 non contaminato, puo
 ricadere in `20 01 40` come metallo domestico raccolto separatamente oppure in
 `17 04 01` se proviene da costruzione o demolizione.
+
+La verifica qualitativa delle destinazioni e separata dalla copertura
+sintattica. Per ogni risposta cerca indipendentemente centri accessibili che
+pubblicano lo stesso EER o una descrizione completa del materiale. La
+pubblicazione viene bloccata se la risposta omette uno di questi centri. Una
+descrizione testuale puo verificare la destinazione anche senza EER, ma il
+codice non viene inventato ne attribuito alla fonte. Le lacune della fonte
+restano invece conteggiate, senza trasformarsi in regole operative.
 
 Le condizioni possono anche cambiare il canale senza cambiare l'identita
 lessicale dell'oggetto. I gruppi di disambiguazione revisionati pongono una

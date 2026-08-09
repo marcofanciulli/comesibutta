@@ -10,6 +10,7 @@ from typing import Any
 
 from .app_query import DisposalQueryService, _similarity, open_query_database
 from .catalog import normalize_term
+from .destination_quality import DestinationQualityAudit
 from .sync import read_entity_data
 
 
@@ -150,6 +151,20 @@ def audit_query_coverage(
     metadata = dict(connection.execute("SELECT key, value FROM metadata"))
     municipality_ids = _entity_ids(connection, "municipality")
     municipalities = {item.removeprefix("istat:") for item in municipality_ids}
+    municipality_metadata = {}
+    for municipality_id in municipality_ids:
+        municipality = read_entity_data(
+            connection, "municipality", municipality_id, include_sources=False,
+        ) or {}
+        payload = municipality.get("payload") or municipality
+        municipality_metadata[municipality_id.removeprefix("istat:")] = {
+            "name": payload.get("name") or payload.get("municipality_name"),
+            "province_code": (
+                payload.get("province_code")
+                or payload.get("province_abbreviation")
+            ),
+            "ato_ref": payload.get("ato_ref") or payload.get("ato_name"),
+        }
     zones_by_municipality: dict[str, list[str]] = defaultdict(list)
     failures: list[dict[str, Any]] = []
 
@@ -167,6 +182,7 @@ def audit_query_coverage(
             zones_by_municipality[municipality].append(zone_id)
 
     service = DisposalQueryService(connection)
+    destination_quality = DestinationQualityAudit(service, municipality_metadata)
     contexts = [
         (municipality, zone_id)
         for municipality in sorted(municipalities)
@@ -280,6 +296,18 @@ def audit_query_coverage(
                         fields=ordinary_fields,
                         eer_codes=non_hazardous_codes,
                     )
+            matched_id = (answer.get("query") or {}).get("matched_concept_id")
+            matched_concept = (
+                service._concept_for_choice(matched_id) if matched_id else None
+            )
+            destination_quality.observe(
+                answer,
+                concept=matched_concept,
+                concept_id=matched_id or entity_id,
+                label=label,
+                municipality=municipality,
+                zone_id=zone_id,
+            )
             return
         if status == "needs_question":
             question = answer.get("question") or {}
@@ -426,6 +454,8 @@ def audit_query_coverage(
         "territorial_alias_zone_cases": alias_cases,
         "conditional_outcome_zone_cases": outcome_cases,
     }
+    quality_report = destination_quality.report()
+    quality_ready = quality_report["summary"]["release_ready"]
     return {
         "generated_at": generated_at.isoformat(),
         "dataset_revision": int(metadata.get("revision", 0)),
@@ -438,8 +468,8 @@ def audit_query_coverage(
             "excluded": "No canonical waste concept or Tuscan municipality is excluded.",
         },
         "summary": {
-            "status": "pass" if not failure_total else "fail",
-            "release_ready": not failure_total and not review_queue,
+            "status": "pass" if not failure_total and quality_ready else "fail",
+            "release_ready": not failure_total and not review_queue and quality_ready,
             "review_status": "required" if review_queue else "complete",
             "failures": failure_total,
             "failure_counts": dict(sorted(failure_counts.items())),
@@ -488,6 +518,7 @@ def audit_query_coverage(
         "route_equivalent_duplicates": equivalent_candidates,
         "lexical_similarity_candidates": lexical_candidates,
         "review_queue": review_queue,
+        "destination_quality": quality_report,
     }
 
 
@@ -512,5 +543,20 @@ def write_coverage_report(path: Path, report: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(
         json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+
+def write_destination_quality_report(
+    path: Path, report: dict[str, Any], *, generated_at: datetime,
+) -> None:
+    quality = {
+        "generated_at": generated_at.isoformat(),
+        "dataset_revision": report.get("dataset_revision"),
+        **report["destination_quality"],
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        json.dumps(quality, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
     )

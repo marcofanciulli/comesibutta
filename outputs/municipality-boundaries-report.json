@@ -1,0 +1,10 @@
+{
+  "materialized_boundaries": 273,
+  "missing_boundaries": [],
+  "reference_date": "2026-01-01",
+  "registered_municipalities": 273,
+  "retrieved_at": "2026-08-09T20:30:00+02:00",
+  "source_url": "https://www.istat.it/storage/cartografia/confini_amministrativi/generalizzati/2026/Limiti01012026_g.zip",
+  "status": "pass",
+  "unexpected_boundaries": []
+}

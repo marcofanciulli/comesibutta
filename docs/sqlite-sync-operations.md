@@ -111,6 +111,7 @@ PYTHONPATH=src python3 -m dovelobutto.cli publish-data-release \
   --waste-curation-register data/curation/waste-curation-v1.json \
   --routing-coverage-report outputs/waste-routing-coverage-report.json \
   --query-coverage-report outputs/query-coverage-report.json \
+  --destination-quality-report outputs/destination-quality-report.json \
   --database data/canonical/publisher.sqlite \
   --artifact-dir outputs/distribution \
   --manifest outputs/distribution/manifest.json \
@@ -126,7 +127,8 @@ PYTHONPATH=src python3 -m dovelobutto.cli publish-data-release \
 registro di curatela. Prima costruisce un client temporaneo con lo stato
 candidato, poi interrompe la pubblicazione se esistono concetti non
 classificati oppure risposte territoriali mancanti, in conflitto o incomplete.
-Anche una coppia di duplicati ancora da revisionare blocca il rilascio.
+Anche una coppia di duplicati ancora da revisionare o una destinazione locale
+verificata ma omessa dalla risposta blocca il rilascio.
 `--allow-incomplete-routing` e `--allow-incomplete-territorial-coverage` sono
 riservati alle revisioni locali di sviluppo e devono essere sempre espliciti.
 

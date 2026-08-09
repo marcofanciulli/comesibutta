@@ -52,6 +52,7 @@ from .local_operators import (
     crawl_local_operator,
     materialize_local_operator,
 )
+from .municipality_boundaries import materialize_municipality_boundaries
 from .registry import (
     extract_ato_centro_municipality_registry,
     extract_ato_costa_municipality_registry,
@@ -168,6 +169,18 @@ def build_parser() -> argparse.ArgumentParser:
     boundary_registry.add_argument("--retrieved-at", required=True)
     boundary_registry.add_argument("--output", type=Path, required=True)
     boundary_registry.add_argument("--report", type=Path, required=True)
+    municipality_boundaries = subparsers.add_parser(
+        "materialize-municipality-boundaries",
+        help="Materialize official ISTAT municipality polygons for GPS lookup",
+    )
+    municipality_boundaries.add_argument("--geojson", type=Path, required=True)
+    municipality_boundaries.add_argument(
+        "--registry", type=Path, action="append", required=True,
+    )
+    municipality_boundaries.add_argument("--source-url", required=True)
+    municipality_boundaries.add_argument("--retrieved-at", required=True)
+    municipality_boundaries.add_argument("--output", type=Path, required=True)
+    municipality_boundaries.add_argument("--report", type=Path, required=True)
     esa = subparsers.add_parser(
         "materialize-esa",
         help="Extract the shared ESA collection and facility pages for Elba municipalities",
@@ -358,6 +371,7 @@ def build_parser() -> argparse.ArgumentParser:
     publish.add_argument("--waste-curation-register", type=Path)
     publish.add_argument("--routing-coverage-report", type=Path)
     publish.add_argument("--query-coverage-report", type=Path)
+    publish.add_argument("--destination-quality-report", type=Path)
     publish.add_argument(
         "--allow-incomplete-routing",
         action="store_true",
@@ -485,6 +499,7 @@ def build_parser() -> argparse.ArgumentParser:
     query_coverage.add_argument("--database", type=Path, required=True)
     query_coverage.add_argument("--generated-at", required=True)
     query_coverage.add_argument("--output", type=Path, required=True)
+    query_coverage.add_argument("--destination-quality-output", type=Path)
     query_coverage.add_argument("--similarity-threshold", type=float, default=0.94)
     routing_coverage = subparsers.add_parser(
         "audit-routing-coverage",
@@ -584,7 +599,11 @@ def main(argv: list[str] | None = None) -> int:
             args.packaging_material_register, args.waste_curation_register,
         )
         if args.catalog and args.waste_curation_register:
-            from .query_coverage import audit_query_coverage_path, write_coverage_report
+            from .query_coverage import (
+                audit_query_coverage_path,
+                write_coverage_report,
+                write_destination_quality_report,
+            )
 
             query_coverage_path = args.query_coverage_report or args.report.with_name(
                 "query-coverage-report.json"
@@ -603,6 +622,15 @@ def main(argv: list[str] | None = None) -> int:
                     candidate_database, generated_at=generated_at,
                 )
             write_coverage_report(query_coverage_path, query_coverage_report)
+            destination_quality_path = (
+                args.destination_quality_report
+                or args.report.with_name("destination-quality-report.json")
+            )
+            write_destination_quality_report(
+                destination_quality_path,
+                query_coverage_report,
+                generated_at=generated_at,
+            )
             if (
                 not query_coverage_report["summary"]["release_ready"]
                 and not args.allow_incomplete_territorial_coverage
@@ -612,7 +640,10 @@ def main(argv: list[str] | None = None) -> int:
                     "Territorial query coverage is incomplete: "
                     f"{summary['failures']} failed answers and "
                     f"{summary['near_duplicate_review_candidates']} duplicate reviews; "
-                    f"see {query_coverage_path}"
+                    f"destination quality has "
+                    f"{query_coverage_report['destination_quality']['summary']['blocking_issues']} "
+                    f"blocking issues; see {query_coverage_path} and "
+                    f"{destination_quality_path}"
                 )
         report = publish_release(
             entities, args.database, args.artifact_dir, args.manifest,
@@ -623,6 +654,9 @@ def main(argv: list[str] | None = None) -> int:
             report["routing_coverage"] = routing_report["summary"]
         if query_coverage_report is not None:
             report["territorial_query_coverage"] = query_coverage_report["summary"]
+            report["destination_quality"] = query_coverage_report[
+                "destination_quality"
+            ]["summary"]
         args.report.parent.mkdir(parents=True, exist_ok=True)
         args.report.write_text(
             json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
@@ -910,7 +944,11 @@ def main(argv: list[str] | None = None) -> int:
             print(serialized, end="")
         return 0
     if args.command == "audit-query-coverage":
-        from .query_coverage import audit_query_coverage_path, write_coverage_report
+        from .query_coverage import (
+            audit_query_coverage_path,
+            write_coverage_report,
+            write_destination_quality_report,
+        )
 
         report = audit_query_coverage_path(
             args.database,
@@ -918,6 +956,12 @@ def main(argv: list[str] | None = None) -> int:
             similarity_threshold=args.similarity_threshold,
         )
         write_coverage_report(args.output, report)
+        if args.destination_quality_output:
+            write_destination_quality_report(
+                args.destination_quality_output,
+                report,
+                generated_at=datetime.fromisoformat(args.generated_at),
+            )
         print(json.dumps(report["summary"], ensure_ascii=False))
         return 0 if report["summary"]["status"] == "pass" else 1
     if args.command == "audit-routing-coverage":
@@ -1486,6 +1530,20 @@ def main(argv: list[str] | None = None) -> int:
             "warnings": warnings,
         }, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
         return 0 if len(records) == 4 and not warnings else 1
+    if args.command == "materialize-municipality-boundaries":
+        records, report = materialize_municipality_boundaries(
+            args.geojson,
+            args.registry,
+            source_url=args.source_url,
+            retrieved_at=datetime.fromisoformat(args.retrieved_at),
+        )
+        write_jsonl(args.output, records)
+        args.report.parent.mkdir(parents=True, exist_ok=True)
+        args.report.write_text(
+            json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+        return 0
     if args.command == "sweep-sei":
         observed_at = datetime.fromisoformat(args.observed_at)
         jobs = read_registry_jobs(args.registry)

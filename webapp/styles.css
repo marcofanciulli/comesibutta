@@ -121,6 +121,14 @@ dialog::backdrop { background: #0b211cc4; }
 .dialog-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
 .icon-button { width: 40px; height: 40px; flex: 0 0 40px; border: 1px solid var(--line); border-radius: 50%; background: white; font-size: 1.5rem; line-height: 1; }
 .dialog-shell > input { width: 100%; min-height: 48px; border-radius: var(--radius); }
+.location-button {
+  width: 100%; min-height: 46px; margin-top: 12px; display: flex;
+  align-items: center; justify-content: center; gap: 8px; border: 1px solid #91aaa0;
+  border-radius: var(--radius); color: var(--green); background: #eef7f3;
+  font-weight: 750;
+}
+.location-button:disabled { opacity: .6; cursor: wait; }
+.location-status { min-height: 22px; margin: 8px 0 0; color: var(--muted); font-size: .86rem; }
 .zone-preference {
   min-height: 44px; display: flex; align-items: center; justify-content: space-between;
   gap: 12px; margin-top: 12px; padding: 8px 0; border-top: 1px solid var(--line);
@@ -149,6 +157,6 @@ dialog::backdrop { background: #0b211cc4; }
   .fact { min-height: auto; }
   .service-list { grid-template-columns: 1fr; }
   .answer-head h2 { font-size: 1.65rem; }
-  .examples { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 3px; }
-  .examples button { flex: 0 0 auto; }
+  .examples { flex-wrap: wrap; }
+  .examples button { max-width: 100%; overflow-wrap: anywhere; }
 }

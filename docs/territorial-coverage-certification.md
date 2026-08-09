@@ -1,7 +1,7 @@
 # Certificazione della copertura territoriale
 
-Revisione dataset: `202608090011`
-Data del controllo: 9 agosto 2026, ore 19:48 CEST
+Revisione dataset: `202608090012`
+Data del controllo: 9 agosto 2026, ore 21:52 CEST
 Esito: `pass` e `release_ready: true`
 
 ## Perimetro certificato
@@ -35,6 +35,7 @@ Nessun concetto canonico, comune toscano o zona registrata e escluso.
 | Risposte risolte senza fonte | 0 |
 | Percorsi portabili con dettagli locali inventati | 0 |
 | Materiali pericolosi instradati verso flussi o EER non pericolosi | 0 |
+| Destinazioni locali verificate ma omesse | 0 |
 | Duplicati in attesa di decisione | 0 |
 
 Una domanda e considerata definita soltanto se presenta opzioni non vuote con
@@ -56,6 +57,34 @@ Cinque profili trasversali coprono piombo, mercurio, amianto, cadmio, pile e
 batterie. Quando uno di essi si attiva, flussi, contenitori ed EER non
 pericolosi vengono soppressi. Se non resta un EER pericoloso verificato, la
 risposta conserva soltanto la gestione separata e non assegna alcun codice.
+
+## Qualita delle destinazioni
+
+Un audit indipendente confronta ogni risposta col catalogo dei centri
+accessibili. Un centro e considerato verificato soltanto se pubblica uno degli
+EER compatibili oppure una descrizione completa del materiale. Sono state
+osservate 115.473 risposte con centro locale verificato, corrispondenti a
+69.218 coppie concetto-comune. Le omissioni bloccanti sono zero.
+
+Le lacune delle fonti sono rendicontate separatamente: non diventano
+destinazioni dedotte. Il report registra 143.707 coppie concetto-comune con un
+percorso portabile privo di dettaglio locale, 155.657 con EER ma senza servizio
+locale pubblicato e 21.516 con il solo canale di operatore specializzato. Sono
+indicatori per le prossime acquisizioni, non errori di copertura logica.
+
+Quando un centro nomina esplicitamente un materiale ma non pubblica l'EER, il
+centro puo essere mostrato senza attribuire un codice alla fonte. Quando
+accetta piu EER plausibili, nessuno viene scelto implicitamente: restano
+alternative con le rispettive condizioni.
+
+## Geolocalizzazione
+
+La revisione comprende 273 confini comunali ISTAT al 1 gennaio 2026. Tutti i
+comuni registrati hanno un confine e non risultano geometrie inattese. Il
+comune puo essere individuato soltanto su richiesta esplicita; la posizione
+non viene persistita e puo sempre essere corretta manualmente. Le coordinate
+ordinano per distanza i servizi gia verificati, senza inventarne
+l'accettazione.
 
 ## Deduplicazione
 
@@ -83,16 +112,20 @@ database autorevole e del manifest.
 
 ## Artefatti verificabili
 
-- `outputs/query-coverage-report.json`  
-  SHA-256 `609175d56dd8e6b8b7d2258c1f28fe56ab38b2d0f351648489e1410f106dd3c2`
-- `outputs/waste-routing-coverage-report.json`  
-  SHA-256 `056be2742bf55909140685aa61eac95fd192fba8c65597ad373335705988ce15`
-- `outputs/distribution/release-report.json`  
-  SHA-256 `f0a30dd7cc937c9e16cde8b96a2af84c073dec2615461057d36706ffc9e2ddaa`
+- `outputs/query-coverage-report.json`
+  SHA-256 `94d5223724091de1e17d770ee716d1d94efa4db1b962b7cb1fc4a7744864c397`
+- `outputs/destination-quality-report.json`
+  SHA-256 `cfa19dbaa22e0643727964c99a01a27b3483a7b22320cc378e66f875a5612784`
+- `outputs/waste-routing-coverage-report.json`
+  SHA-256 `aff39d520a149ca0a70b689006765b3c3424956b17188db933f56ee64564d840`
+- `outputs/municipality-boundaries-report.json`
+  SHA-256 `8715fe0d8d3a6ac1e10c4b5cc590a32b95cf27f8ede3d2898a90857940c83cb4`
+- `outputs/distribution/release-report.json`
+  SHA-256 `d104a617dd682e6b10c59c128e8df9e5d88959e0a218280e99b2fc9c141a4f4d`
 
-Lo snapshot firmato della revisione contiene 157.301 entita. Il client locale
-ha applicato con successo il delta firmato da `202608090009` a
-`202608090010` e poi quello da `202608090010` a `202608090011`.
+Lo snapshot firmato della revisione contiene 157.574 entita. Il client locale
+ha applicato con successo il delta firmato da `202608090011` a
+`202608090012`, composto dalle 273 geometrie comunali.
 
 ## Limiti della certificazione
 

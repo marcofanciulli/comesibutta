@@ -4,6 +4,7 @@ const state = {
   zoneId: null,
   zoneLabel: null,
   datasetRevision: null,
+  location: null,
   query: "",
   conceptId: null,
   searchTimer: null,
@@ -23,6 +24,8 @@ const elements = {
   notFoundMessage: $("#not-found-message"),
   zonePreference: $("#zone-preference"), currentZone: $("#current-zone"),
   clearZone: $("#clear-zone"),
+  detectPlace: $("#detect-place"), locationStatus: $("#location-status"),
+  positionPreference: $("#position-preference"), clearPosition: $("#clear-position"),
 };
 
 const escapeHtml = (value) => String(value ?? "").replace(/[&<>'"]/g, (char) => ({
@@ -42,7 +45,8 @@ function hideStates() {
   }
 }
 
-function chooseMunicipality(item) {
+function chooseMunicipality(item, {preserveLocation = false} = {}) {
+  if (!preserveLocation) state.location = null;
   state.municipality = item;
   localStorage.setItem("comesibutta.municipality", item.istat_code);
   const storedZone = localStorage.getItem(`comesibutta.zone.${item.istat_code}`);
@@ -70,6 +74,69 @@ function updatePlaceControls() {
   elements.currentPlace.textContent = [state.municipality?.name, state.zoneLabel].filter(Boolean).join(" · ") || "Scegli il comune";
   elements.zonePreference.hidden = !state.zoneId;
   elements.currentZone.textContent = state.zoneLabel ? `Zona attiva: ${state.zoneLabel}` : "";
+  elements.positionPreference.hidden = !state.location;
+}
+
+function clearLocation() {
+  state.location = null;
+  elements.locationStatus.textContent = "";
+  updatePlaceControls();
+}
+
+function locateMunicipality() {
+  if (!navigator.geolocation) {
+    elements.locationStatus.textContent = "La posizione non è disponibile su questo dispositivo.";
+    return;
+  }
+  elements.detectPlace.disabled = true;
+  elements.locationStatus.textContent = "Ricerca della posizione in corso…";
+  navigator.geolocation.getCurrentPosition(async (position) => {
+    const location = {
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude,
+      accuracy: position.coords.accuracy,
+    };
+    try {
+      const body = await api("/api/locate", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(location),
+      });
+      if (body.status === "resolved") {
+        state.location = location;
+        const detected = state.municipalities.find(
+          (item) => item.istat_code === body.municipalities[0].istat_code,
+        );
+        if (detected) {
+          elements.locationStatus.textContent = `Posizione rilevata: ${detected.name}.`;
+          chooseMunicipality(detected, {preserveLocation: true});
+        }
+      } else if (body.status === "boundary_ambiguous") {
+        state.location = location;
+        const codes = new Set(body.municipalities.map((item) => item.istat_code));
+        elements.placeList.innerHTML = state.municipalities
+          .filter((item) => codes.has(item.istat_code))
+          .map((item) => `<button type="button" role="option" data-istat="${item.istat_code}" data-location-choice="true"><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(item.province_code || "")}</small></button>`)
+          .join("");
+        elements.locationStatus.textContent = "La posizione è sul confine: scegli il comune corretto.";
+        updatePlaceControls();
+      } else {
+        elements.locationStatus.textContent = "La posizione non ricade in un comune toscano supportato.";
+      }
+    } catch (error) {
+      elements.locationStatus.textContent = error.message;
+    } finally {
+      elements.detectPlace.disabled = false;
+    }
+  }, (error) => {
+    const messages = {
+      1: "Permesso per la posizione non concesso.",
+      2: "Posizione non disponibile.",
+      3: "Tempo scaduto durante la ricerca della posizione.",
+    };
+    elements.locationStatus.textContent = messages[error.code] || "Non è stato possibile rilevare la posizione.";
+    elements.detectPlace.disabled = false;
+  }, {enableHighAccuracy: false, timeout: 10000, maximumAge: 300000});
 }
 
 function rememberZone(id, label) {
@@ -149,6 +216,8 @@ async function resolveWaste(text, conceptId = null, zoneId = undefined) {
         concept_id: conceptId || state.conceptId,
         zone_id: effectiveZoneId,
         user_type: "domestic",
+        latitude: state.location?.latitude,
+        longitude: state.location?.longitude,
       }),
     });
     hideStates();
@@ -323,9 +392,14 @@ elements.answer.addEventListener("click", (event) => {
 });
 elements.placeSearch.addEventListener("input", () => renderPlaceList(elements.placeSearch.value));
 elements.clearZone.addEventListener("click", clearRememberedZone);
+elements.detectPlace.addEventListener("click", locateMunicipality);
+elements.clearPosition.addEventListener("click", clearLocation);
 elements.placeList.addEventListener("click", (event) => {
   const button = event.target.closest("button[data-istat]");
-  if (button) chooseMunicipality(state.municipalities.find((item) => item.istat_code === button.dataset.istat));
+  if (button) chooseMunicipality(
+    state.municipalities.find((item) => item.istat_code === button.dataset.istat),
+    {preserveLocation: button.dataset.locationChoice === "true"},
+  );
 });
 for (const button of document.querySelectorAll("#change-place, #choose-place")) button.addEventListener("click", openPlaceDialog);
 for (const button of document.querySelectorAll("[data-query]")) button.addEventListener("click", () => {

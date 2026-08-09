@@ -105,20 +105,32 @@ def _description_matches_terms(description: str, terms: set[str]) -> bool:
     for term in terms:
         term_tokens = [
             token for token in term.split()
-            if token not in stopwords and len(token) >= 5
+            if token not in stopwords and len(token) >= 4
         ]
         if term_tokens and all(
             any(
                 token == candidate
                 or (
-                    len(candidate) >= 5
+                    len(candidate) >= 4
                     and token[:-1] == candidate[:-1]
                 )
                 for candidate in description_tokens
             )
             for token in term_tokens
         ):
-            return True
+            if len(term_tokens) > 1:
+                return True
+            target = term_tokens[0]
+            first_matching_index = next((
+                index for index, candidate in enumerate(description_tokens)
+                if target == candidate
+                or (
+                    len(candidate) >= 4
+                    and target[:-1] == candidate[:-1]
+                )
+            ), None)
+            if first_matching_index is not None and first_matching_index <= 1:
+                return True
     return False
 
 
@@ -948,6 +960,18 @@ class DisposalQueryService:
             return base
         if len(destinations) > 1:
             if family_destinations_added:
+                fallback, fallback_sources = self._facility_fallback(
+                    concept,
+                    municipality_istat=municipality_istat,
+                    user_type=user_type,
+                    latitude=latitude,
+                    longitude=longitude,
+                )
+                if fallback is not None:
+                    base["status"] = "resolved"
+                    base["result"] = fallback
+                    self._set_provenance(base, [*evidence, *fallback_sources])
+                    return base
                 portable = self._portable_route_fallback(concept)
                 if portable is not None:
                     base["status"] = "resolved"
@@ -1295,6 +1319,48 @@ class DisposalQueryService:
                 latitude=latitude,
                 longitude=longitude,
             )
+        elif (
+            channels
+            and all(channel["destination_type"] == "special_case" for channel in channels)
+        ):
+            centre_candidates, centre_sources = self._resolve_facilities(
+                concept,
+                "Centro di raccolta",
+                municipality_istat=municipality_istat,
+                user_type=user_type,
+                latitude=latitude,
+                longitude=longitude,
+                allow_term_match=False,
+            )
+            exact_candidates = [
+                facility for facility in centre_candidates
+                if facility["acceptance"]["status"] == "verified_eer"
+            ]
+            if exact_candidates:
+                centre = next((
+                    channel for channel in self.delivery_channels
+                    if channel["channel_id"] == "channel:collection-centre"
+                ), None)
+                if centre is not None:
+                    channels = [
+                        *channels,
+                        {
+                            "channel_id": centre["channel_id"],
+                            "preferred_label": centre["preferred_label"],
+                            "destination_type": centre["destination_type"],
+                            "matched_aliases": [centre["preferred_label"]],
+                        },
+                    ]
+                    facilities = exact_candidates
+                    facility_sources.extend(centre_sources)
+                    accepted_codes = sorted({
+                        code for facility in exact_candidates
+                        for code in facility["acceptance"]["eer_codes"]
+                    })
+                    warnings.append(
+                        "Il centro locale pubblica anche l'accettazione esatta "
+                        "dei codici EER compatibili " + ", ".join(accepted_codes) + "."
+                    )
         selectable = [
             facility for facility in facilities
             if facility["acceptance"]["status"].startswith("verified_")
@@ -1578,6 +1644,7 @@ class DisposalQueryService:
             for candidate in concept.get("eer", {}).get("candidates", [])
             if candidate.get("register_status") != "unknown_code"
         }
+        accepted_codes: set[str] = set()
         facilities, sources = self._resolve_facilities(
             concept,
             "Centro di raccolta",
@@ -1611,7 +1678,7 @@ class DisposalQueryService:
                 for code in facility["acceptance"]["eer_codes"]
                 if code in candidate_by_code
             }
-            if len(accepted_codes) != 1:
+            if not accepted_codes:
                 return self._special_channel_fallback(
                     concept, eer, sources,
                     municipality_istat=municipality_istat,
@@ -1619,30 +1686,35 @@ class DisposalQueryService:
                     latitude=latitude,
                     longitude=longitude,
                 )
-            code = next(iter(accepted_codes))
-            candidate = candidate_by_code[code]
-            eer = self._eer_from_code(
-                code, verified, condition=candidate.get("mapping_condition"),
-            )
-            if eer is None:
-                return None, sources
-            verified = [
-                facility for facility in verified
-                if code in facility["acceptance"]["eer_codes"]
-            ]
-            sources.extend(candidate.get("mapping_sources", []))
-            resolution_basis = "locally_accepted_eer"
+            if len(accepted_codes) == 1:
+                code = next(iter(accepted_codes))
+                candidate = candidate_by_code[code]
+                eer = self._eer_from_code(
+                    code, verified, condition=candidate.get("mapping_condition"),
+                )
+                if eer is None:
+                    return None, sources
+                verified = [
+                    facility for facility in verified
+                    if code in facility["acceptance"]["eer_codes"]
+                ]
+                sources.extend(candidate.get("mapping_sources", []))
+                resolution_basis = "locally_accepted_eer"
+            else:
+                eer = None
+                for code in accepted_codes:
+                    sources.extend(candidate_by_code[code].get("mapping_sources", []))
+                resolution_basis = "multiple_locally_accepted_eer"
         else:
             verified = [
                 facility for facility in facilities
                 if facility["acceptance"]["status"] == "verified_description"
-                and len(facility["acceptance"]["eer_codes"]) == 1
             ]
             codes = {
                 code for facility in verified
                 for code in facility["acceptance"]["eer_codes"]
             }
-            if len(codes) != 1:
+            if not verified:
                 return self._special_channel_fallback(
                     concept, eer, sources,
                     municipality_istat=municipality_istat,
@@ -1650,13 +1722,23 @@ class DisposalQueryService:
                     latitude=latitude,
                     longitude=longitude,
                 )
-            eer = self._eer_from_code(next(iter(codes)), verified)
-            if eer is None:
-                return None, sources
-            resolution_basis = "facility_description"
-        if (
-            eer is not None
-            and self._hazard_requires_separate_handling(concept)
+            if len(codes) == 1:
+                eer = self._eer_from_code(next(iter(codes)), verified)
+                if eer is None:
+                    return None, sources
+                if (
+                    self._hazard_requires_separate_handling(concept)
+                    and not eer.get("hazardous")
+                ):
+                    eer = None
+                    resolution_basis = "facility_description_without_eer"
+                else:
+                    resolution_basis = "facility_description"
+            else:
+                eer = None
+                resolution_basis = "facility_description_without_eer"
+        if eer is not None and (
+            self._hazard_requires_separate_handling(concept)
             and not eer.get("hazardous")
         ):
             return self._special_channel_fallback(
@@ -1696,10 +1778,22 @@ class DisposalQueryService:
                 f"il centro locale pubblica l'accettazione del codice {eer['code']}"
                 + (f" ({eer['condition']})." if eer.get("condition") else ".")
             ]
+        elif resolution_basis == "multiple_locally_accepted_eer":
+            warnings = [
+                "Il centro pubblica piu codici EER compatibili con questo oggetto. "
+                "La classificazione esatta dipende da materiale, origine o dimensione: "
+                "verifica le condizioni indicate per ciascun codice."
+            ]
         elif resolution_basis == "facility_description":
             warnings = [
                 "La fonte locale non pubblica un rifiutario: il collegamento deriva "
                 f"dalla descrizione del materiale associata dal centro al codice EER {eer['code']}."
+            ]
+        elif resolution_basis == "facility_description_without_eer":
+            warnings = [
+                "Il centro pubblica esplicitamente l'accettazione di questo materiale, "
+                "ma non indica il relativo codice EER: il codice non viene attribuito "
+                "automaticamente alla fonte locale."
             ]
         else:
             warnings = [
@@ -1723,9 +1817,17 @@ class DisposalQueryService:
             )
         for facility in verified:
             facility.pop("_local", None)
-        destination_labels = candidate_by_code.get(eer["code"], {}).get(
-            "mapping_delivery_channels", [],
-        ) or ["Centro di raccolta"]
+        destination_codes = (
+            {eer["code"]} if eer is not None
+            else accepted_codes
+        )
+        destination_labels = sorted({
+            label
+            for code in destination_codes
+            for label in candidate_by_code.get(code, {}).get(
+                "mapping_delivery_channels", [],
+            )
+        }) or ["Centro di raccolta"]
         source_destination = ", ".join(destination_labels)
         channels = self._channel_matches(source_destination)
         channel_services, unresolved_channels, service_sources = (
@@ -1743,7 +1845,9 @@ class DisposalQueryService:
         sources.extend(service_sources)
         eer_alternatives = []
         for code, candidate in sorted(candidate_by_code.items()):
-            if code == eer["code"]:
+            if eer is not None and code == eer["code"]:
+                continue
+            if eer is None and code not in accepted_codes:
                 continue
             alternative = self._eer_from_code(
                 code, [], condition=candidate.get("mapping_condition"),
@@ -2084,6 +2188,12 @@ class DisposalQueryService:
                 *concept.get("family_acceptance_terms", []),
             ] if normalize_term(term)
         }
+        fuzzy_terms = {
+            normalize_term(term) for term in [
+                concept.get("preferred_label", ""),
+                *concept.get("family_acceptance_terms", []),
+            ] if normalize_term(term)
+        }
         normalized_destination = normalize_term(source_destination)
         matches = []
         basis = None
@@ -2096,14 +2206,9 @@ class DisposalQueryService:
                 item_basis = "eer"
             elif description and (
                 description in concept_terms
-                or any(
-                    min(len(description), len(term)) >= 5
-                    and (description in term or term in description)
-                    for term in concept_terms
-                )
                 or f" {description} " in f" {normalized_destination} "
                 or allow_term_match and _description_matches_terms(
-                    description, concept_terms,
+                    description, fuzzy_terms,
                 )
             ):
                 item_basis = "description"
