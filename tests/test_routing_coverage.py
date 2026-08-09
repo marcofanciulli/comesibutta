@@ -14,6 +14,50 @@ GENERATED_AT = datetime.fromisoformat("2026-08-09T01:00:00+02:00")
 
 
 class RoutingCoverageTests(unittest.TestCase):
+    def test_current_catalog_has_complete_portable_routing(self) -> None:
+        root = Path(__file__).resolve().parents[1]
+        catalog = json.loads(
+            (root / "outputs/waste-catalog.json").read_text(encoding="utf-8")
+        )
+        curation = json.loads(
+            (root / "data/curation/waste-curation-v1.json").read_text(
+                encoding="utf-8",
+            )
+        )
+
+        report = build_routing_coverage(
+            catalog, curation, generated_at=GENERATED_AT,
+        )
+
+        self.assertEqual(3494, report["summary"]["concepts"])
+        self.assertEqual(3494, report["summary"]["classified"])
+        self.assertEqual(5, report["summary"]["alias_groups"])
+        self.assertEqual(5, report["summary"]["classified_alias_groups"])
+        self.assertEqual(0, report["summary"]["incomplete"])
+        self.assertTrue(report["summary"]["release_ready"])
+
+    def test_alias_without_portable_class_blocks_release(self) -> None:
+        catalog = {
+            "generated_at": GENERATED_AT.isoformat(),
+            "concepts": [],
+        }
+        curation = {
+            "generated_at": GENERATED_AT.isoformat(),
+            "alias_groups": [{
+                "group_id": "waste-alias:unknown",
+                "preferred_label": "Oggetto sconosciuto",
+                "member_concept_ids": [],
+            }],
+            "waste_classes": [],
+        }
+
+        report = build_routing_coverage(
+            catalog, curation, generated_at=GENERATED_AT,
+        )
+
+        self.assertEqual(1, report["summary"]["incomplete_alias_groups"])
+        self.assertFalse(report["summary"]["release_ready"])
+
     def test_every_concept_is_present_and_unclassified_blocks_release(self) -> None:
         catalog = {
             "generated_at": GENERATED_AT.isoformat(),
@@ -89,6 +133,43 @@ class RoutingCoverageTests(unittest.TestCase):
         )
 
         self.assertTrue(report["summary"]["release_ready"])
+
+    def test_family_destination_is_not_reported_as_unmapped(self) -> None:
+        catalog = {
+            "generated_at": GENERATED_AT.isoformat(),
+            "concepts": [{
+                "concept_id": "waste:mobile",
+                "preferred_label": "Mobile",
+                "normalized_term": "mobile",
+                "local_destinations": [{"label": "INGOMBRANTI"}],
+                "eer": {"candidates": []},
+            }],
+        }
+        curation = {
+            "generated_at": GENERATED_AT.isoformat(),
+            "curated_concepts": [],
+            "collection_streams": [],
+            "delivery_channels": [],
+            "eer_mappings": [],
+            "stream_mappings": [],
+            "disambiguation_groups": [],
+            "waste_classes": [{
+                "class_id": "waste-class:bulky",
+                "eer_codes": ["200307"],
+            }],
+            "family_mappings": [{
+                "mapping_id": "family-map:bulky",
+                "class_id": "waste-class:bulky",
+                "destination_aliases": ["INGOMBRANTI"],
+            }],
+        }
+
+        report = build_routing_coverage(
+            catalog, curation, generated_at=GENERATED_AT,
+        )
+
+        self.assertEqual("classified", report["entries"][0]["status"])
+        self.assertEqual([], report["entries"][0]["unmapped_destinations"])
         self.assertEqual("classified", report["entries"][0]["status"])
 
     def test_production_publish_is_blocked_by_incomplete_routing(self) -> None:

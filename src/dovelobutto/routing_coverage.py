@@ -83,6 +83,7 @@ def build_routing_coverage(
             and not matching_delivery_channels(
                 destination, curation.get("delivery_channels", []),
             )
+            and normalize_term(destination) not in family_mapping_by_destination
         )
         source_eer = sorted({
             candidate["code"]
@@ -194,7 +195,27 @@ def build_routing_coverage(
             "conflicts": conflicts,
         })
 
+    alias_entries = []
+    for group in sorted(
+        curation.get("alias_groups", []), key=lambda item: item["group_id"],
+    ):
+        class_id = group.get("waste_class_id")
+        waste_class = classes_by_id.get(class_id)
+        complete = bool(waste_class) and _class_has_complete_routes(waste_class)
+        alias_entries.append({
+            "group_id": group["group_id"],
+            "preferred_label": group.get("preferred_label"),
+            "member_concept_ids": group.get("member_concept_ids", []),
+            "waste_class_id": class_id,
+            "status": "classified" if complete else "unclassified",
+            "portable_classification": complete,
+        })
+
     incomplete = [entry for entry in entries if entry["status"] != "classified"]
+    incomplete_aliases = [
+        entry for entry in alias_entries if entry["status"] != "classified"
+    ]
+    release_ready = not incomplete and not incomplete_aliases
     return {
         "report_id": "waste-routing-coverage:toscana",
         "version": 1,
@@ -202,18 +223,33 @@ def build_routing_coverage(
         "catalog_generated_at": catalog["generated_at"],
         "curation_generated_at": curation["generated_at"],
         "summary": {
-            "status": "pass" if not incomplete else "fail",
-            "release_ready": not incomplete,
+            "status": "pass" if release_ready else "fail",
+            "release_ready": release_ready,
             "concepts": len(entries),
             "classified": counts["classified"],
             "partially_classified": counts["partially_classified"],
             "conflicts": counts["conflict"],
             "unclassified": counts["unclassified"],
-            "incomplete": len(incomplete),
+            "incomplete": len(incomplete) + len(incomplete_aliases),
+            "alias_groups": len(alias_entries),
+            "classified_alias_groups": len(alias_entries) - len(incomplete_aliases),
+            "incomplete_alias_groups": len(incomplete_aliases),
         },
         "entries": entries,
-        "review_queue": incomplete,
+        "alias_entries": alias_entries,
+        "review_queue": [*incomplete, *incomplete_aliases],
     }
+
+
+def _class_has_complete_routes(waste_class: dict[str, Any]) -> bool:
+    question = waste_class.get("question")
+    routes = question.get("options", []) if question else [waste_class]
+    return bool(routes) and all(
+        route.get("stream_ids")
+        or route.get("eer_codes")
+        or route.get("delivery_channels")
+        for route in routes
+    )
 
 
 def _curated_concept_stub(concept: dict[str, Any]) -> dict[str, Any]:

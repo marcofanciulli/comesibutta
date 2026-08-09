@@ -32,6 +32,8 @@ def _similarity(query: str, candidate: str) -> float:
         return 1.0
     if not query or not candidate:
         return 0.0
+    if _italian_inflection_equivalent(query, candidate):
+        return 0.98
     stopwords = {"a", "al", "alla", "con", "da", "dal", "dalla", "de", "dei", "del", "della", "di", "e", "in", "il", "la", "le", "lo", "per", "un", "una"}
     query_tokens = [token for token in query.split() if token not in stopwords]
     candidate_tokens = [token for token in candidate.split() if token not in stopwords]
@@ -60,6 +62,30 @@ def _similarity(query: str, candidate: str) -> float:
     if token_fuzzy >= 0.88:
         token_score = max(token_score, sequence, token_fuzzy)
     return round(max(token_score, containment), 6)
+
+
+def _italian_inflection_equivalent(left: str, right: str) -> bool:
+    left_tokens = left.split()
+    right_tokens = right.split()
+    if len(left_tokens) != len(right_tokens):
+        return False
+    differences = [
+        (left_token, right_token)
+        for left_token, right_token in zip(left_tokens, right_tokens)
+        if left_token != right_token
+    ]
+    if len(differences) != 1:
+        return False
+    left_token, right_token = differences[0]
+    if len(left_token) != len(right_token) or len(left_token) < 4:
+        return False
+    if left_token[:-1] != right_token[:-1]:
+        return False
+    return frozenset((left_token[-1], right_token[-1])) in {
+        frozenset(("a", "e")),
+        frozenset(("o", "i")),
+        frozenset(("e", "i")),
+    }
 
 
 def _destination_type(destination: str) -> str:
@@ -384,6 +410,10 @@ class DisposalQueryService:
         result["family_stream_ids"] = sorted({
             *result.get("family_stream_ids", []), *route.get("stream_ids", []),
         })
+        result["family_delivery_channel_ids"] = sorted({
+            *result.get("family_delivery_channel_ids", []),
+            *route.get("delivery_channels", []),
+        })
         result["family_sources"] = [
             *result.get("family_sources", []), *self._reviewed_mapping_sources(mapping),
         ]
@@ -428,6 +458,28 @@ class DisposalQueryService:
             "candidates": [candidates[code] for code in sorted(candidates)],
         }
         return result
+
+    def _with_explicit_family_class(
+        self, concept: dict[str, Any], class_id: str,
+    ) -> dict[str, Any]:
+        waste_class = self.waste_classes.get(class_id)
+        mappings = self.family_mappings_by_class.get(class_id, [])
+        if waste_class is None or not mappings:
+            return concept
+        mapping = {
+            **mappings[0],
+            "mapping_id": (
+                "family-map:alias-"
+                f"{concept['concept_id'].removeprefix('waste-alias:')}"
+            ),
+            "reviewed_at": max(item["reviewed_at"] for item in mappings),
+            "source_urls": sorted({
+                url for item in mappings for url in item.get("source_urls", [])
+            }),
+        }
+        return self._apply_class_route(
+            concept, mapping, waste_class, waste_class,
+        )
 
     def search(
         self,
@@ -641,21 +693,6 @@ class DisposalQueryService:
                 ],
             }
             return base
-        family_question = concept.get("family_question")
-        if family_question is not None:
-            base["status"] = "needs_question"
-            base["question"] = {
-                "text": family_question["prompt"],
-                "options": [
-                    {
-                        "id": option["outcome_id"],
-                        "label": option["label"],
-                        "hint": option["hint"],
-                    }
-                    for option in family_question["options"]
-                ],
-            }
-            return base
         destinations = []
         for destination in concept.get("local_destinations", []):
             if municipality_istat in destination["municipality_istats"]:
@@ -697,6 +734,21 @@ class DisposalQueryService:
                 })
             evidence.extend(concept.get("family_sources", []))
         self._set_provenance(base, evidence)
+        family_question = concept.get("family_question")
+        if not destinations and family_question is not None:
+            base["status"] = "needs_question"
+            base["question"] = {
+                "text": family_question["prompt"],
+                "options": [
+                    {
+                        "id": option["outcome_id"],
+                        "label": option["label"],
+                        "hint": option["hint"],
+                    }
+                    for option in family_question["options"]
+                ],
+            }
+            return base
         if not destinations:
             fallback, fallback_sources = self._facility_fallback(
                 concept,
@@ -943,6 +995,10 @@ class DisposalQueryService:
                 ), None),
             },
         }
+        if group.get("waste_class_id"):
+            concept = self._with_explicit_family_class(
+                concept, group["waste_class_id"],
+            )
         self._concept_cache[choice_id] = concept
         return concept
 
@@ -1157,7 +1213,13 @@ class DisposalQueryService:
                 if code in candidate_by_code
             }
             if len(accepted_codes) != 1:
-                return None, sources
+                return self._special_channel_fallback(
+                    concept, eer, sources,
+                    municipality_istat=municipality_istat,
+                    user_type=user_type,
+                    latitude=latitude,
+                    longitude=longitude,
+                )
             code = next(iter(accepted_codes))
             candidate = candidate_by_code[code]
             eer = self._eer_from_code(
@@ -1182,13 +1244,25 @@ class DisposalQueryService:
                 for code in facility["acceptance"]["eer_codes"]
             }
             if len(codes) != 1:
-                return None, sources
+                return self._special_channel_fallback(
+                    concept, eer, sources,
+                    municipality_istat=municipality_istat,
+                    user_type=user_type,
+                    latitude=latitude,
+                    longitude=longitude,
+                )
             eer = self._eer_from_code(next(iter(codes)), verified)
             if eer is None:
                 return None, sources
             resolution_basis = "facility_description"
         if not verified:
-            return None, sources
+            return self._special_channel_fallback(
+                concept, eer, sources,
+                municipality_istat=municipality_istat,
+                user_type=user_type,
+                latitude=latitude,
+                longitude=longitude,
+            )
         selectable = [
             facility for facility in verified
             if facility["operational_status"] not in {"closed", "temporarily_closed"}
@@ -1278,6 +1352,82 @@ class DisposalQueryService:
             ),
             "warnings": warnings,
         }, sources
+
+    def _special_channel_fallback(
+        self,
+        concept: dict[str, Any],
+        eer: dict[str, Any] | None,
+        sources: list[dict[str, Any]],
+        *,
+        municipality_istat: str,
+        user_type: str,
+        latitude: float | None,
+        longitude: float | None,
+    ) -> tuple[dict[str, Any] | None, list[dict[str, Any]]]:
+        channel_ids = set(concept.get("family_delivery_channel_ids", []))
+        channels = [
+            {
+                "channel_id": channel["channel_id"],
+                "preferred_label": channel["preferred_label"],
+                "destination_type": channel["destination_type"],
+                "matched_aliases": [channel["preferred_label"]],
+            }
+            for channel in self.delivery_channels
+            if channel["channel_id"] in channel_ids
+            and channel["destination_type"] == "special_case"
+        ]
+        if not channels:
+            return None, sources
+        if eer is None:
+            candidates = [
+                candidate
+                for candidate in concept.get("eer", {}).get("candidates", [])
+                if candidate.get("register_status") != "unknown_code"
+            ]
+            if len(candidates) == 1:
+                eer = self._eer_from_code(
+                    candidates[0]["code"], [],
+                    condition=candidates[0].get("mapping_condition"),
+                )
+        source_destination = ", ".join(
+            channel["preferred_label"] for channel in channels
+        )
+        channel_services, unresolved_channels, service_sources = (
+            self._resolve_channel_services(
+                channels,
+                concept,
+                source_destination,
+                municipality_istat=municipality_istat,
+                zone_id=None,
+                user_type=user_type,
+                latitude=latitude,
+                longitude=longitude,
+            )
+        )
+        warnings = [
+            "Nessun centro accessibile pubblica l'accettazione di questo codice EER. "
+            "Segui il canale speciale indicato e verifica preventivamente le condizioni."
+        ]
+        return {
+            "destination_type": "special_case",
+            "stream_id": None,
+            "stream": None,
+            "source_destination": source_destination,
+            "channel_relation": "alternatives" if len(channels) > 1 else "single",
+            "delivery_channels": channels,
+            "container": None,
+            "presentation": None,
+            "eer": eer,
+            "eer_alternatives": [],
+            "facility": None,
+            "facility_alternatives": [],
+            "channel_services": channel_services,
+            "unresolved_channels": unresolved_channels,
+            "environmental_note": concept.get("general_details", {}).get(
+                "environmental_note"
+            ),
+            "warnings": warnings,
+        }, [*sources, *concept.get("family_sources", []), *service_sources]
 
     def _eer_from_code(
         self, code: str, facilities: list[dict[str, Any]], *, condition: str | None = None,

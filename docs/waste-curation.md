@@ -60,7 +60,7 @@ fisica, possono invece comporsi.
 
 ## Contenuto iniziale
 
-Il registro comprende inoltre 23 classi portabili e 31 regole di famiglia. Le
+Il registro comprende inoltre 37 classi portabili e 60 regole di famiglia. Le
 domande condivise coprono, fra gli altri, RAEE, imballaggi contaminati o misti,
 metalli, plastiche, legno, vetro, oli, toner, inerti e recipienti a pressione.
 
@@ -102,13 +102,18 @@ La copertura portabile dell'intero vocabolario si verifica separatamente:
 PYTHONPATH=src python3 -m dovelobutto.cli audit-routing-coverage \
   --catalog outputs/waste-catalog.json \
   --curation data/curation/waste-curation-v1.json \
-  --generated-at 2026-08-09T03:45:00+02:00 \
+  --generated-at 2026-08-09T07:00:00+02:00 \
   --output outputs/waste-routing-coverage-report.json
 ```
 
 Una destinazione osservata presso un gestore non basta a superare questo audit.
 Ogni concetto deve avere una classe, un EER revisionato o una domanda completa;
 parziali, conflitti e non classificati mantengono `release_ready: false`.
+
+Sul catalogo corrente l'audit copre 3.494 concetti e i 5 gruppi canonici di
+alias: tutti sono classificati, senza parziali o conflitti, e `release_ready`
+e vero. L'aggiunta futura di un concetto o di un gruppo deduplicato privo di
+percorso fa fallire sia la suite automatica sia la pubblicazione.
 
 ## Distribuzione
 

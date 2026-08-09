@@ -119,6 +119,10 @@ def validate_waste_curation(
                 raise ValueError(f"Empty search term in {concept_id}")
             curated_search_terms.add(normalized)
     concept_ids = catalog_concept_ids | curated_concept_ids
+    declared_class_ids = {
+        waste_class["class_id"]
+        for waste_class in register.get("waste_classes", [])
+    }
     group_ids = set()
     member_owner: dict[str, str] = {}
     search_owner: dict[str, str] = {}
@@ -133,6 +137,10 @@ def validate_waste_curation(
             raise ValueError(f"Alias group {group_id} requires at least two members")
         if not group.get("search_terms"):
             raise ValueError(f"Alias group {group_id} requires search terms")
+        if group.get("waste_class_id") not in declared_class_ids:
+            raise ValueError(
+                f"Alias group {group_id} requires a known waste class"
+            )
         for term in group["search_terms"]:
             normalized = normalize_term(term)
             if normalized in search_owner and search_owner[normalized] != group_id:

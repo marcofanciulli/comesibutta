@@ -1,7 +1,7 @@
 {
   "register_id": "waste-curation:toscana:v1",
   "version": 1,
-  "generated_at": "2026-08-09T01:20:00+02:00",
+  "generated_at": "2026-08-09T07:00:00+02:00",
   "curated_concepts": [
     {"concept_id":"waste:piombo","preferred_label":"Piombo","search_terms":["Piombo"],"reviewed_at":"2026-08-09T00:10:00+02:00","review_status":"approved","rationale":"Voce generica da distinguere per forma e provenienza.","source_urls":["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]},
     {"concept_id":"waste:piombo-domestico","preferred_label":"Piccolo oggetto di piombo","search_terms":["Piombo domestico"],"reviewed_at":"2026-08-09T00:10:00+02:00","review_status":"approved","rationale":"Piccole quantita domestiche di metallo raccolto separatamente.","source_urls":["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]},
@@ -17,6 +17,7 @@
     {
       "group_id": "waste-alias:beverage-carton",
       "preferred_label": "Cartone per bevande (Tetra Pak)",
+      "waste_class_id": "waste-class:packaging-by-material",
       "search_terms": [
         "Cartone del latte",
         "Confezione del latte",
@@ -51,6 +52,7 @@
     {
       "group_id": "waste-alias:cork-stopper",
       "preferred_label": "Tappo di sughero",
+      "waste_class_id": "waste-class:wood-by-origin",
       "search_terms": [
         "Tappo di sughero",
         "Tappi di sughero",
@@ -73,6 +75,7 @@
     {
       "group_id": "waste-alias:generic-glass-bottle",
       "preferred_label": "Bottiglia di vetro vuota",
+      "waste_class_id": "waste-class:packaging-by-material",
       "search_terms": [
         "Bottiglia di vetro",
         "Bottiglia di vetro vuota",
@@ -91,6 +94,7 @@
     {
       "group_id": "waste-alias:mollusc-shells",
       "preferred_label": "Gusci di molluschi",
+      "waste_class_id": "waste-class:compostability-sensitive-biowaste",
       "search_terms": [
         "Guscio dei molluschi",
         "Guscio di mollusco",
@@ -111,6 +115,27 @@
       ],
       "review_status": "approved",
       "rationale": "Varianti singolare e plurale della categoria generica dei gusci di molluschi, con murici e ostriche come termini di ricerca tassonomici. I concetti specifici pubblicati dalle fonti restano separati; la destinazione continua a dipendere dal comune."
+    },
+    {
+      "group_id": "waste-alias:used-matchsticks",
+      "preferred_label": "Fiammiferi usati",
+      "waste_class_id": "waste-class:compostability-sensitive-biowaste",
+      "search_terms": [
+        "Fiammifero",
+        "Fiammifero in legno",
+        "Fiammiferi",
+        "Fiammiferi di legno",
+        "Fiammiferi usati"
+      ],
+      "member_concept_ids": [
+        "waste:fiammiferi",
+        "waste:fiammiferi-di-legno-spenti",
+        "waste:fiammiferi-usati",
+        "waste:fiammifero",
+        "waste:fiammifero-in-legno"
+      ],
+      "review_status": "approved",
+      "rationale": "Varianti singolare e plurale dello stesso fiammifero usato o spento; la scatola di fiammiferi resta esclusa come imballaggio distinto."
     }
   ],
   "eer_mappings": [
@@ -967,6 +992,20 @@
             "hint": "Eternit, cemento-amianto o altro materiale contenente amianto",
             "stream_ids": [], "eer_codes": ["170605"],
             "delivery_channels": ["channel:specialist-operator"]
+          },
+          {
+            "outcome_id": "waste-outcome:construction-soil-hazardous",
+            "label": "Terra o rocce contenenti sostanze pericolose",
+            "hint": "Analisi o documentazione indicano contaminazione pericolosa",
+            "stream_ids": [], "eer_codes": ["170503"],
+            "delivery_channels": ["channel:specialist-operator"]
+          },
+          {
+            "outcome_id": "waste-outcome:construction-soil-other",
+            "label": "Terra o rocce non pericolose",
+            "hint": "Terra e rocce non contenenti sostanze pericolose",
+            "stream_ids": [], "eer_codes": ["170504"],
+            "delivery_channels": ["channel:collection-centre", "channel:specialist-operator"]
           }
         ]
       }
@@ -1005,6 +1044,398 @@
       "stream_ids": [],
       "eer_codes": ["160103"],
       "delivery_channels": ["channel:collection-centre", "channel:retailer-return"]
+    },
+    {
+      "class_id": "waste-class:size-dependent-household-object",
+      "dimension": "primary-classification",
+      "preferred_label": "Oggetto domestico da distinguere per dimensione",
+      "stream_ids": [],
+      "eer_codes": [],
+      "delivery_channels": [],
+      "question": {
+        "prompt": "L'oggetto entra normalmente nel contenitore del residuo senza essere smontato o forzato?",
+        "options": [
+          {
+            "outcome_id": "waste-outcome:small-household-object",
+            "label": "Piccolo oggetto",
+            "hint": "Entra normalmente nel contenitore ed e privo di parti pericolose o elettriche",
+            "stream_ids": ["stream:residual"],
+            "eer_codes": ["200301"],
+            "delivery_channels": []
+          },
+          {
+            "outcome_id": "waste-outcome:bulky-household-object",
+            "label": "Oggetto voluminoso",
+            "hint": "Non entra normalmente nel contenitore o richiede ritiro dedicato",
+            "stream_ids": [],
+            "eer_codes": ["200307"],
+            "delivery_channels": ["channel:collection-centre", "channel:home-pickup"]
+          }
+        ]
+      }
+    },
+    {
+      "class_id": "waste-class:vehicle-component",
+      "dimension": "primary-classification",
+      "preferred_label": "Componente di veicolo da distinguere per tipo",
+      "stream_ids": [],
+      "eer_codes": [],
+      "delivery_channels": [],
+      "question": {
+        "prompt": "Quale componente del veicolo devi conferire?",
+        "options": [
+          {
+            "outcome_id": "waste-outcome:vehicle-oil-filter",
+            "label": "Filtro dell'olio",
+            "hint": "Filtro dell'olio rimosso durante manutenzione domestica",
+            "stream_ids": [], "eer_codes": ["160107"],
+            "delivery_channels": ["channel:collection-centre", "channel:specialist-operator"]
+          },
+          {
+            "outcome_id": "waste-outcome:vehicle-brake-pad-hazardous",
+            "label": "Pastiglia freno contenente amianto",
+            "hint": "La documentazione indica la presenza di amianto",
+            "stream_ids": [], "eer_codes": ["160111"],
+            "delivery_channels": ["channel:specialist-operator"]
+          },
+          {
+            "outcome_id": "waste-outcome:vehicle-brake-pad-other",
+            "label": "Altra pastiglia freno",
+            "hint": "Pastiglia freno non contenente amianto",
+            "stream_ids": [], "eer_codes": ["160112"],
+            "delivery_channels": ["channel:collection-centre", "channel:specialist-operator"]
+          },
+          {
+            "outcome_id": "waste-outcome:vehicle-antifreeze-hazardous",
+            "label": "Antigelo pericoloso",
+            "hint": "Il liquido reca indicazioni di pericolo pertinenti",
+            "stream_ids": [], "eer_codes": ["160114"],
+            "delivery_channels": ["channel:specialist-operator"]
+          },
+          {
+            "outcome_id": "waste-outcome:vehicle-antifreeze-other",
+            "label": "Altro antigelo",
+            "hint": "Liquido antigelo non classificato pericoloso",
+            "stream_ids": [], "eer_codes": ["160115"],
+            "delivery_channels": ["channel:collection-centre", "channel:specialist-operator"]
+          },
+          {
+            "outcome_id": "waste-outcome:vehicle-ferrous-metal",
+            "label": "Componente in metallo ferroso",
+            "hint": "Parte separata prevalentemente in ferro o acciaio",
+            "stream_ids": [], "eer_codes": ["160117"],
+            "delivery_channels": ["channel:collection-centre", "channel:specialist-operator"]
+          },
+          {
+            "outcome_id": "waste-outcome:vehicle-non-ferrous-metal",
+            "label": "Componente in metallo non ferroso",
+            "hint": "Parte separata prevalentemente in alluminio, rame o altra lega non ferrosa",
+            "stream_ids": [], "eer_codes": ["160118"],
+            "delivery_channels": ["channel:collection-centre", "channel:specialist-operator"]
+          },
+          {
+            "outcome_id": "waste-outcome:vehicle-plastic",
+            "label": "Componente in plastica",
+            "hint": "Parte separata prevalentemente in plastica",
+            "stream_ids": [], "eer_codes": ["160119"],
+            "delivery_channels": ["channel:collection-centre", "channel:specialist-operator"]
+          },
+          {
+            "outcome_id": "waste-outcome:vehicle-glass",
+            "label": "Vetro del veicolo",
+            "hint": "Parabrezza o altro vetro separato",
+            "stream_ids": [], "eer_codes": ["160120"],
+            "delivery_channels": ["channel:collection-centre", "channel:specialist-operator"]
+          },
+          {
+            "outcome_id": "waste-outcome:vehicle-hazardous-component",
+            "label": "Altro componente pericoloso",
+            "hint": "Il componente reca indicazioni di pericolo pertinenti",
+            "stream_ids": [], "eer_codes": ["160121"],
+            "delivery_channels": ["channel:specialist-operator"]
+          },
+          {
+            "outcome_id": "waste-outcome:vehicle-other-component",
+            "label": "Altro componente non pericoloso",
+            "hint": "Componente non specificato altrimenti e senza caratteristiche di pericolo note",
+            "stream_ids": [], "eer_codes": ["160122"],
+            "delivery_channels": ["channel:collection-centre", "channel:specialist-operator"]
+          },
+          {
+            "outcome_id": "waste-outcome:end-of-life-vehicle-hazardous",
+            "label": "Veicolo intero con liquidi o parti pericolose",
+            "hint": "Veicolo fuori uso non bonificato",
+            "stream_ids": [], "eer_codes": ["160104"],
+            "delivery_channels": ["channel:specialist-operator"]
+          },
+          {
+            "outcome_id": "waste-outcome:end-of-life-vehicle-drained",
+            "label": "Veicolo intero bonificato",
+            "hint": "Veicolo senza liquidi ne altre componenti pericolose",
+            "stream_ids": [], "eer_codes": ["160106"],
+            "delivery_channels": ["channel:specialist-operator"]
+          }
+        ]
+      }
+    },
+    {
+      "class_id": "waste-class:household-ceramic-by-size",
+      "dimension": "primary-classification",
+      "preferred_label": "Ceramica domestica da distinguere per quantita e origine",
+      "stream_ids": [],
+      "eer_codes": [],
+      "delivery_channels": [],
+      "question": {
+        "prompt": "Si tratta di un piccolo oggetto domestico oppure di materiale da lavori edili?",
+        "options": [
+          {
+            "outcome_id": "waste-outcome:small-household-ceramic",
+            "label": "Piccolo oggetto domestico",
+            "hint": "Piatto, tazza o soprammobile in piccola quantita",
+            "stream_ids": ["stream:residual"], "eer_codes": ["200301"],
+            "delivery_channels": []
+          },
+          {
+            "outcome_id": "waste-outcome:construction-ceramic",
+            "label": "Materiale da lavori edili",
+            "hint": "Sanitario, piastrella o ceramica proveniente da costruzione o demolizione",
+            "stream_ids": [], "eer_codes": ["170103"],
+            "delivery_channels": ["channel:collection-centre", "channel:specialist-operator"]
+          }
+        ]
+      }
+    },
+    {
+      "class_id": "waste-class:sanitary-absorbent",
+      "dimension": "primary-classification",
+      "preferred_label": "Prodotto assorbente sanitario domestico",
+      "stream_ids": ["stream:residual"],
+      "eer_codes": ["200301"],
+      "delivery_channels": []
+    },
+    {
+      "class_id": "waste-class:waste-explosive",
+      "dimension": "primary-classification",
+      "preferred_label": "Esplosivo di scarto",
+      "stream_ids": [],
+      "eer_codes": ["160403"],
+      "delivery_channels": ["channel:specialist-operator"]
+    },
+    {
+      "class_id": "waste-class:mercury-household-item",
+      "dimension": "primary-classification",
+      "preferred_label": "Rifiuto domestico contenente mercurio",
+      "stream_ids": [],
+      "eer_codes": ["200121"],
+      "delivery_channels": ["channel:collection-centre"]
+    },
+    {
+      "class_id": "waste-class:solar-equipment",
+      "dimension": "primary-classification",
+      "preferred_label": "Apparecchiatura solare o fotovoltaica da distinguere per pericolosita",
+      "stream_ids": [],
+      "eer_codes": [],
+      "delivery_channels": [],
+      "question": {
+        "prompt": "L'apparecchiatura contiene componenti pericolosi ed e domestica?",
+        "options": [
+          {
+            "outcome_id": "waste-outcome:solar-equipment-hazardous",
+            "label": "Contiene componenti pericolosi",
+            "hint": "La documentazione segnala componenti pericolosi",
+            "stream_ids": [], "eer_codes": ["160213"],
+            "delivery_channels": ["channel:collection-centre", "channel:specialist-operator"]
+          },
+          {
+            "outcome_id": "waste-outcome:solar-equipment-other",
+            "label": "Non contiene componenti pericolosi noti",
+            "hint": "Apparecchiatura domestica senza componenti pericolosi noti",
+            "stream_ids": [], "eer_codes": ["160214"],
+            "delivery_channels": ["channel:collection-centre", "channel:retailer-return"]
+          },
+          {
+            "outcome_id": "waste-outcome:solar-equipment-professional",
+            "label": "Impianto professionale o sopra i limiti domestici",
+            "hint": "Richiede il circuito professionale e la verifica puntuale del codice",
+            "stream_ids": [], "eer_codes": ["160214"],
+            "delivery_channels": ["channel:specialist-operator"]
+          }
+        ]
+      }
+    },
+    {
+      "class_id": "waste-class:animal-remains",
+      "dimension": "primary-classification",
+      "preferred_label": "Resti o carcassa di animale",
+      "stream_ids": [],
+      "eer_codes": [],
+      "delivery_channels": ["channel:specialist-operator"]
+    },
+    {
+      "class_id": "waste-class:waste-fuel",
+      "dimension": "primary-classification",
+      "preferred_label": "Combustibile di scarto da distinguere per tipo",
+      "stream_ids": [],
+      "eer_codes": [],
+      "delivery_channels": [],
+      "question": {
+        "prompt": "Quale combustibile devi conferire?",
+        "options": [
+          {
+            "outcome_id": "waste-outcome:waste-fuel-oil-diesel",
+            "label": "Olio combustibile o gasolio",
+            "hint": "Combustibile liquido assimilabile a olio combustibile o gasolio",
+            "stream_ids": [], "eer_codes": ["130701"],
+            "delivery_channels": ["channel:specialist-operator"]
+          },
+          {
+            "outcome_id": "waste-outcome:waste-petrol",
+            "label": "Benzina",
+            "hint": "Benzina di scarto",
+            "stream_ids": [], "eer_codes": ["130702"],
+            "delivery_channels": ["channel:specialist-operator"]
+          },
+          {
+            "outcome_id": "waste-outcome:waste-other-fuel",
+            "label": "Altro combustibile",
+            "hint": "Cherosene o altro combustibile non compreso nei casi precedenti",
+            "stream_ids": [], "eer_codes": ["130703"],
+            "delivery_channels": ["channel:specialist-operator"]
+          }
+        ]
+      }
+    },
+    {
+      "class_id": "waste-class:unclassified-household-hazard",
+      "dimension": "primary-classification",
+      "preferred_label": "Rifiuto domestico pericoloso non identificato",
+      "stream_ids": [],
+      "eer_codes": [],
+      "delivery_channels": ["channel:specialist-operator"]
+    },
+    {
+      "class_id": "waste-class:returnable-or-reusable-item",
+      "dimension": "primary-classification",
+      "preferred_label": "Bene riutilizzabile o vuoto a rendere",
+      "stream_ids": [],
+      "eer_codes": [],
+      "delivery_channels": ["channel:retailer-return", "channel:reuse-service"]
+    },
+    {
+      "class_id": "waste-class:compostability-sensitive-biowaste",
+      "dimension": "primary-classification",
+      "preferred_label": "Materiale da distinguere per compostabilita e regola locale",
+      "stream_ids": [],
+      "eer_codes": [],
+      "delivery_channels": [],
+      "question": {
+        "prompt": "Il materiale e compostabile ed esplicitamente accettato dalla raccolta organica locale?",
+        "options": [
+          {
+            "outcome_id": "waste-outcome:locally-accepted-compostable",
+            "label": "Compostabile e accettato localmente",
+            "hint": "La guida locale lo ammette nell'organico ed e privo di contaminanti",
+            "stream_ids": ["stream:organic"], "eer_codes": ["200108"],
+            "delivery_channels": []
+          },
+          {
+            "outcome_id": "waste-outcome:not-locally-compostable",
+            "label": "Non compostabile o non accettato",
+            "hint": "Materiale minerale, contaminato o escluso dalla guida locale",
+            "stream_ids": ["stream:residual"], "eer_codes": ["200301"],
+            "delivery_channels": []
+          }
+        ]
+      }
+    },
+    {
+      "class_id": "waste-class:mixed-material-household-object",
+      "dimension": "primary-classification",
+      "preferred_label": "Oggetto domestico multimateriale da distinguere",
+      "stream_ids": [],
+      "eer_codes": [],
+      "delivery_channels": [],
+      "question": {
+        "prompt": "Qual e il materiale prevalente separabile oppure l'oggetto e voluminoso?",
+        "options": [
+          {
+            "outcome_id": "waste-outcome:mixed-object-household-metal",
+            "label": "Metallo prevalente",
+            "hint": "Oggetto domestico prevalentemente metallico, non imballaggio",
+            "stream_ids": [], "eer_codes": ["200140"],
+            "delivery_channels": ["channel:collection-centre"]
+          },
+          {
+            "outcome_id": "waste-outcome:mixed-object-household-plastic",
+            "label": "Plastica prevalente",
+            "hint": "Oggetto domestico prevalentemente in plastica, non imballaggio",
+            "stream_ids": [], "eer_codes": ["200139"],
+            "delivery_channels": ["channel:collection-centre"]
+          },
+          {
+            "outcome_id": "waste-outcome:mixed-object-household-wood",
+            "label": "Legno prevalente",
+            "hint": "Oggetto domestico prevalentemente in legno non pericoloso",
+            "stream_ids": [], "eer_codes": ["200138"],
+            "delivery_channels": ["channel:collection-centre", "channel:home-pickup"]
+          },
+          {
+            "outcome_id": "waste-outcome:mixed-object-small-residual",
+            "label": "Materiali inseparabili, oggetto piccolo",
+            "hint": "Piccolo oggetto non pericoloso privo di parti elettriche",
+            "stream_ids": ["stream:residual"], "eer_codes": ["200301"],
+            "delivery_channels": []
+          },
+          {
+            "outcome_id": "waste-outcome:mixed-object-bulky",
+            "label": "Oggetto voluminoso",
+            "hint": "Non entra normalmente nel contenitore del residuo",
+            "stream_ids": [], "eer_codes": ["200307"],
+            "delivery_channels": ["channel:collection-centre", "channel:home-pickup"]
+          }
+        ]
+      }
+    },
+    {
+      "class_id": "waste-class:food-or-packaging",
+      "dimension": "primary-classification",
+      "preferred_label": "Alimento o confezione da distinguere",
+      "stream_ids": [],
+      "eer_codes": [],
+      "delivery_channels": [],
+      "question": {
+        "prompt": "Devi gettare l'alimento oppure la sua confezione vuota?",
+        "options": [
+          {
+            "outcome_id": "waste-outcome:food-content",
+            "label": "Alimento o avanzo",
+            "hint": "Contenuto alimentare separato dalla confezione",
+            "stream_ids": ["stream:organic"], "eer_codes": ["200108"],
+            "delivery_channels": []
+          },
+          {
+            "outcome_id": "waste-outcome:food-plastic-package",
+            "label": "Confezione vuota di plastica",
+            "hint": "Imballaggio vuoto prevalentemente in plastica",
+            "stream_ids": ["stream:plastic-packaging", "stream:mixed-packaging"],
+            "eer_codes": ["150102"], "delivery_channels": []
+          },
+          {
+            "outcome_id": "waste-outcome:food-paper-package",
+            "label": "Confezione vuota di carta",
+            "hint": "Imballaggio vuoto prevalentemente di carta o cartone",
+            "stream_ids": ["stream:paper"], "eer_codes": ["150101"],
+            "delivery_channels": []
+          },
+          {
+            "outcome_id": "waste-outcome:food-mixed-package",
+            "label": "Confezione mista non separabile",
+            "hint": "Imballaggio vuoto composto da materiali diversi non separabili",
+            "stream_ids": ["stream:mixed-packaging"], "eer_codes": ["150106"],
+            "delivery_channels": []
+          }
+        ]
+      }
     }
   ],
   "family_mappings": [
@@ -1027,6 +1458,7 @@
         "Sacco per rifiuti urbano residuo (RUR)",
         "Sacco per rifiuto urbano (RuR)",
         "RUR",
+        "RUR SE SPORCA",
         "Contenitore stradale grigio per indifferenziata dotato di cassetto apribile con Carta Smeraldo, Distribuzione materiali",
         "Contenitore stradale GRIGIO Indifferenziato, Compostiera in uso gratuito su richiesta",
         "Ecocentro, Residuo non differenziabile",
@@ -1117,7 +1549,7 @@
     {
       "mapping_id": "family-map:green-source-categories",
       "source_categories": ["Verde", "Rifiuto Verde"],
-      "destination_aliases": ["Verde, sfalci e potature", "Sacco verde/composter", "Sacco del verde"],
+      "destination_aliases": ["Verde, sfalci e potature", "Sacco verde/composter", "Sacco del verde", "Sacco verde"],
       "class_id": "waste-class:green",
       "reviewed_at": "2026-08-09T01:20:00+02:00",
       "review_status": "approved",
@@ -1206,6 +1638,7 @@
         "Abiti, Centri di raccolta",
         "indumenti usati+centro di raccolta",
         "Stazioni ecologiche, Contenitori stradali abiti usati"
+        ,"Abiti"
       ],
       "class_id": "waste-class:textiles",
       "reviewed_at": "2026-08-09T02:25:00+02:00",
@@ -1328,7 +1761,7 @@
       "mapping_id": "family-map:medicine-terms",
       "source_categories": [],
       "destination_aliases": [],
-      "term_patterns": ["\\b(farmaco|farmaci|medicinale|medicinali|antibiotico|antibiotici)\\b"],
+      "term_patterns": ["\\b(farmaco|farmaci|medicina|medicine|medicinale|medicinali|antibiotico|antibiotici)\\b"],
       "excluded_term_patterns": ["\\b(confezione|scatola|blister|flacone vuoto)\\b"],
       "class_id": "waste-class:medicines",
       "priority": 100,
@@ -1345,7 +1778,7 @@
       "destination_aliases": [],
       "term_patterns": [
         "\\b(raee|elettric|elettronic|usb|computer|cellular|smartphone|tablet|monitor|stampant|scanner|televis|telecomand|caricabatter|alimentatore|auricolar|cuffi.*audio|decoder|console|router|modem|stereo|amplificatore|altoparlante|elettrodomestic|frigorif|lavatrice|lavastoviglie|asciugatric|aspirapolvere|asciugacapelli|lampad|lampadin|neon|fluorescente|avvitatore|autoradio|citofono|cordless|fotocopiatrice|giradischi|mouse pc|multipresa|power bank|tastiera pc|telecamera|trapano)",
-        "\\b(assistente vocale|apparecchiature informatiche|apparecchiature mediche|apparecchio di illuminazione|antizanzare ad ultrasuoni|cassa audio|case audio|cardiofrequenzimetro|cinepresa|consolle videogiochi|contapassi|decorazioni natalizie luminose|depilatore|distruggidocumenti|ebook reader|elettroserratura|epilatore|faretto|fornello a induzione|fornetto per unghie|frullatore|glucometro|hoverboard|ipad|iphone|lettore dvd|lettore vhs|levigatrice|luci a led|luci di natale|macchina fotografica|megafono|minicomputer|minipimer|misuratore di pressione|occhiali smart|pannello fotovoltaico|pannelli fotovoltaici|phon|plafoniera|pompa per l acqua|pompe di calore|robot da cucina|saturimetro|scaldasonno|sfigmomanometro|smerigliatrice|striscia led|tag localizzatore gps|tavoletta grafica|termocoperta|termocuscino|timer|tritatutto)\\b"
+        "\\b(addolcitore acqua|apparecchio per aerosol|assistente vocale|apparecchiature informatiche|apparecchiature mediche|apparecchio di illuminazione|antizanzare ad ultrasuoni|babbo natale scalatore luminoso|bancomat|biglietto autobus con chip|biglietto di auguri musicale|bilance|cassa audio|case audio|cardiofrequenzimetro|cavetto|cavo antenna tv|cavo di connessione|cavo hdmi|cinepresa|condensatore|consolle videogiochi|contapassi|cuffiette per la musica|decorazioni natalizie luminose|depilatore|distruggidocumenti|ebook reader|elettroserratura|epilatore|erogatore d acqua|faretto|fornello a induzione|fornetto per unghie|frigo portatile|frullatore|gasatore d acqua|glucometro|gruppo elettrogeno|hoverboard|impastatrice|ipad|iphone|lavagna interattiva multimediale|lettore dvd|lettore vhs|levigatrice|luci a led|luci di natale|macchina fotografica|maschera viso a led|megafono|minicomputer|minipimer|misuratore di pressione|motosega|occhiali smart|orologio da parete|pc|peluche sonoro|phon|plafoniera|plafoniere|pompa per l acqua|pompe di calore|pulsantiera|pupazzo sonoro|renna luminosa|robot da cucina|saturimetro|scaldasonno|sfigmomanometro|sim card|smerigliatrice|statuetta o scenario del presepe con movimento|striscia led|tag localizzatore gps|tastiera da pc|tastiera musicale|tavoletta grafica|termocoperta|termocuscino|timer|tritatutto)\\b"
       ],
       "excluded_term_patterns": ["\\b(imballaggio|confezione|manuale)\\b"],
       "class_id": "waste-class:raee",
@@ -1380,7 +1813,7 @@
       "source_categories": ["Plastica", "Polistirolo"],
       "destination_aliases": [],
       "term_patterns": ["\\b(plastica|plastico|plastiche|acrilico|plexiglass|polistirolo|poliuretano|pvc|nylon)\\b"],
-      "excluded_term_patterns": [],
+      "excluded_term_patterns": ["\\b(senza parti in plastica|senza plastica)\\b"],
       "class_id": "waste-class:plastic-by-origin",
       "priority": 40,
       "reviewed_at": "2026-08-09T03:25:00+02:00",
@@ -1418,7 +1851,7 @@
       "mapping_id": "family-map:construction-mineral-terms",
       "source_categories": ["Inerti", "inerti"],
       "destination_aliases": [],
-      "term_patterns": ["\\b(amianto|asbesto|eternit|asfalto|bitume|bitumi|catrame|catrami|calcinacci|macerie|detriti|inerti|demolizione|edilizia|cemento|fibrocemento|argilla espansa|marmo|marmi|pietra|pietre|mattoni|mattonelle|piastrelle|ceramica|terracotta|porcellana|coccio|cocci|sanitari|bidet|cartongesso|controsoffitto|guaina bituminosa|guaina catramata|guaina per rivestimenti|lana di vetro|lana di roccia|fibra di vetro|materiale edile|materiali edili|materiale da edilizia|vetroresina)\\b"],
+      "term_patterns": ["\\b(amianto|asbesto|eternit|asfalto|bitume|bitumi|catrame|catrami|calce|calce idraulica|calcinacci|macerie|detriti|inerti|demolizione|edilizia|cemento|fibrocemento|argilla espansa|marmo|marmi|pietra|pietre|rocci.*lavich[ae]|terra da scavo|terreno da scavo|terra grandi quantita|mattoni|mattonelle|piastrelle|ceramica|terracotta|porcellana|coccio|cocci|sanitari|bidet|cartongesso|controsoffitto|contro soffitto|pavimento|battiscopa|laminato|laminati|linoleum|stucchi|guaina bituminosa|guaina catramata|guaina per rivestimenti|lana di vetro|lana di roccia|fibra di vetro|materiale edile|materiali edili|materiale da edilizia|vetroresina)\\b"],
       "excluded_term_patterns": [],
       "class_id": "waste-class:construction-mineral",
       "priority": 70,
@@ -1431,7 +1864,7 @@
       "mapping_id": "family-map:pressurized-container-terms",
       "source_categories": [],
       "destination_aliases": [],
-      "term_patterns": ["\\b(bombola|bombole|bomboletta gas|bombolette gas|estintore|estintori|ricarica gas)\\b"],
+      "term_patterns": ["\\b(bombola|bombole|bomboletta gas|bombolette gas|estintore|estintori|ricarica gas|ricarica inalatori|inalatore pieno)\\b"],
       "excluded_term_patterns": [],
       "class_id": "waste-class:pressurized-container",
       "priority": 80,
@@ -1457,7 +1890,7 @@
       "mapping_id": "family-map:green-terms",
       "source_categories": [],
       "destination_aliases": [],
-      "term_patterns": ["\\b(sfalc|potatur|ramaglie|rami potati|foglie|erba tagliata|erbaccia|scarti vegetali|rifiuti vegetali|albero di natale naturale|alberi di natale naturali|alberi di natale vegetali|aghi di pino|pianta secca|piante senza vaso|rifiuti da orti urbani)\\b"],
+      "term_patterns": ["\\b(sfalc|potatur|ramaglie|rami potati|foglie|erba tagliata|erbaccia|muschio|scarti vegetali|rifiuti vegetali|albero di natale naturale|alberi di natale naturali|alberi di natale vegetali|aghi di pino|pianta secca|piante senza vaso|rifiuti da orti urbani)"],
       "excluded_term_patterns": ["\\b(dis erbante|diserbante|erbicida|elettric|motore)\\b"],
       "class_id": "waste-class:green",
       "priority": 60,
@@ -1470,8 +1903,8 @@
       "mapping_id": "family-map:metal-terms",
       "source_categories": ["Alluminio", "Latta"],
       "destination_aliases": [],
-      "term_patterns": ["\\b(acciaio|alluminio|ferro|metallico|metallica|metallici|metalliche|metallo|metalli|bullone|bulloni|viti|chiodi|ottone|rubinetto|rubinetterie|cerchione|cerchioni|casseruola|pentola|pentole|padella|padelle|tegame|tegami|caffettiera|bistecchiera|borraccia)\\b"],
-      "excluded_term_patterns": ["\\b(cemento armato|bombola|bombole|estintore|estintori)\\b"],
+      "term_patterns": ["\\b(acciaio|alluminio|ferro|metallico|metallica|metallici|metalliche|metallo|metalli|attach|binari per tende|catena bicicletta|catene e lucchetti|cerchi in lega|pinzetta|puntina da disegno|serpentina doccia|soffione doccia|vite|bullone|bulloni|viti|chiodi|ottone|rubinetto|rubinetterie|cerchione|cerchioni|casseruola|pentola|pentole|padella|padelle|tegame|tegami|caffettiera|moka|bistecchiera|borraccia)\\b"],
+      "excluded_term_patterns": ["\\b(cemento armato|bombola|bombole|estintore|estintori|borraccia di plastica|senza parti adesive metallo o plastica)\\b"],
       "class_id": "waste-class:metal-by-origin",
       "priority": 40,
       "reviewed_at": "2026-08-09T03:25:00+02:00",
@@ -1502,7 +1935,7 @@
       "priority": 40,
       "reviewed_at": "2026-08-09T03:25:00+02:00",
       "review_status": "approved",
-      "rationale": "Gli oggetti di vetro richiedono la distinzione tra imballaggio, altro vetro urbano e provenienza edile.",
+      "rationale": "I materiali da costruzione richiedono composizione, pericolosita e provenienza domestica prima di selezionare la voce del capitolo 17.",
       "source_urls": ["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]
     },
     {
@@ -1510,8 +1943,9 @@
       "source_categories": [],
       "destination_aliases": [],
       "term_patterns": [
-        "\\b(imballaggio|imballaggi|bottiglia|bottiglie|flacone|flaconi|barattolo|barattoli|vaschetta|vaschette|vassoio|vassoi|blister|lattina|lattine|tappo|tappi|chiusura|chiusure|incarto|incarti|tubetto|tubetti|capsula|capsule|contenitore|contenitori).*(plastica|polistirolo|alluminio|metallo|vetro|composito)\\b",
-        "\\b(plastica|polistirolo|alluminio|metallo|vetro|composito).*(imballaggio|imballaggi|bottiglia|bottiglie|flacone|flaconi|barattolo|barattoli|vaschetta|vaschette|vassoio|vassoi|blister|lattina|lattine|tappo|tappi|chiusura|chiusure|incarto|incarti|tubetto|tubetti|capsula|capsule|contenitore|contenitori)\\b"
+        "\\b(imballaggio|imballaggi|bottiglia|bottiglie|flacone|flaconi|barattolo|barattoli|vaschetta|vaschette|vassoio|vassoi|blister|lattina|lattine|tappo|tappi|chiusura|chiusure|incarto|incarti|tubetto|tubetti|capsula|capsule|contenitore|contenitori|bomboletta|bombolette|tanica|taniche|cialda|cialde).*(plastica|polistirolo|alluminio|metallo|vetro|composito|stagnola|sostanze pericolose|prodotti tossici)\\b",
+        "\\b(plastica|polistirolo|alluminio|metallo|vetro|composito|stagnola).*(imballaggio|imballaggi|bottiglia|bottiglie|flacone|flaconi|barattolo|barattoli|vaschetta|vaschette|vassoio|vassoi|blister|lattina|lattine|tappo|tappi|chiusura|chiusure|incarto|incarti|tubetto|tubetti|capsula|capsule|contenitore|contenitori|bomboletta|bombolette|tanica|taniche|cialda|cialde)\\b",
+        "\\b(barattolo|barattoli|flacone|flaconi|lattina|lattine|tanica|taniche|bomboletta|bombolette).*(vuot|residu|aliment|bevande|vernice|tinteggiatura|colorante|spray)"
       ],
       "excluded_term_patterns": [],
       "class_id": "waste-class:packaging-by-material",
@@ -1519,6 +1953,386 @@
       "reviewed_at": "2026-08-09T03:40:00+02:00",
       "review_status": "approved",
       "rationale": "Il lessico identifica la funzione di imballaggio; materiale e contaminazione sono determinati dalla domanda comune prima di selezionare la voce EER.",
+      "source_urls": ["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]
+    },
+    {
+      "mapping_id": "family-map:vehicle-component-terms",
+      "source_categories": [],
+      "destination_aliases": [],
+      "term_patterns": ["\\b(ammortizzatore auto|carcassa d auto|candela di accensione|cinghia di trasmissione auto|disco freni auto|filtri aria auto|filtro olio auto|filtri olio auto|filtro benzina auto|filtro carburante auto|filtro gasolio auto|liquido refrigerante auto|marmitta|parabrezza auto|paraurti auto|parti di automobili|pasticca freni auto|ricambi auto|sedile auto|motore a scoppio|motorino)\\b"],
+      "excluded_term_patterns": ["\\b(giocattolo|modellino)\\b"],
+      "class_id": "waste-class:vehicle-component",
+      "priority": 100,
+      "reviewed_at": "2026-08-09T04:20:00+02:00",
+      "review_status": "approved",
+      "rationale": "Il lessico identifica veicoli e componenti; la domanda comune seleziona il codice del capitolo 16 in base a tipo, materiale e pericolosita.",
+      "source_urls": ["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]
+    },
+    {
+      "mapping_id": "family-map:size-dependent-household-object-terms",
+      "source_categories": [],
+      "destination_aliases": ["INGOMBRANTI/RUR"],
+      "term_patterns": ["\\b(accessori bambini|antipastiera|attrezzature sportive|biciclette|bilancia pesapersone meccanica|casco da ciclista|casco per moto|canoa|canoe|canotto|carrello della spesa|carrozzine|passeggini|canne da pesca|cornice|cornici|cucina|fioriera|fioriere|giocattol|giochi da tavolo|guardaroba|mensola|mensole|oggettistica|ombrello|ombrelli|poltrona|poltrone|racchette|recinzioni|scale pieghevoli|secchi e secchielli|seggiolino auto|snowboard|soprammobile|stendino|strumenti musicali|tapparelle|tavole da surf|tricicli|valigie|borse da viaggio|windsurf|zanzariere)"],
+      "excluded_term_patterns": ["\\b(elettric|elettronic|luminos|sonoro|musicale|motore|batteria|pile)"],
+      "class_id": "waste-class:size-dependent-household-object",
+      "priority": 55,
+      "reviewed_at": "2026-08-09T04:20:00+02:00",
+      "review_status": "approved",
+      "rationale": "Per oggetti domestici non pericolosi il discriminante operativo riutilizzabile e la dimensione: residuo urbano se piccolo, ingombrante se non entra nel contenitore.",
+      "source_urls": ["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]
+    },
+    {
+      "mapping_id": "family-map:household-ceramic-terms",
+      "source_categories": [],
+      "destination_aliases": [],
+      "term_patterns": ["\\b(arcopal|pyrex|ceramica|terracotta|porcellana|coccio|cocci|insalatiera|pirofila|tazza del water|cassetta esterna wc)"],
+      "excluded_term_patterns": ["\\b(imballaggio|contenitore)\\b"],
+      "class_id": "waste-class:household-ceramic-by-size",
+      "priority": 65,
+      "reviewed_at": "2026-08-09T04:20:00+02:00",
+      "review_status": "approved",
+      "rationale": "Ceramiche e materiali assimilabili richiedono di distinguere piccoli oggetti domestici da sanitari e materiali provenienti da lavori edili.",
+      "source_urls": ["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]
+    },
+    {
+      "mapping_id": "family-map:sanitary-absorbent-terms",
+      "source_categories": [],
+      "destination_aliases": ["pannolini e pannoloni", "PANNOLINI/RUR"],
+      "term_patterns": ["\\b(assorbenti igienici|pannolino|pannolini|pannolone|pannoloni)\\b"],
+      "excluded_term_patterns": [],
+      "class_id": "waste-class:sanitary-absorbent",
+      "priority": 100,
+      "reviewed_at": "2026-08-09T04:20:00+02:00",
+      "review_status": "approved",
+      "rationale": "I prodotti assorbenti sanitari domestici appartengono al residuo urbano; eventuali raccolte dedicate restano regole locali dello stesso servizio.",
+      "source_urls": ["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]
+    },
+    {
+      "mapping_id": "family-map:waste-explosive-terms",
+      "source_categories": [],
+      "destination_aliases": [],
+      "term_patterns": ["\\b(fuochi d artificio|giochi pirici|razzo segnalatore|razzi segnalazione|bossolo|bossoli|cartuccia caccia)\\b"],
+      "excluded_term_patterns": [],
+      "class_id": "waste-class:waste-explosive",
+      "priority": 100,
+      "reviewed_at": "2026-08-09T04:20:00+02:00",
+      "review_status": "approved",
+      "rationale": "Munizioni e articoli pirotecnici di scarto non entrano nei flussi urbani ordinari e richiedono il circuito specializzato della voce 16 04 03.",
+      "source_urls": ["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]
+    },
+    {
+      "mapping_id": "family-map:mercury-household-item-terms",
+      "source_categories": [],
+      "destination_aliases": [],
+      "term_patterns": ["\\b(termometro al mercurio|termometri al mercurio|sorgenti luminose)\\b"],
+      "excluded_term_patterns": ["\\b(led|alogena)\\b"],
+      "class_id": "waste-class:mercury-household-item",
+      "priority": 100,
+      "reviewed_at": "2026-08-09T04:20:00+02:00",
+      "review_status": "approved",
+      "rationale": "Le descrizioni identificano rifiuti domestici contenenti mercurio della voce 20 01 21; LED e alogene sono escluse.",
+      "source_urls": ["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]
+    },
+    {
+      "mapping_id": "family-map:solar-equipment-terms",
+      "source_categories": [],
+      "destination_aliases": [],
+      "term_patterns": ["\\b(fotovoltaic|pannelli solari|pannello solare|materiali del settore fotovoltaico e riscaldamento)"],
+      "excluded_term_patterns": [],
+      "class_id": "waste-class:solar-equipment",
+      "priority": 100,
+      "reviewed_at": "2026-08-09T04:20:00+02:00",
+      "review_status": "approved",
+      "rationale": "Moduli e apparecchiature solari richiedono verifica di pericolosita e natura domestica prima delle voci 16 02 13 o 16 02 14.",
+      "source_urls": ["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]
+    },
+    {
+      "mapping_id": "family-map:animal-remains-terms",
+      "source_categories": [],
+      "destination_aliases": [],
+      "term_patterns": ["\\b(animali d affezione|cane morto|gatto morto|carcassa animale|carcassa di animale|carcasse animali)\\b"],
+      "excluded_term_patterns": [],
+      "class_id": "waste-class:animal-remains",
+      "priority": 100,
+      "reviewed_at": "2026-08-09T04:20:00+02:00",
+      "review_status": "approved",
+      "rationale": "Le carcasse animali non vengono assimilate a un rifiuto urbano ordinario; la risposta conserva il ricorso a servizio veterinario o operatore autorizzato senza inventare un EER domestico.",
+      "source_urls": ["https://www.salute.gov.it/portale/temi/p2_6.jsp?id=1190&area=sanitaAnimale&menu=vuoto"]
+    },
+    {
+      "mapping_id": "family-map:textile-household-terms",
+      "source_categories": [],
+      "destination_aliases": [],
+      "term_patterns": ["\\b(moquette|stoffa|tappeto|tappeti|tendaggi|tappezzeria|tappezzerie|tende da esterni|zerbini|valigie|borse da viaggio|zaini)\\b"],
+      "excluded_term_patterns": [],
+      "class_id": "waste-class:textiles",
+      "priority": 60,
+      "reviewed_at": "2026-08-09T04:20:00+02:00",
+      "review_status": "approved",
+      "rationale": "Il lessico identifica abbigliamento o prodotti tessili; la domanda comune distingue le voci 20 01 10 e 20 01 11.",
+      "source_urls": ["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]
+    },
+    {
+      "mapping_id": "family-map:paper-household-terms",
+      "source_categories": [],
+      "destination_aliases": [],
+      "term_patterns": ["\\b(carte da parati|raccoglitore da ufficio|libro in buono stato)\\b"],
+      "excluded_term_patterns": ["\\b(plastific|gommate|vetrate|adesiv)"],
+      "class_id": "waste-class:paper",
+      "priority": 50,
+      "reviewed_at": "2026-08-09T04:20:00+02:00",
+      "review_status": "approved",
+      "rationale": "Le descrizioni identificano prodotti cartacei; rivestimenti plastificati, abrasivi o adesivi sono esclusi dalla regola.",
+      "source_urls": ["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]
+    },
+    {
+      "mapping_id": "family-map:waste-fuel-terms",
+      "source_categories": [],
+      "destination_aliases": [],
+      "term_patterns": ["\\b(carburante|carburanti|cherosene|benzina di scarto|gasolio di scarto)\\b"],
+      "excluded_term_patterns": ["\\b(filtro|filtri)\\b"],
+      "class_id": "waste-class:waste-fuel",
+      "priority": 100,
+      "reviewed_at": "2026-08-09T04:40:00+02:00",
+      "review_status": "approved",
+      "rationale": "I combustibili di scarto richiedono la distinzione fra olio combustibile o gasolio, benzina e altri combustibili del capitolo 13.",
+      "source_urls": ["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]
+    },
+    {
+      "mapping_id": "family-map:unclassified-household-hazard-terms",
+      "source_categories": ["Speciale", "rifiuto speciale"],
+      "destination_aliases": [],
+      "term_patterns": ["\\b(rifiuti da incendio|rifiuti urbani particolari pericolosi senza etichetta originale)\\b"],
+      "excluded_term_patterns": [],
+      "class_id": "waste-class:unclassified-household-hazard",
+      "priority": 110,
+      "reviewed_at": "2026-08-09T04:40:00+02:00",
+      "review_status": "approved",
+      "rationale": "Senza composizione o etichetta non viene inventato un codice EER: la classificazione portabile limita il conferimento a un operatore autorizzato.",
+      "source_urls": ["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]
+    },
+    {
+      "mapping_id": "family-map:returnable-reusable-terms",
+      "source_categories": [],
+      "destination_aliases": ["Vuoti a rendere"],
+      "term_patterns": ["\\b(fusto di birra vuoto a rendere|libro in buono stato)\\b"],
+      "excluded_term_patterns": [],
+      "class_id": "waste-class:returnable-or-reusable-item",
+      "priority": 120,
+      "reviewed_at": "2026-08-09T04:40:00+02:00",
+      "review_status": "approved",
+      "rationale": "Un bene ancora riutilizzabile o un vuoto a rendere segue prima il circuito di riuso o restituzione e non riceve un EER di scarto inventato.",
+      "source_urls": ["https://environment.ec.europa.eu/topics/waste-and-recycling/waste-framework-directive_en"]
+    },
+    {
+      "mapping_id": "family-map:alkaline-pesticide-terms",
+      "source_categories": [],
+      "destination_aliases": [],
+      "term_patterns": ["\\b(rifiuti alcalini|sostanze alcaline|prodotti fitosanitari|trattamento fitosanitario|spray insetticida|esca per topi)\\b"],
+      "excluded_term_patterns": [],
+      "class_id": "waste-class:household-hazardous-chemical",
+      "priority": 90,
+      "reviewed_at": "2026-08-09T04:40:00+02:00",
+      "review_status": "approved",
+      "rationale": "Alcali, prodotti fitosanitari e biocidi richiedono la domanda comune per distinguere le voci domestiche pericolose pertinenti.",
+      "source_urls": ["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]
+    },
+    {
+      "mapping_id": "family-map:wood-cork-bamboo-terms",
+      "source_categories": [],
+      "destination_aliases": [],
+      "term_patterns": ["\\b(tappi in sughero|tappo in sughero|canna di bambu|cassette in vimini|battiscopa)\\b"],
+      "excluded_term_patterns": [],
+      "class_id": "waste-class:wood-by-origin",
+      "priority": 60,
+      "reviewed_at": "2026-08-09T04:40:00+02:00",
+      "review_status": "approved",
+      "rationale": "Sughero, bambu, vimini e manufatti lignei usano la domanda sul legno per distinguere imballaggio, oggetto urbano e trattamento pericoloso.",
+      "source_urls": ["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]
+    },
+    {
+      "mapping_id": "family-map:rubber-plastic-household-terms",
+      "source_categories": [],
+      "destination_aliases": [],
+      "term_patterns": ["\\b(camera d aria|canne per irrigazione|telo agricolo|tubo flessibile doccia|linoleum)\\b"],
+      "excluded_term_patterns": [],
+      "class_id": "waste-class:plastic-by-origin",
+      "priority": 60,
+      "reviewed_at": "2026-08-09T04:40:00+02:00",
+      "review_status": "approved",
+      "rationale": "Manufatti domestici in gomma o plastica richiedono la distinzione fra oggetto urbano, imballaggio e provenienza professionale o edile.",
+      "source_urls": ["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]
+    },
+    {
+      "mapping_id": "family-map:plastic-card-terms",
+      "source_categories": [],
+      "destination_aliases": [],
+      "term_patterns": ["\\b(carta di credito|tessera sanitaria)\\b"],
+      "excluded_term_patterns": [],
+      "class_id": "waste-class:plastic-by-origin",
+      "priority": 70,
+      "reviewed_at": "2026-08-09T05:00:00+02:00",
+      "review_status": "approved",
+      "rationale": "Tessere e carte rigide sono manufatti domestici, non imballaggi; la domanda sulla plastica conserva l'eventuale presenza di componenti elettronici come caso da verificare.",
+      "source_urls": ["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]
+    },
+    {
+      "mapping_id": "family-map:residual-treated-paper-terms",
+      "source_categories": [],
+      "destination_aliases": [],
+      "term_patterns": ["\\b(carte gommate|carte vetrate)\\b"],
+      "excluded_term_patterns": [],
+      "class_id": "waste-class:residual",
+      "priority": 80,
+      "reviewed_at": "2026-08-09T05:00:00+02:00",
+      "review_status": "approved",
+      "rationale": "Carta gommata e carta abrasiva non sono carta grafica riciclabile e, in piccole quantita domestiche non pericolose, seguono il residuo urbano.",
+      "source_urls": ["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]
+    },
+    {
+      "mapping_id": "family-map:organic-food-fat-terms",
+      "source_categories": [],
+      "destination_aliases": [],
+      "term_patterns": ["\\b(burro fuso)\\b"],
+      "excluded_term_patterns": [],
+      "class_id": "waste-class:organic-kitchen",
+      "priority": 100,
+      "reviewed_at": "2026-08-09T05:00:00+02:00",
+      "review_status": "approved",
+      "rationale": "Il residuo alimentare solido o semisolido appartiene al rifiuto biodegradabile di cucina; gli oli liquidi restano nella famiglia dedicata.",
+      "source_urls": ["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]
+    },
+    {
+      "mapping_id": "family-map:composite-paper-packaging-terms",
+      "source_categories": [],
+      "destination_aliases": [],
+      "term_patterns": ["\\b(imballaggi di carta cartone e tetrapak|tetrapak|tetra pak|tetrapack)\\b"],
+      "excluded_term_patterns": [],
+      "class_id": "waste-class:packaging-by-material",
+      "priority": 120,
+      "reviewed_at": "2026-08-09T05:00:00+02:00",
+      "review_status": "approved",
+      "rationale": "I cartoni per bevande sono imballaggi compositi; la classe conserva la traduzione territoriale verso carta o multimateriale senza confondere il flusso con il materiale.",
+      "source_urls": ["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]
+    },
+    {
+      "mapping_id": "family-map:compostability-sensitive-terms",
+      "source_categories": [],
+      "destination_aliases": [],
+      "term_patterns": ["\\b(cenere|ceneri|carboni spenti|fiammiferi di legno|gusci di molluschi|guscio di mollusco|lettiera per animali|lettiere compostabili|materiale biodegradabile e compostabile|paglia|piante d appartamento|piatti bicchieri vuoti in mais o bioplastica|segatura|sigari e tabacco|stuzzicadenti|stecchini in legno|deiezioni canine)"],
+      "excluded_term_patterns": [],
+      "class_id": "waste-class:compostability-sensitive-biowaste",
+      "priority": 110,
+      "reviewed_at": "2026-08-09T05:20:00+02:00",
+      "review_status": "approved",
+      "rationale": "Questi materiali possono essere ammessi o esclusi dall'organico in base a composizione e regola locale; la domanda impedisce una destinazione regionale assoluta.",
+      "source_urls": ["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]
+    },
+    {
+      "mapping_id": "family-map:definite-kitchen-biowaste-terms",
+      "source_categories": [],
+      "destination_aliases": [],
+      "term_patterns": ["\\b(bucce di frutta e verdura|carta assorbente sporca di sostanze alimentari|filtri da te caffe tisane|fiori|fondi di caffe o te|gusci d uovo|ossi|residui di pizza|scarti alimentari senza imballaggio|tovaglioli di carta unti)"],
+      "excluded_term_patterns": [],
+      "class_id": "waste-class:organic-kitchen",
+      "priority": 110,
+      "reviewed_at": "2026-08-09T05:20:00+02:00",
+      "review_status": "approved",
+      "rationale": "Le descrizioni identificano rifiuti biodegradabili di cucina separati dagli imballaggi; la classe 20 01 08 prevale sulle destinazioni residuali generiche.",
+      "source_urls": ["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]
+    },
+    {
+      "mapping_id": "family-map:food-or-package-terms",
+      "source_categories": [],
+      "destination_aliases": [],
+      "term_patterns": ["^(biscotti|carne)$"],
+      "excluded_term_patterns": [],
+      "class_id": "waste-class:food-or-packaging",
+      "priority": 120,
+      "reviewed_at": "2026-08-09T05:20:00+02:00",
+      "review_status": "approved",
+      "rationale": "Le etichette nude possono indicare alimento o confezione; una domanda comune evita di scegliere implicitamente fra organico e imballaggi.",
+      "source_urls": ["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]
+    },
+    {
+      "mapping_id": "family-map:mixed-material-object-terms",
+      "source_categories": [],
+      "destination_aliases": [],
+      "term_patterns": [
+        "\\b(appendino|attaccapanni|cruccia|gruccia|assi|cucce|molla|posate|scaffali|sdraio|sedie|taglieri|tubi).*(legno|plastica|ferro|metallo|alluminio)",
+        "\\b(legno|plastica|ferro|metallo|alluminio).*(legno|plastica|ferro|metallo|alluminio)"
+      ],
+      "excluded_term_patterns": ["\\b(imballaggio|imballaggi|barattolo|bottiglia|flacone|vaschetta|vassoio|lattina|tappo|tubetto|capsula|cialda)"],
+      "class_id": "waste-class:mixed-material-household-object",
+      "priority": 100,
+      "reviewed_at": "2026-08-09T05:20:00+02:00",
+      "review_status": "approved",
+      "rationale": "Gli oggetti non da imballaggio che nominano piu materiali richiedono materiale prevalente o dimensione prima della voce EER.",
+      "source_urls": ["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]
+    },
+    {
+      "mapping_id": "family-map:textile-wearable-terms",
+      "source_categories": [],
+      "destination_aliases": [],
+      "term_patterns": ["\\b(bandiera|ciabatte|cuoio|cuscino|guanti|pantofole|scarpe e sandali|zaino|zoccoli)\\b"],
+      "excluded_term_patterns": [],
+      "class_id": "waste-class:textiles",
+      "priority": 90,
+      "reviewed_at": "2026-08-09T05:20:00+02:00",
+      "review_status": "approved",
+      "rationale": "Capi, calzature, accessori e prodotti tessili usano la domanda comune fra abbigliamento 20 01 10 e prodotti tessili 20 01 11.",
+      "source_urls": ["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]
+    },
+    {
+      "mapping_id": "family-map:residual-nonrecyclable-paper-terms",
+      "source_categories": [],
+      "destination_aliases": [],
+      "term_patterns": ["\\b(carta plastificata|etichette adesive|francobolli|cialde in carta per bevande)\\b"],
+      "excluded_term_patterns": [],
+      "class_id": "waste-class:residual",
+      "priority": 100,
+      "reviewed_at": "2026-08-09T05:20:00+02:00",
+      "review_status": "approved",
+      "rationale": "Materiali cartacei plastificati, adesivi o non separabili non vengono assimilati alla carta grafica riciclabile.",
+      "source_urls": ["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]
+    },
+    {
+      "mapping_id": "family-map:specific-household-object-terms",
+      "source_categories": [],
+      "destination_aliases": [],
+      "term_patterns": ["\\b(bicchiere|coperchi di pentole e padelle vetro|contagocce in vetro e plastica|ditale|forbici|riviste senza parti adesive metallo o plastica)\\b"],
+      "excluded_term_patterns": [],
+      "class_id": "waste-class:mixed-material-household-object",
+      "priority": 95,
+      "reviewed_at": "2026-08-09T05:20:00+02:00",
+      "review_status": "approved",
+      "rationale": "Oggetti domestici non da imballaggio con materiale ambiguo o parti diverse richiedono materiale prevalente e dimensione.",
+      "source_urls": ["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]
+    },
+    {
+      "mapping_id": "family-map:household-pesticide-collar",
+      "source_categories": [],
+      "destination_aliases": [],
+      "term_patterns": ["\\b(collare antipulci)\\b"],
+      "excluded_term_patterns": [],
+      "class_id": "waste-class:household-hazardous-chemical",
+      "priority": 110,
+      "reviewed_at": "2026-08-09T05:20:00+02:00",
+      "review_status": "approved",
+      "rationale": "Il collare antiparassitario richiede la domanda sui pesticidi domestici e non viene assimilato automaticamente a un medicinale.",
+      "source_urls": ["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]
+    },
+    {
+      "mapping_id": "family-map:noncompostable-tableware-terms",
+      "source_categories": [],
+      "destination_aliases": [],
+      "term_patterns": ["\\b(posate|piatti|bicchieri).*(carta plastificata|plastica non compostabile|plastica e piatti in carta plastificata)"],
+      "excluded_term_patterns": ["\\b(compostabile|compostabili)\\b"],
+      "class_id": "waste-class:residual",
+      "priority": 120,
+      "reviewed_at": "2026-08-09T05:40:00+02:00",
+      "review_status": "approved",
+      "rationale": "Stoviglie in plastica o carta plastificata non certificate compostabili appartengono al residuo urbano; quelle compostabili restano escluse dalla regola.",
       "source_urls": ["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]
     }
   ],
@@ -1565,6 +2379,7 @@
         "Sacco multimateriale",
         "Sacco giallo",
         "Azzurro-Contenitore Multimateriale"
+        ,"VETRO E LATTINE"
       ]
     },
     {
@@ -1652,9 +2467,15 @@
       "destination_type": "special_case",
       "aliases": [
         "Ditte specializzate",
+        "Ditta specializzata",
         "Operatori specializzati",
         "Aziende autorizzate",
-        "Operatori autorizzati"
+        "Operatori autorizzati",
+        "Centri autorizzati",
+        "chiamare Ascit",
+        "vedi servizi commerciali",
+        "impianti specifici",
+        "servizio veterinario ASL"
       ]
     },
     {
@@ -1662,6 +2483,18 @@
       "preferred_label": "Servizio di riuso",
       "destination_type": "special_case",
       "aliases": ["Riuso cambia il finale"]
+    },
+    {
+      "channel_id": "channel:service-unavailable",
+      "preferred_label": "Servizio non gestito",
+      "destination_type": "special_case",
+      "aliases": ["Servizio non gestito da Hera"]
+    },
+    {
+      "channel_id": "channel:municipal-collection",
+      "preferred_label": "Raccolta comunale",
+      "destination_type": "special_case",
+      "aliases": ["Raccolta rifiuti urbani"]
     }
   ]
 }

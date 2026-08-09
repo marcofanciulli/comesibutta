@@ -9,6 +9,7 @@ from unittest.mock import patch
 from dovelobutto.app_query import (
     DisposalQueryService,
     _description_matches_terms,
+    _similarity,
     open_query_database,
 )
 from dovelobutto.web_api import DisposalApi
@@ -275,6 +276,12 @@ def _entities() -> dict[tuple[str, str], CanonicalEntity]:
 
 
 class DisposalQueryTests(unittest.TestCase):
+    def test_italian_singular_plural_outranks_a_different_word(self) -> None:
+        self.assertGreater(
+            _similarity("canoa", "canoe"),
+            _similarity("canoa", "canotta"),
+        )
+
     def setUp(self) -> None:
         self.temporary = TemporaryDirectory()
         self.database = Path(self.temporary.name) / "client.sqlite"
@@ -562,6 +569,75 @@ class DisposalQueryTests(unittest.TestCase):
         self.assertEqual("stream:mixed-packaging", answer["result"]["stream_id"])
         self.assertEqual("giallo", answer["result"]["container"]["color"])
         self.assertNotEqual("conflict", answer["status"])
+
+    def test_alias_group_inherits_its_reviewed_portable_class(self) -> None:
+        self.connection.close()
+        writer = open_database(self.database, role="client")
+        current = read_database_entities(writer)
+        changed = dict(current)
+        first = _concept("waste:fiammifero", "Fiammifero", [])
+        second = _concept(
+            "waste:fiammiferi-di-legno", "Fiammiferi di legno", [],
+        )
+        additions = [
+            first,
+            second,
+            CanonicalEntity(
+                "waste_alias_group", "waste-alias:used-matchsticks", {
+                    "group_id": "waste-alias:used-matchsticks",
+                    "preferred_label": "Fiammiferi usati",
+                    "search_terms": ["Fiammiferi di legno"],
+                    "member_concept_ids": [first.entity_id, second.entity_id],
+                    "waste_class_id": "waste-class:compostability-sensitive",
+                    "review_status": "approved",
+                }, (
+                    ("waste_concept", first.entity_id),
+                    ("waste_concept", second.entity_id),
+                ),
+            ),
+            CanonicalEntity(
+                "waste_class", "waste-class:compostability-sensitive", {
+                    "class_id": "waste-class:compostability-sensitive",
+                    "preferred_label": "Materiale da distinguere",
+                    "stream_ids": [], "eer_codes": [], "delivery_channels": [],
+                    "question": {
+                        "prompt": "E compostabile e accettato localmente?",
+                        "options": [{
+                            "outcome_id": "waste-outcome:compostable",
+                            "label": "Compostabile", "hint": "Ammesso dalla guida",
+                            "stream_ids": ["stream:organic"],
+                            "eer_codes": ["200108"], "delivery_channels": [],
+                        }],
+                    },
+                },
+            ),
+            CanonicalEntity(
+                "waste_family_mapping", "family-map:compostability-sensitive", {
+                    "mapping_id": "family-map:compostability-sensitive",
+                    "source_categories": [], "destination_aliases": [],
+                    "class_id": "waste-class:compostability-sensitive",
+                    "reviewed_at": "2026-08-09T05:20:00+02:00",
+                    "review_status": "approved", "source_urls": [],
+                },
+            ),
+        ]
+        for entity in additions:
+            changed[(entity.entity_type, entity.entity_id)] = entity
+        apply_package(writer, build_update_package(current, changed, 1, 2, GENERATED_AT))
+        writer.close()
+        self.connection = open_query_database(self.database)
+        self.service = DisposalQueryService(self.connection)
+
+        answer = self.service.answer("fiammiferi di legno", "053014")
+
+        self.assertEqual("needs_question", answer["status"])
+        self.assertEqual(
+            "waste-alias:used-matchsticks",
+            answer["query"]["matched_concept_id"],
+        )
+        self.assertEqual(
+            "waste-outcome:compostable", answer["question"]["options"][0]["id"],
+        )
 
     def test_compound_destination_returns_all_delivery_channels(self) -> None:
         self.connection.close()
@@ -895,6 +971,73 @@ class DisposalQueryTests(unittest.TestCase):
         self.assertEqual("resolved", answer["status"])
         self.assertEqual("200136", answer["result"]["eer"]["code"])
         self.assertEqual("facility:raee-family", answer["result"]["facility"]["id"])
+
+    def test_family_outcome_keeps_special_channel_without_local_facility(self) -> None:
+        self.connection.close()
+        writer = open_database(self.database, role="client")
+        current = read_database_entities(writer)
+        changed = dict(current)
+        component = _concept("waste:ammortizzatore", "Ammortizzatore auto", [])
+        component.data["source_categories"] = ["Componente veicolo"]
+        additions = [
+            component,
+            CanonicalEntity("eer_entry", "eer:160122", {
+                "entry_id": "eer:160122", "code": "160122",
+                "title": "componenti non specificati altrimenti",
+                "title_expanded": "componenti non specificati altrimenti",
+                "hazardous": False,
+            }),
+            CanonicalEntity("delivery_channel", "channel:specialist-operator", {
+                "channel_id": "channel:specialist-operator",
+                "preferred_label": "Operatore specializzato",
+                "destination_type": "special_case",
+                "aliases": ["Operatori specializzati"],
+            }),
+            CanonicalEntity("waste_class", "waste-class:vehicle-component", {
+                "class_id": "waste-class:vehicle-component",
+                "preferred_label": "Componente di veicolo",
+                "stream_ids": [], "eer_codes": [], "delivery_channels": [],
+                "question": {
+                    "prompt": "Quale componente?",
+                    "options": [{
+                        "outcome_id": "waste-outcome:vehicle-other-component",
+                        "label": "Altro componente non pericoloso",
+                        "hint": "Senza caratteristiche di pericolo note",
+                        "stream_ids": [], "eer_codes": ["160122"],
+                        "delivery_channels": ["channel:specialist-operator"],
+                    }],
+                },
+            }),
+            CanonicalEntity("waste_family_mapping", "family-map:vehicle", {
+                "mapping_id": "family-map:vehicle",
+                "source_categories": ["Componente veicolo"],
+                "destination_aliases": [],
+                "class_id": "waste-class:vehicle-component",
+                "reviewed_at": "2026-08-09T04:20:00+02:00",
+                "review_status": "approved", "rationale": "Famiglia revisionata",
+                "source_urls": ["https://example.test/eer"],
+            }),
+        ]
+        for entity in additions:
+            changed[(entity.entity_type, entity.entity_id)] = entity
+        apply_package(writer, build_update_package(current, changed, 1, 2, GENERATED_AT))
+        writer.close()
+        self.connection = open_query_database(self.database)
+        self.service = DisposalQueryService(self.connection)
+
+        answer = self.service.answer(
+            "ammortizzatore", "053014",
+            concept_id="waste-outcome:vehicle-other-component",
+        )
+
+        self.assertEqual("resolved", answer["status"])
+        self.assertEqual("160122", answer["result"]["eer"]["code"])
+        self.assertIsNone(answer["result"]["facility"])
+        self.assertEqual(
+            ["channel:specialist-operator"],
+            [item["channel_id"] for item in answer["result"]["delivery_channels"]],
+        )
+        self.assertIn("Nessun centro accessibile", answer["result"]["warnings"][0])
 
     def test_equivalent_single_channel_aliases_do_not_create_a_conflict(self) -> None:
         self.connection.close()

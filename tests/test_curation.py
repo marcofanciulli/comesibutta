@@ -29,10 +29,10 @@ class WasteCurationTests(unittest.TestCase):
 
     def test_reviewed_register_matches_the_current_catalog(self) -> None:
         report = validate_waste_curation(self.register, self.catalog)
-        self.assertEqual(4, report["alias_groups"])
-        self.assertEqual(33, report["alias_members"])
+        self.assertEqual(5, report["alias_groups"])
+        self.assertEqual(38, report["alias_members"])
         self.assertEqual(7, report["collection_streams"])
-        self.assertEqual(7, report["delivery_channels"])
+        self.assertEqual(9, report["delivery_channels"])
         self.assertEqual(9, report["curated_concepts"])
         self.assertEqual(11, report["curated_search_terms"])
         self.assertEqual(13, report["eer_mappings"])
@@ -41,9 +41,9 @@ class WasteCurationTests(unittest.TestCase):
         self.assertEqual(2, report["stream_mapped_concepts"])
         self.assertEqual(3, report["disambiguation_groups"])
         self.assertEqual(3, report["disambiguation_triggers"])
-        self.assertEqual(23, report["waste_classes"])
-        self.assertEqual(45, report["waste_class_outcomes"])
-        self.assertEqual(31, report["family_mappings"])
+        self.assertEqual(37, report["waste_classes"])
+        self.assertEqual(81, report["waste_class_outcomes"])
+        self.assertEqual(60, report["family_mappings"])
         self.assertEqual(0, report["alias_group_territorial_conflicts"])
         self.assertGreater(report["mapped_destination_assertions"], 1900)
         self.assertGreater(report["channel_mapped_destination_assertions"], 1700)
@@ -104,6 +104,12 @@ class WasteCurationTests(unittest.TestCase):
         register = copy.deepcopy(self.register)
         register["alias_groups"][0]["member_concept_ids"].append("waste:inesistente")
         with self.assertRaisesRegex(ValueError, "Unknown concept"):
+            validate_waste_curation(register, self.catalog)
+
+    def test_alias_group_requires_a_known_portable_class(self) -> None:
+        register = copy.deepcopy(self.register)
+        register["alias_groups"][0]["waste_class_id"] = "waste-class:inesistente"
+        with self.assertRaisesRegex(ValueError, "requires a known waste class"):
             validate_waste_curation(register, self.catalog)
 
     def test_one_concept_cannot_belong_to_two_groups(self) -> None:
