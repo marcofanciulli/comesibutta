@@ -178,7 +178,25 @@ class DisposalQueryService:
         self.family_term_classes: list[tuple[dict[str, Any], dict[str, Any]]] = []
         self._concept_cache: dict[str, dict[str, Any] | None] = {}
         self._matching_rules_cache: dict[
-            tuple[str, str, str | None, str], list[dict[str, Any]]
+            tuple[str, str, str | None, str, bool], list[dict[str, Any]]
+        ] = {}
+        self._canonical_stream_cache: dict[str, str | None] = {}
+        self._channel_matches_cache: dict[str, list[dict[str, Any]]] = {}
+        self._destination_key_cache: dict[str, str] = {}
+        self._facility_access_cache: dict[
+            tuple[str, str], dict[str, list[dict[str, Any]]]
+        ] = {}
+        self._facility_entity_cache: dict[str, dict[str, Any] | None] = {}
+        self._facility_acceptance_items_cache: dict[
+            tuple[str, str], tuple[list[dict[str, Any]], list[dict[str, Any]]]
+        ] = {}
+        self._facility_opening_cache: dict[
+            str, tuple[list[dict[str, Any]], list[dict[str, Any]]]
+        ] = {}
+        self._eer_entry_cache: dict[str, dict[str, Any] | None] = {}
+        self._facility_fallback_cache: dict[
+            tuple[str, str, str, float | None, float | None],
+            tuple[dict[str, Any] | None, list[dict[str, Any]]],
         ] = {}
         for row in connection.execute(
             """SELECT entity_id FROM entities
@@ -342,22 +360,30 @@ class DisposalQueryService:
         return result
 
     def _with_family_class(self, concept: dict[str, Any]) -> dict[str, Any]:
-        matches = {
-            waste_class["class_id"]: (mapping, waste_class)
-            for selector in [
-                *(category.strip() for category in concept.get("source_categories", [])),
-                *(
-                    normalize_term(destination.get("label", ""))
-                    for destination in concept.get("local_destinations", [])
-                ),
-            ]
-            for mapping, waste_class in [
+        matches: dict[str, tuple[dict[str, Any], dict[str, Any]]] = {}
+
+        def add_match(mapping: dict[str, Any], waste_class: dict[str, Any]) -> None:
+            class_id = waste_class["class_id"]
+            existing = matches.get(class_id)
+            if (
+                existing is None
+                or mapping.get("priority", 0) > existing[0].get("priority", 0)
+            ):
+                matches[class_id] = mapping, waste_class
+
+        for selector in [
+            *(category.strip() for category in concept.get("source_categories", [])),
+            *(
+                normalize_term(destination.get("label", ""))
+                for destination in concept.get("local_destinations", [])
+            ),
+        ]:
+            match = (
                 self.family_classes.get(selector)
                 or self.family_destination_classes.get(selector)
-                or (None, None)
-            ]
-            if mapping is not None and waste_class is not None
-        }
+            )
+            if match is not None:
+                add_match(*match)
         normalized_term = concept.get("normalized_term", "")
         for mapping, waste_class in self.family_term_classes:
             if not any(
@@ -370,7 +396,7 @@ class DisposalQueryService:
                 for pattern in mapping.get("excluded_term_patterns", [])
             ):
                 continue
-            matches[waste_class["class_id"]] = (mapping, waste_class)
+            add_match(mapping, waste_class)
         selected: dict[str, tuple[dict[str, Any], dict[str, Any]]] = {}
         by_dimension: dict[str, list[tuple[dict[str, Any], dict[str, Any]]]] = {}
         for mapping, waste_class in matches.values():
@@ -717,6 +743,7 @@ class DisposalQueryService:
                     "source_urls": stream_mapping.get("source_urls", []),
                 })
                 evidence.extend(stream_mapping.get("sources", []))
+        family_destinations_added = False
         if not destinations and concept.get("family_stream_ids"):
             matching_streams = []
             for stream_id in concept["family_stream_ids"]:
@@ -724,6 +751,7 @@ class DisposalQueryService:
                 if stream and self._matching_rules(
                     stream["preferred_label"], municipality_istat,
                     zone_id=zone_id, user_type=user_type,
+                    require_canonical_match=True,
                 ):
                     matching_streams.append(stream)
             for stream in matching_streams:
@@ -732,6 +760,7 @@ class DisposalQueryService:
                     "municipality_istats": [municipality_istat],
                     "source_urls": [],
                 })
+                family_destinations_added = True
             evidence.extend(concept.get("family_sources", []))
         self._set_provenance(base, evidence)
         family_question = concept.get("family_question")
@@ -767,16 +796,63 @@ class DisposalQueryService:
                     ],
                     *fallback_sources,
                 ])
+            else:
+                portable = self._portable_route_fallback(concept)
+                if portable is not None:
+                    base["status"] = "resolved"
+                    base["result"] = portable
+                    self._set_provenance(base, self._portable_route_sources(concept))
             return base
         if len(destinations) > 1:
-            base["status"] = "conflict"
-            base["question"] = {
-                "text": "Le fonti pubblicano piu destinazioni per questo rifiuto.",
-                "options": [
-                    {"id": normalize_term(item["label"]).replace(" ", "-"), "label": item["label"]}
-                    for item in destinations
-                ],
+            if family_destinations_added:
+                portable = self._portable_route_fallback(concept)
+                if portable is not None:
+                    base["status"] = "resolved"
+                    base["result"] = portable
+                    return base
+            stream_ids = {
+                stream_id
+                for item in destinations
+                for stream_id in [self._canonical_stream(item["label"])]
+                if stream_id is not None
             }
+            unresolved_route_keys = {
+                normalize_term(item["label"])
+                for item in destinations
+                if self._canonical_stream(item["label"]) is None
+                and not self._channel_matches(item["label"])
+            }
+            if len(stream_ids) + len(unresolved_route_keys) > 1:
+                base["status"] = "conflict"
+                base["question"] = {
+                    "text": "Le fonti pubblicano piu destinazioni per questo rifiuto.",
+                    "options": [
+                        {
+                            "id": normalize_term(item["label"]).replace(" ", "-"),
+                            "label": item["label"],
+                        }
+                        for item in destinations
+                    ],
+                }
+                return base
+            destination = ", ".join(item["label"] for item in destinations)
+            rules = self._matching_rules(
+                destination, municipality_istat,
+                zone_id=zone_id, user_type=user_type,
+            ) if stream_ids else []
+            base["status"] = "resolved"
+            base["result"], facility_sources = self._result(
+                concept, destination, rules[0] if rules else None,
+                municipality_istat=municipality_istat,
+                zone_id=zone_id,
+                user_type=user_type,
+                latitude=latitude,
+                longitude=longitude,
+            )
+            self._set_provenance(base, [
+                *evidence, *facility_sources,
+                *(rules[0].get("sources", []) if rules else []),
+            ])
             return base
         destination = destinations[0]["label"]
         rules = []
@@ -820,8 +896,12 @@ class DisposalQueryService:
         *,
         zone_id: str | None,
         user_type: str,
+        require_canonical_match: bool = False,
     ) -> list[dict[str, Any]]:
-        cache_key = (normalize_term(destination), municipality_istat, zone_id, user_type)
+        cache_key = (
+            normalize_term(destination), municipality_istat, zone_id,
+            user_type, require_canonical_match,
+        )
         cached = self._matching_rules_cache.get(cache_key)
         if cached is not None:
             return cached
@@ -836,6 +916,8 @@ class DisposalQueryService:
             score = (
                 1.0
                 if destination_stream and destination_stream == rule_stream
+                else 0.0
+                if require_canonical_match and destination_stream
                 else _similarity(
                     normalize_term(destination), normalize_term(row["stream_name"] or ""),
                 )
@@ -877,28 +959,45 @@ class DisposalQueryService:
         return (zone or {}).get("payload", {}).get("name") or zone_id
 
     def _canonical_stream(self, value: str) -> str | None:
-        exact = self.stream_aliases.get(normalize_term(value))
+        normalized = normalize_term(value)
+        if normalized in self._canonical_stream_cache:
+            return self._canonical_stream_cache[normalized]
+        exact = self.stream_aliases.get(normalized)
         if exact:
+            self._canonical_stream_cache[normalized] = exact
             return exact
         matches = matching_collection_streams(value, list(self.streams.values()))
-        if len(matches) == 1:
-            return matches[0]["stream_id"]
-        return None
+        result = matches[0]["stream_id"] if len(matches) == 1 else None
+        self._canonical_stream_cache[normalized] = result
+        return result
 
     def _channel_matches(self, value: str) -> list[dict[str, Any]]:
-        return matching_delivery_channels(value, self.delivery_channels)
+        normalized = normalize_term(value)
+        if normalized not in self._channel_matches_cache:
+            self._channel_matches_cache[normalized] = matching_delivery_channels(
+                value, self.delivery_channels,
+            )
+        return self._channel_matches_cache[normalized]
 
     def _canonical_destination_key(self, value: str) -> str:
+        normalized = normalize_term(value)
+        if normalized in self._destination_key_cache:
+            return self._destination_key_cache[normalized]
         stream_id = self._canonical_stream(value)
         if stream_id:
-            return stream_id
-        channels = self._channel_matches(value)
-        if len(channels) == 1 and any(
-            normalize_term(value) == normalize_term(alias)
-            for alias in channels[0]["matched_aliases"]
-        ):
-            return channels[0]["channel_id"]
-        return normalize_term(value)
+            result = stream_id
+        else:
+            channels = self._channel_matches(value)
+            result = (
+                channels[0]["channel_id"]
+                if len(channels) == 1 and any(
+                    normalized == normalize_term(alias)
+                    for alias in channels[0]["matched_aliases"]
+                )
+                else normalized
+            )
+        self._destination_key_cache[normalized] = result
+        return result
 
     def _concept_for_choice(self, choice_id: str) -> dict[str, Any] | None:
         if choice_id in self._concept_cache:
@@ -1181,6 +1280,125 @@ class DisposalQueryService:
         latitude: float | None,
         longitude: float | None,
     ) -> tuple[dict[str, Any] | None, list[dict[str, Any]]]:
+        cache_key = (
+            concept["concept_id"], municipality_istat, user_type,
+            latitude, longitude,
+        )
+        if cache_key not in self._facility_fallback_cache:
+            self._facility_fallback_cache[cache_key] = (
+                self._facility_fallback_uncached(
+                    concept,
+                    municipality_istat=municipality_istat,
+                    user_type=user_type,
+                    latitude=latitude,
+                    longitude=longitude,
+                )
+            )
+        return self._facility_fallback_cache[cache_key]
+
+    def _portable_route_fallback(
+        self, concept: dict[str, Any],
+    ) -> dict[str, Any] | None:
+        streams = [
+            {
+                "stream_id": stream_id,
+                "preferred_label": self.streams[stream_id]["preferred_label"],
+            }
+            for stream_id in concept.get("family_stream_ids", [])
+            if stream_id in self.streams
+        ]
+        channel_ids = set(concept.get("family_delivery_channel_ids", []))
+        channels = [
+            {
+                "channel_id": channel["channel_id"],
+                "preferred_label": channel["preferred_label"],
+                "destination_type": channel["destination_type"],
+                "matched_aliases": [channel["preferred_label"]],
+            }
+            for channel in self.delivery_channels
+            if channel["channel_id"] in channel_ids
+        ]
+        candidates = [
+            candidate
+            for candidate in concept.get("eer", {}).get("candidates", [])
+            if candidate.get("register_status") != "unknown_code"
+        ]
+        eer_options = [
+            summary
+            for candidate in candidates
+            for summary in [self._eer_from_code(
+                candidate["code"], [],
+                condition=candidate.get("mapping_condition"),
+            )]
+            if summary is not None
+        ]
+        if not streams and not channels and not eer_options:
+            return None
+        warning = (
+            "La classificazione del rifiuto e definita, ma la fonte locale non "
+            "pubblica una regola sufficiente per indicare contenitore, sacchetto "
+            "o servizio. Verifica le istruzioni del gestore prima del conferimento."
+        )
+        return {
+            "destination_type": "portable_route",
+            "local_route_status": "not_published",
+            "stream_id": streams[0]["stream_id"] if len(streams) == 1 else None,
+            "stream": streams[0]["preferred_label"] if len(streams) == 1 else None,
+            "stream_alternatives": streams if len(streams) > 1 else [],
+            "source_destination": None,
+            "channel_relation": "alternatives" if len(channels) > 1 else "single",
+            "delivery_channels": channels,
+            "container": None,
+            "presentation": None,
+            "eer": eer_options[0] if len(eer_options) == 1 else None,
+            "eer_alternatives": eer_options if len(eer_options) > 1 else [],
+            "facility": None,
+            "facility_alternatives": [],
+            "channel_services": [],
+            "unresolved_channels": [
+                {
+                    "channel_id": channel["channel_id"],
+                    "preferred_label": channel["preferred_label"],
+                    "status": "local_service_not_verified",
+                    "reason": "Nessun servizio locale compatibile e pubblicato.",
+                    "source_destination": None,
+                }
+                for channel in channels
+            ],
+            "environmental_note": concept.get("general_details", {}).get(
+                "environmental_note"
+            ),
+            "warnings": [warning],
+        }
+
+    @staticmethod
+    def _portable_route_sources(concept: dict[str, Any]) -> list[dict[str, Any]]:
+        candidates = concept.get("eer", {}).get("candidates", [])
+        candidate_urls = {
+            url for candidate in candidates for url in candidate.get("source_urls", [])
+        }
+        return [
+            *concept.get("family_sources", []),
+            *[
+                source
+                for candidate in candidates
+                for source in candidate.get("mapping_sources", [])
+            ],
+            *[
+                evidence for evidence in concept.get("evidence", [])
+                if evidence.get("source_url") in candidate_urls
+            ],
+        ]
+
+    def _facility_fallback_uncached(
+        self,
+        concept: dict[str, Any],
+        *,
+        municipality_istat: str,
+        user_type: str,
+        latitude: float | None,
+        longitude: float | None,
+    ) -> tuple[dict[str, Any] | None, list[dict[str, Any]]]:
         eer = self._eer_summary(concept)
         candidate_by_code = {
             candidate["code"]: candidate
@@ -1432,9 +1650,12 @@ class DisposalQueryService:
     def _eer_from_code(
         self, code: str, facilities: list[dict[str, Any]], *, condition: str | None = None,
     ) -> dict[str, Any] | None:
-        entry = read_entity_data(
-            self.connection, "eer_entry", f"eer:{code}", include_sources=False,
-        )
+        if code not in self._eer_entry_cache:
+            self._eer_entry_cache[code] = read_entity_data(
+                self.connection, "eer_entry", f"eer:{code}",
+                include_sources=False,
+            )
+        entry = self._eer_entry_cache[code]
         if entry is None:
             return None
         labels = sorted({
@@ -1443,8 +1664,8 @@ class DisposalQueryService:
         })
         return {
             "code": code,
-            "official_label": entry["title_expanded"] or entry["title"],
-            "hazardous": bool(entry["hazardous"]),
+            "official_label": entry.get("title_expanded") or entry.get("title"),
+            "hazardous": bool(entry.get("hazardous")),
             "facility_operational_label": labels[0] if labels else None,
             "condition": condition,
         }
@@ -1460,28 +1681,38 @@ class DisposalQueryService:
         longitude: float | None,
         allow_term_match: bool = False,
     ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
-        access_by_facility: dict[str, list[dict[str, Any]]] = {}
-        for row in self.connection.execute(
-            """SELECT entity_id, facility_ref FROM entities
-            WHERE entity_type = 'facility_access' AND municipality_ref = ?
-            ORDER BY facility_ref, entity_id""",
-            (f"istat:{municipality_istat}",),
-        ):
-            access = read_entity_data(
-                self.connection, "facility_access", row["entity_id"],
-            )
-            payload = (access or {}).get("payload") or {}
-            if (
-                access
-                and payload.get("allowed") is True
-                and payload.get("user_type") in {"all", user_type}
+        access_key = (municipality_istat, user_type)
+        if access_key not in self._facility_access_cache:
+            access_by_facility: dict[str, list[dict[str, Any]]] = {}
+            for row in self.connection.execute(
+                """SELECT entity_id, facility_ref FROM entities
+                WHERE entity_type = 'facility_access' AND municipality_ref = ?
+                ORDER BY facility_ref, entity_id""",
+                (f"istat:{municipality_istat}",),
             ):
-                access_by_facility.setdefault(row["facility_ref"], []).append(access)
+                access = read_entity_data(
+                    self.connection, "facility_access", row["entity_id"],
+                )
+                payload = (access or {}).get("payload") or {}
+                if (
+                    access
+                    and payload.get("allowed") is True
+                    and payload.get("user_type") in {"all", user_type}
+                ):
+                    access_by_facility.setdefault(
+                        row["facility_ref"], [],
+                    ).append(access)
+            self._facility_access_cache[access_key] = access_by_facility
+        access_by_facility = self._facility_access_cache[access_key]
 
         candidates = []
         sources = []
         for facility_id, accesses in access_by_facility.items():
-            facility = read_entity_data(self.connection, "facility", facility_id)
+            if facility_id not in self._facility_entity_cache:
+                self._facility_entity_cache[facility_id] = read_entity_data(
+                    self.connection, "facility", facility_id,
+                )
+            facility = self._facility_entity_cache[facility_id]
             if facility is None:
                 continue
             payload = facility.get("payload") or {}
@@ -1585,23 +1816,27 @@ class DisposalQueryService:
         *,
         allow_term_match: bool = False,
     ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
-        accepted = []
-        sources = []
-        for row in self.connection.execute(
-            """SELECT entity_id FROM entities
-            WHERE entity_type = 'facility_acceptance' AND facility_ref = ?
-            ORDER BY entity_id""",
-            (facility_id,),
-        ):
-            item = read_entity_data(
-                self.connection, "facility_acceptance", row["entity_id"],
-            )
-            payload = (item or {}).get("payload") or {}
-            if item and payload.get("user_type") in {
-                None, "all", "unspecified", user_type,
-            }:
-                accepted.append(item)
-                sources.extend(item.get("sources", []))
+        cache_key = (facility_id, user_type)
+        if cache_key not in self._facility_acceptance_items_cache:
+            accepted = []
+            sources = []
+            for row in self.connection.execute(
+                """SELECT entity_id FROM entities
+                WHERE entity_type = 'facility_acceptance' AND facility_ref = ?
+                ORDER BY entity_id""",
+                (facility_id,),
+            ):
+                item = read_entity_data(
+                    self.connection, "facility_acceptance", row["entity_id"],
+                )
+                payload = (item or {}).get("payload") or {}
+                if item and payload.get("user_type") in {
+                    None, "all", "unspecified", user_type,
+                }:
+                    accepted.append(item)
+                    sources.extend(item.get("sources", []))
+            self._facility_acceptance_items_cache[cache_key] = accepted, sources
+        accepted, sources = self._facility_acceptance_items_cache[cache_key]
         if not accepted:
             return {
                 "status": "acceptance_not_published",
@@ -1673,6 +1908,8 @@ class DisposalQueryService:
     def _facility_opening_periods(
         self, facility_id: str,
     ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+        if facility_id in self._facility_opening_cache:
+            return self._facility_opening_cache[facility_id]
         periods = []
         sources = []
         for row in self.connection.execute(
@@ -1692,6 +1929,7 @@ class DisposalQueryService:
                     "exceptions": payload.get("exceptions_raw"),
                 })
                 sources.extend(item.get("sources", []))
+        self._facility_opening_cache[facility_id] = periods, sources
         return periods, sources
 
     def _resolve_channel_services(

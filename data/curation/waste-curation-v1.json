@@ -1,7 +1,7 @@
 {
   "register_id": "waste-curation:toscana:v1",
   "version": 1,
-  "generated_at": "2026-08-09T07:00:00+02:00",
+  "generated_at": "2026-08-09T09:45:00+02:00",
   "curated_concepts": [
     {"concept_id":"waste:piombo","preferred_label":"Piombo","search_terms":["Piombo"],"reviewed_at":"2026-08-09T00:10:00+02:00","review_status":"approved","rationale":"Voce generica da distinguere per forma e provenienza.","source_urls":["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]},
     {"concept_id":"waste:piombo-domestico","preferred_label":"Piccolo oggetto di piombo","search_terms":["Piombo domestico"],"reviewed_at":"2026-08-09T00:10:00+02:00","review_status":"approved","rationale":"Piccole quantita domestiche di metallo raccolto separatamente.","source_urls":["https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02000D0532-20231206"]},
@@ -136,6 +136,60 @@
       ],
       "review_status": "approved",
       "rationale": "Varianti singolare e plurale dello stesso fiammifero usato o spento; la scatola di fiammiferi resta esclusa come imballaggio distinto."
+    },
+    {
+      "group_id": "waste-alias:dirty-pizza-box",
+      "preferred_label": "Cartone della pizza sporco",
+      "waste_class_id": "waste-class:compostability-sensitive-biowaste",
+      "search_terms": ["Cartone della pizza sporco", "Cartone per pizza sporco"],
+      "member_concept_ids": [
+        "waste:cartone-della-pizza-sporco",
+        "waste:cartone-per-pizza-sporco"
+      ],
+      "review_status": "approved",
+      "rationale": "Varianti preposizionali dello stesso cartone sporco; organico o residuo dipendono dall'accettazione pubblicata dal gestore locale."
+    },
+    {
+      "group_id": "waste-alias:motorcycle-helmet",
+      "preferred_label": "Casco da moto",
+      "waste_class_id": "waste-class:size-dependent-household-object",
+      "search_terms": ["Casco da moto", "Casco per moto"],
+      "member_concept_ids": ["waste:casco-da-moto", "waste:casco-per-moto"],
+      "review_status": "approved",
+      "rationale": "Varianti preposizionali dello stesso casco; la dimensione e la regola locale determinano residuo o ingombrante."
+    },
+    {
+      "group_id": "waste-alias:animal-excrement",
+      "preferred_label": "Escrementi di animali",
+      "waste_class_id": "waste-class:compostability-sensitive-biowaste",
+      "search_terms": ["Escrementi animali", "Escrementi di animali"],
+      "member_concept_ids": [
+        "waste:escrementi-animali",
+        "waste:escrementi-di-animali"
+      ],
+      "review_status": "approved",
+      "rationale": "Varianti preposizionali della stessa categoria; organico o residuo dipendono da composizione e accettazione locale."
+    },
+    {
+      "group_id": "waste-alias:wooden-broom-handle",
+      "preferred_label": "Manico di scopa in legno",
+      "waste_class_id": "waste-class:wood-by-origin",
+      "search_terms": ["Manico di scopa in legno", "Manico scopa di legno"],
+      "member_concept_ids": [
+        "waste:manico-di-scopa-in-legno",
+        "waste:manico-scopa-di-legno"
+      ],
+      "review_status": "approved",
+      "rationale": "Varianti sintattiche dello stesso manufatto domestico in legno; la fonte locale mantiene precedenza per il canale operativo."
+    },
+    {
+      "group_id": "waste-alias:plastic-pots",
+      "preferred_label": "Vasi di plastica",
+      "waste_class_id": "waste-class:plastic-by-origin",
+      "search_terms": ["Vasi di plastica", "Vasi in plastica"],
+      "member_concept_ids": ["waste:vasi-di-plastica", "waste:vasi-in-plastica"],
+      "review_status": "approved",
+      "rationale": "Varianti preposizionali dello stesso oggetto; imballaggio, oggetto domestico o scarto edile richiedono percorsi distinti."
     }
   ],
   "eer_mappings": [

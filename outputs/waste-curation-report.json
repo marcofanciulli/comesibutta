@@ -1,12 +1,12 @@
 {
   "alias_group_territorial_conflicts": 0,
-  "alias_groups": 5,
-  "alias_members": 38,
-  "approved_search_terms": 30,
-  "catalog_generated_at": "2026-08-09T01:30:00+02:00",
+  "alias_groups": 10,
+  "alias_members": 48,
+  "approved_search_terms": 40,
+  "catalog_generated_at": "2026-08-09T09:15:00+02:00",
   "channel_aliases": 36,
   "channel_destination_assertions": {
-    "channel:collection-centre": 1802,
+    "channel:collection-centre": 1800,
     "channel:collection-point": 192,
     "channel:home-pickup": 426,
     "channel:mobile-collection": 381,
@@ -27,14 +27,14 @@
     "channel:service-unavailable": 1,
     "channel:specialist-operator": 13
   },
-  "channel_mapped_destination_assertions": 1978,
+  "channel_mapped_destination_assertions": 1976,
   "channel_mapped_destination_labels": 119,
   "collection_streams": 7,
   "conflicts_by_group": {},
   "curated_concepts": 9,
   "curated_search_terms": 11,
   "delivery_channels": 9,
-  "destination_assertions": 4508,
+  "destination_assertions": 4506,
   "destination_labels": 191,
   "disambiguation_groups": 3,
   "disambiguation_triggers": 3,
@@ -245,7 +245,7 @@
       "label": "ecocentro"
     },
     {
-      "assertions": 88,
+      "assertions": 87,
       "label": "centri di raccolta"
     },
     {

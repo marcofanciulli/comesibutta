@@ -110,7 +110,7 @@ Una destinazione osservata presso un gestore non basta a superare questo audit.
 Ogni concetto deve avere una classe, un EER revisionato o una domanda completa;
 parziali, conflitti e non classificati mantengono `release_ready: false`.
 
-Sul catalogo corrente l'audit copre 3.494 concetti e i 5 gruppi canonici di
+Sul catalogo corrente l'audit copre 3.493 concetti e i 10 gruppi canonici di
 alias: tutti sono classificati, senza parziali o conflitti, e `release_ready`
 e vero. L'aggiunta futura di un concetto o di un gruppo deduplicato privo di
 percorso fa fallire sia la suite automatica sia la pubblicazione.

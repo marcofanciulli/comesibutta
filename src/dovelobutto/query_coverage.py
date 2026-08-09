@@ -5,6 +5,7 @@ from datetime import datetime
 import json
 from pathlib import Path
 import sqlite3
+from time import monotonic
 from typing import Any
 
 from .app_query import DisposalQueryService, _similarity, open_query_database
@@ -56,6 +57,7 @@ def _term_anchor(term: str) -> str | None:
 def _near_duplicate_candidates(
     concepts: dict[str, dict[str, Any]],
     membership: dict[str, str],
+    service: DisposalQueryService,
     *,
     threshold: float,
 ) -> list[dict[str, Any]]:
@@ -80,6 +82,9 @@ def _near_duplicate_candidates(
                 right_coverage = _municipality_coverage(concepts[right_id])
                 if left_coverage == right_coverage:
                     continue
+                left_signature = _portable_route_signature(service, left_id)
+                right_signature = _portable_route_signature(service, right_id)
+                route_equivalent = bool(left_signature) and left_signature == right_signature
                 candidates.append({
                     "left": {"concept_id": left_id, "label": left_label},
                     "right": {"concept_id": right_id, "label": right_label},
@@ -89,6 +94,18 @@ def _near_duplicate_candidates(
                         "right_municipalities": len(right_coverage),
                         "symmetric_difference": len(left_coverage ^ right_coverage),
                     },
+                    "portable_routes": {
+                        "equivalent": route_equivalent,
+                        "left": left_signature,
+                        "right": right_signature,
+                    },
+                    "decision": (
+                        "equivalent_portable_route"
+                        if route_equivalent
+                        else "manual_review_required"
+                        if score == 1.0
+                        else "lexical_similarity_only"
+                    ),
                     "review_reason": "Termini molto simili con copertura territoriale diversa",
                 })
     return sorted(
@@ -97,12 +114,39 @@ def _near_duplicate_candidates(
     )
 
 
+def _portable_route_signature(
+    service: DisposalQueryService, concept_id: str,
+) -> dict[str, Any]:
+    concept = service._concept_for_choice(concept_id) or {}
+    disambiguation = service.disambiguations.get(concept_id)
+    family_class_ids = sorted(concept.get("family_class_ids", []))
+    signature = {
+        "family_class_ids": family_class_ids,
+        "question_id": (disambiguation or {}).get("group_id"),
+    }
+    if family_class_ids:
+        return signature
+    return {
+        **signature,
+        "family_stream_ids": sorted(concept.get("family_stream_ids", [])),
+        "family_delivery_channel_ids": sorted(
+            concept.get("family_delivery_channel_ids", [])
+        ),
+        "eer_codes": sorted({
+            candidate["code"]
+            for candidate in concept.get("eer", {}).get("candidates", [])
+            if candidate.get("register_status") != "unknown_code"
+        }),
+    }
+
+
 def audit_query_coverage(
     connection: sqlite3.Connection,
     *,
     generated_at: datetime,
     similarity_threshold: float = 0.94,
 ) -> dict[str, Any]:
+    audit_started = monotonic()
     metadata = dict(connection.execute("SELECT key, value FROM metadata"))
     municipality_ids = _entity_ids(connection, "municipality")
     municipalities = {item.removeprefix("istat:") for item in municipality_ids}
@@ -123,154 +167,249 @@ def audit_query_coverage(
             zones_by_municipality[municipality].append(zone_id)
 
     service = DisposalQueryService(connection)
+    contexts = [
+        (municipality, zone_id)
+        for municipality in sorted(municipalities)
+        for zone_id in _zones_for(municipality, zones_by_municipality)
+    ]
+    zone_ids = {
+        zone_id for _, zone_id in contexts if zone_id is not None
+    }
     concepts: dict[str, dict[str, Any]] = {}
-    concept_cases = 0
     covered_concepts = 0
     term_bindings = 0
     runtime_statuses: dict[str, int] = defaultdict(int)
-    defined_non_resolved: list[dict[str, Any]] = []
+    evidence_contexts: dict[str, int] = defaultdict(int)
+    failure_counts: dict[str, int] = defaultdict(int)
+    failure_groups: dict[tuple[str, str | None, str | None], dict[str, Any]] = {}
+    defined_groups: dict[tuple[Any, ...], dict[str, Any]] = {}
+
+    def add_failure(code: str, **detail: Any) -> None:
+        failure_counts[code] += 1
+        key = (code, detail.get("entity_type"), detail.get("entity_id"))
+        aggregate = failure_groups.setdefault(key, {
+            "code": code,
+            "entity_type": detail.get("entity_type"),
+            "entity_id": detail.get("entity_id"),
+            "cases": 0,
+            "examples": [],
+        })
+        aggregate["cases"] += 1
+        if len(aggregate["examples"]) < 3:
+            aggregate["examples"].append({
+                field: detail.get(field)
+                for field in ("municipality_istat", "zone_id", "question")
+                if detail.get(field) is not None
+            })
+        if len(failures) < 1000:
+            failures.append({"code": code, **detail})
+
+    def record_answer(
+        answer: dict[str, Any], *, entity_type: str, entity_id: str,
+        label: str | None, municipality: str, zone_id: str | None,
+        has_territorial_evidence: bool,
+    ) -> None:
+        status = answer["status"]
+        runtime_statuses[status] += 1
+        evidence_contexts[
+            "with_territorial_evidence"
+            if has_territorial_evidence else "without_territorial_evidence"
+        ] += 1
+        if status == "resolved":
+            result = answer.get("result")
+            if result is None:
+                add_failure(
+                    "resolved_without_result", entity_type=entity_type,
+                    entity_id=entity_id, municipality_istat=municipality,
+                    zone_id=zone_id,
+                )
+            if not (answer.get("provenance") or {}).get("sources"):
+                add_failure(
+                    "resolved_without_provenance", entity_type=entity_type,
+                    entity_id=entity_id, municipality_istat=municipality,
+                    zone_id=zone_id,
+                )
+            if result and result.get("destination_type") == "portable_route":
+                invented_fields = [
+                    field for field in (
+                        "container", "presentation", "facility", "channel_services",
+                    )
+                    if result.get(field)
+                ]
+                if result.get("local_route_status") != "not_published" or invented_fields:
+                    add_failure(
+                        "portable_route_invents_local_detail", entity_type=entity_type,
+                        entity_id=entity_id, municipality_istat=municipality,
+                        zone_id=zone_id, fields=invented_fields,
+                    )
+            return
+        if status == "needs_question":
+            question = answer.get("question") or {}
+            options = question.get("options") or []
+            valid_ids = {
+                *concepts.keys(), *service.alias_groups.keys(),
+                *service.class_outcomes.keys(), *zone_ids,
+            }
+            if not options or any(option.get("id") not in valid_ids for option in options):
+                add_failure(
+                    "question_without_complete_options", entity_type=entity_type,
+                    entity_id=entity_id, municipality_istat=municipality,
+                    zone_id=zone_id, question=question,
+                )
+                return
+            key = (
+                status, entity_type, entity_id, question.get("text"),
+                tuple(option.get("id") for option in options),
+            )
+            aggregate = defined_groups.setdefault(key, {
+                "status": status,
+                "entity_type": entity_type,
+                "entity_id": entity_id,
+                "label": label,
+                "question": question,
+                "cases": 0,
+                "examples": [],
+            })
+            aggregate["cases"] += 1
+            if len(aggregate["examples"]) < 3:
+                aggregate["examples"].append({
+                    "municipality_istat": municipality, "zone_id": zone_id,
+                })
+            return
+        add_failure(
+            f"answer_{status}", entity_type=entity_type, entity_id=entity_id,
+            municipality_istat=municipality, zone_id=zone_id,
+            question=answer.get("question"),
+        )
+
     for concept_id in _entity_ids(connection, "waste_concept"):
         concept = read_entity_data(
             connection, "waste_concept", concept_id, include_sources=False,
         ) or {}
         concepts[concept_id] = concept
+    for concept_id, concept in concepts.items():
         coverage = _municipality_coverage(concept)
         if coverage:
             covered_concepts += 1
-        concept_cases += _territorial_cases(coverage, zones_by_municipality)
         term_bindings += len({
             normalize_term(term)
             for term in [concept.get("preferred_label"), *(concept.get("terms") or [])]
             if isinstance(term, str) and normalize_term(term)
         })
         for municipality in sorted(coverage - municipalities):
-            failures.append({
-                "code": "concept_unknown_municipality",
-                "entity_id": concept_id,
-                "municipality_istat": municipality,
-            })
-        if coverage and not concept.get("preferred_label"):
-            failures.append({"code": "concept_missing_label", "entity_id": concept_id})
-        for municipality in sorted(coverage & municipalities):
-            for zone_id in _zones_for(municipality, zones_by_municipality):
-                answer = service.answer(
-                    concept.get("preferred_label", concept_id),
-                    municipality,
-                    concept_id=concept_id,
-                    zone_id=zone_id,
-                )
-                runtime_statuses[answer["status"]] += 1
-                if answer["status"] not in {"resolved", "not_found"}:
-                    defined_non_resolved.append({
-                        "status": answer["status"],
-                        "entity_type": "waste_concept",
-                        "entity_id": concept_id,
-                        "label": concept.get("preferred_label"),
-                        "municipality_istat": municipality,
-                        "zone_id": zone_id,
-                        "question": answer.get("question"),
-                    })
-                if answer["status"] == "not_found":
-                    failures.append({
-                        "code": "territorial_concept_not_found",
-                        "entity_id": concept_id,
-                        "municipality_istat": municipality,
-                        "zone_id": zone_id,
-                    })
+            add_failure(
+                "concept_unknown_municipality", entity_id=concept_id,
+                municipality_istat=municipality,
+            )
+        if not concept.get("preferred_label"):
+            add_failure("concept_missing_label", entity_id=concept_id)
+        for municipality, zone_id in contexts:
+            answer = service.answer(
+                concept.get("preferred_label", concept_id), municipality,
+                concept_id=concept_id, zone_id=zone_id,
+            )
+            record_answer(
+                answer, entity_type="waste_concept", entity_id=concept_id,
+                label=concept.get("preferred_label"), municipality=municipality,
+                zone_id=zone_id, has_territorial_evidence=municipality in coverage,
+            )
 
-    alias_cases = 0
     alias_term_cases = 0
     alias_runtime_checks = 0
     membership: dict[str, str] = {}
     for group_id, group in service.alias_groups.items():
         members = group.get("member_concept_ids", [])
-        missing = sorted(set(members) - concepts.keys())
-        for concept_id in missing:
-            failures.append({
-                "code": "alias_unknown_member",
-                "entity_id": group_id,
-                "member_concept_id": concept_id,
-            })
+        for concept_id in sorted(set(members) - concepts.keys()):
+            add_failure(
+                "alias_unknown_member", entity_id=group_id,
+                member_concept_id=concept_id,
+            )
         for concept_id in members:
             membership[concept_id] = group_id
-        choice = service._concept_for_choice(group_id)  # audited production composition
-        coverage = _municipality_coverage(choice or {})
-        alias_cases += _territorial_cases(coverage, zones_by_municipality)
-        for municipality in sorted(coverage & municipalities):
-            for zone_id in _zones_for(municipality, zones_by_municipality):
-                answer = service.answer(
-                    group.get("preferred_label", group_id),
-                    municipality,
-                    concept_id=group_id,
-                    zone_id=zone_id,
-                )
-                runtime_statuses[answer["status"]] += 1
-                if answer["status"] not in {"resolved", "not_found"}:
-                    defined_non_resolved.append({
-                        "status": answer["status"],
-                        "entity_type": "waste_alias_group",
-                        "entity_id": group_id,
-                        "label": group.get("preferred_label"),
-                        "municipality_istat": municipality,
-                        "zone_id": zone_id,
-                        "question": answer.get("question"),
-                    })
-                if answer["status"] == "not_found":
-                    failures.append({
-                        "code": "territorial_alias_not_found",
-                        "entity_id": group_id,
-                        "municipality_istat": municipality,
-                        "zone_id": zone_id,
-                    })
+        choice = service._concept_for_choice(group_id) or {}
+        coverage = _municipality_coverage(choice)
+        for municipality, zone_id in contexts:
+            answer = service.answer(
+                group.get("preferred_label", group_id), municipality,
+                concept_id=group_id, zone_id=zone_id,
+            )
+            record_answer(
+                answer, entity_type="waste_alias_group", entity_id=group_id,
+                label=group.get("preferred_label"), municipality=municipality,
+                zone_id=zone_id, has_territorial_evidence=municipality in coverage,
+            )
         search_terms = {
             normalize_term(term) for term in group.get("search_terms", [])
             if isinstance(term, str) and normalize_term(term)
         }
-        alias_term_cases += len(search_terms) * _territorial_cases(
-            coverage, zones_by_municipality,
-        )
+        alias_term_cases += len(search_terms) * len(contexts)
         for term in search_terms:
             results = service.search(term, limit=1)
             alias_runtime_checks += 1
             if not results or results[0]["concept_id"] != group_id or results[0]["score"] != 1.0:
-                failures.append({
-                    "code": "alias_exact_search_not_owned",
-                    "entity_id": group_id,
-                    "term": term,
-                    "first_result": results[0] if results else None,
-                })
+                add_failure(
+                    "alias_exact_search_not_owned", entity_id=group_id,
+                    term=term, first_result=results[0] if results else None,
+                )
 
-    review_queue = _near_duplicate_candidates(
-        concepts, membership, threshold=similarity_threshold,
+    for outcome_id, (_, outcome) in service.class_outcomes.items():
+        for municipality, zone_id in contexts:
+            answer = service.answer(
+                outcome["label"], municipality,
+                concept_id=outcome_id, zone_id=zone_id,
+            )
+            record_answer(
+                answer, entity_type="waste_class_outcome", entity_id=outcome_id,
+                label=outcome.get("label"), municipality=municipality,
+                zone_id=zone_id, has_territorial_evidence=False,
+            )
+
+    candidates = _near_duplicate_candidates(
+        concepts, membership, service, threshold=similarity_threshold,
     )
-    exact_semantic_candidates = sum(
-        item["similarity"] == 1.0 for item in review_queue
-    )
+    equivalent_candidates = [
+        item for item in candidates if item["decision"] == "equivalent_portable_route"
+    ]
+    lexical_candidates = [
+        item for item in candidates if item["decision"] == "lexical_similarity_only"
+    ]
+    review_queue = [
+        item for item in candidates if item["decision"] == "manual_review_required"
+    ]
+    exact_semantic_candidates = sum(item["similarity"] == 1.0 for item in candidates)
+    failure_total = sum(failure_counts.values())
+    concept_cases = len(concepts) * len(contexts)
+    alias_cases = len(service.alias_groups) * len(contexts)
+    outcome_cases = len(service.class_outcomes) * len(contexts)
+    runtime_checks = concept_cases + alias_cases + outcome_cases
+    duration_seconds = monotonic() - audit_started
     status_counts = {
         "territorial_concept_zone_cases": concept_cases,
         "territorial_alias_zone_cases": alias_cases,
-        "territorial_alias_term_zone_cases": alias_term_cases,
+        "conditional_outcome_zone_cases": outcome_cases,
     }
     return {
         "generated_at": generated_at.isoformat(),
         "dataset_revision": int(metadata.get("revision", 0)),
         "scope": {
             "guarantee": (
-                "Every published territorial concept and approved alias has a defined "
-                "destination path for every covered municipality and registered service zone."
+                "Every canonical concept, approved alias, and conditional outcome has "
+                "a defined answer for every Tuscan municipality and every registered "
+                "service zone; municipalities without zones are checked municipality-wide."
             ),
-            "excluded": (
-                "General catalog concepts without territorial evidence are not asserted in every municipality."
-            ),
+            "excluded": "No canonical waste concept or Tuscan municipality is excluded.",
         },
         "summary": {
-            "status": "pass" if not failures else "fail",
-            "release_ready": not failures and not review_queue,
+            "status": "pass" if not failure_total else "fail",
+            "release_ready": not failure_total and not review_queue,
             "review_status": "required" if review_queue else "complete",
-            "failures": len(failures),
+            "failures": failure_total,
+            "failure_counts": dict(sorted(failure_counts.items())),
             "municipalities": len(municipalities),
             "service_zones": sum(map(len, zones_by_municipality.values())),
             "municipalities_with_service_zones": len(zones_by_municipality),
+            "municipalities_without_service_zones": len(municipalities) - len(zones_by_municipality),
+            "municipality_zone_contexts": len(contexts),
             "concepts": len(concepts),
             "concepts_with_territorial_destination": covered_concepts,
             "search_term_bindings": term_bindings,
@@ -280,14 +419,36 @@ def audit_query_coverage(
             ),
             **status_counts,
             "total_guaranteed_cases": sum(status_counts.values()),
+            "contexts_with_territorial_evidence": evidence_contexts[
+                "with_territorial_evidence"
+            ],
+            "contexts_without_territorial_evidence": evidence_contexts[
+                "without_territorial_evidence"
+            ],
+            "conditional_outcomes": len(service.class_outcomes),
             "alias_exact_search_checks": alias_runtime_checks,
-            "runtime_answer_checks": concept_cases + alias_cases,
+            "alias_term_context_bindings": alias_term_cases,
+            "runtime_answer_checks": runtime_checks,
+            "duration_seconds": round(duration_seconds, 3),
+            "checks_per_second": round(runtime_checks / duration_seconds, 1),
             "runtime_answer_statuses": dict(sorted(runtime_statuses.items())),
+            "near_duplicate_candidates": len(candidates),
+            "route_equivalent_duplicate_candidates": len(equivalent_candidates),
+            "lexical_similarity_candidates": len(lexical_candidates),
             "near_duplicate_review_candidates": len(review_queue),
             "exact_semantic_review_candidates": exact_semantic_candidates,
         },
         "failures": failures,
-        "defined_non_resolved": defined_non_resolved,
+        "failure_groups": sorted(
+            failure_groups.values(),
+            key=lambda item: (-item["cases"], item["code"], item.get("entity_id") or ""),
+        ),
+        "defined_non_resolved": sorted(
+            defined_groups.values(),
+            key=lambda item: (item["entity_type"], item["entity_id"]),
+        ),
+        "route_equivalent_duplicates": equivalent_candidates,
+        "lexical_similarity_candidates": lexical_candidates,
         "review_queue": review_queue,
     }
 

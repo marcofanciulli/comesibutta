@@ -6,7 +6,7 @@
   "observed_at": "2026-08-08T12:00:00+02:00",
   "pages_available": 2,
   "pages_materialized": 2,
-  "records": 444,
+  "records": 442,
   "records_by_type": {
     "collection_point": 16,
     "collection_schedule": 6,
@@ -14,7 +14,7 @@
     "facility_acceptance": 8,
     "facility_access": 2,
     "opening_period": 2,
-    "waste_lookup": 408
+    "waste_lookup": 406
   },
   "slug": "livorno",
   "warnings": [

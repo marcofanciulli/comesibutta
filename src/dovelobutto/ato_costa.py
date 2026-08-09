@@ -108,7 +108,11 @@ def _aamps_term_lines(bbox: str) -> list[tuple[int, float, float, str]]:
             if not 68 <= x <= 73:
                 continue
             term = clean_text(" ".join(word.text or "" for word in line.findall("x:word", namespace)))
-            if term and not (len(term) == 1 and term.isalpha()):
+            if (
+                term
+                and term != "(private del contenuto)"
+                and not (len(term) == 1 and term.isalpha())
+            ):
                 result.append((page_number, float(line.attrib["yMin"]), float(line.attrib["yMax"]), term))
     return result
 

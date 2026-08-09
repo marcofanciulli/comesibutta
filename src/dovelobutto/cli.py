@@ -7,6 +7,7 @@ import json
 from pathlib import Path
 import re
 import sys
+from tempfile import TemporaryDirectory
 import time
 import string
 from typing import Any
@@ -64,9 +65,12 @@ from .sei_toscana import (
     reconcile_eer_records,
 )
 from .sync import (
+    apply_package,
     apply_manifest_package,
     apply_update_plan,
+    build_update_package,
     load_canonical_entities,
+    open_database,
     publish_release,
 )
 
@@ -353,10 +357,16 @@ def build_parser() -> argparse.ArgumentParser:
     publish.add_argument("--packaging-material-register", type=Path)
     publish.add_argument("--waste-curation-register", type=Path)
     publish.add_argument("--routing-coverage-report", type=Path)
+    publish.add_argument("--query-coverage-report", type=Path)
     publish.add_argument(
         "--allow-incomplete-routing",
         action="store_true",
         help="Allow a development-only release while canonical routing is incomplete",
+    )
+    publish.add_argument(
+        "--allow-incomplete-territorial-coverage",
+        action="store_true",
+        help="Allow a development-only release with incomplete territorial answers",
     )
     publish.add_argument("--database", type=Path, required=True)
     publish.add_argument("--artifact-dir", type=Path, required=True)
@@ -518,6 +528,8 @@ def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     if args.command == "publish-data-release":
         routing_report = None
+        query_coverage_report = None
+        generated_at = datetime.fromisoformat(args.generated_at)
         if args.catalog and args.waste_curation_register:
             from .routing_coverage import (
                 build_routing_coverage_paths,
@@ -527,7 +539,7 @@ def main(argv: list[str] | None = None) -> int:
             routing_report = build_routing_coverage_paths(
                 args.catalog,
                 args.waste_curation_register,
-                generated_at=datetime.fromisoformat(args.generated_at),
+                generated_at=generated_at,
             )
             routing_path = args.routing_coverage_report or args.report.with_name(
                 "waste-routing-coverage-report.json"
@@ -547,13 +559,46 @@ def main(argv: list[str] | None = None) -> int:
             args.input_dir, args.registry, args.catalog, args.eer_register,
             args.packaging_material_register, args.waste_curation_register,
         )
+        if args.catalog and args.waste_curation_register:
+            from .query_coverage import audit_query_coverage_path, write_coverage_report
+
+            query_coverage_path = args.query_coverage_report or args.report.with_name(
+                "query-coverage-report.json"
+            )
+            with TemporaryDirectory() as temporary:
+                candidate_database = Path(temporary) / "candidate.sqlite"
+                candidate_connection = open_database(candidate_database, role="client")
+                try:
+                    candidate_package = build_update_package(
+                        {}, entities, None, args.revision, generated_at,
+                    )
+                    apply_package(candidate_connection, candidate_package)
+                finally:
+                    candidate_connection.close()
+                query_coverage_report = audit_query_coverage_path(
+                    candidate_database, generated_at=generated_at,
+                )
+            write_coverage_report(query_coverage_path, query_coverage_report)
+            if (
+                not query_coverage_report["summary"]["release_ready"]
+                and not args.allow_incomplete_territorial_coverage
+            ):
+                summary = query_coverage_report["summary"]
+                raise ValueError(
+                    "Territorial query coverage is incomplete: "
+                    f"{summary['failures']} failed answers and "
+                    f"{summary['near_duplicate_review_candidates']} duplicate reviews; "
+                    f"see {query_coverage_path}"
+                )
         report = publish_release(
             entities, args.database, args.artifact_dir, args.manifest,
-            args.revision, datetime.fromisoformat(args.generated_at),
+            args.revision, generated_at,
             args.private_key, args.key_id, args.base_url,
         )
         if routing_report is not None:
             report["routing_coverage"] = routing_report["summary"]
+        if query_coverage_report is not None:
+            report["territorial_query_coverage"] = query_coverage_report["summary"]
         args.report.parent.mkdir(parents=True, exist_ok=True)
         args.report.write_text(
             json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n",

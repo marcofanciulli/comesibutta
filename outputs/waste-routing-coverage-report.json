@@ -1,6 +1,17 @@
 {
   "alias_entries": [
     {
+      "group_id": "waste-alias:animal-excrement",
+      "member_concept_ids": [
+        "waste:escrementi-animali",
+        "waste:escrementi-di-animali"
+      ],
+      "portable_classification": true,
+      "preferred_label": "Escrementi di animali",
+      "status": "classified",
+      "waste_class_id": "waste-class:compostability-sensitive-biowaste"
+    },
+    {
       "group_id": "waste-alias:beverage-carton",
       "member_concept_ids": [
         "waste:brick-c-pap-84-tetra-pak",
@@ -45,6 +56,17 @@
       "waste_class_id": "waste-class:wood-by-origin"
     },
     {
+      "group_id": "waste-alias:dirty-pizza-box",
+      "member_concept_ids": [
+        "waste:cartone-della-pizza-sporco",
+        "waste:cartone-per-pizza-sporco"
+      ],
+      "portable_classification": true,
+      "preferred_label": "Cartone della pizza sporco",
+      "status": "classified",
+      "waste_class_id": "waste-class:compostability-sensitive-biowaste"
+    },
+    {
       "group_id": "waste-alias:generic-glass-bottle",
       "member_concept_ids": [
         "waste:bottiglia-di-vetro",
@@ -70,6 +92,28 @@
       "waste_class_id": "waste-class:compostability-sensitive-biowaste"
     },
     {
+      "group_id": "waste-alias:motorcycle-helmet",
+      "member_concept_ids": [
+        "waste:casco-da-moto",
+        "waste:casco-per-moto"
+      ],
+      "portable_classification": true,
+      "preferred_label": "Casco da moto",
+      "status": "classified",
+      "waste_class_id": "waste-class:size-dependent-household-object"
+    },
+    {
+      "group_id": "waste-alias:plastic-pots",
+      "member_concept_ids": [
+        "waste:vasi-di-plastica",
+        "waste:vasi-in-plastica"
+      ],
+      "portable_classification": true,
+      "preferred_label": "Vasi di plastica",
+      "status": "classified",
+      "waste_class_id": "waste-class:plastic-by-origin"
+    },
+    {
       "group_id": "waste-alias:used-matchsticks",
       "member_concept_ids": [
         "waste:fiammiferi",
@@ -82,10 +126,21 @@
       "preferred_label": "Fiammiferi usati",
       "status": "classified",
       "waste_class_id": "waste-class:compostability-sensitive-biowaste"
+    },
+    {
+      "group_id": "waste-alias:wooden-broom-handle",
+      "member_concept_ids": [
+        "waste:manico-di-scopa-in-legno",
+        "waste:manico-scopa-di-legno"
+      ],
+      "portable_classification": true,
+      "preferred_label": "Manico di scopa in legno",
+      "status": "classified",
+      "waste_class_id": "waste-class:wood-by-origin"
     }
   ],
-  "catalog_generated_at": "2026-08-09T01:30:00+02:00",
-  "curation_generated_at": "2026-08-09T07:00:00+02:00",
+  "catalog_generated_at": "2026-08-09T09:15:00+02:00",
+  "curation_generated_at": "2026-08-09T09:45:00+02:00",
   "entries": [
     {
       "concept_id": "waste:a-pezzi-private-del-contenuto",
@@ -84952,39 +85007,6 @@
       "unmapped_destinations": []
     },
     {
-      "concept_id": "waste:private-del-contenuto",
-      "conflicts": [],
-      "family_class_ids": [
-        "waste-class:packaging-by-material"
-      ],
-      "local_route_observed": true,
-      "observed_channel_ids": [
-        "channel:collection-centre"
-      ],
-      "observed_destinations": [
-        "Centri di raccolta",
-        "Multimateriale, Centri di raccolta"
-      ],
-      "observed_stream_ids": [
-        "stream:mixed-packaging"
-      ],
-      "portable_classification": true,
-      "preferred_label": "(private del contenuto)",
-      "question_id": null,
-      "reviewed_eer_codes": [],
-      "reviewed_stream_ids": [],
-      "source_categories": [],
-      "source_eer_codes": [],
-      "source_urls": [
-        "https://www.aamps.livorno.it/wp-content/uploads/2023/04/Dove_lo_butto_2023.pdf"
-      ],
-      "status": "classified",
-      "terms": [
-        "(private del contenuto)"
-      ],
-      "unmapped_destinations": []
-    },
-    {
       "concept_id": "waste:prodotti-fitosanitari",
       "conflicts": [],
       "family_class_ids": [
@@ -111664,14 +111686,14 @@
       "unmapped_destinations": []
     }
   ],
-  "generated_at": "2026-08-09T07:15:00+02:00",
+  "generated_at": "2026-08-09T10:45:00+02:00",
   "report_id": "waste-routing-coverage:toscana",
   "review_queue": [],
   "summary": {
-    "alias_groups": 5,
-    "classified": 3494,
-    "classified_alias_groups": 5,
-    "concepts": 3494,
+    "alias_groups": 10,
+    "classified": 3493,
+    "classified_alias_groups": 10,
+    "concepts": 3493,
     "conflicts": 0,
     "incomplete": 0,
     "incomplete_alias_groups": 0,

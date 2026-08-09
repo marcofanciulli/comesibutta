@@ -15,6 +15,7 @@ from dovelobutto.ato_costa import (
     ESA_SIGN_HASHES,
     MunicipalityContext,
     _aamps_destinations,
+    _aamps_term_lines,
     extract_aamps_waste_lookup,
     extract_esa_bundle,
     extract_ersu_montignoso_supplement,
@@ -366,6 +367,30 @@ class ReaExtractorTest(unittest.TestCase):
 
 
 class AampsExtractorTest(unittest.TestCase):
+    def test_discards_a_wrapped_instruction_fragment_without_an_object(self) -> None:
+        pages = "".join(
+            (
+                '<page width="883" height="637"></page>'
+                if page != 5 else
+                '<page width="883" height="637"><flow><block>'
+                '<line xMin="70" yMin="105" yMax="115">'
+                '<word>(private</word><word>del</word><word>contenuto)</word>'
+                '</line><line xMin="70" yMin="125" yMax="135">'
+                '<word>Bottiglia</word><word>di</word><word>vetro</word>'
+                '</line></block></flow></page>'
+            )
+            for page in range(1, 6)
+        )
+        bbox = (
+            '<html xmlns="http://www.w3.org/1999/xhtml"><body><doc>'
+            f'{pages}</doc></body></html>'
+        )
+
+        self.assertEqual(
+            [(5, 125.0, 135.0, "Bottiglia di vetro")],
+            _aamps_term_lines(bbox),
+        )
+
     def test_recognizes_visual_destination_icons(self) -> None:
         width, height = 482, 681
         pixels = bytearray([255] * width * height * 3)

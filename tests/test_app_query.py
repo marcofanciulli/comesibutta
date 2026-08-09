@@ -418,6 +418,116 @@ class DisposalQueryTests(unittest.TestCase):
         self.assertEqual(2, report["summary"]["runtime_answer_checks"])
         self.assertEqual({"resolved": 2}, report["summary"]["runtime_answer_statuses"])
 
+    def test_coverage_audit_includes_municipalities_without_observed_concepts(self) -> None:
+        self.connection.close()
+        writer = open_database(self.database, role="client")
+        current = read_database_entities(writer)
+        changed = dict(current)
+        municipality = CanonicalEntity(
+            "municipality", "istat:045001",
+            {"payload": {"name": "Aulla", "istat_code": "045001"}},
+        )
+        changed[(municipality.entity_type, municipality.entity_id)] = municipality
+        apply_package(writer, build_update_package(current, changed, 1, 2, GENERATED_AT))
+        writer.close()
+        self.connection = open_query_database(self.database)
+
+        report = audit_query_coverage(self.connection, generated_at=GENERATED_AT)
+
+        self.assertEqual("fail", report["summary"]["status"])
+        self.assertEqual(2, report["summary"]["municipality_zone_contexts"])
+        self.assertEqual(4, report["summary"]["territorial_concept_zone_cases"])
+        self.assertEqual(2, report["summary"]["failure_counts"]["answer_not_found"])
+
+    def test_portable_classification_resolves_without_a_local_rule(self) -> None:
+        self.connection.close()
+        writer = open_database(self.database, role="client")
+        current = read_database_entities(writer)
+        changed = dict(current)
+        concept = _concept("waste:vaschetta", "Vaschetta", [])
+        concept.data["source_categories"] = ["Imballaggi in plastica"]
+        additions = [
+            concept,
+            CanonicalEntity("collection_stream", "stream:plastic", {
+                "stream_id": "stream:plastic",
+                "preferred_label": "Imballaggi in plastica",
+                "aliases": ["Imballaggi in plastica"],
+            }),
+            CanonicalEntity("waste_class", "waste-class:plastic-packaging", {
+                "class_id": "waste-class:plastic-packaging",
+                "dimension": "material",
+                "stream_ids": ["stream:plastic"],
+            }),
+            CanonicalEntity("waste_family_mapping", "family-map:plastic-packaging", {
+                "mapping_id": "family-map:plastic-packaging",
+                "class_id": "waste-class:plastic-packaging",
+                "source_categories": ["Imballaggi in plastica"],
+                "destination_aliases": [],
+                "term_patterns": [],
+                "priority": 10,
+                "reviewed_at": GENERATED_AT.isoformat(),
+                "source_urls": ["https://example.test/classificazione"],
+            }),
+        ]
+        for item in additions:
+            changed[(item.entity_type, item.entity_id)] = item
+        apply_package(writer, build_update_package(current, changed, 1, 2, GENERATED_AT))
+        writer.close()
+        self.connection = open_query_database(self.database)
+        self.service = DisposalQueryService(self.connection)
+
+        answer = self.service.answer("Vaschetta", "053014")
+
+        self.assertEqual("resolved", answer["status"])
+        self.assertEqual("portable_route", answer["result"]["destination_type"])
+        self.assertEqual("stream:plastic", answer["result"]["stream_id"])
+        self.assertIsNone(answer["result"]["container"])
+        self.assertEqual(
+            ["https://example.test/classificazione"],
+            [source["url"] for source in answer["provenance"]["sources"]],
+        )
+
+    def test_highest_priority_mapping_wins_within_the_same_class(self) -> None:
+        self.connection.close()
+        writer = open_database(self.database, role="client")
+        current = read_database_entities(writer)
+        changed = dict(current)
+        concept = _concept("waste:prova-priorita", "Prova priorita", ["Vetro"])
+        concept.data["source_categories"] = ["Categoria generica"]
+        additions = [
+            concept,
+            CanonicalEntity("waste_class", "waste-class:test", {
+                "class_id": "waste-class:test", "dimension": "material",
+            }),
+            CanonicalEntity("waste_family_mapping", "family-map:low", {
+                "mapping_id": "family-map:low", "class_id": "waste-class:test",
+                "source_categories": ["Categoria generica"],
+                "destination_aliases": [], "term_patterns": [], "priority": 1,
+                "reviewed_at": GENERATED_AT.isoformat(),
+                "source_urls": ["https://example.test/low"],
+            }),
+            CanonicalEntity("waste_family_mapping", "family-map:high", {
+                "mapping_id": "family-map:high", "class_id": "waste-class:test",
+                "source_categories": [], "destination_aliases": ["Vetro"],
+                "term_patterns": [], "priority": 100,
+                "reviewed_at": GENERATED_AT.isoformat(),
+                "source_urls": ["https://example.test/high"],
+            }),
+        ]
+        for item in additions:
+            changed[(item.entity_type, item.entity_id)] = item
+        apply_package(writer, build_update_package(current, changed, 1, 2, GENERATED_AT))
+        writer.close()
+        self.connection = open_query_database(self.database)
+        self.service = DisposalQueryService(self.connection)
+
+        enriched = self.service._concept_for_choice("waste:prova-priorita")
+
+        self.assertEqual(
+            ["https://example.test/high"],
+            [source["url"] for source in enriched["family_sources"]],
+        )
+
     def test_coverage_audit_rejects_unknown_territorial_municipality(self) -> None:
         self.connection.close()
         writer = open_database(self.database, role="client")
@@ -984,7 +1094,6 @@ class DisposalQueryTests(unittest.TestCase):
             CanonicalEntity("eer_entry", "eer:160122", {
                 "entry_id": "eer:160122", "code": "160122",
                 "title": "componenti non specificati altrimenti",
-                "title_expanded": "componenti non specificati altrimenti",
                 "hazardous": False,
             }),
             CanonicalEntity("delivery_channel", "channel:specialist-operator", {

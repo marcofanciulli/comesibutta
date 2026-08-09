@@ -29,8 +29,8 @@ class WasteCurationTests(unittest.TestCase):
 
     def test_reviewed_register_matches_the_current_catalog(self) -> None:
         report = validate_waste_curation(self.register, self.catalog)
-        self.assertEqual(5, report["alias_groups"])
-        self.assertEqual(38, report["alias_members"])
+        self.assertEqual(10, report["alias_groups"])
+        self.assertEqual(48, report["alias_members"])
         self.assertEqual(7, report["collection_streams"])
         self.assertEqual(9, report["delivery_channels"])
         self.assertEqual(9, report["curated_concepts"])

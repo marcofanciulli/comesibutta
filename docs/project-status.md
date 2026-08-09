@@ -1,6 +1,6 @@
 # Stato del progetto
 
-Ultimo aggiornamento: 8 agosto 2026
+Ultimo aggiornamento: 9 agosto 2026
 Fase: ATO Toscana Sud, Costa e Centro acquisite
 
 Questo documento e il punto di ripartenza del progetto. Va aggiornato al termine
@@ -62,9 +62,10 @@ La risposta deve poter indicare:
     locale: non implicano mai cassonetto, sacchetto o preparazione.
 18. Il riconoscimento visivo usa un checkpoint PyTorch autorevole ed esporta
     artefatti Core ML e LiteRT verificati sullo stesso corpus.
-19. La ricerca lessicale propone concetti, ma la risposta deriva soltanto da
-    destinazioni e regole territoriali citabili; una somiglianza incerta
-    richiede conferma dell'utente.
+19. La ricerca lessicale propone concetti, mentre la risposta combina evidenza
+    territoriale e classificazioni portabili revisionate. Contenitore,
+    sacchetto e servizio locale richiedono sempre una fonte territoriale; una
+    somiglianza incerta richiede conferma dell'utente.
 20. Sinonimi e nomi dei flussi entrano nelle risposte soltanto tramite un
     registro revisionato e distribuibile; i concetti sorgente e le differenze
     territoriali non vengono eliminati dalla curatela.
@@ -90,8 +91,12 @@ La risposta deve poter indicare:
     univoco, altrimenti deve chiedere un chiarimento.
 27. Dimensione e quantita possono cambiare il canale di conferimento. Le
     domande discriminatorie e i mapping concetto-flusso sono revisionati e
-    distribuibili; diventano una risposta operativa soltanto combinandosi con
-    regole, centri o ritiri pubblicati per il territorio selezionato.
+    distribuibili; in assenza di dettagli locali producono un percorso
+    portabile dichiarato, senza inventare regole, centri o ritiri.
+28. Ogni revisione di produzione deve superare sia la copertura portabile sia
+    l'audit dell'intero prodotto fra concetti, alias, esiti condizionali,
+    comuni e zone registrate. Il controllo avviene sul database candidato prima
+    della pubblicazione.
 
 ## Artefatti persistenti
 
@@ -104,6 +109,8 @@ La risposta deve poter indicare:
   dei centri di raccolta.
 - `docs/channel-services.md`: risoluzione di ritiri e punti, compatibilita e
   canali disponibili soltanto come testo sorgente.
+- `docs/territorial-coverage-certification.md`: perimetro, risultati, limiti e
+  impronte dell'ultimo audit esaustivo.
 - `schemas/`: schemi JSON dell'acquisizione e della risposta applicativa.
 - `src/dovelobutto/`: estrattore riproducibile e interfaccia a riga di comando.
 - `tests/fixtures/`: copie immutabili delle porzioni rilevanti delle fonti HTML.
@@ -514,12 +521,14 @@ Prima verticale applicativa:
   la risposta segue la guida SEI e indica l'indifferenziato;
 - verificato nel browser il percorso reale `Cartone del latte` a Livorno su
   schermo desktop e mobile, senza errori o scorrimento orizzontale;
-- l'audit della revisione `202608080013` ha eseguito 184.110 risposte
-  territoriali: 184.039 risolte, 70 domande, un conflitto e nessun errore;
-- 185 test automatici superati;
+- l'audit della revisione `202608090007` ha eseguito 1.505.280 risposte su
+  3.493 concetti, 10 alias, 81 esiti condizionali e 420 contesti territoriali:
+  774.120 risolte, 731.160 domande definite, zero `not_found`, zero conflitti e
+  zero errori;
+- 190 test automatici superati;
 - introdotte classi EER portabili e regole di famiglia per separare la
   classificazione del rifiuto dalla destinazione territoriale del gestore;
-- aggiunto l'audit esaustivo dei 3.494 concetti del catalogo e dei 5 gruppi
+- aggiunto l'audit esaustivo dei 3.493 concetti del catalogo e dei 10 gruppi
   canonici deduplicati, con blocco di pubblicazione: al 9 agosto 2026 tutti
   risultano classificati, senza parziali o conflitti, e il dataset supera il
   gate di instradamento;
@@ -532,9 +541,13 @@ Prima verticale applicativa:
   oggetti multimateriale, contenuto o confezione, fotovoltaico, combustibili,
   ceramiche e rifiuti sanitari; il registro conta 37 classi, 81 esiti e 60
   regole di famiglia;
-- pubblicata e applicata la revisione firmata `202608090003`: le regole locali
+- pubblicata e applicata la revisione firmata `202608090007`: le regole locali
   hanno precedenza e le classi portabili intervengono quando il comune non
-  pubblica una destinazione per il concetto cercato.
+  pubblica una destinazione per il concetto cercato;
+- l'audit copre 273 comuni, 417 zone registrate e tre contesti comunali senza
+  zone pubblicate; la coda di deduplicazione manuale e vuota;
+- il gate territoriale costruisce e verifica il database candidato prima di
+  aggiornare database autorevole, snapshot, delta e manifest.
 
 ## Limiti e questioni aperte
 

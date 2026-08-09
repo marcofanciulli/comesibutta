@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
+from unittest.mock import patch
 
 from dovelobutto.cli import main
 from dovelobutto.routing_coverage import build_routing_coverage
@@ -29,10 +30,10 @@ class RoutingCoverageTests(unittest.TestCase):
             catalog, curation, generated_at=GENERATED_AT,
         )
 
-        self.assertEqual(3494, report["summary"]["concepts"])
-        self.assertEqual(3494, report["summary"]["classified"])
-        self.assertEqual(5, report["summary"]["alias_groups"])
-        self.assertEqual(5, report["summary"]["classified_alias_groups"])
+        self.assertEqual(3493, report["summary"]["concepts"])
+        self.assertEqual(3493, report["summary"]["classified"])
+        self.assertEqual(10, report["summary"]["alias_groups"])
+        self.assertEqual(10, report["summary"]["classified_alias_groups"])
         self.assertEqual(0, report["summary"]["incomplete"])
         self.assertTrue(report["summary"]["release_ready"])
 
@@ -215,6 +216,54 @@ class RoutingCoverageTests(unittest.TestCase):
                     "--base-url", "https://example.test/",
                     "--report", str(root / "release-report.json"),
                 ])
+
+    def test_production_publish_is_blocked_by_incomplete_territorial_coverage(self) -> None:
+        with TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            routing_report = {
+                "summary": {
+                    "release_ready": True, "incomplete": 0, "concepts": 0,
+                },
+            }
+            territorial_report = {
+                "summary": {
+                    "release_ready": False,
+                    "failures": 1,
+                    "near_duplicate_review_candidates": 0,
+                },
+            }
+            with (
+                patch(
+                    "dovelobutto.routing_coverage.build_routing_coverage_paths",
+                    return_value=routing_report,
+                ),
+                patch("dovelobutto.routing_coverage.write_routing_coverage"),
+                patch("dovelobutto.cli.load_canonical_entities", return_value={}),
+                patch(
+                    "dovelobutto.query_coverage.audit_query_coverage_path",
+                    return_value=territorial_report,
+                ),
+                patch("dovelobutto.query_coverage.write_coverage_report"),
+            ):
+                with self.assertRaisesRegex(
+                    ValueError, "Territorial query coverage is incomplete",
+                ):
+                    main([
+                        "publish-data-release",
+                        "--input-dir", str(root),
+                        "--registry", str(root / "registry.jsonl"),
+                        "--catalog", str(root / "catalog.json"),
+                        "--waste-curation-register", str(root / "curation.json"),
+                        "--database", str(root / "publisher.sqlite"),
+                        "--artifact-dir", str(root / "artifacts"),
+                        "--manifest", str(root / "manifest.json"),
+                        "--revision", "1",
+                        "--generated-at", GENERATED_AT.isoformat(),
+                        "--private-key", str(root / "private.pem"),
+                        "--key-id", "test",
+                        "--base-url", "https://example.test/",
+                        "--report", str(root / "release-report.json"),
+                    ])
 
 
 if __name__ == "__main__":

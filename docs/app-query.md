@@ -6,9 +6,10 @@ Ultimo aggiornamento: 9 agosto 2026
 ## Scopo
 
 Il livello di lettura risponde alla domanda "Dove lo butto?" usando il database
-SQLite sincronizzato. La somiglianza lessicale seleziona candidati; soltanto le
-destinazioni territoriali pubblicate dalle fonti possono formare una risposta.
-Il motore non deduce mai un cassonetto dal nome del rifiuto.
+SQLite sincronizzato. La somiglianza lessicale seleziona candidati; la risposta
+usa destinazioni territoriali pubblicate e classificazioni portabili
+revisionate. Il motore non deduce mai contenitore, sacchetto o servizio locale
+dal solo nome del rifiuto.
 
 ## Indice sincronizzato
 
@@ -29,7 +30,8 @@ come gia previsto per le modifiche dello storage locale.
 4. Mantiene distinti punteggio semantico e disponibilita nel comune.
 5. Per una corrispondenza incerta propone soltanto le interpretazioni che hanno
    una destinazione pubblicata nel territorio, se disponibili.
-6. Dopo la scelta del concetto legge la destinazione territoriale.
+6. Dopo la scelta del concetto legge la destinazione territoriale e, quando la
+   voce locale manca, la classificazione portabile revisionata.
 7. Applica le classi portabili e le eventuali domande su materiale, origine,
    pericolosita o dimensione.
 8. Se il rifiutario locale manca, cerca un EER concordante accettato con lo
@@ -54,7 +56,7 @@ Gli stati sono:
 
 - `resolved`: concetto e destinazione territoriale sono determinati;
 - `needs_question`: serve scegliere concetto o zona;
-- `not_found`: manca una corrispondenza o una destinazione per il comune;
+- `not_found`: il testo non corrisponde a un concetto noto;
 - `conflict`: le fonti territoriali pubblicano destinazioni differenti;
 - `outdated`: riservato a dati non piu applicabili.
 
@@ -75,9 +77,9 @@ PYTHONPATH=src python3 -m dovelobutto.cli query-disposal \
 ## Audit di copertura territoriale
 
 Prima di pubblicare un dataset, l'audit attraversa tutte le combinazioni fra
-voci con una destinazione pubblicata, comuni coperti e zone di servizio, e per
-ognuna esegue il compositore di risposta usato dall'app. Verifica anche che gli
-alias approvati siano ricercabili in modo esatto e che nessun riferimento
+concetti, alias, esiti condizionali, comuni e zone di servizio. Per ognuna
+esegue il compositore di risposta usato dall'app. Verifica anche che gli alias
+approvati siano ricercabili in modo esatto e che nessun riferimento
 territoriale punti a un comune assente:
 
 ```sh
@@ -87,23 +89,24 @@ PYTHONPATH=src python3 -m dovelobutto.cli audit-query-coverage \
   --output outputs/query-coverage-report.json
 ```
 
-`status: pass` certifica gli invarianti strutturali delle risposte territoriali.
-`release_ready` resta invece falso quando la coda `review_queue` contiene coppie
-di termini molto simili con coperture diverse: possono essere sinonimi da
-riconciliare oppure rifiuti distinti, e richiedono una decisione esplicita.
-Risposte definite ma non risolte, come conflitti pubblicati dalle fonti, sono
-conservate con il loro contesto in `defined_non_resolved`.
+`status: pass` richiede zero risposte mancanti, conflitti, domande incomplete o
+riferimenti invalidi. `release_ready` richiede inoltre una coda di revisione dei
+duplicati vuota. Una domanda e valida soltanto se tutte le opzioni esistono; i
+suoi esiti sono poi verificati autonomamente in ogni contesto territoriale.
 
-L'audit non estende una regola locale a una voce generale priva di evidenza per
-quel territorio. Una simile estensione inventerebbe una destinazione non
-pubblicata dalla fonte competente.
+L'audit non estende una regola operativa locale a una voce generale. Quando
+manca evidenza territoriale usa la classe portabile per indicare soltanto cio
+che e revisionato, lasciando esplicitamente non pubblicati contenitore,
+sacchetto e servizio locale.
 
 Un secondo audit attraversa invece tutti i concetti deduplicati e verifica che
 ognuno possieda una classificazione portabile. Le destinazioni osservate sono
 evidenza locale, non una scorciatoia: da sole non rendono il concetto coperto.
-Il rapporto `outputs/waste-routing-coverage-report.json` e il relativo blocco
-di pubblicazione impediscono che un `not_found` noto venga distribuito come
-dataset di produzione.
+I rapporti `outputs/waste-routing-coverage-report.json` e
+`outputs/query-coverage-report.json` bloccano la pubblicazione prima che un
+`not_found` noto o un ramo condizionale incompleto possa entrare nel dataset di
+produzione. I risultati certificati della revisione corrente sono in
+`docs/territorial-coverage-certification.md`.
 
 La classificazione pubblicata da un altro gestore puo alimentare soltanto una
 coda di revisione: non diventa una risposta operativa, anche quando piu gestori
