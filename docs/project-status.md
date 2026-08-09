@@ -584,8 +584,14 @@ Prima verticale applicativa:
   dalla formulazione pubblicata dal gestore;
 - la posizione opzionale resta in memoria e viene trasmessa soltanto nel corpo
   di richieste `POST`, senza essere inserita negli URL;
-- 208 test automatici superati, inclusa la costruzione dell'intero repertorio
+- 209 test automatici superati, inclusa la costruzione dell'intero repertorio
   territoriale usato dalle nuove viste.
+- creato `docs/product-requirements.md` come contratto del prodotto: una
+  capacita di backend non e piu considerata completa finche il percorso utente
+  della piattaforma prevista non e disponibile e verificato;
+- le fonti esterne si aprono in una modale che legge le evidenze gia incluse nel
+  database; funziona anche con domini che vietano l'incorporamento e mantiene
+  una scheda separata soltanto per funzioni interattive.
 
 ## Limiti e questioni aperte
 
@@ -606,16 +612,18 @@ Prima verticale applicativa:
 
 ## Prossimi passi
 
-1. Collaudare con utenti i tre percorsi web `Cerca`, `Regole` e `Centri e
-   servizi`, correggendo lessico, priorita informative e casi di
-   disambiguazione emersi.
-2. Definire autenticazione opzionale e sincronizzazione delle preferenze senza
+1. Completare il nucleo web secondo `docs/product-requirements.md`: categorie,
+   percorso `Come prepararlo`, schede di rifiuto e conferimento, rischi
+   ambientali e ricerca esplicita dei centri limitrofi.
+2. Collaudare con utenti i tre percorsi correnti, correggendo lessico, priorita
+   informative e casi di disambiguazione emersi.
+3. Definire autenticazione opzionale e sincronizzazione delle preferenze senza
    rendere obbligatoria la registrazione.
-3. Revisionare periodicamente la coda delle ricerche senza risposta e inserire
+4. Revisionare periodicamente la coda delle ricerche senza risposta e inserire
    sinonimi o concetti soltanto dopo verifica di liceita, EER ed evidenze.
-4. Aggiungere consolidati settimanali, mensili e annuali con conservazione e
+5. Aggiungere consolidati settimanali, mensili e annuali con conservazione e
    compattazione automatica nella finestra incrementale di cinque anni.
-5. Importare il primo lotto fotografico classificato col prontuario, annotarlo
+6. Importare il primo lotto fotografico classificato col prontuario, annotarlo
    in CVAT e fissare le soglie quantitative del primo dataset addestrabile.
 
 ## Regola di continuita

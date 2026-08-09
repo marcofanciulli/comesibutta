@@ -174,6 +174,24 @@
     </form>
   </dialog>
 
+  <dialog id="external-dialog" class="external-dialog">
+    <div class="external-shell">
+      <div class="dialog-head external-head">
+        <div>
+          <p class="eyebrow">Contenuto esterno</p>
+          <h2 id="external-title">Fonte ufficiale</h2>
+          <p id="external-origin" class="external-origin"></p>
+        </div>
+        <button id="close-external" class="icon-button" type="button" aria-label="Chiudi" title="Chiudi">×</button>
+      </div>
+      <div id="external-content" class="external-content" aria-live="polite"></div>
+      <div class="external-footer">
+        <p>La modale mostra le evidenze conservate nel dataset. Per prenotazioni e funzioni interattive puoi continuare sul sito ufficiale senza chiudere l’app.</p>
+        <a id="external-fallback" class="secondary external-fallback" href="#" target="_blank" rel="noopener noreferrer">Continua sul sito ufficiale</a>
+      </div>
+    </div>
+  </dialog>
+
   <script src="/app.js" defer></script>
 </body>
 </html>

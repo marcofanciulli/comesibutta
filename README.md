@@ -37,6 +37,8 @@ verificati e un esploratore locale.
   strategia del pilota SEI Toscana.
 - `docs/project-status.md`: registro persistente di decisioni, risultati,
   verifiche, limiti e prossimi passi.
+- `docs/product-requirements.md`: contratto funzionale e stato reale delle
+  funzioni concordate per web, app native e assistenti vocali.
 - `docs/crawl-operations.md`: esecuzione, ripresa e controllo della scansione
   dei comuni SEI Toscana.
 - `docs/ato-costa-operations.md`: registro, fonti e acquisizioni multi-gestore

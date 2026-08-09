@@ -12,7 +12,7 @@ import sqlite3
 import subprocess
 import tempfile
 from typing import Any, Iterable
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlsplit, urlunsplit
 
 
 DATASET_ID = "comesibutta-toscana"
@@ -48,6 +48,82 @@ def _gzip_json(value: Any) -> bytes:
 
 def _gunzip_json(value: bytes) -> Any:
     return json.loads(gzip.decompress(value))
+
+
+def _normalized_source_url(value: str) -> str:
+    parsed = urlsplit(value.strip())
+    return urlunsplit((
+        parsed.scheme.lower(), parsed.netloc.lower(),
+        parsed.path.rstrip("/") or "/", parsed.query, "",
+    ))
+
+
+def read_source_preview(
+    connection: sqlite3.Connection, url: str, *, limit: int = 50,
+) -> dict[str, Any] | None:
+    """Read a bounded, local preview of evidence already shipped to the client."""
+    if not isinstance(url, str) or len(url) > 4096:
+        raise ValueError("Source URL is invalid")
+    parsed = urlsplit(url)
+    if parsed.scheme not in {"http", "https"} or not parsed.netloc:
+        raise ValueError("Source URL must use HTTP or HTTPS")
+    if not 1 <= limit <= 100:
+        raise ValueError("Source preview limit must be between 1 and 100")
+    requested = _normalized_source_url(url)
+    document = None
+    source_key = None
+    for row in connection.execute(
+        "SELECT source_key, document_json FROM source_documents ORDER BY source_key"
+    ):
+        candidate = _gunzip_json(row["document_json"])
+        candidate_url = candidate.get("url")
+        if (
+            isinstance(candidate_url, str)
+            and _normalized_source_url(candidate_url) == requested
+        ):
+            source_key = row["source_key"]
+            document = candidate
+            break
+    if source_key is None or document is None:
+        return None
+
+    evidence = []
+    seen = set()
+    total = 0
+    for row in connection.execute(
+        """SELECT evidence_json FROM source_evidence
+        WHERE source_key = ? ORDER BY evidence_key""",
+        (source_key,),
+    ):
+        wrapper = _gunzip_json(row["evidence_json"])
+        item = wrapper.get("value") if wrapper.get("present") else None
+        if not isinstance(item, dict):
+            continue
+        quote = item.get("quote")
+        if not isinstance(quote, str):
+            continue
+        quote = " ".join(quote.split())
+        if not quote or quote in seen:
+            continue
+        seen.add(quote)
+        total += 1
+        if len(evidence) < limit:
+            evidence.append({
+                "quote": quote[:2000],
+                "page": item.get("page"),
+                "selector": item.get("selector"),
+                "kind": item.get("kind"),
+            })
+    return {
+        "source": {
+            "url": document.get("url"),
+            "publisher": document.get("publisher"),
+            "retrieved_at": document.get("retrieved_at"),
+            "document_date": document.get("document_date"),
+        },
+        "evidence": evidence,
+        "evidence_total": total,
+    }
 
 
 def _read_jsonl(paths: Iterable[Path]) -> list[dict[str, Any]]:

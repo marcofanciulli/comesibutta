@@ -382,6 +382,15 @@ class DisposalQueryTests(unittest.TestCase):
         self.assertIsNone(
             directory["pickup_services"][0]["booking_methods"][0]["hours_raw"]
         )
+        preview = DisposalApi(self.database).source_preview({
+            "url": "https://example.test/ritiro",
+        })
+        self.assertEqual("Gestore di prova", preview["source"]["publisher"])
+        self.assertEqual([], preview["evidence"])
+        with self.assertRaisesRegex(ValueError, "non è presente"):
+            DisposalApi(self.database).source_preview({
+                "url": "https://unknown.example/source",
+            })
 
     def test_web_api_locates_a_municipality_without_storing_the_position(self) -> None:
         self.connection.close()

@@ -222,6 +222,40 @@ dialog::backdrop { background: #0b211cc4; }
 .acceptance-item span { color: var(--muted); font-size: .82rem; margin-top: 3px; }
 .detail-shell { max-height: 84vh; overflow: auto; }
 
+.external-dialog { width: min(96vw, 1120px); max-height: 94vh; }
+.external-shell {
+  height: min(90vh, 860px); display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto; padding: 18px;
+}
+.external-head { align-items: center; margin-bottom: 12px; }
+.external-head h2 { margin-bottom: 2px; }
+.external-origin {
+  margin: 0; color: var(--muted); font-size: .86rem; overflow-wrap: anywhere;
+}
+.external-content {
+  min-height: 280px; padding: 0 18px; border: 1px solid var(--line);
+  background: white; overflow: auto;
+}
+.external-loading, .external-empty { color: var(--muted); padding: 24px 0; }
+.external-metadata {
+  position: sticky; top: 0; margin: 0 -18px 8px; padding: 12px 18px;
+  border-bottom: 1px solid var(--line); background: white; color: var(--muted);
+  font-size: .82rem;
+}
+.evidence-list blockquote { margin: 0; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.evidence-list blockquote p { margin: 0; white-space: pre-line; }
+.evidence-list cite { display: block; margin-top: 7px; color: var(--muted); font-size: .78rem; font-style: normal; }
+.external-count { color: var(--muted); font-size: .82rem; }
+.external-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 20px; padding-top: 12px;
+}
+.external-footer p { margin: 0; color: var(--muted); font-size: .82rem; }
+.external-fallback {
+  display: inline-flex; align-items: center; justify-content: center;
+  text-decoration: none; white-space: nowrap;
+}
+
 @media (max-width: 680px) {
   .topbar { height: 58px; padding: 0 14px; }
   .brand span:last-child { display: none; }
@@ -250,4 +284,10 @@ dialog::backdrop { background: #0b211cc4; }
   .directory-list { grid-template-columns: 1fr; }
   .service-tabs { overflow-x: auto; }
   .service-tabs button { flex: 0 0 auto; }
+  .external-dialog {
+    width: 100vw; max-width: none; max-height: 100vh; border-radius: 0;
+  }
+  .external-shell { height: 100vh; padding: 14px; }
+  .external-footer { display: block; }
+  .external-fallback { width: 100%; margin-top: 10px; }
 }

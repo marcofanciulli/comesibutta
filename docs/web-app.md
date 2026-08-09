@@ -13,6 +13,8 @@ visibile senza migrazioni dell'interfaccia.
 - `GET /api/search?q=...&municipality=...`: ricerca approssimata nel catalogo;
 - `POST /api/territory`: regole di raccolta, centri, punti e ritiri accessibili
   nel comune e nella zona selezionati;
+- `POST /api/source-preview`: documento ed estratti probatori gia presenti nel
+  dataset per una fonte conosciuta;
 - `POST /api/answer`: risposta territoriale completa, con lo stesso payload del
   comando `query-disposal`.
 
@@ -38,6 +40,19 @@ Il dettaglio di un centro riporta stato pubblicato, distanza quando disponibile,
 accesso, prenotazione, contatti, orari e l'elenco completo delle accettazioni.
 Per ogni accettazione conserva separati titolo EER ufficiale, descrizione della
 fonte locale, pericolosita, limiti e provenienza dell'informazione.
+
+I collegamenti HTTP e HTTPS generati dall'app si aprono prima in una modale
+interna, senza sostituire la pagina di ComeSiButta. `POST /api/source-preview`
+restituisce soltanto documento ed evidenze gia presenti nel database client: il
+browser non contatta il dominio esterno per mostrare l'anteprima. Questa scelta
+funziona anche quando il sito imposta CSP o `X-Frame-Options` e non introduce un
+proxy di navigazione. La modale conserva un'azione di riserva che apre la fonte
+in una nuova scheda per prenotazioni o contenuti interattivi. Telefono ed email
+continuano a usare le funzioni del dispositivo.
+
+Il perimetro completo e il suo stato reale sono mantenuti in
+`docs/product-requirements.md`: questa verticale non equivale ancora al prodotto
+multicanale completo.
 
 ## Stati espliciti
 

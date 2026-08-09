@@ -31,6 +31,17 @@ class WebAppTests(unittest.TestCase):
         self.assertNotIn("/api/territory?", script)
         self.assertIn("accepted_waste", script)
 
+    def test_external_sources_open_in_a_controlled_dialog(self) -> None:
+        html = (WORKSPACE / "webapp" / "index.html").read_text(encoding="utf-8")
+        script = (WORKSPACE / "webapp" / "app.js").read_text(encoding="utf-8")
+        self.assertIn('id="external-dialog"', html)
+        self.assertIn('id="external-content"', html)
+        self.assertIn('data-external-url=', script)
+        self.assertIn("openExternalDialog(", script)
+        self.assertIn('api("/api/source-preview"', script)
+        self.assertIn("renderExternalPreview(preview)", script)
+        self.assertIn('id="external-fallback"', html)
+
 
 if __name__ == "__main__":
     unittest.main()

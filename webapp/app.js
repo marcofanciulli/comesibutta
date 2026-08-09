@@ -38,6 +38,9 @@ const elements = {
   rulesPreparation: $("#rules-preparation"),
   facilityCount: $("#facility-count"), pointCount: $("#point-count"),
   pickupCount: $("#pickup-count"),
+  externalDialog: $("#external-dialog"), externalContent: $("#external-content"),
+  externalTitle: $("#external-title"), externalOrigin: $("#external-origin"),
+  externalFallback: $("#external-fallback"), closeExternal: $("#close-external"),
 };
 
 const escapeHtml = (value) => String(value ?? "").replace(/[&<>'"]/g, (char) => ({
@@ -196,7 +199,57 @@ function safeUrl(value) {
 
 function sourceLink(url, label = "Fonte ufficiale") {
   const safe = safeUrl(url);
-  return safe ? `<a class="source-link" href="${escapeHtml(safe)}" target="_blank" rel="noopener">${escapeHtml(label)}</a>` : "";
+  return safe ? `<a class="source-link" href="${escapeHtml(safe)}" data-external-url="${escapeHtml(safe)}" data-external-title="${escapeHtml(label)}">${escapeHtml(label)}</a>` : "";
+}
+
+async function openExternalDialog(url, title = "Fonte ufficiale") {
+  const safe = safeUrl(url);
+  if (!safe) return;
+  const parsed = new URL(safe, window.location.origin);
+  if (!["http:", "https:"].includes(parsed.protocol)) {
+    window.location.href = safe;
+    return;
+  }
+  elements.externalTitle.textContent = title;
+  elements.externalOrigin.textContent = parsed.hostname.replace(/^www\./, "");
+  elements.externalFallback.href = parsed.href;
+  elements.externalContent.innerHTML = '<p class="external-loading">Caricamento delle evidenze conservate…</p>';
+  elements.externalDialog.showModal();
+  try {
+    const preview = await api("/api/source-preview", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({url: parsed.href}),
+    });
+    if (!elements.externalDialog.open || elements.externalFallback.href !== parsed.href) return;
+    renderExternalPreview(preview);
+  } catch (error) {
+    if (!elements.externalDialog.open) return;
+    elements.externalContent.innerHTML = `<p class="external-empty">${escapeHtml(error.message)} La fonte originale resta disponibile dal collegamento sottostante.</p>`;
+  }
+}
+
+function closeExternalDialog() {
+  elements.externalDialog.close();
+  elements.externalContent.replaceChildren();
+}
+
+function renderExternalPreview(preview) {
+  const source = preview.source || {};
+  const metadata = [
+    source.publisher,
+    source.retrieved_at ? `consultata il ${source.retrieved_at.slice(0, 10)}` : null,
+    source.document_date ? `documento del ${source.document_date}` : null,
+  ].filter(Boolean);
+  const evidence = preview.evidence || [];
+  elements.externalContent.innerHTML = `
+    ${metadata.length ? `<p class="external-metadata">${metadata.map(escapeHtml).join(" · ")}</p>` : ""}
+    ${evidence.length ? `<div class="evidence-list">${evidence.map((item) => `
+      <blockquote>
+        <p>${escapeHtml(item.quote)}</p>
+        ${item.page ? `<cite>Pagina ${escapeHtml(item.page)}</cite>` : ""}
+      </blockquote>`).join("")}</div>` : '<p class="external-empty">La fonte è registrata, ma non contiene un estratto testuale visualizzabile.</p>'}
+    ${preview.evidence_total > evidence.length ? `<p class="external-count">Sono mostrati ${evidence.length} estratti su ${preview.evidence_total} conservati.</p>` : ""}`;
 }
 
 function setView(view, {updateHistory = true} = {}) {
@@ -569,7 +622,7 @@ function renderAnswer(body) {
     </div></div>
     ${(facilities.length || services.length) ? `<div class="answer-band"><div class="answer-inner"><h2>Servizi disponibili</h2><div class="service-list">${facilities.map((item, index) => renderService(item, index, "facility")).join("")}${services.map((item, index) => renderService(item, index, "service")).join("")}</div></div></div>` : ""}
     ${result.environmental_note ? `<div class="answer-band"><div class="answer-inner"><p class="eyebrow">Perché è importante</p><h2>Impatto ambientale</h2><p>${escapeHtml(result.environmental_note)}</p></div></div>` : ""}
-    <div class="answer-band"><div class="answer-inner"><h2>Fonti</h2><ul class="source-list">${sources.map((source) => `<li><a href="${escapeHtml(source.url)}" target="_blank" rel="noopener">${escapeHtml(source.label || "Fonte ufficiale")}</a> <small>consultata il ${escapeHtml(source.retrieved_at.slice(0, 10))}</small></li>`).join("") || "<li>Nessuna fonte allegata alla risposta.</li>"}</ul><p class="revision">Revisione dati ${escapeHtml(body.provenance.dataset_revision)} · risposta ${escapeHtml(body.provenance.review_status)}</p></div></div>`;
+    <div class="answer-band"><div class="answer-inner"><h2>Fonti</h2><ul class="source-list">${sources.map((source) => `<li>${sourceLink(source.url, source.label || "Fonte ufficiale")} <small>consultata il ${escapeHtml(source.retrieved_at.slice(0, 10))}</small></li>`).join("") || "<li>Nessuna fonte allegata alla risposta.</li>"}</ul><p class="revision">Revisione dati ${escapeHtml(body.provenance.dataset_revision)} · risposta ${escapeHtml(body.provenance.review_status)}</p></div></div>`;
   elements.answer.hidden = false;
   elements.answer._data = {facilities, services};
 }
@@ -708,6 +761,11 @@ elements.centresContent.addEventListener("click", (event) => {
     button.dataset.territoryKind, Number(button.dataset.territoryIndex),
   );
 });
+elements.closeExternal.addEventListener("click", closeExternalDialog);
+elements.externalDialog.addEventListener("close", () => elements.externalContent.replaceChildren());
+elements.externalDialog.addEventListener("click", (event) => {
+  if (event.target === elements.externalDialog) closeExternalDialog();
+});
 elements.placeList.addEventListener("click", (event) => {
   const button = event.target.closest("button[data-istat]");
   if (button) chooseMunicipality(
@@ -722,6 +780,15 @@ for (const button of document.querySelectorAll("[data-query]")) button.addEventL
   resolveWaste(button.dataset.query);
 });
 document.addEventListener("click", (event) => {
+  const external = event.target.closest("a[data-external-url]");
+  if (external) {
+    event.preventDefault();
+    openExternalDialog(
+      external.dataset.externalUrl,
+      external.dataset.externalTitle || external.textContent.trim(),
+    );
+    return;
+  }
   if (!event.target.closest(".waste-form")) elements.suggestions.hidden = true;
 });
 

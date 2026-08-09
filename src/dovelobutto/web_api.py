@@ -13,7 +13,7 @@ from urllib.parse import parse_qs, urlparse
 from .app_query import DisposalQueryService, _distance_km, open_query_database
 from .missing_queries import MissingQueryStore
 from .municipality_boundaries import geometry_contains
-from .sync import read_entity_data
+from .sync import read_entity_data, read_source_preview
 
 
 class DisposalApi:
@@ -643,6 +643,17 @@ class DisposalApi:
         finally:
             connection.close()
 
+    def source_preview(self, request: dict[str, Any]) -> dict[str, Any]:
+        url = request.get("url")
+        connection = open_query_database(self.database)
+        try:
+            preview = read_source_preview(connection, url)
+            if preview is None:
+                raise ValueError("La fonte non è presente nel dataset sincronizzato.")
+            return preview
+        finally:
+            connection.close()
+
 
 def _handler(api: DisposalApi, static_root: Path) -> type[BaseHTTPRequestHandler]:
     root = static_root.resolve()
@@ -679,7 +690,10 @@ def _handler(api: DisposalApi, static_root: Path) -> type[BaseHTTPRequestHandler
         def do_POST(self) -> None:  # noqa: N802
             try:
                 path = urlparse(self.path).path
-                if path not in {"/api/answer", "/api/locate", "/api/territory"}:
+                if path not in {
+                    "/api/answer", "/api/locate", "/api/source-preview",
+                    "/api/territory",
+                }:
                     self._json({"error": "Not found"}, HTTPStatus.NOT_FOUND)
                     return
                 length = int(self.headers.get("Content-Length", "0"))
@@ -690,6 +704,8 @@ def _handler(api: DisposalApi, static_root: Path) -> type[BaseHTTPRequestHandler
                     raise ValueError("The request body must be an object")
                 if path == "/api/locate":
                     response = api.locate(request)
+                elif path == "/api/source-preview":
+                    response = api.source_preview(request)
                 elif path == "/api/territory":
                     response = api.territory(
                         request.get("municipality"),
