@@ -48,6 +48,8 @@ verificati e un esploratore locale.
   scelta del percorso minimo e applicazione atomica degli aggiornamenti.
 - `docs/app-query.md`: ricerca tollerante e composizione della risposta
   territoriale letta da sito, app e backend.
+- `docs/missing-query-feedback.md`: raccolta privata e aggregata delle ricerche
+  senza risposta, revisione editoriale e protezioni dei dati personali.
 - `docs/web-app.md`: prima verticale utente, API locale e stati espliciti
   dell'interfaccia.
 - `docs/facility-resolution.md`: accesso, accettazione, distanza, orari e
@@ -76,6 +78,8 @@ verificati e un esploratore locale.
   estrattori.
 - `schemas/disposal-answer.schema.json`: contratto della risposta letta
   dall'app.
+- `schemas/missing-query-report.schema.json`: esportazione della coda
+  editoriale delle ricerche non riconosciute.
 - `schemas/data-manifest.schema.json` e
   `schemas/data-update-package.schema.json`: protocollo di distribuzione dei
   dati indipendente dalle versioni dell'app.

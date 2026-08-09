@@ -14,6 +14,10 @@ visibile senza migrazioni dell'interfaccia.
 - `POST /api/answer`: risposta territoriale completa, con lo stesso payload del
   comando `query-disposal`.
 
+Quando `POST /api/answer` non riconosce la ricerca, il backend la aggrega nella
+coda editoriale descritta in `docs/missing-query-feedback.md`. Il client riceve
+soltanto l'esito `feedback.recorded`, non fingerprint o dati della coda.
+
 Il browser conserva soltanto il codice ISTAT del comune preferito in
 `localStorage`. Le risposte, le fonti e le regole rimangono nel database
 sincronizzato. Account, localizzazione automatica del comune e riconoscimento

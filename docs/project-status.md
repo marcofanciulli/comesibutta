@@ -525,7 +525,7 @@ Prima verticale applicativa:
   3.495 concetti, 10 alias, 81 esiti condizionali e 420 contesti territoriali:
   783.125 risolte, 722.995 domande definite, zero `not_found`, zero conflitti e
   zero errori;
-- 191 test automatici superati;
+- 196 test automatici superati;
 - introdotte classi EER portabili e regole di famiglia per separare la
   classificazione del rifiuto dalla destinazione territoriale del gestore;
 - aggiunto l'audit esaustivo dei 3.495 concetti del catalogo e dei 10 gruppi
@@ -545,6 +545,10 @@ Prima verticale applicativa:
   cadmio, pile e batterie non possono ereditare flussi o EER non pericolosi;
   l'audit blocca qualsiasi risposta che esponga flusso, contenitore, sacchetto
   o EER non pericoloso dopo l'attivazione del profilo;
+- aggiunta la coda aggregata delle ricerche senza risposta: il backend registra
+  soltanto `not_found`, senza IP, GPS, account o dispositivo, filtra possibili
+  contatti personali e conserva frequenza, territorio, revisione dati e stato
+  editoriale; nessuna formulazione entra automaticamente nel vocabolario;
 - pubblicata e applicata la revisione firmata `202608090008`: le regole locali
   hanno precedenza e le classi portabili intervengono quando il comune non
   pubblica una destinazione per il concetto cercato;
@@ -578,8 +582,8 @@ Prima verticale applicativa:
    di correzione manuale, riusando le coordinate per ordinare i servizi vicini.
 3. Definire autenticazione opzionale e sincronizzazione delle preferenze senza
    rendere obbligatoria la registrazione.
-4. Estendere il registro alle formule ancora prive di flusso o canale solo dopo
-   revisione delle relative evidenze territoriali.
+4. Revisionare periodicamente la coda delle ricerche senza risposta e inserire
+   sinonimi o concetti soltanto dopo verifica di liceita, EER ed evidenze.
 5. Aggiungere consolidati settimanali, mensili e annuali con conservazione e
    compattazione automatica nella finestra incrementale di cinque anni.
 6. Importare il primo lotto fotografico classificato col prontuario, annotarlo

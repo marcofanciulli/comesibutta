@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dovelobutto.example/schemas/missing-query-report.schema.json",
+  "title": "Aggregated unanswered search editorial queue",
+  "type": "object",
+  "required": ["generated_at", "privacy", "entries"],
+  "properties": {
+    "generated_at": { "type": "string", "format": "date-time" },
+    "privacy": {
+      "type": "object",
+      "required": ["stores_ip", "stores_location_coordinates", "stores_user_identifier", "rejected_patterns"],
+      "properties": {
+        "stores_ip": { "const": false },
+        "stores_location_coordinates": { "const": false },
+        "stores_user_identifier": { "const": false },
+        "rejected_patterns": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["fingerprint", "normalized_query", "display_query", "municipality_istat", "zone_id", "user_type", "reason", "first_seen_at", "last_seen_at", "first_dataset_revision", "last_dataset_revision", "occurrence_count", "review_status", "review_note"],
+        "properties": {
+          "fingerprint": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+          "normalized_query": { "type": "string", "minLength": 2 },
+          "display_query": { "type": "string", "minLength": 2, "maxLength": 160 },
+          "municipality_istat": { "type": "string", "pattern": "^[0-9]{6}$" },
+          "zone_id": { "type": ["string", "null"] },
+          "user_type": { "enum": ["domestic", "non_domestic"] },
+          "reason": { "enum": ["unknown_term", "known_without_route"] },
+          "first_seen_at": { "type": "string", "format": "date-time" },
+          "last_seen_at": { "type": "string", "format": "date-time" },
+          "first_dataset_revision": { "type": ["integer", "null"] },
+          "last_dataset_revision": { "type": ["integer", "null"] },
+          "occurrence_count": { "type": "integer", "minimum": 1 },
+          "review_status": { "enum": ["pending", "accepted", "rejected", "mapped"] },
+          "review_note": { "type": ["string", "null"] }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

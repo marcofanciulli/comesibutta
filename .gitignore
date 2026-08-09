@@ -29,6 +29,7 @@ data/crawl/
 data/snapshots/
 data/canonical/
 data/keys/
+data/feedback/
 outputs/distribution/
 outputs/sweep-pilot/
 outputs/models/**/*.pt

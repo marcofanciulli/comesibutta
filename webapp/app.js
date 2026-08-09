@@ -170,7 +170,9 @@ function renderNotFound(body) {
   } else {
     elements.notFoundEyebrow.textContent = "Nessuna risposta certa";
     elements.notFoundTitle.textContent = "Prova a descriverlo in un altro modo";
-    elements.notFoundMessage.textContent = "Indica l’oggetto e, se puoi, il materiale. Non suggeriamo una destinazione quando i dati non bastano.";
+    elements.notFoundMessage.textContent = body.feedback?.recorded
+      ? "La ricerca è stata registrata per ampliare il vocabolario. Nel frattempo prova a indicare l’oggetto e, se puoi, il materiale."
+      : "Indica l’oggetto e, se puoi, il materiale. Non suggeriamo una destinazione quando i dati non bastano.";
   }
   elements.notFound.hidden = false;
 }

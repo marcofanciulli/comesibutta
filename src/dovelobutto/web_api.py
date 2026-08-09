@@ -11,12 +11,18 @@ from typing import Any
 from urllib.parse import parse_qs, urlparse
 
 from .app_query import DisposalQueryService, open_query_database
+from .missing_queries import MissingQueryStore
 from .sync import read_entity_data
 
 
 class DisposalApi:
-    def __init__(self, database: Path) -> None:
+    def __init__(
+        self, database: Path, feedback_database: Path | None = None,
+    ) -> None:
         self.database = database
+        self.missing_queries = (
+            MissingQueryStore(feedback_database) if feedback_database else None
+        )
 
     def municipalities(self) -> dict[str, Any]:
         connection = open_query_database(self.database)
@@ -81,7 +87,7 @@ class DisposalApi:
         as_of = date.fromisoformat(requested_date) if requested_date else None
         connection = open_query_database(self.database)
         try:
-            return DisposalQueryService(connection).answer(
+            answer = DisposalQueryService(connection).answer(
                 text,
                 municipality,
                 concept_id=request.get("concept_id"),
@@ -91,6 +97,33 @@ class DisposalApi:
                 latitude=request.get("latitude"),
                 longitude=request.get("longitude"),
             )
+            if answer["status"] == "not_found" and self.missing_queries:
+                reason = (
+                    "known_without_route"
+                    if (answer.get("query") or {}).get("matched_concept_id")
+                    else "unknown_term"
+                )
+                try:
+                    feedback = self.missing_queries.record(
+                        text,
+                        municipality_istat=municipality,
+                        zone_id=request.get("zone_id"),
+                        user_type=request.get("user_type", "domestic"),
+                        dataset_revision=(answer.get("provenance") or {}).get(
+                            "dataset_revision"
+                        ),
+                        reason=reason,
+                    )
+                except sqlite3.DatabaseError:
+                    feedback = {"recorded": False, "reason": "storage_unavailable"}
+                answer["feedback"] = {
+                    "recorded": bool(feedback.get("recorded")),
+                    "reason": (
+                        reason if feedback.get("recorded")
+                        else feedback.get("reason")
+                    ),
+                }
+            return answer
         finally:
             connection.close()
 
@@ -173,8 +206,17 @@ def _handler(api: DisposalApi, static_root: Path) -> type[BaseHTTPRequestHandler
     return Handler
 
 
-def run_server(database: Path, static_root: Path, host: str, port: int) -> None:
-    server = ThreadingHTTPServer((host, port), _handler(DisposalApi(database), static_root))
+def run_server(
+    database: Path,
+    static_root: Path,
+    host: str,
+    port: int,
+    feedback_database: Path | None = None,
+) -> None:
+    server = ThreadingHTTPServer(
+        (host, port),
+        _handler(DisposalApi(database, feedback_database), static_root),
+    )
     print(f"ComeSiButta available at http://{host}:{port}")
     try:
         server.serve_forever()

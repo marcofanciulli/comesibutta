@@ -355,6 +355,26 @@ class DisposalQueryTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Municipality is required"):
             api.answer({"text": "vetro"})
 
+    def test_web_api_records_only_unanswered_searches(self) -> None:
+        feedback_database = Path(self.temporary.name) / "feedback.sqlite"
+        api = DisposalApi(self.database, feedback_database)
+
+        missing = api.answer({
+            "text": "zorbiflango", "municipality": "053014",
+        })
+        resolved = api.answer({
+            "text": "bottiglia di vetro", "municipality": "053014",
+        })
+
+        self.assertEqual("not_found", missing["status"])
+        self.assertTrue(missing["feedback"]["recorded"])
+        self.assertNotIn("fingerprint", missing["feedback"])
+        self.assertEqual("resolved", resolved["status"])
+        from dovelobutto.missing_queries import MissingQueryStore
+        entries = MissingQueryStore(feedback_database).report()["entries"]
+        self.assertEqual(1, len(entries))
+        self.assertEqual("zorbiflango", entries[0]["normalized_query"])
+
     def test_answer_combines_destination_container_and_provenance(self) -> None:
         answer = self.service.answer(
             "bottiglia di vetro", "053014", as_of=date(2026, 8, 7),

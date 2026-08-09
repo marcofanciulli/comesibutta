@@ -502,6 +502,30 @@ def build_parser() -> argparse.ArgumentParser:
     web_app.add_argument("--static-root", type=Path, default=Path("webapp"))
     web_app.add_argument("--host", default="127.0.0.1")
     web_app.add_argument("--port", type=int, default=8780)
+    web_app.add_argument(
+        "--feedback-database",
+        type=Path,
+        default=Path("data/feedback/missing-queries.sqlite"),
+    )
+    missing_queries = subparsers.add_parser(
+        "export-missing-queries",
+        help="Export the aggregated editorial queue of unanswered searches",
+    )
+    missing_queries.add_argument("--database", type=Path, required=True)
+    missing_queries.add_argument("--output", type=Path, required=True)
+    missing_queries.add_argument("--min-count", type=int, default=1)
+    missing_queries.add_argument("--limit", type=int, default=1000)
+    review_query = subparsers.add_parser(
+        "review-missing-query",
+        help="Set the editorial status of one unanswered search",
+    )
+    review_query.add_argument("--database", type=Path, required=True)
+    review_query.add_argument("--fingerprint", required=True)
+    review_query.add_argument(
+        "--status", choices=("pending", "accepted", "rejected", "mapped"),
+        required=True,
+    )
+    review_query.add_argument("--note")
     sweep = subparsers.add_parser(
         "sweep-sei",
         help="Run a resumable and rate-limited sweep from the SEI municipality registry",
@@ -913,8 +937,31 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "serve-app":
         from .web_api import run_server
 
-        run_server(args.database, args.static_root, args.host, args.port)
+        run_server(
+            args.database, args.static_root, args.host, args.port,
+            args.feedback_database,
+        )
         return 0
+    if args.command == "export-missing-queries":
+        from .missing_queries import MissingQueryStore, write_missing_query_report
+
+        report = MissingQueryStore(args.database).report(
+            min_count=args.min_count, limit=args.limit,
+        )
+        write_missing_query_report(args.output, report)
+        print(json.dumps({
+            "entries": len(report["entries"]),
+            "output": str(args.output),
+        }, ensure_ascii=False))
+        return 0
+    if args.command == "review-missing-query":
+        from .missing_queries import MissingQueryStore
+
+        updated = MissingQueryStore(args.database).set_review_status(
+            args.fingerprint, args.status, args.note,
+        )
+        print(json.dumps({"updated": updated}, ensure_ascii=False))
+        return 0 if updated else 1
     if args.command == "build-waste-catalog":
         catalog, report = build_catalog_from_paths(
             args.input_dir,

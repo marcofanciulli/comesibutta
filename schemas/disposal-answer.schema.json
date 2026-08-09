@@ -38,6 +38,15 @@
     "status": {
       "enum": ["resolved", "needs_question", "not_found", "conflict", "outdated"]
     },
+    "feedback": {
+      "type": "object",
+      "required": ["recorded", "reason"],
+      "properties": {
+        "recorded": { "type": "boolean" },
+        "reason": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    },
     "question": {
       "type": ["object", "null"],
       "properties": {
