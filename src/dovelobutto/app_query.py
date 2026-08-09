@@ -513,6 +513,15 @@ class DisposalQueryService:
             dimension = waste_class.get("dimension", waste_class["class_id"])
             by_dimension.setdefault(dimension, []).append((mapping, waste_class))
         for dimension_matches in by_dimension.values():
+            if self._hazard_requires_separate_handling(concept):
+                specific_hazardous = [
+                    item for item in dimension_matches
+                    if self._class_is_hazard_compatible(item[1])
+                    and item[1].get("eer_codes")
+                    and not item[1].get("fallback")
+                ]
+                if specific_hazardous:
+                    dimension_matches = specific_hazardous
             maximum_priority = max(
                 mapping.get("priority", 0) for mapping, _ in dimension_matches
             )
@@ -554,6 +563,11 @@ class DisposalQueryService:
         result["family_delivery_channel_ids"] = sorted({
             *result.get("family_delivery_channel_ids", []),
             *route.get("delivery_channels", []),
+        })
+        result["family_acceptance_terms"] = sorted({
+            *result.get("family_acceptance_terms", []),
+            *waste_class.get("facility_acceptance_terms", []),
+            *route.get("facility_acceptance_terms", []),
         })
         result["family_sources"] = [
             *result.get("family_sources", []), *self._reviewed_mapping_sources(mapping),
@@ -1571,14 +1585,22 @@ class DisposalQueryService:
             user_type=user_type,
             latitude=latitude,
             longitude=longitude,
-            allow_term_match=not candidate_by_code,
+            allow_term_match=True,
         )
         if eer is not None:
-            verified = [
+            verified_by_eer = [
                 facility for facility in facilities
                 if facility["acceptance"]["status"] == "verified_eer"
             ]
-            resolution_basis = "exact_eer"
+            verified_by_description = [
+                facility for facility in facilities
+                if facility["acceptance"]["status"] == "verified_description"
+            ]
+            verified = verified_by_eer or verified_by_description
+            resolution_basis = (
+                "exact_eer" if verified_by_eer
+                else "curated_eer_with_facility_description"
+            )
         elif candidate_by_code:
             verified = [
                 facility for facility in facilities
@@ -1674,10 +1696,16 @@ class DisposalQueryService:
                 f"il centro locale pubblica l'accettazione del codice {eer['code']}"
                 + (f" ({eer['condition']})." if eer.get("condition") else ".")
             ]
-        else:
+        elif resolution_basis == "facility_description":
             warnings = [
                 "La fonte locale non pubblica un rifiutario: il collegamento deriva "
                 f"dalla descrizione del materiale associata dal centro al codice EER {eer['code']}."
+            ]
+        else:
+            warnings = [
+                "Il centro pubblica l'accettazione del materiale ma non il relativo "
+                f"codice EER: la classificazione {eer['code']} deriva dal vocabolario "
+                "revisionato e non viene attribuita alla fonte locale."
             ]
         if not selectable:
             warnings.append(
@@ -2053,6 +2081,7 @@ class DisposalQueryService:
         concept_terms = {
             normalize_term(term) for term in [
                 concept.get("preferred_label", ""), *concept.get("terms", []),
+                *concept.get("family_acceptance_terms", []),
             ] if normalize_term(term)
         }
         normalized_destination = normalize_term(source_destination)

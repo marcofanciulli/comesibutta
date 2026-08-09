@@ -1409,6 +1409,105 @@ class DisposalQueryTests(unittest.TestCase):
             " ".join(answer["result"]["warnings"]),
         )
 
+    def test_specific_hazardous_class_uses_broader_official_centre_description(self) -> None:
+        self.connection.close()
+        writer = open_database(self.database, role="client")
+        current = read_database_entities(writer)
+        changed = dict(current)
+        accumulator = _concept(
+            "waste:accumulatore-al-piombo", "Accumulatore al piombo", [],
+        )
+        additions = [
+            accumulator,
+            CanonicalEntity("eer_entry", "eer:200133", {
+                "entry_id": "eer:200133", "code": "200133",
+                "title": "Batterie e accumulatori al piombo",
+                "title_expanded": "Batterie e accumulatori al piombo",
+                "hazardous": True,
+            }),
+            CanonicalEntity("hazard_material_profile", "hazard-profile:lead", {
+                "profile_id": "hazard-profile:lead", "preferred_label": "Piombo",
+                "term_patterns": [r"\bpiombo\b"], "excluded_term_patterns": [],
+                "hazardous_eer_codes": ["200133"],
+                "reviewed_at": GENERATED_AT.isoformat(),
+                "source_urls": ["https://example.test/eer"],
+            }),
+            CanonicalEntity("delivery_channel", "channel:collection-centre", {
+                "channel_id": "channel:collection-centre",
+                "preferred_label": "Centro di raccolta",
+                "destination_type": "facility", "aliases": ["Centro di raccolta"],
+            }),
+            CanonicalEntity("delivery_channel", "channel:specialist-operator", {
+                "channel_id": "channel:specialist-operator",
+                "preferred_label": "Operatore specializzato",
+                "destination_type": "special_case", "aliases": ["Operatore specializzato"],
+            }),
+            CanonicalEntity("waste_class", "waste-class:lead-battery", {
+                "class_id": "waste-class:lead-battery",
+                "dimension": "primary-classification",
+                "preferred_label": "Batteria o accumulatore al piombo",
+                "stream_ids": [], "eer_codes": ["200133"],
+                "delivery_channels": ["channel:collection-centre"],
+                "facility_acceptance_terms": ["Accumulatori esausti"],
+            }),
+            CanonicalEntity("waste_class", "waste-class:hazardous-fallback", {
+                "class_id": "waste-class:hazardous-fallback",
+                "dimension": "primary-classification",
+                "preferred_label": "Materiale pericoloso",
+                "stream_ids": [], "eer_codes": [],
+                "delivery_channels": ["channel:specialist-operator"],
+                "fallback": True, "hazard_compatible": True,
+            }),
+            CanonicalEntity("waste_family_mapping", "family-map:lead-battery", {
+                "mapping_id": "family-map:lead-battery",
+                "class_id": "waste-class:lead-battery",
+                "source_categories": [], "destination_aliases": [],
+                "term_patterns": [r"\baccumulatore.*piombo\b"],
+                "excluded_term_patterns": [], "priority": 200,
+                "reviewed_at": GENERATED_AT.isoformat(),
+                "source_urls": ["https://example.test/eer"],
+            }),
+            CanonicalEntity("waste_family_mapping", "family-map:hazardous-fallback", {
+                "mapping_id": "family-map:hazardous-fallback",
+                "class_id": "waste-class:hazardous-fallback",
+                "source_categories": [], "destination_aliases": [],
+                "term_patterns": [r"\bpiombo\b"],
+                "excluded_term_patterns": [], "priority": 250,
+                "reviewed_at": GENERATED_AT.isoformat(),
+                "source_urls": ["https://example.test/eer"],
+            }),
+            _facility("facility:cecina", "Centro di raccolta Cecina", 43.3, 10.5),
+            _facility_access("facility:cecina"),
+            _facility_acceptance(
+                "facility:cecina", "Accumulatori esausti (solo da utenze domestiche)",
+            ),
+        ]
+        additions[-1].data["payload"]["user_type"] = "domestic"
+        for entity in additions:
+            changed[(entity.entity_type, entity.entity_id)] = entity
+        apply_package(writer, build_update_package(current, changed, 1, 2, GENERATED_AT))
+        writer.close()
+        self.connection = open_query_database(self.database)
+        self.service = DisposalQueryService(self.connection)
+
+        answer = self.service.answer("accumulatore al piombo", "053014")
+
+        self.assertEqual("resolved", answer["status"])
+        self.assertEqual("200133", answer["result"]["eer"]["code"])
+        self.assertTrue(answer["result"]["eer"]["hazardous"])
+        self.assertEqual("facility:cecina", answer["result"]["facility"]["id"])
+        self.assertEqual(
+            "verified_description",
+            answer["result"]["facility"]["acceptance"]["status"],
+        )
+        self.assertEqual(
+            ["channel:collection-centre"],
+            [item["channel_id"] for item in answer["result"]["delivery_channels"]],
+        )
+        self.assertIn(
+            "non il relativo codice EER", " ".join(answer["result"]["warnings"]),
+        )
+
     def test_centre_description_can_supply_one_unambiguous_eer(self) -> None:
         self.connection.close()
         writer = open_database(self.database, role="client")

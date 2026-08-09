@@ -693,7 +693,11 @@
       "preferred_label": "Batteria o accumulatore al piombo",
       "stream_ids": [],
       "eer_codes": ["200133"],
-      "delivery_channels": ["channel:collection-centre"]
+      "delivery_channels": ["channel:collection-centre"],
+      "facility_acceptance_terms": [
+        "Accumulatore esausto",
+        "Accumulatori esausti"
+      ]
     },
     {
       "class_id": "waste-class:hazardous-material-unspecified",
@@ -702,6 +706,7 @@
       "stream_ids": [],
       "eer_codes": [],
       "delivery_channels": ["channel:collection-centre", "channel:specialist-operator"],
+      "fallback": true,
       "hazard_compatible": true
     },
     {

@@ -419,7 +419,8 @@ class ReaExtractorTest(unittest.TestCase):
     def test_preserves_centre_materials_without_inventing_eer_codes(self) -> None:
         html = """<main class="zui-content"><h1>Cecina</h1>
         <p>Quando: lunedi 8:00-12:00</p><p>Dove siamo: Cecina, Via Pasubio 130</p>
-        <h3>Cosa conferire</h3><ul><li>Legno</li><li>Vernici e bombolette spray</li></ul>
+        <h3>Cosa conferire</h3><ul><li>Legno</li><li>Vernici e bombolette spray</li>
+        <li>Accumulatori esausti (solo da utenze domestiche)</li></ul>
         <h3>Modalità di accesso</h3><p>Tessera sanitaria per le utenze domestiche.</p></main>"""
         records = extract_rea_centre(
             MunicipalityContext("Cecina", "049007", "cecina"),
@@ -428,10 +429,15 @@ class ReaExtractorTest(unittest.TestCase):
             html,
         )
         accepted = [record for record in records if record["record_type"] == "facility_acceptance"]
-        self.assertEqual(2, len(accepted))
+        self.assertEqual(3, len(accepted))
         self.assertIsNone(accepted[0]["payload"]["eer_code_raw"])
         self.assertIsNone(accepted[0]["payload"]["hazardous"])
         self.assertEqual("unmapped_description", accepted[0]["payload"]["eer_code_status"])
+        accumulator = next(
+            record for record in accepted
+            if record["payload"]["description_raw"].startswith("Accumulatori")
+        )
+        self.assertEqual("domestic", accumulator["payload"]["user_type"])
         self.assertEqual(1, sum(record["record_type"] == "opening_period" for record in records))
 
 

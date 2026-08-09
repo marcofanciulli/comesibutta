@@ -422,7 +422,7 @@ def crawl_rea_services(
 def _source(url: str, retrieved_at: datetime, html: str, parser: str) -> SourceDocument:
     return SourceDocument(
         url, retrieved_at, html, publisher="REA S.p.A.", parser=parser,
-        parser_version="0.3.0",
+        parser_version="0.4.0",
     )
 
 
@@ -1208,7 +1208,12 @@ def extract_rea_centre(
     if descriptions:
         for index, description in enumerate(descriptions):
             if description:
-                records.append(make_record(record_type="facility_acceptance", natural_key=f"{facility_ref}:description:{index}:{_slug(description[:60])}", payload={"facility_ref": facility_ref, "eer_code_raw": None, "eer_code_normalized": None, "eer_code_status": "unmapped_description", "reconciliation_basis": None, "hazardous": None, "description_raw": description, "operational_group": None, "user_type": "unspecified", "quantity_limit_raw": None, "notes_raw": "La fonte REA non pubblica il codice EER per questa voce; pericolosità non determinabile dal solo elenco"}, source=source, evidence_selector="main", evidence_quote=description))
+                normalized_description = clean_text(description).casefold()
+                domestic_only = bool(re.search(
+                    r"\bsolo (?:da |per )?(?:le )?utenze domestiche\b",
+                    normalized_description,
+                ))
+                records.append(make_record(record_type="facility_acceptance", natural_key=f"{facility_ref}:description:{index}:{_slug(description[:60])}", payload={"facility_ref": facility_ref, "eer_code_raw": None, "eer_code_normalized": None, "eer_code_status": "unmapped_description", "reconciliation_basis": None, "hazardous": None, "description_raw": description, "operational_group": None, "user_type": "domestic" if domestic_only else "unspecified", "quantity_limit_raw": None, "notes_raw": "La fonte REA non pubblica il codice EER per questa voce; pericolosità non determinabile dal solo elenco"}, source=source, evidence_selector="main", evidence_quote=description))
     when_match = re.search(r"Quando:\s*(.+?)\s*(?:Dove siamo:|Cosa conferire|$)", text, re.IGNORECASE | re.DOTALL)
     if when_match:
         raw = clean_text(when_match.group(1))

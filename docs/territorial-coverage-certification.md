@@ -1,7 +1,7 @@
 # Certificazione della copertura territoriale
 
-Revisione dataset: `202608090010`
-Data del controllo: 9 agosto 2026, ore 15:20 CEST
+Revisione dataset: `202608090011`
+Data del controllo: 9 agosto 2026, ore 19:48 CEST
 Esito: `pass` e `release_ready: true`
 
 ## Perimetro certificato
@@ -26,8 +26,8 @@ Nessun concetto canonico, comune toscano o zona registrata e escluso.
 | Controllo | Esito |
 | --- | ---: |
 | Risposte eseguite | 1.506.120 |
-| Risposte risolte | 864.121 |
-| Domande definite | 641.999 |
+| Risposte risolte | 864.846 |
+| Domande definite | 641.274 |
 | `not_found` per concetti noti | 0 |
 | Conflitti | 0 |
 | Domande incomplete | 0 |
@@ -61,9 +61,9 @@ risposta conserva soltanto la gestione separata e non assegna alcun codice.
 
 Il confronto lessicale ha esaminato 246 coppie candidate:
 
-- 187 hanno lo stesso percorso portabile e sono registrate come varianti
+- 186 hanno lo stesso percorso portabile e sono registrate come varianti
   equivalenti, senza produrre risposte incompatibili;
-- 59 sono soltanto simili nel nome e restano concetti distinti;
+- 60 sono soltanto simili nel nome e restano concetti distinti;
 - 0 richiedono una decisione manuale.
 
 I 10 gruppi di alias comprendono 40 termini di ricerca approvati. Tutti i 40
@@ -84,15 +84,15 @@ database autorevole e del manifest.
 ## Artefatti verificabili
 
 - `outputs/query-coverage-report.json`  
-  SHA-256 `90abfff5db820b590795db987a76bb93c1f28e7e2a7af0ff53cdaed97edf44cc`
+  SHA-256 `609175d56dd8e6b8b7d2258c1f28fe56ab38b2d0f351648489e1410f106dd3c2`
 - `outputs/waste-routing-coverage-report.json`  
-  SHA-256 `367165386df26f24e57fb08f1111381d9424b89e0e726a196e1b949bfd4b1d2c`
+  SHA-256 `056be2742bf55909140685aa61eac95fd192fba8c65597ad373335705988ce15`
 - `outputs/distribution/release-report.json`  
-  SHA-256 `ce93c8421635f349448456bb4b6d6fa145b7b2cdd01600336f8db9beaf599f58`
+  SHA-256 `f0a30dd7cc937c9e16cde8b96a2af84c073dec2615461057d36706ffc9e2ddaa`
 
 Lo snapshot firmato della revisione contiene 157.301 entita. Il client locale
 ha applicato con successo il delta firmato da `202608090009` a
-`202608090010`.
+`202608090010` e poi quello da `202608090010` a `202608090011`.
 
 ## Limiti della certificazione
 

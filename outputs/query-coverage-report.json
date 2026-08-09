@@ -1,5 +1,5 @@
 {
-  "dataset_revision": 202608090010,
+  "dataset_revision": 202608090011,
   "defined_non_resolved": [
     {
       "cases": 317,
@@ -951,67 +951,6 @@
       "status": "needs_question"
     },
     {
-      "cases": 395,
-      "entity_id": "waste:acetone",
-      "entity_type": "waste_concept",
-      "examples": [
-        {
-          "municipality_istat": "045001",
-          "zone_id": "service-zone:045001:default"
-        },
-        {
-          "municipality_istat": "045002",
-          "zone_id": "service-zone:045002:default"
-        },
-        {
-          "municipality_istat": "045003",
-          "zone_id": "service-zone:045003:default"
-        }
-      ],
-      "label": "Acetone",
-      "question": {
-        "options": [
-          {
-            "hint": "Acetone, acquaragia, diluente o altro solvente",
-            "id": "waste-outcome:household-solvent",
-            "label": "Solvente"
-          },
-          {
-            "hint": "Acido o soluzione acida",
-            "id": "waste-outcome:household-acid",
-            "label": "Acido"
-          },
-          {
-            "hint": "Ammoniaca, soda o altra soluzione alcalina",
-            "id": "waste-outcome:household-alkali",
-            "label": "Sostanza alcalina"
-          },
-          {
-            "hint": "Liquido o prodotto usato nello sviluppo fotografico",
-            "id": "waste-outcome:household-photochemical",
-            "label": "Prodotto fotochimico"
-          },
-          {
-            "hint": "Diserbante, erbicida, fungicida, topicida o prodotto simile",
-            "id": "waste-outcome:household-pesticide",
-            "label": "Pesticida o antiparassitario"
-          },
-          {
-            "hint": "Etichettata come contenente sostanze pericolose",
-            "id": "waste-outcome:hazardous-paint-adhesive-resin",
-            "label": "Vernice, adesivo o resina pericolosa"
-          },
-          {
-            "hint": "Detergente o detersivo con classificazione di pericolo",
-            "id": "waste-outcome:hazardous-detergent",
-            "label": "Detergente pericoloso"
-          }
-        ],
-        "text": "Quale tipo di sostanza contiene il rifiuto?"
-      },
-      "status": "needs_question"
-    },
-    {
       "cases": 355,
       "entity_id": "waste:acetone-flacone-vuoto",
       "entity_type": "waste_concept",
@@ -1264,67 +1203,6 @@
         }
       ],
       "label": "Acido solforico",
-      "question": {
-        "options": [
-          {
-            "hint": "Acetone, acquaragia, diluente o altro solvente",
-            "id": "waste-outcome:household-solvent",
-            "label": "Solvente"
-          },
-          {
-            "hint": "Acido o soluzione acida",
-            "id": "waste-outcome:household-acid",
-            "label": "Acido"
-          },
-          {
-            "hint": "Ammoniaca, soda o altra soluzione alcalina",
-            "id": "waste-outcome:household-alkali",
-            "label": "Sostanza alcalina"
-          },
-          {
-            "hint": "Liquido o prodotto usato nello sviluppo fotografico",
-            "id": "waste-outcome:household-photochemical",
-            "label": "Prodotto fotochimico"
-          },
-          {
-            "hint": "Diserbante, erbicida, fungicida, topicida o prodotto simile",
-            "id": "waste-outcome:household-pesticide",
-            "label": "Pesticida o antiparassitario"
-          },
-          {
-            "hint": "Etichettata come contenente sostanze pericolose",
-            "id": "waste-outcome:hazardous-paint-adhesive-resin",
-            "label": "Vernice, adesivo o resina pericolosa"
-          },
-          {
-            "hint": "Detergente o detersivo con classificazione di pericolo",
-            "id": "waste-outcome:hazardous-detergent",
-            "label": "Detergente pericoloso"
-          }
-        ],
-        "text": "Quale tipo di sostanza contiene il rifiuto?"
-      },
-      "status": "needs_question"
-    },
-    {
-      "cases": 330,
-      "entity_id": "waste:acquaragia",
-      "entity_type": "waste_concept",
-      "examples": [
-        {
-          "municipality_istat": "045001",
-          "zone_id": "service-zone:045001:default"
-        },
-        {
-          "municipality_istat": "045002",
-          "zone_id": "service-zone:045002:default"
-        },
-        {
-          "municipality_istat": "045003",
-          "zone_id": "service-zone:045003:default"
-        }
-      ],
-      "label": "Acquaragia",
       "question": {
         "options": [
           {
@@ -82614,7 +82492,7 @@
   ],
   "failure_groups": [],
   "failures": [],
-  "generated_at": "2026-08-09T15:20:00+02:00",
+  "generated_at": "2026-08-09T19:48:47+02:00",
   "lexical_similarity_candidates": [
     {
       "coverage": {
@@ -84254,6 +84132,39 @@
       "right": {
         "concept_id": "waste:alberi-di-natale-naturali",
         "label": "Alberi di natale (naturali)"
+      },
+      "similarity": 0.95
+    },
+    {
+      "coverage": {
+        "left_municipalities": 1,
+        "right_municipalities": 21,
+        "symmetric_difference": 22
+      },
+      "decision": "lexical_similarity_only",
+      "left": {
+        "concept_id": "waste:termometri-al-mercurio",
+        "label": "Termometri al mercurio"
+      },
+      "portable_routes": {
+        "equivalent": false,
+        "left": {
+          "family_class_ids": [
+            "waste-class:mercury-household-item"
+          ],
+          "question_id": null
+        },
+        "right": {
+          "family_class_ids": [
+            "waste-class:hazardous-material-unspecified"
+          ],
+          "question_id": null
+        }
+      },
+      "review_reason": "Termini molto simili con copertura territoriale diversa",
+      "right": {
+        "concept_id": "waste:termometro-a-mercurio",
+        "label": "Termometro a mercurio"
       },
       "similarity": 0.95
     },
@@ -90054,39 +89965,6 @@
     },
     {
       "coverage": {
-        "left_municipalities": 1,
-        "right_municipalities": 21,
-        "symmetric_difference": 22
-      },
-      "decision": "equivalent_portable_route",
-      "left": {
-        "concept_id": "waste:termometri-al-mercurio",
-        "label": "Termometri al mercurio"
-      },
-      "portable_routes": {
-        "equivalent": true,
-        "left": {
-          "family_class_ids": [
-            "waste-class:hazardous-material-unspecified"
-          ],
-          "question_id": null
-        },
-        "right": {
-          "family_class_ids": [
-            "waste-class:hazardous-material-unspecified"
-          ],
-          "question_id": null
-        }
-      },
-      "review_reason": "Termini molto simili con copertura territoriale diversa",
-      "right": {
-        "concept_id": "waste:termometro-a-mercurio",
-        "label": "Termometro a mercurio"
-      },
-      "similarity": 0.95
-    },
-    {
-      "coverage": {
         "left_municipalities": 12,
         "right_municipalities": 25,
         "symmetric_difference": 37
@@ -90821,18 +90699,18 @@
     "alias_term_context_bindings": 16800,
     "approved_alias_groups": 10,
     "approved_alias_search_terms": 40,
-    "checks_per_second": 6800.7,
+    "checks_per_second": 12503.4,
     "concepts": 3495,
     "concepts_with_territorial_destination": 3479,
     "conditional_outcome_zone_cases": 34020,
     "conditional_outcomes": 81,
     "contexts_with_territorial_evidence": 184704,
     "contexts_without_territorial_evidence": 1321416,
-    "duration_seconds": 221.465,
+    "duration_seconds": 120.457,
     "exact_semantic_review_candidates": 57,
     "failure_counts": {},
     "failures": 0,
-    "lexical_similarity_candidates": 59,
+    "lexical_similarity_candidates": 60,
     "municipalities": 273,
     "municipalities_with_service_zones": 270,
     "municipalities_without_service_zones": 3,
@@ -90841,11 +90719,11 @@
     "near_duplicate_review_candidates": 0,
     "release_ready": true,
     "review_status": "complete",
-    "route_equivalent_duplicate_candidates": 187,
+    "route_equivalent_duplicate_candidates": 186,
     "runtime_answer_checks": 1506120,
     "runtime_answer_statuses": {
-      "needs_question": 641999,
-      "resolved": 864121
+      "needs_question": 641274,
+      "resolved": 864846
     },
     "search_term_bindings": 3506,
     "service_zones": 417,

@@ -139,7 +139,7 @@
       "waste_class_id": "waste-class:wood-by-origin"
     }
   ],
-  "catalog_generated_at": "2026-08-09T09:15:00+02:00",
+  "catalog_generated_at": "2026-08-09T19:48:47+02:00",
   "curation_generated_at": "2026-08-09T11:15:00+02:00",
   "entries": [
     {
@@ -122319,7 +122319,7 @@
       "unmapped_destinations": []
     }
   ],
-  "generated_at": "2026-08-09T15:20:00+02:00",
+  "generated_at": "2026-08-09T19:48:47+02:00",
   "report_id": "waste-routing-coverage:toscana",
   "review_queue": [],
   "summary": {

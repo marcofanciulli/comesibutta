@@ -525,7 +525,7 @@ Prima verticale applicativa:
   3.495 concetti, 10 alias, 81 esiti condizionali e 420 contesti territoriali:
   783.125 risolte, 722.995 domande definite, zero `not_found`, zero conflitti e
   zero errori;
-- 196 test automatici superati;
+- 200 test automatici superati;
 - introdotte classi EER portabili e regole di famiglia per separare la
   classificazione del rifiuto dalla destinazione territoriale del gestore;
 - aggiunto l'audit esaustivo dei 3.495 concetti del catalogo e dei 10 gruppi
@@ -556,6 +556,12 @@ Prima verticale applicativa:
 - pubblicata e applicata la revisione firmata `202608090010`: le regole locali
   hanno precedenza e le classi portabili intervengono quando il comune non
   pubblica una destinazione per il concetto cercato;
+- pubblicata e applicata la revisione firmata `202608090011`: una classe
+  pericolosa specifica con EER prevale sul ripiego prudenziale generico; a
+  Cecina `Accumulatore al piombo` e `Batteria al piombo` raggiungono il centro
+  di Via Pasubio 130 tramite la voce ufficiale `Accumulatori esausti (solo da
+  utenze domestiche)` e conservano l'EER `20 01 33` come classificazione
+  revisionata, senza attribuire il codice alla fonte locale che non lo espone;
 - l'audit copre 273 comuni, 417 zone registrate e tre contesti comunali senza
   zone pubblicate; la coda di deduplicazione manuale e vuota;
 - il gate territoriale costruisce e verifica il database candidato prima di
